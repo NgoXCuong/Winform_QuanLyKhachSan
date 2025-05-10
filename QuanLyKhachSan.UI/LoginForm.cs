@@ -52,7 +52,7 @@ namespace QuanLyKhachSan.UI
                 MessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Hide();
                 // Mở form chính của ứng dụng
-                MainForm mainForm = new MainForm();
+                MainForm mainForm = new MainForm(username);
                 mainForm.Show();
             }
             else
