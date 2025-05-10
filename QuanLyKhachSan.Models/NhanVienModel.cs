@@ -8,7 +8,7 @@ namespace QuanLyKhachSan.Models
 {
     public class NhanVienModel
     {
-        public int Id { get; set; }
+        public int MaNV { get; set; }
         public string HoTen { get; set; }
         public string GioiTinh { get; set; }
         public DateTime NgaySinh { get; set; }
