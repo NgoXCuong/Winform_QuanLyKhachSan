@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -123,6 +124,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ThongKeForm.resx">
+      <DependentUpon>ThongKeForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TrangChuForm.resx">
       <DependentUpon>TrangChuForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -150,10 +154,22 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Image\bed.png" />
+    <Content Include="Image\bell.png" />
+    <Content Include="Image\bill.png" />
+    <Content Include="Image\booking.png" />
+    <Content Include="Image\customer.png" />
+    <Content Include="Image\employee.png" />
+    <Content Include="Image\home.png" />
     <Content Include="Image\Hotel.png" />
+    <Content Include="Image\hotel64px.png" />
     <Content Include="Image\logo.ico" />
+    <Content Include="Image\logout.png" />
+    <Content Include="Image\password.png" />
     <Content Include="Image\profile.png" />
+    <Content Include="Image\thongke.png" />
     <Content Include="Image\trangchu.jpg" />
+    <Content Include="Image\user.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
