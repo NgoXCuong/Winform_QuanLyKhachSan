@@ -70,9 +70,8 @@ namespace QuanLyKhachSan.DAL
                         NgaySinh = @NgaySinh, 
                         ChucVu = @ChucVu, 
                         SDT = @SDT, 
-                        Email = @Email,
-                        Anh = @Anh
-                    WHERE Id = @Id";
+                        Email = @Email
+                    WHERE MaNV = @MaNV";
 
                 var parameters = new SqlParameter[]
                 {
@@ -82,7 +81,7 @@ namespace QuanLyKhachSan.DAL
                     new SqlParameter("@ChucVu", nv.ChucVu),
                     new SqlParameter("@SDT", nv.SoDienThoai),
                     new SqlParameter("@Email", nv.Email),
-                    new SqlParameter("@Anh", System.Data.SqlDbType.VarBinary) { Value = nv.Anh },
+                    //new SqlParameter("@Anh", (object)nv.Anh ?? DBNull.Value),
                     new SqlParameter("@MaNV", nv.MaNV)
                 };
 
@@ -102,28 +101,23 @@ namespace QuanLyKhachSan.DAL
             return connDb.ExecuteNonQuery(sql, parameters) > 0;
         }
 
-        public List<NhanVienModel> TimNhanVien(string hoTen = "", string gioiTinh = "", 
-            DateTime? ngaySinh = null, string soDienThoai = "", string email = "",
-            string chucVu = "")
+        public List<NhanVienModel> TimNhanVien(string keyword)
         {
             List<NhanVienModel> listNhanVien = new List<NhanVienModel>();
 
             string sql = @"SELECT * FROM NhanVien
-                WHERE (@HoTen = '' OR HoTen LIKE '%' + @HoTen + '%')
-                  AND (@GioiTinh = '' OR GioiTinh = @GioiTinh)
-                  AND (@NgaySinh IS NULL OR NgaySinh = @NgaySinh)
-                  AND (@ChucVu = '' OR ChucVu LIKE '%' + @ChucVu + '%')
-                  AND (@SDT = '' OR SDT LIKE '%' + @SDT + '%')
-                  AND (@Email = '' OR Email LIKE '%' + @Email + '%')";
+        WHERE (@Keyword = '' OR HoTen LIKE '%' + @Keyword + '%')
+          OR (@Keyword = '' OR GioiTinh LIKE '%' + @Keyword + '%')
+          OR (@Keyword = '' OR NgaySinh BETWEEN @NgaySinhStart AND @NgaySinhEnd)  -- Tìm trong khoảng thời gian
+          OR (@Keyword = '' OR ChucVu LIKE '%' + @Keyword + '%')
+          OR (@Keyword = '' OR SDT LIKE '%' + @Keyword + '%')
+          OR (@Keyword = '' OR Email LIKE '%' + @Keyword + '%')";
 
             var parameters = new SqlParameter[]
             {
-                new SqlParameter("@HoTen", hoTen),
-                new SqlParameter("@GioiTinh", gioiTinh),
-                new SqlParameter("@NgaySinh", (object)ngaySinh ?? DBNull.Value),
-                new SqlParameter("@ChucVu", chucVu),
-                new SqlParameter("@SDT", soDienThoai),
-                new SqlParameter("@Email", email)
+        new SqlParameter("@Keyword", keyword),
+        new SqlParameter("@NgaySinhStart", DateTime.TryParse(keyword, out DateTime startDate) ? (object)startDate : DBNull.Value),
+        new SqlParameter("@NgaySinhEnd", DateTime.TryParse(keyword, out DateTime endDate) ? (object)endDate.AddDays(1) : DBNull.Value)  // Cộng thêm một ngày để tìm đến hết ngày kết thúc
             };
 
             var dataTable = connDb.ExecuteQuery(sql, parameters);
@@ -139,10 +133,11 @@ namespace QuanLyKhachSan.DAL
                     ChucVu = row["ChucVu"].ToString(),
                     SoDienThoai = row["SDT"].ToString(),
                     Email = row["Email"].ToString(),
-                    Anh = row["Anh"] as byte[] // Lấy  ảnh dưới dạng  byte
+                    Anh = row["Anh"] as byte[] // Lấy ảnh dưới dạng byte
                 };
                 listNhanVien.Add(nhanVien);
             }
+
             return listNhanVien;
         }
 
@@ -179,6 +174,22 @@ namespace QuanLyKhachSan.DAL
             }
 
             return null;
+        }
+
+        public bool XoaAnhNhanVien(int maNV)
+        {
+            string sql = "UPDATE NhanVien SET Anh = NULL WHERE MaNV = @MaNV";
+            SqlParameter[] parameters = { new SqlParameter("@MaNV", maNV) };
+
+            try
+            {
+                return connDb.ExecuteNonQuery(sql, parameters) > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Lỗi xóa ảnh: " + ex.Message);
+                return false;
+            }
         }
 
     }

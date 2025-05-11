@@ -1,4 +1,5 @@
-﻿using QuanLyKhachSan.BLL;
+﻿using ClosedXML.Excel;
+using QuanLyKhachSan.BLL;
 using QuanLyKhachSan.Models;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace QuanLyKhachSan.UI
 {
     public partial class NhanVienForm : Form
     {
+        private NhanVienService nhanVienService = new NhanVienService();
         public NhanVienForm()
         {
             InitializeComponent();
@@ -22,8 +24,19 @@ namespace QuanLyKhachSan.UI
 
         private void NhanVienForm_Load(object sender, EventArgs e)
         {
+            
+
             NhanVienService service = new NhanVienService();
             dgvListNhanVien.DataSource = service.GetAllNhanVien();
+
+            dgvListNhanVien.Columns["MaNV"].HeaderText = "Mã nhân viên";
+            dgvListNhanVien.Columns["HoTen"].HeaderText = "Họ tên";
+            dgvListNhanVien.Columns["GioiTinh"].HeaderText = "Giới tính";
+            dgvListNhanVien.Columns["NgaySinh"].HeaderText = "Ngày sinh";
+            dgvListNhanVien.Columns["ChucVu"].HeaderText = "Chức vụ";
+            dgvListNhanVien.Columns["SoDienThoai"].HeaderText = "SĐT";
+            dgvListNhanVien.Columns["Email"].HeaderText = "Email";
+            dgvListNhanVien.Columns["Anh"].HeaderText = "Ảnh nhân viên";
         }
 
         private void btnThem_Click(object sender, EventArgs e)
@@ -65,6 +78,177 @@ namespace QuanLyKhachSan.UI
             }
 
         }
+
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            if (dgvListNhanVien.CurrentRow != null)
+            {
+                // Xác nhận trước khi xóa
+                DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa nhân viên này?",
+                    "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    int maNV = Convert.ToInt32(dgvListNhanVien.CurrentRow.Cells["MaNV"].Value);
+                    NhanVienService service = new NhanVienService();
+
+                    bool xoaThanhCong = service.XoaNhanVien(maNV);
+
+                    if (xoaThanhCong)
+                    {
+                        MessageBox.Show("Xóa nhân viên thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LoadListNhanVien(); // Refresh danh sách
+                        ClearForm();        // Xóa thông tin trên form
+                        picAnhNhanVien.Image = null;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Xóa nhân viên thất bại", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn một nhân viên để xóa", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            if (dgvListNhanVien.CurrentRow == null)
+            {
+                MessageBox.Show("Vui lòng chọn nhân viên cần sửa!", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtHoTen.Text) ||
+                (!rbNam.Checked && !rbNu.Checked) ||
+                string.IsNullOrWhiteSpace(txtChucVu.Text) ||
+                string.IsNullOrWhiteSpace(txtSDT.Text) ||
+                string.IsNullOrWhiteSpace(txtEmail.Text))
+            {
+                MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int maNV = Convert.ToInt32(dgvListNhanVien.CurrentRow.Cells["MaNV"].Value);
+            string gioiTinh = rbNam.Checked ? "Nam" : "Nữ";
+
+            NhanVienModel nv = new NhanVienModel
+            {
+                MaNV = maNV,
+                HoTen = txtHoTen.Text,
+                GioiTinh = gioiTinh,
+                NgaySinh = dtNgaySinh.Value,
+                ChucVu = txtChucVu.Text,
+                SoDienThoai = txtSDT.Text,
+                Email = txtEmail.Text
+            };
+
+            NhanVienService service = new NhanVienService();
+            bool result = service.SuaNhanVien(nv);
+
+            if (result)
+            {
+                MessageBox.Show("Cập nhật nhân viên thành công!", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadListNhanVien();
+                ClearForm();
+                picAnhNhanVien.Image = null;
+            }
+            else
+            {
+                MessageBox.Show("Cập nhật thất bại!", Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void xuatExcel_Click(object sender, EventArgs e)
+        {
+            if (dgvListNhanVien.Rows.Count == 0)
+            {
+                MessageBox.Show("Không có dữ liệu để xuất!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "Excel Workbook|*.xlsx";
+                saveFileDialog.Title = "Lưu file Excel";
+                saveFileDialog.FileName = "DanhSachNhanVien.xlsx";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    using (var workbook = new XLWorkbook())
+                    {
+                        var worksheet = workbook.Worksheets.Add("Nhân viên");
+
+                        // Header
+                        for (int i = 0; i < dgvListNhanVien.Columns.Count; i++)
+                        {
+                            worksheet.Cell(1, i + 1).Value = dgvListNhanVien.Columns[i].HeaderText;
+                            worksheet.Cell(1, i + 1).Style.Font.Bold = true;
+                            worksheet.Cell(1, i + 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                            worksheet.Cell(1, i + 1).Style.Fill.BackgroundColor = XLColor.LightSteelBlue;
+                            worksheet.Cell(1, i + 1).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                        }
+
+                        // Dữ liệu
+                        for (int i = 0; i < dgvListNhanVien.Rows.Count; i++)
+                        {
+                            for (int j = 0; j < dgvListNhanVien.Columns.Count; j++)
+                            {
+                                object value = dgvListNhanVien.Rows[i].Cells[j].Value;
+
+                                // Nếu là ảnh hoặc byte[], hiển thị là "[Ảnh]"
+                                if (value is byte[])
+                                {
+                                    worksheet.Cell(i + 2, j + 1).Value = "[Ảnh]";
+                                }
+                                else
+                                {
+                                    worksheet.Cell(i + 2, j + 1).Value = value?.ToString() ?? "";
+                                }
+
+                                // Căn giữa, bo viền
+                                worksheet.Cell(i + 2, j + 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                                worksheet.Cell(i + 2, j + 1).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                            }
+                        }
+
+                        // Tự động điều chỉnh độ rộng
+                        worksheet.Columns().AdjustToContents();
+
+                        // Lưu file
+                        workbook.SaveAs(saveFileDialog.FileName);
+                        MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+        }
+
+        private void btnLamMoi_Click(object sender, EventArgs e)
+        {
+            LoadListNhanVien(); 
+        }
+
+        private void btnTim_Click(object sender, EventArgs e)
+        {
+            string keyword = txtTim.Text.Trim(); // Lấy từ khóa tìm kiếm từ TextBox
+
+            // Gọi phương thức tìm kiếm từ service
+            List<NhanVienModel> result = nhanVienService.TimNhanVien(keyword);
+
+            // Hiển thị kết quả lên DataGridView
+            if (result.Count > 0)
+            {
+                dgvListNhanVien.DataSource = result;
+            }
+            else
+            {
+                MessageBox.Show("Không tìm thấy nhân viên nào!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                dgvListNhanVien.DataSource = null;
+            }
+        }
+
 
         private void LoadListNhanVien()
         {
@@ -196,6 +380,32 @@ namespace QuanLyKhachSan.UI
             }
         }
 
+        private void linkXoaAnh_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (dgvListNhanVien.CurrentRow != null)
+            {
+                int maNV = Convert.ToInt32(dgvListNhanVien.CurrentRow.Cells["MaNV"].Value);
+                NhanVienService service = new NhanVienService();
 
+                // Gọi service để xóa ảnh nhân viên
+                bool result = service.XoaAnhNhanVien(maNV);
+
+                if (result)
+                {
+                    picAnhNhanVien.Image = null; // Xóa ảnh trên giao diện
+                    MessageBox.Show("Đã xóa ảnh nhân viên.", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Xóa ảnh thất bại.", Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn nhân viên cần xóa ảnh.", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        
     }
 }

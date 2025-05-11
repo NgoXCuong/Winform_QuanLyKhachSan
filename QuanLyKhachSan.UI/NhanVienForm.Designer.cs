@@ -87,6 +87,7 @@
             this.txtMatKhau = new System.Windows.Forms.TextBox();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.txtTenTaiKhoan = new System.Windows.Forms.TextBox();
+            this.btnLamMoi = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabQLNhanVien.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -162,6 +163,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.btnLamMoi);
             this.groupBox3.Controls.Add(this.txtTim);
             this.groupBox3.Controls.Add(this.btnTim);
             this.groupBox3.Controls.Add(this.xuatExcel);
@@ -192,6 +194,7 @@
             this.btnTim.TabIndex = 4;
             this.btnTim.Text = "Tìm";
             this.btnTim.UseVisualStyleBackColor = true;
+            this.btnTim.Click += new System.EventHandler(this.btnTim_Click);
             // 
             // xuatExcel
             // 
@@ -201,6 +204,7 @@
             this.xuatExcel.TabIndex = 3;
             this.xuatExcel.Text = "Xuất Excel";
             this.xuatExcel.UseVisualStyleBackColor = true;
+            this.xuatExcel.Click += new System.EventHandler(this.xuatExcel_Click);
             // 
             // btnXoa
             // 
@@ -210,19 +214,21 @@
             this.btnXoa.TabIndex = 2;
             this.btnXoa.Text = "Xóa";
             this.btnXoa.UseVisualStyleBackColor = true;
+            this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // btnSua
             // 
-            this.btnSua.Location = new System.Drawing.Point(151, 51);
+            this.btnSua.Location = new System.Drawing.Point(151, 50);
             this.btnSua.Name = "btnSua";
             this.btnSua.Size = new System.Drawing.Size(88, 35);
             this.btnSua.TabIndex = 1;
             this.btnSua.Text = "Sửa";
             this.btnSua.UseVisualStyleBackColor = true;
+            this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
             // 
             // btnThem
             // 
-            this.btnThem.Location = new System.Drawing.Point(27, 51);
+            this.btnThem.Location = new System.Drawing.Point(27, 50);
             this.btnThem.Name = "btnThem";
             this.btnThem.Size = new System.Drawing.Size(88, 35);
             this.btnThem.TabIndex = 0;
@@ -295,6 +301,7 @@
             this.linkXoaAnh.TabIndex = 19;
             this.linkXoaAnh.TabStop = true;
             this.linkXoaAnh.Text = "Xóa ảnh";
+            this.linkXoaAnh.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkXoaAnh_LinkClicked);
             // 
             // linkThemAnh
             // 
@@ -697,6 +704,16 @@
             this.txtTenTaiKhoan.Size = new System.Drawing.Size(257, 22);
             this.txtTenTaiKhoan.TabIndex = 0;
             // 
+            // btnLamMoi
+            // 
+            this.btnLamMoi.Location = new System.Drawing.Point(27, 180);
+            this.btnLamMoi.Name = "btnLamMoi";
+            this.btnLamMoi.Size = new System.Drawing.Size(88, 35);
+            this.btnLamMoi.TabIndex = 6;
+            this.btnLamMoi.Text = "Làm mới";
+            this.btnLamMoi.UseVisualStyleBackColor = true;
+            this.btnLamMoi.Click += new System.EventHandler(this.btnLamMoi_Click);
+            // 
             // NhanVienForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -817,5 +834,6 @@
         private System.Windows.Forms.LinkLabel linkThemAnh;
         private System.Windows.Forms.PictureBox picAnhNhanVien;
         private System.Windows.Forms.LinkLabel linkXoaAnh;
+        private System.Windows.Forms.Button btnLamMoi;
     }
 }
