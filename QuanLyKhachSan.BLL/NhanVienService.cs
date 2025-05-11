@@ -72,5 +72,9 @@ namespace QuanLyKhachSan.BLL
             return nhanVienRepository.XoaAnhNhanVien(maNV);
         }
 
+        public List<NhanVienModel> GetNhanVienByIdName()
+        {
+            return nhanVienRepository.getNhanVienByIdName();
+        }
     }
 }

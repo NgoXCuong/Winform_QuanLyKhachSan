@@ -1,6 +1,7 @@
 ﻿using QuanLyKhachSan.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -36,24 +37,45 @@ namespace QuanLyKhachSan.DAL
             return listNhanVien;
         }
 
+        public List<NhanVienModel> getNhanVienByIdName()
+        {
+            List<NhanVienModel> ds = new List<NhanVienModel>();
+            string sql = "SELECT MaNV, HoTen FROM NhanVien";
+
+            // Giả sử ExecuteQuery thực thi truy vấn và trả về DataTable
+            var table = connDb.ExecuteQuery(sql);
+
+            foreach (DataRow row in table.Rows)
+            {
+                ds.Add(new NhanVienModel
+                {
+                    MaNV = Convert.ToInt32(row["MaNV"]),
+                    HoTen = row["HoTen"].ToString()
+                });
+            }
+            return ds;
+        }
+
+
+
         public bool ThemNhanVien(NhanVienModel nv)
         {
             using (SqlConnection conn = new SqlConnection(connDb.GetConnection().ConnectionString))
             {
                 string sql = @"INSERT INTO NhanVien 
-            (HoTen, GioiTinh, NgaySinh, ChucVu, SDT, Email, Anh) 
-            VALUES (@HoTen, @GioiTinh, @NgaySinh, @ChucVu, @SDT, @Email, @Anh)";
+                            (HoTen, GioiTinh, NgaySinh, ChucVu, SDT, Email, Anh) 
+                            VALUES (@HoTen, @GioiTinh, @NgaySinh, @ChucVu, @SDT, @Email, @Anh)";
 
                 var parameters = new SqlParameter[]
                 {
-            new SqlParameter("@HoTen", nv.HoTen),
-            new SqlParameter("@GioiTinh", nv.GioiTinh),
-            new SqlParameter("@NgaySinh", nv.NgaySinh),
-            new SqlParameter("@ChucVu", nv.ChucVu),
-            new SqlParameter("@SDT", nv.SoDienThoai),
-            new SqlParameter("@Email", nv.Email),
-            // Kiểm tra nếu nv.Anh là null thì truyền DBNull.Value, nếu có ảnh thì truyền mảng byte
-            new SqlParameter("@Anh", System.Data.SqlDbType.VarBinary) { Value = nv.Anh ?? (object)DBNull.Value }
+                    new SqlParameter("@HoTen", nv.HoTen),
+                    new SqlParameter("@GioiTinh", nv.GioiTinh),
+                    new SqlParameter("@NgaySinh", nv.NgaySinh),
+                    new SqlParameter("@ChucVu", nv.ChucVu),
+                    new SqlParameter("@SDT", nv.SoDienThoai),
+                    new SqlParameter("@Email", nv.Email),
+                    // Kiểm tra nếu nv.Anh là null thì truyền DBNull.Value, nếu có ảnh thì truyền mảng byte
+                    new SqlParameter("@Anh", System.Data.SqlDbType.VarBinary) { Value = nv.Anh ?? (object)DBNull.Value }
                 };
 
                 return connDb.ExecuteNonQuery(sql, parameters) > 0;
@@ -71,7 +93,7 @@ namespace QuanLyKhachSan.DAL
                         ChucVu = @ChucVu, 
                         SDT = @SDT, 
                         Email = @Email
-                    WHERE MaNV = @MaNV";
+                        WHERE MaNV = @MaNV";
 
                 var parameters = new SqlParameter[]
                 {
@@ -106,18 +128,18 @@ namespace QuanLyKhachSan.DAL
             List<NhanVienModel> listNhanVien = new List<NhanVienModel>();
 
             string sql = @"SELECT * FROM NhanVien
-        WHERE (@Keyword = '' OR HoTen LIKE '%' + @Keyword + '%')
-          OR (@Keyword = '' OR GioiTinh LIKE '%' + @Keyword + '%')
-          OR (@Keyword = '' OR NgaySinh BETWEEN @NgaySinhStart AND @NgaySinhEnd)  -- Tìm trong khoảng thời gian
-          OR (@Keyword = '' OR ChucVu LIKE '%' + @Keyword + '%')
-          OR (@Keyword = '' OR SDT LIKE '%' + @Keyword + '%')
-          OR (@Keyword = '' OR Email LIKE '%' + @Keyword + '%')";
+                WHERE (@Keyword = '' OR HoTen LIKE '%' + @Keyword + '%')
+                OR (@Keyword = '' OR GioiTinh LIKE '%' + @Keyword + '%')
+                OR (@Keyword = '' OR NgaySinh BETWEEN @NgaySinhStart AND @NgaySinhEnd)  -- Tìm trong khoảng thời gian
+                OR (@Keyword = '' OR ChucVu LIKE '%' + @Keyword + '%')
+                OR (@Keyword = '' OR SDT LIKE '%' + @Keyword + '%')
+                OR (@Keyword = '' OR Email LIKE '%' + @Keyword + '%')";
 
             var parameters = new SqlParameter[]
             {
-        new SqlParameter("@Keyword", keyword),
-        new SqlParameter("@NgaySinhStart", DateTime.TryParse(keyword, out DateTime startDate) ? (object)startDate : DBNull.Value),
-        new SqlParameter("@NgaySinhEnd", DateTime.TryParse(keyword, out DateTime endDate) ? (object)endDate.AddDays(1) : DBNull.Value)  // Cộng thêm một ngày để tìm đến hết ngày kết thúc
+                new SqlParameter("@Keyword", keyword),
+                new SqlParameter("@NgaySinhStart", DateTime.TryParse(keyword, out DateTime startDate) ? (object)startDate : DBNull.Value),
+                new SqlParameter("@NgaySinhEnd", DateTime.TryParse(keyword, out DateTime endDate) ? (object)endDate.AddDays(1) : DBNull.Value)  // Cộng thêm một ngày để tìm đến hết ngày kết thúc
             };
 
             var dataTable = connDb.ExecuteQuery(sql, parameters);

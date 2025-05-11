@@ -17,6 +17,7 @@ namespace QuanLyKhachSan.UI
     public partial class NhanVienForm : Form
     {
         private NhanVienService nhanVienService = new NhanVienService();
+        private TaiKhoanService taiKhoanService = new TaiKhoanService();
         public NhanVienForm()
         {
             InitializeComponent();
@@ -25,10 +26,8 @@ namespace QuanLyKhachSan.UI
         private void NhanVienForm_Load(object sender, EventArgs e)
         {
             
-
-            NhanVienService service = new NhanVienService();
-            dgvListNhanVien.DataSource = service.GetAllNhanVien();
-
+            //  Tab Nhan Vien
+            dgvListNhanVien.DataSource = nhanVienService.GetAllNhanVien();
             dgvListNhanVien.Columns["MaNV"].HeaderText = "Mã nhân viên";
             dgvListNhanVien.Columns["HoTen"].HeaderText = "Họ tên";
             dgvListNhanVien.Columns["GioiTinh"].HeaderText = "Giới tính";
@@ -37,6 +36,9 @@ namespace QuanLyKhachSan.UI
             dgvListNhanVien.Columns["SoDienThoai"].HeaderText = "SĐT";
             dgvListNhanVien.Columns["Email"].HeaderText = "Email";
             dgvListNhanVien.Columns["Anh"].HeaderText = "Ảnh nhân viên";
+
+            //  Tab Tai Khoan
+            LoadDanhSachTaiKhoan();
         }
 
         private void btnThem_Click(object sender, EventArgs e)
@@ -63,7 +65,6 @@ namespace QuanLyKhachSan.UI
                 Email = txtEmail.Text
             };
 
-            NhanVienService nhanVienService = new NhanVienService();
             bool ketQua = nhanVienService.ThemNhanVien(nv);
 
             if (ketQua)
@@ -90,9 +91,8 @@ namespace QuanLyKhachSan.UI
                 if (result == DialogResult.Yes)
                 {
                     int maNV = Convert.ToInt32(dgvListNhanVien.CurrentRow.Cells["MaNV"].Value);
-                    NhanVienService service = new NhanVienService();
 
-                    bool xoaThanhCong = service.XoaNhanVien(maNV);
+                    bool xoaThanhCong = nhanVienService.XoaNhanVien(maNV);
 
                     if (xoaThanhCong)
                     {
@@ -145,8 +145,7 @@ namespace QuanLyKhachSan.UI
                 Email = txtEmail.Text
             };
 
-            NhanVienService service = new NhanVienService();
-            bool result = service.SuaNhanVien(nv);
+            bool result = nhanVienService.SuaNhanVien(nv);
 
             if (result)
             {
@@ -249,13 +248,10 @@ namespace QuanLyKhachSan.UI
             }
         }
 
-
         private void LoadListNhanVien()
         {
-            NhanVienService service = new NhanVienService();
-            dgvListNhanVien.DataSource = service.GetAllNhanVien();
+            dgvListNhanVien.DataSource = nhanVienService.GetAllNhanVien();
         }
-
 
         private void ClearForm()
         {
@@ -315,7 +311,6 @@ namespace QuanLyKhachSan.UI
                 int maNV = Convert.ToInt32(row.Cells["MaNV"].Value);
 
                 // Gọi service để lấy ảnh của nhân viên
-                var nhanVienService = new NhanVienService();
                 string base64Anh = nhanVienService.LayAnhNhanVien(maNV);
 
                 if (!string.IsNullOrEmpty(base64Anh) && IsValidBase64(base64Anh))
@@ -362,7 +357,6 @@ namespace QuanLyKhachSan.UI
             }
         }
 
-
         bool IsValidBase64(string base64String)
         {
             if (string.IsNullOrEmpty(base64String))
@@ -385,10 +379,9 @@ namespace QuanLyKhachSan.UI
             if (dgvListNhanVien.CurrentRow != null)
             {
                 int maNV = Convert.ToInt32(dgvListNhanVien.CurrentRow.Cells["MaNV"].Value);
-                NhanVienService service = new NhanVienService();
 
                 // Gọi service để xóa ảnh nhân viên
-                bool result = service.XoaAnhNhanVien(maNV);
+                bool result = nhanVienService.XoaAnhNhanVien(maNV);
 
                 if (result)
                 {
@@ -406,6 +399,91 @@ namespace QuanLyKhachSan.UI
             }
         }
 
+        //  TAI KHOAN NHAN VIEN
         
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            if(string.IsNullOrWhiteSpace(txtTenDangNhap.Text) ||
+                string.IsNullOrWhiteSpace(txtMatKhau.Text) ||
+                string.IsNullOrWhiteSpace(cbQuyen.Text) ||
+                string.IsNullOrWhiteSpace(txtTrangThai.Text))
+            {
+                MessageBox.Show("Vui lòng nhập đầy đủ thông tin tài khoản", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if(cbMaNhanVien.SelectedItem == null)
+            {
+                MessageBox.Show("Vui lòng chọn nhân viên", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            TaiKhoanModel tk = new TaiKhoanModel
+            {
+                TenDangNhap = txtTenDangNhap.Text,
+                MatKhau = txtMatKhau.Text.Trim(),
+                //MaNV = Convert.ToInt32(cbMaNhanVien.SelectedValue),
+                Quyen = cbQuyen.Text,
+                TrangThai = txtTrangThai.Text
+            };
+
+            // Gọi Service để thêm tài khoản
+            if (taiKhoanService.ThemTaiKhoan(tk))
+            {
+                MessageBox.Show("Thêm tài khoản thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Load lại danh sách tài khoản nếu có
+                LoadDanhSachTaiKhoan();
+                ResetFormTaiKhoan();
+            }
+            else
+            {
+                MessageBox.Show("Thêm tài khoản thất bại. Kiểm tra lại dữ liệu!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void LoadDanhSachTaiKhoan()
+        {
+            // Lấy danh sách tài khoản
+            dgvListTaiKhoan.DataSource = taiKhoanService.GetAllTaiKhoan();
+            dgvListTaiKhoan.Columns["TenDangNhap"].HeaderText = "Tên đăng nhập";
+            dgvListTaiKhoan.Columns["MatKhau"].HeaderText = "Mật khẩu";
+            dgvListTaiKhoan.Columns["MaNV"].HeaderText = "Mã nhân viên";
+            dgvListTaiKhoan.Columns["Quyen"].HeaderText = "Quyền";
+            dgvListTaiKhoan.Columns["TrangThai"].HeaderText = "Trạng thái";
+
+            // Load danh sách nhân viên vào ComboBox
+            var dsNhanVien = nhanVienService.GetNhanVienByIdName(); // Trả về List<NhanVienModel>
+
+            cbMaNhanVien.DataSource = dsNhanVien;
+            cbMaNhanVien.DisplayMember = "HienThiMaVaTen"; // Hiển thị: "1 - Nguyễn Văn A"
+            cbMaNhanVien.ValueMember = "MaNV";
+
+        }
+
+        private void ResetFormTaiKhoan()
+        {
+            txtTenDangNhap.Clear();
+            txtMatKhau.Clear();
+            cbQuyen.SelectedIndex = -1;
+            txtTrangThai.Clear();
+            cbMaNhanVien.SelectedIndex = -1;
+        }
+
+        private void cbMaNhanVien_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbMaNhanVien.SelectedItem is NhanVienModel selectedNV)
+            {
+                // Gán quyền dựa vào chức vụ
+                if (selectedNV.ChucVu != null && selectedNV.ChucVu.ToLower().Contains("quản lý"))
+                {
+                    cbQuyen.Text = "Admin";
+                }
+                else
+                {
+                    cbQuyen.Text = "NhanVien";
+                }
+            }
+        }
+
     }
 }
