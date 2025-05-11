@@ -60,13 +60,21 @@ namespace QuanLyKhachSan.BLL
 
         public string LayAnhNhanVien(int maNV)
         {
-            var repo = new NhanVienRepository();
-            byte[] imageBytes = repo.LayAnhNhanVien(maNV);
+            byte[] imageBytes = nhanVienRepository.LayAnhNhanVien(maNV);
             if (imageBytes != null && imageBytes.Length > 0)
                 return Convert.ToBase64String(imageBytes);  // Base64 từ byte[]
             else
                 return null;
         }
 
+        public bool XoaAnhNhanVien(int maNV)
+        {
+            return nhanVienRepository.XoaAnhNhanVien(maNV);
+        }
+
+        public List<NhanVienModel> GetNhanVienByIdName()
+        {
+            return nhanVienRepository.getNhanVienByIdName();
+        }
     }
 }

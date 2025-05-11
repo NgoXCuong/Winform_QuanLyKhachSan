@@ -23,5 +23,22 @@ namespace QuanLyKhachSan.BLL
         {
             return taiKhoanRepository.getTaiKhoanLogin();
         }
+
+        public bool ThemTaiKhoan(TaiKhoanModel tk)
+        {
+            return taiKhoanRepository.ThemTaiKhoan(tk);
+        }
+
+        public bool XoaTaiKhoan(int maNhanVien)
+        {
+            return taiKhoanRepository.XoaTaiKhoan(maNhanVien);
+        }
+
+        public bool SuaTaiKhoan(TaiKhoanModel tk)
+        {
+            return taiKhoanRepository.SuaTaiKhoan(tk);
+        }
+
+
     }
 }

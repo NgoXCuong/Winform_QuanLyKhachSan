@@ -15,7 +15,16 @@ namespace QuanLyKhachSan.Models
         public string ChucVu { get; set; }
         public string SoDienThoai { get; set; }
         public string Email { get; set; }
-
         public byte[] Anh { get; set; }
+
+        // Thuộc tính này để hiển thị mã nhân viên và tên nhân viên
+        public string HienThiMaVaTen
+        {
+            get
+            {
+                return $"{MaNV} - {HoTen}";
+            }
+        }
     }
+
 }
