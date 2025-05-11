@@ -16,27 +16,24 @@ namespace QuanLyKhachSan.DAL
         {
             List<NhanVienModel> listNhanVien = new List<NhanVienModel>();
             string sql = "SELECT * FROM NhanVien";
-            using (SqlConnection conn = connDb.GetConnection())
+
+            var dataTable = connDb.ExecuteQuery(sql);
+            foreach (System.Data.DataRow row in dataTable.Rows)
             {
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
+                NhanVienModel nhanVien = new NhanVienModel
                 {
-                    NhanVienModel nhanVien = new NhanVienModel
-                    {
-                        MaNV = (int)reader["MaNV"],
-                        HoTen = reader["HoTen"].ToString(),
-                        GioiTinh = reader["GioiTinh"].ToString(),
-                        NgaySinh = (DateTime)reader["NgaySinh"],
-                        ChucVu = reader["ChucVu"].ToString(),
-                        SoDienThoai = reader["SDT"].ToString(),
-                        Email = reader["Email"].ToString()
-                    };
-                    listNhanVien.Add(nhanVien);
-                }
+                    MaNV = (int)row["MaNV"],
+                    HoTen = row["HoTen"].ToString(),
+                    GioiTinh = row["GioiTinh"].ToString(),
+                    NgaySinh = (DateTime)row["NgaySinh"],
+                    ChucVu = row["ChucVu"].ToString(),
+                    SoDienThoai = row["SDT"].ToString(),
+                    Email = row["Email"].ToString(),
+                    Anh = row["Anh"] as byte[] // Lấy  ảnh dưới dạng  byte
+                };
+                listNhanVien.Add(nhanVien);
             }
             return listNhanVien;
-
         }
 
         public bool ThemNhanVien(NhanVienModel nv)
@@ -44,21 +41,25 @@ namespace QuanLyKhachSan.DAL
             using (SqlConnection conn = new SqlConnection(connDb.GetConnection().ConnectionString))
             {
                 string sql = @"INSERT INTO NhanVien 
-                    (HoTen, GioiTinh, NgaySinh, ChucVu, SDT, Email) 
-                    VALUES (@HoTen, @GioiTinh, @NgaySinh, @ChucVu, @SDT, @Email)";
+            (HoTen, GioiTinh, NgaySinh, ChucVu, SDT, Email, Anh) 
+            VALUES (@HoTen, @GioiTinh, @NgaySinh, @ChucVu, @SDT, @Email, @Anh)";
 
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@HoTen", nv.HoTen);
-                cmd.Parameters.AddWithValue("@GioiTinh", nv.GioiTinh);
-                cmd.Parameters.AddWithValue("@NgaySinh", nv.NgaySinh);
-                cmd.Parameters.AddWithValue("@ChucVu", nv.ChucVu);
-                cmd.Parameters.AddWithValue("@SDT", nv.SoDienThoai);
-                cmd.Parameters.AddWithValue("@Email", nv.Email);
+                var parameters = new SqlParameter[]
+                {
+            new SqlParameter("@HoTen", nv.HoTen),
+            new SqlParameter("@GioiTinh", nv.GioiTinh),
+            new SqlParameter("@NgaySinh", nv.NgaySinh),
+            new SqlParameter("@ChucVu", nv.ChucVu),
+            new SqlParameter("@SDT", nv.SoDienThoai),
+            new SqlParameter("@Email", nv.Email),
+            // Kiểm tra nếu nv.Anh là null thì truyền DBNull.Value, nếu có ảnh thì truyền mảng byte
+            new SqlParameter("@Anh", System.Data.SqlDbType.VarBinary) { Value = nv.Anh ?? (object)DBNull.Value }
+                };
 
-                conn.Open();
-                return cmd.ExecuteNonQuery() > 0;
+                return connDb.ExecuteNonQuery(sql, parameters) > 0;
             }
         }
+
 
         public bool SuaNhanVien(NhanVienModel nv)
         {
@@ -69,32 +70,36 @@ namespace QuanLyKhachSan.DAL
                         NgaySinh = @NgaySinh, 
                         ChucVu = @ChucVu, 
                         SDT = @SDT, 
-                        Email = @Email 
+                        Email = @Email,
+                        Anh = @Anh
                     WHERE Id = @Id";
 
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@HoTen", nv.HoTen);
-                cmd.Parameters.AddWithValue("@GioiTinh", nv.GioiTinh);
-                cmd.Parameters.AddWithValue("@NgaySinh", nv.NgaySinh);
-                cmd.Parameters.AddWithValue("@ChucVu", nv.ChucVu);
-                cmd.Parameters.AddWithValue("@SDT", nv.SoDienThoai);
-                cmd.Parameters.AddWithValue("@Email", nv.Email);
+                var parameters = new SqlParameter[]
+                {
+                    new SqlParameter("@HoTen", nv.HoTen),
+                    new SqlParameter("@GioiTinh", nv.GioiTinh),
+                    new SqlParameter("@NgaySinh", nv.NgaySinh),
+                    new SqlParameter("@ChucVu", nv.ChucVu),
+                    new SqlParameter("@SDT", nv.SoDienThoai),
+                    new SqlParameter("@Email", nv.Email),
+                    new SqlParameter("@Anh", System.Data.SqlDbType.VarBinary) { Value = nv.Anh },
+                    new SqlParameter("@MaNV", nv.MaNV)
+                };
 
-                conn.Open();
-                return cmd.ExecuteNonQuery() > 0;
+                return connDb.ExecuteNonQuery(sql, parameters) > 0;
             }
         }
 
-        public bool XoaNhanVien(int id)
+        public bool XoaNhanVien(int maNv)
         {
-            using (SqlConnection conn = new SqlConnection(connDb.GetConnection().ConnectionString))
+            string sql = "DELETE FROM NhanVien WHERE MaNV = @MaNV";
+            
+            var parameters = new SqlParameter[]
             {
-                string sql = "DELETE FROM NhanVien WHERE MaNV = @MaNV";
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@MaNV", id);
-                conn.Open();
-                return cmd.ExecuteNonQuery() > 0;
-            }
+                new SqlParameter("@MaNV", maNv)
+            };
+
+            return connDb.ExecuteNonQuery(sql, parameters) > 0;
         }
 
         public List<NhanVienModel> TimNhanVien(string hoTen = "", string gioiTinh = "", 
@@ -103,11 +108,7 @@ namespace QuanLyKhachSan.DAL
         {
             List<NhanVienModel> listNhanVien = new List<NhanVienModel>();
 
-            using (SqlConnection conn = new SqlConnection(connDb.GetConnection().ConnectionString))
-            {
-                conn.Open();
-
-                string sql = @"SELECT * FROM NhanVien
+            string sql = @"SELECT * FROM NhanVien
                 WHERE (@HoTen = '' OR HoTen LIKE '%' + @HoTen + '%')
                   AND (@GioiTinh = '' OR GioiTinh = @GioiTinh)
                   AND (@NgaySinh IS NULL OR NgaySinh = @NgaySinh)
@@ -115,34 +116,70 @@ namespace QuanLyKhachSan.DAL
                   AND (@SDT = '' OR SDT LIKE '%' + @SDT + '%')
                   AND (@Email = '' OR Email LIKE '%' + @Email + '%')";
 
-                using (SqlCommand cmd = new SqlCommand(sql, conn))
+            var parameters = new SqlParameter[]
+            {
+                new SqlParameter("@HoTen", hoTen),
+                new SqlParameter("@GioiTinh", gioiTinh),
+                new SqlParameter("@NgaySinh", (object)ngaySinh ?? DBNull.Value),
+                new SqlParameter("@ChucVu", chucVu),
+                new SqlParameter("@SDT", soDienThoai),
+                new SqlParameter("@Email", email)
+            };
+
+            var dataTable = connDb.ExecuteQuery(sql, parameters);
+
+            foreach (System.Data.DataRow row in dataTable.Rows)
+            {
+                NhanVienModel nhanVien = new NhanVienModel
                 {
-                    cmd.Parameters.AddWithValue("@HoTen", hoTen);
-                    cmd.Parameters.AddWithValue("@GioiTinh", gioiTinh);
-                    cmd.Parameters.AddWithValue("@NgaySinh", (object)ngaySinh ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@ChucVu", chucVu);
-                    cmd.Parameters.AddWithValue("@SDT", soDienThoai);
-                    cmd.Parameters.AddWithValue("@Email", email);
-                    
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            listNhanVien.Add( new NhanVienModel
-                            {
-                                MaNV = (int)reader["MaNV"],
-                                HoTen = reader["HoTen"].ToString(),
-                                GioiTinh = reader["GioiTinh"].ToString(),
-                                NgaySinh = (DateTime)reader["NgaySinh"],
-                                ChucVu = reader["ChucVu"].ToString(),
-                                SoDienThoai = reader["SDT"].ToString(),
-                                Email = reader["Email"].ToString()
-                            });
-                        }
-                    }
-                }
+                    MaNV = (int)row["MaNV"],
+                    HoTen = row["HoTen"].ToString(),
+                    GioiTinh = row["GioiTinh"].ToString(),
+                    NgaySinh = (DateTime)row["NgaySinh"],
+                    ChucVu = row["ChucVu"].ToString(),
+                    SoDienThoai = row["SDT"].ToString(),
+                    Email = row["Email"].ToString(),
+                    Anh = row["Anh"] as byte[] // Lấy  ảnh dưới dạng  byte
+                };
+                listNhanVien.Add(nhanVien);
             }
             return listNhanVien;
         }
+
+        public bool CapNhatAnh(int maNV, string base64Image)
+        {
+            byte[] imageBytes = Convert.FromBase64String(base64Image);
+
+            string sql = "UPDATE NhanVien SET Anh = @Anh WHERE MaNV = @MaNV";
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@Anh", System.Data.SqlDbType.VarBinary) { Value = imageBytes },
+                new SqlParameter("@MaNV", maNV)
+            };
+
+            return connDb.ExecuteNonQuery(sql, parameters) > 0;
+        }
+
+        public byte[] LayAnhNhanVien(int maNV)
+        {
+            string sql = "SELECT Anh FROM NhanVien WHERE MaNV = @MaNV";
+            SqlParameter[] parameters = { new SqlParameter("@MaNV", maNV) };
+
+            try
+            {
+                var result = connDb.ExecuteScalar(sql, parameters);
+                if (result != null && result != DBNull.Value)
+                {
+                    return (byte[])result;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Lỗi lấy ảnh (repo): " + ex.Message);
+            }
+
+            return null;
+        }
+
     }
 }

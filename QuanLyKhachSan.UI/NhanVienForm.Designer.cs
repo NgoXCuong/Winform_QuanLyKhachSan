@@ -44,6 +44,9 @@
             this.dgvListNhanVien = new System.Windows.Forms.DataGridView();
             this.panel3 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.linkXoaAnh = new System.Windows.Forms.LinkLabel();
+            this.linkThemAnh = new System.Windows.Forms.LinkLabel();
+            this.picAnhNhanVien = new System.Windows.Forms.PictureBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.dtNgaySinh = new System.Windows.Forms.DateTimePicker();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
@@ -94,6 +97,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvListNhanVien)).BeginInit();
             this.panel3.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAnhNhanVien)).BeginInit();
             this.groupBox9.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -254,6 +258,7 @@
             this.dgvListNhanVien.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvListNhanVien.Size = new System.Drawing.Size(1055, 210);
             this.dgvListNhanVien.TabIndex = 0;
+            this.dgvListNhanVien.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvListNhanVien_CellClick);
             // 
             // panel3
             // 
@@ -265,6 +270,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.linkXoaAnh);
+            this.groupBox1.Controls.Add(this.linkThemAnh);
+            this.groupBox1.Controls.Add(this.picAnhNhanVien);
             this.groupBox1.Controls.Add(this.groupBox9);
             this.groupBox1.Controls.Add(this.groupBox8);
             this.groupBox1.Controls.Add(this.groupBox6);
@@ -278,10 +286,42 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông tin nhân viên";
             // 
+            // linkXoaAnh
+            // 
+            this.linkXoaAnh.AutoSize = true;
+            this.linkXoaAnh.Location = new System.Drawing.Point(90, 204);
+            this.linkXoaAnh.Name = "linkXoaAnh";
+            this.linkXoaAnh.Size = new System.Drawing.Size(56, 16);
+            this.linkXoaAnh.TabIndex = 19;
+            this.linkXoaAnh.TabStop = true;
+            this.linkXoaAnh.Text = "Xóa ảnh";
+            // 
+            // linkThemAnh
+            // 
+            this.linkThemAnh.AutoSize = true;
+            this.linkThemAnh.Location = new System.Drawing.Point(17, 204);
+            this.linkThemAnh.Name = "linkThemAnh";
+            this.linkThemAnh.Size = new System.Drawing.Size(67, 16);
+            this.linkThemAnh.TabIndex = 18;
+            this.linkThemAnh.TabStop = true;
+            this.linkThemAnh.Text = "Thêm ảnh";
+            this.linkThemAnh.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkThemAnh_LinkClicked);
+            // 
+            // picAnhNhanVien
+            // 
+            this.picAnhNhanVien.BackColor = System.Drawing.Color.DarkGray;
+            this.picAnhNhanVien.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.picAnhNhanVien.Location = new System.Drawing.Point(16, 40);
+            this.picAnhNhanVien.Name = "picAnhNhanVien";
+            this.picAnhNhanVien.Size = new System.Drawing.Size(130, 150);
+            this.picAnhNhanVien.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picAnhNhanVien.TabIndex = 17;
+            this.picAnhNhanVien.TabStop = false;
+            // 
             // groupBox9
             // 
             this.groupBox9.Controls.Add(this.dtNgaySinh);
-            this.groupBox9.Location = new System.Drawing.Point(64, 214);
+            this.groupBox9.Location = new System.Drawing.Point(180, 214);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(260, 50);
             this.groupBox9.TabIndex = 16;
@@ -299,7 +339,7 @@
             // 
             this.groupBox8.Controls.Add(this.rbNam);
             this.groupBox8.Controls.Add(this.rbNu);
-            this.groupBox8.Location = new System.Drawing.Point(64, 126);
+            this.groupBox8.Location = new System.Drawing.Point(180, 126);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(260, 50);
             this.groupBox8.TabIndex = 16;
@@ -331,7 +371,7 @@
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.txtSDT);
-            this.groupBox6.Location = new System.Drawing.Point(428, 126);
+            this.groupBox6.Location = new System.Drawing.Point(487, 126);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(260, 50);
             this.groupBox6.TabIndex = 16;
@@ -349,7 +389,7 @@
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.txtEmail);
-            this.groupBox7.Location = new System.Drawing.Point(428, 214);
+            this.groupBox7.Location = new System.Drawing.Point(487, 214);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(260, 50);
             this.groupBox7.TabIndex = 16;
@@ -367,7 +407,7 @@
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.txtChucVu);
-            this.groupBox5.Location = new System.Drawing.Point(428, 40);
+            this.groupBox5.Location = new System.Drawing.Point(487, 40);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(260, 50);
             this.groupBox5.TabIndex = 16;
@@ -385,7 +425,7 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.txtHoTen);
-            this.groupBox4.Location = new System.Drawing.Point(64, 40);
+            this.groupBox4.Location = new System.Drawing.Point(180, 40);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(260, 50);
             this.groupBox4.TabIndex = 15;
@@ -679,6 +719,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvListNhanVien)).EndInit();
             this.panel3.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAnhNhanVien)).EndInit();
             this.groupBox9.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
@@ -772,5 +814,8 @@
         private System.Windows.Forms.TextBox txtTenNhanVien;
         private System.Windows.Forms.ComboBox cbQuyen;
         private System.Windows.Forms.TextBox txtChucVu;
+        private System.Windows.Forms.LinkLabel linkThemAnh;
+        private System.Windows.Forms.PictureBox picAnhNhanVien;
+        private System.Windows.Forms.LinkLabel linkXoaAnh;
     }
 }

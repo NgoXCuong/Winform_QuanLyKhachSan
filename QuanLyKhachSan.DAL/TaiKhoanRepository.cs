@@ -16,22 +16,19 @@ namespace QuanLyKhachSan.DAL
         {
             List<TaiKhoanModel> list = new List<TaiKhoanModel>();
             string query = "SELECT * FROM TaiKhoan";
-            using (SqlConnection conn = connDb.GetConnection())
+            
+            var dataTable = connDb.ExecuteQuery(query);
+            foreach (System.Data.DataRow row in dataTable.Rows)
             {
-                SqlCommand cmd = new SqlCommand(query, conn);
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
+                TaiKhoanModel tk = new TaiKhoanModel
                 {
-                    TaiKhoanModel tk = new TaiKhoanModel
-                    {
-                        TenDangNhap = reader["TenDangNhap"].ToString(),
-                        MatKhau = reader["MatKhau"].ToString(),
-                        MaNV = reader["MaNV"].ToString(),
-                        Quyen = reader["Quyen"].ToString(),
-                        TrangThai = reader["TrangThai"].ToString()
-                    };
-                    list.Add(tk);
-                }
+                    TenDangNhap = row["TenDangNhap"].ToString(),
+                    MatKhau = row["MatKhau"].ToString(),
+                    MaNV = row["MaNV"].ToString(),
+                    Quyen = row["Quyen"].ToString(),
+                    TrangThai = row["TrangThai"].ToString()
+                };
+                list.Add(tk);
             }
             return list;
         }
@@ -40,23 +37,22 @@ namespace QuanLyKhachSan.DAL
         {
             List<TaiKhoanModel> list = new List<TaiKhoanModel>();
             string query = "SELECT * FROM TaiKhoan WHERE Quyen = 'Admin' AND TrangThai = 1";
-            using (SqlConnection conn = connDb.GetConnection())
+            
+            var dataTable = connDb.ExecuteQuery(query);
+
+            foreach(System.Data.DataRow row in dataTable.Rows)
             {
-                SqlCommand cmd = new SqlCommand(query, conn);
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
+                TaiKhoanModel tk = new TaiKhoanModel
                 {
-                    TaiKhoanModel tk = new TaiKhoanModel
-                    {
-                        TenDangNhap = reader["TenDangNhap"].ToString(),
-                        MatKhau = reader["MatKhau"].ToString(),
-                        //MaNV = reader["MaNV"].ToString(),
-                        //Quyen = reader["Quyen"].ToString(),
-                        //TrangThai = reader["TrangThai"].ToString()
-                    };
-                    list.Add(tk);
-                }
+                    TenDangNhap = row["TenDangNhap"].ToString(),
+                    MatKhau = row["MatKhau"].ToString(),
+                    //MaNV = row["MaNV"].ToString(),
+                    //Quyen = row["Quyen"].ToString(),
+                    //TrangThai = row["TrangThai"].ToString()
+                };
+                list.Add(tk);
             }
+
             return list;
         }
     }
