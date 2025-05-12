@@ -29,9 +29,9 @@ namespace QuanLyKhachSan.BLL
             return taiKhoanRepository.ThemTaiKhoan(tk);
         }
 
-        public bool XoaTaiKhoan(int maNhanVien)
+        public bool XoaTaiKhoan(string tenDangNhap)
         {
-            return taiKhoanRepository.XoaTaiKhoan(maNhanVien);
+            return taiKhoanRepository.XoaTaiKhoan(tenDangNhap);
         }
 
         public bool SuaTaiKhoan(TaiKhoanModel tk)

@@ -26,17 +26,12 @@ namespace QuanLyKhachSan.UI
         private void NhanVienForm_Load(object sender, EventArgs e)
         {
             //  Tab Nhan Vien
-            dgvListNhanVien.DataSource = nhanVienService.GetAllNhanVien();
-            dgvListNhanVien.Columns["MaNV"].HeaderText = "Mã nhân viên";
-            dgvListNhanVien.Columns["HoTen"].HeaderText = "Họ tên";
-            dgvListNhanVien.Columns["GioiTinh"].HeaderText = "Giới tính";
-            dgvListNhanVien.Columns["NgaySinh"].HeaderText = "Ngày sinh";
-            dgvListNhanVien.Columns["ChucVu"].HeaderText = "Chức vụ";
-            dgvListNhanVien.Columns["SoDienThoai"].HeaderText = "SĐT";
-            dgvListNhanVien.Columns["Email"].HeaderText = "Email";
-            dgvListNhanVien.Columns["Anh"].HeaderText = "Ảnh nhân viên";
-            dgvListNhanVien.Columns["HienThiMaVaTen"].Visible = false; // Ẩn cột này nếu không cần thiết
+            LoadListNhanVien();
+            ResetNhanVien();
+
+            //  Tab Tai Khoan
             LoadDanhSachTaiKhoan();
+            ResetTaiKhoan();
         }
 
         private void btnThem_Click(object sender, EventArgs e)
@@ -69,7 +64,7 @@ namespace QuanLyKhachSan.UI
             {
                 MessageBox.Show("Thêm nhân viên thành công", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadListNhanVien();
-                ClearForm();
+                ResetNhanVien();
             }
             else
             {
@@ -96,7 +91,7 @@ namespace QuanLyKhachSan.UI
                     {
                         MessageBox.Show("Xóa nhân viên thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         LoadListNhanVien(); // Refresh danh sách
-                        ClearForm();        // Xóa thông tin trên form
+                        ResetNhanVien();        // Xóa thông tin trên form
                         picAnhNhanVien.Image = null;
                     }
                     else
@@ -149,7 +144,7 @@ namespace QuanLyKhachSan.UI
             {
                 MessageBox.Show("Cập nhật nhân viên thành công!", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadListNhanVien();
-                ClearForm();
+                ResetNhanVien();
                 picAnhNhanVien.Image = null;
             }
             else
@@ -222,7 +217,8 @@ namespace QuanLyKhachSan.UI
 
         private void btnLamMoi_Click(object sender, EventArgs e)
         {
-            LoadListNhanVien(); 
+            LoadListNhanVien();
+            ResetNhanVien();
         }
 
         private void btnTim_Click(object sender, EventArgs e)
@@ -247,9 +243,18 @@ namespace QuanLyKhachSan.UI
         private void LoadListNhanVien()
         {
             dgvListNhanVien.DataSource = nhanVienService.GetAllNhanVien();
+            dgvListNhanVien.Columns["MaNV"].HeaderText = "Mã nhân viên";
+            dgvListNhanVien.Columns["HoTen"].HeaderText = "Họ tên";
+            dgvListNhanVien.Columns["GioiTinh"].HeaderText = "Giới tính";
+            dgvListNhanVien.Columns["NgaySinh"].HeaderText = "Ngày sinh";
+            dgvListNhanVien.Columns["ChucVu"].HeaderText = "Chức vụ";
+            dgvListNhanVien.Columns["SoDienThoai"].HeaderText = "SĐT";
+            dgvListNhanVien.Columns["Email"].HeaderText = "Email";
+            dgvListNhanVien.Columns["Anh"].HeaderText = "Ảnh nhân viên";
+            dgvListNhanVien.Columns["HienThiMaVaTen"].Visible = false; // Ẩn cột này nếu không cần thiết
         }
 
-        private void ClearForm()
+        private void ResetNhanVien()
         {
             txtHoTen.Clear();
             rbNam.Checked = false;
@@ -258,6 +263,7 @@ namespace QuanLyKhachSan.UI
             txtChucVu.Clear();
             txtSDT.Clear();
             txtEmail.Clear();
+            picAnhNhanVien.Image = null; // Xóa ảnh
         }
 
         private void linkThemAnh_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -437,12 +443,93 @@ namespace QuanLyKhachSan.UI
             {
                 MessageBox.Show("Thêm tài khoản thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadDanhSachTaiKhoan();
-                ResetFormTaiKhoan();
+                ResetTaiKhoan();
             }
             else
             {
                 MessageBox.Show("Thêm tài khoản thất bại. Kiểm tra lại dữ liệu!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            if (dgvListTaiKhoan.CurrentRow == null)
+            {
+                MessageBox.Show("Vui lòng chọn tài khoản cần sửa!", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtTenDangNhap.Text) ||
+                string.IsNullOrWhiteSpace(txtMatKhau.Text) ||
+                string.IsNullOrWhiteSpace(cbMaNhanVien.SelectedIndex.ToString()) ||
+                (!rbKichHoat.Checked && !rbChuaKichHoat.Checked))
+            {
+                MessageBox.Show("Vui lòng nhập đầy đủ thông tin!", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string trangThai = rbKichHoat.Checked ? "Kích hoạt" : "Chưa kích hoạt";
+
+            TaiKhoanModel tk = new TaiKhoanModel
+            {
+
+                TenDangNhap = txtTenDangNhap.Text,
+                MatKhau = txtMatKhau.Text.Trim(),
+                MaNV = Convert.ToInt32(cbMaNhanVien.SelectedValue),
+                Quyen = txtQuyen.Text,
+                TrangThai = rbKichHoat.Checked // true nếu Hoạt động, false nếu Không hoạt động
+            };
+
+            bool result = taiKhoanService.SuaTaiKhoan(tk);
+
+            if (result)
+            {
+                MessageBox.Show("Cập nhật tài khoản thành công!", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadDanhSachTaiKhoan();
+                ResetTaiKhoan();
+            }
+            else
+            {
+                MessageBox.Show("Cập nhật thất bại!", Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (dgvListTaiKhoan.CurrentRow != null)
+            {
+                // Xác nhận trước khi xóa
+                DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa tài khoản này?",
+                    "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    string tenDangNhap = dgvListTaiKhoan.CurrentRow.Cells["TenDangNhap"].Value.ToString();
+
+                    bool xoaThanhCong = taiKhoanService.XoaTaiKhoan(tenDangNhap);
+
+                    if (xoaThanhCong)
+                    {
+                        MessageBox.Show("Xóa tài khoản thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LoadDanhSachTaiKhoan(); // Refresh danh sách tài khoản
+                        ResetTaiKhoan();    // Reset form nhập liệu
+                    }
+                    else
+                    {
+                        MessageBox.Show("Xóa tài khoản thất bại", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn một tài khoản để xóa", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            LoadDanhSachTaiKhoan();
+            ResetTaiKhoan();
         }
 
         public void LoadDanhSachTaiKhoan()
@@ -465,7 +552,7 @@ namespace QuanLyKhachSan.UI
             cbMaNhanVien.ValueMember = "MaNV";
         }
 
-        private void ResetFormTaiKhoan()
+        private void ResetTaiKhoan()
         {
             txtTenDangNhap.Clear();
             txtMatKhau.Clear();
@@ -505,5 +592,20 @@ namespace QuanLyKhachSan.UI
             }
         }
 
+        private void dgvListTaiKhoan_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dgvListTaiKhoan.Rows[e.RowIndex];
+
+                txtTenDangNhap.Text = row.Cells["TenDangNhap"].Value.ToString();
+                txtMatKhau.Text = row.Cells["MatKhau"].Value.ToString();
+                txtQuyen.Text = row.Cells["Quyen"].Value.ToString();
+                cbMaNhanVien.SelectedValue = Convert.ToInt32(row.Cells["MaNV"].Value);
+                bool trangThai = Convert.ToBoolean(row.Cells["TrangThai"].Value);
+                rbKichHoat.Checked = trangThai;
+                rbChuaKichHoat.Checked = !trangThai;
+            }
+        }
     }
 }

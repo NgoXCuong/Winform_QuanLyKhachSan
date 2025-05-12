@@ -509,6 +509,7 @@
             this.btnReset.TabIndex = 6;
             this.btnReset.Text = "Làm mới";
             this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // txtSearch
             // 
@@ -545,6 +546,7 @@
             this.btnDelete.TabIndex = 2;
             this.btnDelete.Text = "Xóa";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnUpdate
             // 
@@ -554,6 +556,7 @@
             this.btnUpdate.TabIndex = 1;
             this.btnUpdate.Text = "Sửa";
             this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnAdd
             // 
@@ -593,6 +596,7 @@
             this.dgvListTaiKhoan.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvListTaiKhoan.Size = new System.Drawing.Size(1057, 204);
             this.dgvListTaiKhoan.TabIndex = 0;
+            this.dgvListTaiKhoan.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvListTaiKhoan_CellClick);
             // 
             // panel6
             // 

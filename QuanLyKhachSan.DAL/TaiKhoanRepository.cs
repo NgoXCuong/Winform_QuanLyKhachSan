@@ -82,7 +82,7 @@ namespace QuanLyKhachSan.DAL
             {
                 string sql = @"UPDATE TaiKhoan 
                         SET MatKhau = @MatKhau, Quyen = @Quyen, TrangThai = @TrangThai 
-                        WHERE MaNV = @MaNV";
+                        WHERE TenDangNhap = @TenDangNhap";
                 var parameters = new SqlParameter[]
                 {
                     new SqlParameter("@TenDangNhap", tk.TenDangNhap),
@@ -94,14 +94,14 @@ namespace QuanLyKhachSan.DAL
             }
         }
 
-        public bool XoaTaiKhoan(int maNhanVien)
+        public bool XoaTaiKhoan(string tenDangNhap)
         {
             using (SqlConnection conn = new SqlConnection(connDb.GetConnection().ConnectionString))
             {
-                string sql = "DELETE FROM TaiKhoan WHERE MaNV = @MaNV";
+                string sql = "DELETE FROM TaiKhoan WHERE TenDangNhap = @TenDangNhap";
                 var parameters = new SqlParameter[]
                 {
-                    new SqlParameter("@MaNV", maNhanVien)
+                    new SqlParameter("@TenDangNhap", tenDangNhap)
                 };
                 return connDb.ExecuteNonQuery(sql, parameters) > 0;
             }
