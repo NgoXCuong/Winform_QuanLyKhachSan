@@ -10,8 +10,8 @@ namespace QuanLyKhachSan.Models
     {
         public string TenDangNhap { get; set; }
         public string MatKhau { get; set; }
-        public string MaNV { get; set; }
+        public int MaNV { get; set; }
         public string Quyen { get; set; }
-        public string TrangThai { get; set; }
+        public bool TrangThai { get; set; }
     }
 }

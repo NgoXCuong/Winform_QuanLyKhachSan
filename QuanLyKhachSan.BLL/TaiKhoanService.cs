@@ -39,6 +39,10 @@ namespace QuanLyKhachSan.BLL
             return taiKhoanRepository.SuaTaiKhoan(tk);
         }
 
+        public bool KiemTraTonTaiMaNV(int maNV)
+        {
+            return taiKhoanRepository.KiemTraTonTaiMaNV(maNV);
+        }
 
     }
 }

@@ -78,15 +78,16 @@
             this.panel6 = new System.Windows.Forms.Panel();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.groupBox17 = new System.Windows.Forms.GroupBox();
-            this.txtTrangThai = new System.Windows.Forms.TextBox();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.txtQuyen = new System.Windows.Forms.TextBox();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.cbMaNhanVien = new System.Windows.Forms.ComboBox();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
             this.txtMatKhau = new System.Windows.Forms.TextBox();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.txtTenDangNhap = new System.Windows.Forms.TextBox();
-            this.txtQuyen = new System.Windows.Forms.TextBox();
+            this.rbKichHoat = new System.Windows.Forms.RadioButton();
+            this.rbChuaKichHoat = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.tabQLNhanVien.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -617,21 +618,14 @@
             // 
             // groupBox17
             // 
-            this.groupBox17.Controls.Add(this.txtTrangThai);
+            this.groupBox17.Controls.Add(this.rbChuaKichHoat);
+            this.groupBox17.Controls.Add(this.rbKichHoat);
             this.groupBox17.Location = new System.Drawing.Point(456, 113);
             this.groupBox17.Name = "groupBox17";
             this.groupBox17.Size = new System.Drawing.Size(270, 55);
             this.groupBox17.TabIndex = 3;
             this.groupBox17.TabStop = false;
             this.groupBox17.Text = "Trạng thái";
-            // 
-            // txtTrangThai
-            // 
-            this.txtTrangThai.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtTrangThai.Location = new System.Drawing.Point(6, 27);
-            this.txtTrangThai.Name = "txtTrangThai";
-            this.txtTrangThai.Size = new System.Drawing.Size(257, 22);
-            this.txtTrangThai.TabIndex = 0;
             // 
             // groupBox16
             // 
@@ -642,6 +636,13 @@
             this.groupBox16.TabIndex = 3;
             this.groupBox16.TabStop = false;
             this.groupBox16.Text = "Quyền";
+            // 
+            // txtQuyen
+            // 
+            this.txtQuyen.Location = new System.Drawing.Point(6, 27);
+            this.txtQuyen.Name = "txtQuyen";
+            this.txtQuyen.Size = new System.Drawing.Size(257, 22);
+            this.txtQuyen.TabIndex = 0;
             // 
             // groupBox15
             // 
@@ -699,12 +700,27 @@
             this.txtTenDangNhap.Size = new System.Drawing.Size(257, 22);
             this.txtTenDangNhap.TabIndex = 0;
             // 
-            // txtQuyen
+            // rbKichHoat
             // 
-            this.txtQuyen.Location = new System.Drawing.Point(6, 27);
-            this.txtQuyen.Name = "txtQuyen";
-            this.txtQuyen.Size = new System.Drawing.Size(257, 22);
-            this.txtQuyen.TabIndex = 0;
+            this.rbKichHoat.AutoSize = true;
+            this.rbKichHoat.Location = new System.Drawing.Point(6, 27);
+            this.rbKichHoat.Name = "rbKichHoat";
+            this.rbKichHoat.Size = new System.Drawing.Size(79, 20);
+            this.rbKichHoat.TabIndex = 0;
+            this.rbKichHoat.TabStop = true;
+            this.rbKichHoat.Text = "Kích hoạt";
+            this.rbKichHoat.UseVisualStyleBackColor = true;
+            // 
+            // rbChuaKichHoat
+            // 
+            this.rbChuaKichHoat.AutoSize = true;
+            this.rbChuaKichHoat.Location = new System.Drawing.Point(151, 27);
+            this.rbChuaKichHoat.Name = "rbChuaKichHoat";
+            this.rbChuaKichHoat.Size = new System.Drawing.Size(112, 20);
+            this.rbChuaKichHoat.TabIndex = 1;
+            this.rbChuaKichHoat.TabStop = true;
+            this.rbChuaKichHoat.Text = "Chưa kích hoạt";
+            this.rbChuaKichHoat.UseVisualStyleBackColor = true;
             // 
             // NhanVienForm
             // 
@@ -813,7 +829,6 @@
         private System.Windows.Forms.GroupBox groupBox14;
         private System.Windows.Forms.GroupBox groupBox13;
         private System.Windows.Forms.GroupBox groupBox17;
-        private System.Windows.Forms.TextBox txtTrangThai;
         private System.Windows.Forms.GroupBox groupBox16;
         private System.Windows.Forms.ComboBox cbMaNhanVien;
         private System.Windows.Forms.TextBox txtMatKhau;
@@ -825,5 +840,7 @@
         private System.Windows.Forms.Button btnLamMoi;
         private System.Windows.Forms.Button btnReset;
         private System.Windows.Forms.TextBox txtQuyen;
+        private System.Windows.Forms.RadioButton rbChuaKichHoat;
+        private System.Windows.Forms.RadioButton rbKichHoat;
     }
 }

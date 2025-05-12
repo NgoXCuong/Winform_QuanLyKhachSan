@@ -394,21 +394,26 @@ namespace QuanLyKhachSan.UI
         }
 
         //  TAI KHOAN NHAN VIEN
-        
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if(string.IsNullOrWhiteSpace(txtTenDangNhap.Text) ||
+            if (string.IsNullOrWhiteSpace(txtTenDangNhap.Text) ||
                 string.IsNullOrWhiteSpace(txtMatKhau.Text) ||
-                string.IsNullOrWhiteSpace(txtQuyen.Text) ||
-                string.IsNullOrWhiteSpace(txtTrangThai.Text))
+                string.IsNullOrWhiteSpace(txtQuyen.Text))
             {
                 MessageBox.Show("Vui lòng nhập đầy đủ thông tin tài khoản", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            if(cbMaNhanVien.SelectedItem == null)
+            if (cbMaNhanVien.SelectedItem == null)
             {
                 MessageBox.Show("Vui lòng chọn nhân viên", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!rbKichHoat.Checked && !rbChuaKichHoat.Checked)
+            {
+                MessageBox.Show("Vui lòng chọn trạng thái hoạt động", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -416,12 +421,18 @@ namespace QuanLyKhachSan.UI
             {
                 TenDangNhap = txtTenDangNhap.Text,
                 MatKhau = txtMatKhau.Text.Trim(),
-                //MaNV = Convert.ToInt32(cbMaNhanVien.SelectedValue),
+                MaNV = Convert.ToInt32(cbMaNhanVien.SelectedValue),
                 Quyen = txtQuyen.Text,
-                TrangThai = txtTrangThai.Text
+                TrangThai = rbKichHoat.Checked // true nếu Hoạt động, false nếu Không hoạt động
             };
 
-            // Gọi Service để thêm tài khoản
+            if (taiKhoanService.KiemTraTonTaiMaNV(Convert.ToInt32(cbMaNhanVien.SelectedValue)))
+            {
+                MessageBox.Show("Nhân viên này đã có tài khoản!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+
             if (taiKhoanService.ThemTaiKhoan(tk))
             {
                 MessageBox.Show("Thêm tài khoản thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -444,6 +455,8 @@ namespace QuanLyKhachSan.UI
             dgvListTaiKhoan.Columns["Quyen"].HeaderText = "Quyền";
             dgvListTaiKhoan.Columns["TrangThai"].HeaderText = "Trạng thái";
 
+            txtQuyen.ReadOnly = true; // Chỉ đọc quyền  
+
             // Load danh sách nhân viên vào ComboBox
             var dsNhanVien = nhanVienService.GetNhanVienByIdName(); // Trả về List<NhanVienModel>
 
@@ -457,33 +470,38 @@ namespace QuanLyKhachSan.UI
             txtTenDangNhap.Clear();
             txtMatKhau.Clear();
             txtQuyen.Clear();
-            txtTrangThai.Clear();
+            rbKichHoat.Checked = false;
+            rbChuaKichHoat.Checked = false;
             cbMaNhanVien.SelectedIndex = -1;
         }
 
         private void cbMaNhanVien_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Lấy nhân viên được chọn
             if (cbMaNhanVien.SelectedItem is NhanVienModel selectedNV)
             {
-                string chucVu = selectedNV.ChucVu?.ToLower(); 
+                int maNV = selectedNV.MaNV;
+                string chucVu = nhanVienService.GetChucVuByMaNV(maNV); // Gọi service để lấy chức vụ
 
                 if (string.IsNullOrEmpty(chucVu))
                 {
-                    txtQuyen.Text = ""; // Không có chức vụ => để trống quyền
-                }
-                else if (chucVu.Contains("quản lý") || chucVu.Contains("admin"))
-                {
-                    txtQuyen.Text = "Admin";
+                    txtQuyen.Text = "Chức vụ không xác định";
                 }
                 else
                 {
-                    txtQuyen.Text = "NhanVien";
+                    // Kiểm tra chức vụ nếu là "admin" hoặc "quản lý"
+                    if (chucVu.ToLower().Contains("admin") || chucVu.ToLower().Contains("quản lý"))
+                    {
+                        txtQuyen.Text = "Admin"; // Nếu chức vụ là Admin hoặc Quản lý
+                    }
+                    else
+                    {
+                        txtQuyen.Text = "Nhân viên"; // Các chức vụ khác là nhân viên
+                    }
                 }
             }
             else
             {
-                txtQuyen.Text = ""; // Không chọn nhân viên => để trống quyền
+                txtQuyen.Text = ""; // Nếu không chọn nhân viên => để trống quyền
             }
         }
 

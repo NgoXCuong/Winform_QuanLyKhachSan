@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -79,7 +80,6 @@ namespace QuanLyKhachSan.DAL
                 return connDb.ExecuteNonQuery(sql, parameters) > 0;
             }
         }
-
 
         public bool SuaNhanVien(NhanVienModel nv)
         {
@@ -210,6 +210,26 @@ namespace QuanLyKhachSan.DAL
                 Console.WriteLine("Lỗi xóa ảnh: " + ex.Message);
                 return false;
             }
+        }
+
+        // Lấy chức vụ trong bảng 
+        public string GetChucVuByMaNV(int maNV)
+        {
+            string sql = "SELECT ChucVu FROM NhanVien WHERE MaNV = @MaNV";
+
+            var parameters = new SqlParameter[]
+            { 
+                new SqlParameter("@MaNV", maNV)
+            };
+
+            var result = connDb.ExecuteScalar(sql, parameters);
+
+            if (result != null)
+            {
+                return result.ToString();
+            }
+
+            return null; // Trả về null nếu không tìm thấy
         }
     }
 }
