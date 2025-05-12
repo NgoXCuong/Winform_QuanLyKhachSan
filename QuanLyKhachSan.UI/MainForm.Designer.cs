@@ -85,7 +85,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(150, 661);
+            this.panel1.Size = new System.Drawing.Size(150, 677);
             this.panel1.TabIndex = 0;
             // 
             // label2
@@ -383,13 +383,13 @@
             this.pnPage.Dock = System.Windows.Forms.DockStyle.Right;
             this.pnPage.Location = new System.Drawing.Point(154, 50);
             this.pnPage.Name = "pnPage";
-            this.pnPage.Size = new System.Drawing.Size(1130, 611);
+            this.pnPage.Size = new System.Drawing.Size(1130, 627);
             this.pnPage.TabIndex = 2;
             // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(1284, 661);
+            this.ClientSize = new System.Drawing.Size(1284, 677);
             this.Controls.Add(this.pnPage);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);

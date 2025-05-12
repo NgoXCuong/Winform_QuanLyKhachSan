@@ -147,6 +147,9 @@
     <Compile Include="TrangChuForm.Designer.cs">
       <DependentUpon>TrangChuForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="DatPhongForm.resx">
+      <DependentUpon>DatPhongForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
