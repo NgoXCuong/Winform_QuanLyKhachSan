@@ -30,7 +30,7 @@ namespace QuanLyKhachSan.DAL
                     ChucVu = row["ChucVu"].ToString(),
                     SoDienThoai = row["SDT"].ToString(),
                     Email = row["Email"].ToString(),
-                    //Anh = row["Anh"] as byte[] // Lấy  ảnh dưới dạng  byte
+                    Anh = row["Anh"] as byte[] // Lấy  ảnh dưới dạng  byte
                 };
                 listNhanVien.Add(nhanVien);
             }
@@ -55,8 +55,6 @@ namespace QuanLyKhachSan.DAL
             }
             return ds;
         }
-
-
 
         public bool ThemNhanVien(NhanVienModel nv)
         {
@@ -213,6 +211,5 @@ namespace QuanLyKhachSan.DAL
                 return false;
             }
         }
-
     }
 }

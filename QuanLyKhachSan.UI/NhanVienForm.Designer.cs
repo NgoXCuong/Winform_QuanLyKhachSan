@@ -80,13 +80,13 @@
             this.groupBox17 = new System.Windows.Forms.GroupBox();
             this.txtTrangThai = new System.Windows.Forms.TextBox();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
-            this.cbQuyen = new System.Windows.Forms.ComboBox();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.cbMaNhanVien = new System.Windows.Forms.ComboBox();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
             this.txtMatKhau = new System.Windows.Forms.TextBox();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.txtTenDangNhap = new System.Windows.Forms.TextBox();
+            this.txtQuyen = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabQLNhanVien.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -635,21 +635,13 @@
             // 
             // groupBox16
             // 
-            this.groupBox16.Controls.Add(this.cbQuyen);
+            this.groupBox16.Controls.Add(this.txtQuyen);
             this.groupBox16.Location = new System.Drawing.Point(456, 43);
             this.groupBox16.Name = "groupBox16";
             this.groupBox16.Size = new System.Drawing.Size(270, 55);
             this.groupBox16.TabIndex = 3;
             this.groupBox16.TabStop = false;
             this.groupBox16.Text = "Quyền";
-            // 
-            // cbQuyen
-            // 
-            this.cbQuyen.FormattingEnabled = true;
-            this.cbQuyen.Location = new System.Drawing.Point(7, 25);
-            this.cbQuyen.Name = "cbQuyen";
-            this.cbQuyen.Size = new System.Drawing.Size(257, 24);
-            this.cbQuyen.TabIndex = 1;
             // 
             // groupBox15
             // 
@@ -707,6 +699,13 @@
             this.txtTenDangNhap.Size = new System.Drawing.Size(257, 22);
             this.txtTenDangNhap.TabIndex = 0;
             // 
+            // txtQuyen
+            // 
+            this.txtQuyen.Location = new System.Drawing.Point(6, 27);
+            this.txtQuyen.Name = "txtQuyen";
+            this.txtQuyen.Size = new System.Drawing.Size(257, 22);
+            this.txtQuyen.TabIndex = 0;
+            // 
             // NhanVienForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -755,6 +754,7 @@
             this.groupBox17.ResumeLayout(false);
             this.groupBox17.PerformLayout();
             this.groupBox16.ResumeLayout(false);
+            this.groupBox16.PerformLayout();
             this.groupBox15.ResumeLayout(false);
             this.groupBox14.ResumeLayout(false);
             this.groupBox14.PerformLayout();
@@ -818,12 +818,12 @@
         private System.Windows.Forms.ComboBox cbMaNhanVien;
         private System.Windows.Forms.TextBox txtMatKhau;
         private System.Windows.Forms.TextBox txtTenDangNhap;
-        private System.Windows.Forms.ComboBox cbQuyen;
         private System.Windows.Forms.TextBox txtChucVu;
         private System.Windows.Forms.LinkLabel linkThemAnh;
         private System.Windows.Forms.PictureBox picAnhNhanVien;
         private System.Windows.Forms.LinkLabel linkXoaAnh;
         private System.Windows.Forms.Button btnLamMoi;
         private System.Windows.Forms.Button btnReset;
+        private System.Windows.Forms.TextBox txtQuyen;
     }
 }
