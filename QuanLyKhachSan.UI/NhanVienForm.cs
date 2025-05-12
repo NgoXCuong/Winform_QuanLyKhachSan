@@ -532,6 +532,78 @@ namespace QuanLyKhachSan.UI
             ResetTaiKhoan();
         }
 
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string keyword = txtSearch.Text.Trim(); // Lấy từ khóa tìm kiếm từ TextBox
+
+            // Gọi phương thức tìm kiếm từ service
+            List<TaiKhoanModel> result = taiKhoanService.TimKiemTaiKhoan(keyword);
+
+            // Hiển thị kết quả lên DataGridView
+            if (result.Count > 0)
+            {
+                dgvListTaiKhoan.DataSource = result;
+            }
+            else
+            {
+                MessageBox.Show("Không tìm thấy nhân viên nào!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                dgvListTaiKhoan.DataSource = null;
+            }
+        }
+        private void btnXuatExcel_Click(object sender, EventArgs e)
+        {
+            if (dgvListTaiKhoan.Rows.Count == 0)
+            {
+                MessageBox.Show("Không có dữ liệu để xuất!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "Excel Workbook|*.xlsx";
+                saveFileDialog.Title = "Lưu file Excel";
+                saveFileDialog.FileName = "DanhSachTaiKhoan.xlsx";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    using (var workbook = new XLWorkbook())
+                    {
+                        var worksheet = workbook.Worksheets.Add("Tài khoản");
+
+                        // Header
+                        for (int i = 0; i < dgvListTaiKhoan.Columns.Count; i++)
+                        {
+                            worksheet.Cell(1, i + 1).Value = dgvListTaiKhoan.Columns[i].HeaderText;
+                            worksheet.Cell(1, i + 1).Style.Font.Bold = true;
+                            worksheet.Cell(1, i + 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                            worksheet.Cell(1, i + 1).Style.Fill.BackgroundColor = XLColor.LightSteelBlue;
+                            worksheet.Cell(1, i + 1).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                        }
+
+                        // Dữ liệu
+                        // Dữ liệu
+                        for (int i = 0; i < dgvListTaiKhoan.Rows.Count; i++)
+                        {
+                            for (int j = 0; j < dgvListTaiKhoan.Columns.Count; j++)
+                            {
+                                object value = dgvListTaiKhoan.Rows[i].Cells[j].Value;
+                                worksheet.Cell(i + 2, j + 1).Value = value == DBNull.Value ? string.Empty : value.ToString();
+                                worksheet.Cell(i + 2, j + 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                                worksheet.Cell(i + 2, j + 1).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                            }
+                        }
+
+
+                        // Tự động điều chỉnh độ rộng
+                        worksheet.Columns().AdjustToContents();
+
+                        // Lưu file
+                        workbook.SaveAs(saveFileDialog.FileName);
+                        MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+        }
         public void LoadDanhSachTaiKhoan()
         {
             // Lấy danh sách tài khoản
@@ -591,7 +663,7 @@ namespace QuanLyKhachSan.UI
                 txtQuyen.Text = ""; // Nếu không chọn nhân viên => để trống quyền
             }
         }
-
+        
         private void dgvListTaiKhoan_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -607,5 +679,7 @@ namespace QuanLyKhachSan.UI
                 rbChuaKichHoat.Checked = !trangThai;
             }
         }
+
+        
     }
 }

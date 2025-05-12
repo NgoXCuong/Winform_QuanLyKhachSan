@@ -78,6 +78,8 @@
             this.panel6 = new System.Windows.Forms.Panel();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.groupBox17 = new System.Windows.Forms.GroupBox();
+            this.rbChuaKichHoat = new System.Windows.Forms.RadioButton();
+            this.rbKichHoat = new System.Windows.Forms.RadioButton();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
             this.txtQuyen = new System.Windows.Forms.TextBox();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
@@ -86,8 +88,6 @@
             this.txtMatKhau = new System.Windows.Forms.TextBox();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.txtTenDangNhap = new System.Windows.Forms.TextBox();
-            this.rbKichHoat = new System.Windows.Forms.RadioButton();
-            this.rbChuaKichHoat = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.tabQLNhanVien.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -528,6 +528,7 @@
             this.btnSearch.TabIndex = 4;
             this.btnSearch.Text = "Tìm";
             this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // btnXuatExcel
             // 
@@ -537,6 +538,7 @@
             this.btnXuatExcel.TabIndex = 3;
             this.btnXuatExcel.Text = "Xuất Excel";
             this.btnXuatExcel.UseVisualStyleBackColor = true;
+            this.btnXuatExcel.Click += new System.EventHandler(this.btnXuatExcel_Click);
             // 
             // btnDelete
             // 
@@ -631,6 +633,28 @@
             this.groupBox17.TabStop = false;
             this.groupBox17.Text = "Trạng thái";
             // 
+            // rbChuaKichHoat
+            // 
+            this.rbChuaKichHoat.AutoSize = true;
+            this.rbChuaKichHoat.Location = new System.Drawing.Point(151, 27);
+            this.rbChuaKichHoat.Name = "rbChuaKichHoat";
+            this.rbChuaKichHoat.Size = new System.Drawing.Size(112, 20);
+            this.rbChuaKichHoat.TabIndex = 1;
+            this.rbChuaKichHoat.TabStop = true;
+            this.rbChuaKichHoat.Text = "Chưa kích hoạt";
+            this.rbChuaKichHoat.UseVisualStyleBackColor = true;
+            // 
+            // rbKichHoat
+            // 
+            this.rbKichHoat.AutoSize = true;
+            this.rbKichHoat.Location = new System.Drawing.Point(6, 27);
+            this.rbKichHoat.Name = "rbKichHoat";
+            this.rbKichHoat.Size = new System.Drawing.Size(79, 20);
+            this.rbKichHoat.TabIndex = 0;
+            this.rbKichHoat.TabStop = true;
+            this.rbKichHoat.Text = "Kích hoạt";
+            this.rbKichHoat.UseVisualStyleBackColor = true;
+            // 
             // groupBox16
             // 
             this.groupBox16.Controls.Add(this.txtQuyen);
@@ -703,28 +727,6 @@
             this.txtTenDangNhap.Name = "txtTenDangNhap";
             this.txtTenDangNhap.Size = new System.Drawing.Size(257, 22);
             this.txtTenDangNhap.TabIndex = 0;
-            // 
-            // rbKichHoat
-            // 
-            this.rbKichHoat.AutoSize = true;
-            this.rbKichHoat.Location = new System.Drawing.Point(6, 27);
-            this.rbKichHoat.Name = "rbKichHoat";
-            this.rbKichHoat.Size = new System.Drawing.Size(79, 20);
-            this.rbKichHoat.TabIndex = 0;
-            this.rbKichHoat.TabStop = true;
-            this.rbKichHoat.Text = "Kích hoạt";
-            this.rbKichHoat.UseVisualStyleBackColor = true;
-            // 
-            // rbChuaKichHoat
-            // 
-            this.rbChuaKichHoat.AutoSize = true;
-            this.rbChuaKichHoat.Location = new System.Drawing.Point(151, 27);
-            this.rbChuaKichHoat.Name = "rbChuaKichHoat";
-            this.rbChuaKichHoat.Size = new System.Drawing.Size(112, 20);
-            this.rbChuaKichHoat.TabIndex = 1;
-            this.rbChuaKichHoat.TabStop = true;
-            this.rbChuaKichHoat.Text = "Chưa kích hoạt";
-            this.rbChuaKichHoat.UseVisualStyleBackColor = true;
             // 
             // NhanVienForm
             // 

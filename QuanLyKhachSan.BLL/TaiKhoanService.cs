@@ -39,6 +39,11 @@ namespace QuanLyKhachSan.BLL
             return taiKhoanRepository.SuaTaiKhoan(tk);
         }
 
+        public List<TaiKhoanModel> TimKiemTaiKhoan(string keyword)
+        {
+            return taiKhoanRepository.TimKiemTaiKhoan(keyword);
+        }
+
         public bool KiemTraTonTaiMaNV(int maNV)
         {
             return taiKhoanRepository.KiemTraTonTaiMaNV(maNV);

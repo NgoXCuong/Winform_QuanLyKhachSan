@@ -107,28 +107,33 @@ namespace QuanLyKhachSan.DAL
             }
         }
 
-        public List<TaiKhoanModel> TimKiemTaiKhoan(string columnName, string keyword)
+        public List<TaiKhoanModel> TimKiemTaiKhoan(string keyword)
         {
             List<TaiKhoanModel> list = new List<TaiKhoanModel>();
 
-            // Kiểm tra cột có hợp lệ hay không
-            string[] validColumns = { "TenDangNhap", "MatKhau", "MaNV", "Quyen", "TrangThai" }; // Các cột hợp lệ
-            if (!validColumns.Contains(columnName))
-            {
-                throw new ArgumentException("Cột tìm kiếm không hợp lệ");
-            }
+            int? trangThai = null;
+            string keywordLower = keyword.ToLower();
 
-            // Xây dựng câu truy vấn SQL động
-            string query = $"SELECT * FROM TaiKhoan WHERE {columnName} LIKE @Keyword";
+            if (keywordLower.Contains("kích hoạt"))
+                trangThai = 1;
+            else if (keywordLower.Contains("chưa kích hoạt"))
+                trangThai = 0;
 
-            // Tạo tham số để tránh SQL Injection
-            var parameters = new SqlParameter[]
+            string sql = @"SELECT * FROM TaiKhoan
+                WHERE ((@TrangThai IS NULL AND 
+                (TenDangNhap = @Keyword
+                OR MatKhau = @Keyword
+                OR CAST(MaNV AS NVARCHAR) = @Keyword
+                OR Quyen = @Keyword))
+                OR (@TrangThai IS NOT NULL AND TrangThai = @TrangThai))";
+
+            var parameters = new List<SqlParameter>
             {
-                new SqlParameter("@Keyword", "%" + keyword + "%")
+                new SqlParameter("@Keyword", keyword),
+                new SqlParameter("@TrangThai", (object)trangThai ?? DBNull.Value)
             };
 
-            // Thực thi câu truy vấn
-            var dataTable = connDb.ExecuteQuery(query, parameters);
+            var dataTable = connDb.ExecuteQuery(sql, parameters.ToArray());
 
             foreach (System.Data.DataRow row in dataTable.Rows)
             {
@@ -136,15 +141,15 @@ namespace QuanLyKhachSan.DAL
                 {
                     TenDangNhap = row["TenDangNhap"].ToString(),
                     MatKhau = row["MatKhau"].ToString(),
-                    MaNV = Convert.ToInt32(row["MaNV"]),  // Chuyển đổi sang kiểu int
+                    MaNV = Convert.ToInt32(row["MaNV"]),
                     Quyen = row["Quyen"].ToString(),
-                    TrangThai = Convert.ToBoolean(row["TrangThai"]) // Chuyển đổi sang kiểu bool
+                    TrangThai = Convert.ToBoolean(row["TrangThai"])
                 };
                 list.Add(tk);
             }
-
             return list;
         }
+
 
         public bool KiemTraTonTaiMaNV(int maNV)
         {
@@ -153,7 +158,6 @@ namespace QuanLyKhachSan.DAL
             {
                 new SqlParameter("@MaNV", maNV)
             };
-
             int count = Convert.ToInt32(connDb.ExecuteScalar(sql, parameters));
             return count > 0;
         }
