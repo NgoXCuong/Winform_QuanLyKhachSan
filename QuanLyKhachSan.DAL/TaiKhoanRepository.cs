@@ -150,7 +150,6 @@ namespace QuanLyKhachSan.DAL
             return list;
         }
 
-
         public bool KiemTraTonTaiMaNV(int maNV)
         {
             string sql = "SELECT COUNT(*) FROM TaiKhoan WHERE MaNV = @MaNV";
