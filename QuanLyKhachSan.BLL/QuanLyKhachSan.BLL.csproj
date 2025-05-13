@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatPhongService.cs" />
+    <Compile Include="LoaiPhongService.cs" />
     <Compile Include="NhanVienService.cs" />
     <Compile Include="PhongService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

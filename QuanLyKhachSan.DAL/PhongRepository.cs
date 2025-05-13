@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using QuanLyKhachSan.Models;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using System.Data;
 
 namespace QuanLyKhachSan.DAL
 {
@@ -96,17 +97,15 @@ namespace QuanLyKhachSan.DAL
         {
             List<PhongModel> listPhong = new List<PhongModel>();
 
-            string sql = @"
-        SELECT * FROM Phong 
-        WHERE 
-            CAST(MaPhong AS NVARCHAR) = @Keyword OR
-            CAST(SoPhong AS NVARCHAR) = @Keyword OR
-            CAST(MaLoaiPhong AS NVARCHAR) = @Keyword OR
-            TrangThai = @Keyword";
+            string sql = @"SELECT * FROM Phong WHERE 
+                CAST(MaPhong AS NVARCHAR) = @Keyword OR
+                CAST(SoPhong AS NVARCHAR) = @Keyword OR
+                CAST(MaLoaiPhong AS NVARCHAR) = @Keyword OR
+                TrangThai = @Keyword";
 
             var parameters = new SqlParameter[]
             {
-        new SqlParameter("@Keyword", keyword)
+                new SqlParameter("@Keyword", keyword)
             };
 
             var dataTable = connDb.ExecuteQuery(sql, parameters);
@@ -122,7 +121,6 @@ namespace QuanLyKhachSan.DAL
                 };
                 listPhong.Add(phong);
             }
-
             return listPhong;
         }
 

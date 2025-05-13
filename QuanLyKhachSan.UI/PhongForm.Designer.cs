@@ -30,8 +30,10 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPhong = new System.Windows.Forms.TabPage();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.dgvListPhong = new System.Windows.Forms.DataGridView();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnLoad = new System.Windows.Forms.Button();
@@ -50,34 +52,34 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.txtSoPhong = new System.Windows.Forms.TextBox();
             this.tabLoaiPhong = new System.Windows.Forms.TabPage();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.panel6 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.groupBox13 = new System.Windows.Forms.GroupBox();
-            this.dgvListLoaiPhong = new System.Windows.Forms.DataGridView();
-            this.txtTenLoaiPhong = new System.Windows.Forms.TextBox();
-            this.txtMoTa = new System.Windows.Forms.TextBox();
-            this.txtGiaPhong = new System.Windows.Forms.TextBox();
-            this.txtSoNguoi = new System.Windows.Forms.TextBox();
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.btnUpdate = new System.Windows.Forms.Button();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.btnSearch = new System.Windows.Forms.Button();
             this.txtTim = new System.Windows.Forms.TextBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.panel4 = new System.Windows.Forms.Panel();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.btnExcel = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.dgvListLoaiPhong = new System.Windows.Forms.DataGridView();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.txtSoNguoi = new System.Windows.Forms.TextBox();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.txtGiaPhong = new System.Windows.Forms.TextBox();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.txtMoTa = new System.Windows.Forms.TextBox();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.txtTenLoaiPhong = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPhong.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListPhong)).BeginInit();
+            this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -86,19 +88,17 @@
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tabLoaiPhong.SuspendLayout();
-            this.panel5.SuspendLayout();
-            this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
-            this.groupBox7.SuspendLayout();
-            this.groupBox8.SuspendLayout();
             this.groupBox9.SuspendLayout();
-            this.groupBox10.SuspendLayout();
-            this.groupBox11.SuspendLayout();
-            this.groupBox12.SuspendLayout();
-            this.groupBox13.SuspendLayout();
+            this.panel6.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListLoaiPhong)).BeginInit();
-            this.groupBox3.SuspendLayout();
-            this.panel4.SuspendLayout();
+            this.panel5.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox13.SuspendLayout();
+            this.groupBox12.SuspendLayout();
+            this.groupBox11.SuspendLayout();
+            this.groupBox10.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -124,6 +124,35 @@
             this.tabPhong.Text = "Quản lý phòng";
             this.tabPhong.UseVisualStyleBackColor = true;
             // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.groupBox3);
+            this.panel4.Location = new System.Drawing.Point(6, 316);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(1089, 255);
+            this.panel4.TabIndex = 2;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.dgvListPhong);
+            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox3.Location = new System.Drawing.Point(8, 12);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(1071, 240);
+            this.groupBox3.TabIndex = 0;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Danh sách phòng";
+            // 
+            // dgvListPhong
+            // 
+            this.dgvListPhong.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvListPhong.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvListPhong.Location = new System.Drawing.Point(6, 23);
+            this.dgvListPhong.Name = "dgvListPhong";
+            this.dgvListPhong.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvListPhong.Size = new System.Drawing.Size(1059, 205);
+            this.dgvListPhong.TabIndex = 0;
+            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.panel3);
@@ -132,15 +161,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1094, 317);
             this.panel1.TabIndex = 1;
-            // 
-            // dgvListPhong
-            // 
-            this.dgvListPhong.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvListPhong.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvListPhong.Location = new System.Drawing.Point(6, 23);
-            this.dgvListPhong.Name = "dgvListPhong";
-            this.dgvListPhong.Size = new System.Drawing.Size(1059, 205);
-            this.dgvListPhong.TabIndex = 0;
             // 
             // panel3
             // 
@@ -183,7 +203,6 @@
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(141, 26);
             this.txtSearch.TabIndex = 2;
-            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // button1
             // 
@@ -298,11 +317,11 @@
             // cbLoaiPhong
             // 
             this.cbLoaiPhong.FormattingEnabled = true;
-            this.cbLoaiPhong.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4"});
+            //this.cbLoaiPhong.Items.AddRange(new object[] {
+            //"1",
+            //"2",
+            //"3",
+            //"4"});
             this.cbLoaiPhong.Location = new System.Drawing.Point(6, 21);
             this.cbLoaiPhong.Name = "cbLoaiPhong";
             this.cbLoaiPhong.Size = new System.Drawing.Size(263, 26);
@@ -340,13 +359,96 @@
             this.tabLoaiPhong.Text = "Quản lý loại phòng";
             this.tabLoaiPhong.UseVisualStyleBackColor = true;
             // 
-            // panel5
+            // panel7
             // 
-            this.panel5.Controls.Add(this.groupBox7);
-            this.panel5.Location = new System.Drawing.Point(6, 6);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(787, 315);
-            this.panel5.TabIndex = 0;
+            this.panel7.Controls.Add(this.groupBox9);
+            this.panel7.Location = new System.Drawing.Point(800, 7);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(295, 314);
+            this.panel7.TabIndex = 2;
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.txtTim);
+            this.groupBox9.Controls.Add(this.btnSearch);
+            this.groupBox9.Controls.Add(this.button6);
+            this.groupBox9.Controls.Add(this.btnExcel);
+            this.groupBox9.Controls.Add(this.btnDelete);
+            this.groupBox9.Controls.Add(this.btnUpdate);
+            this.groupBox9.Controls.Add(this.btnAdd);
+            this.groupBox9.Location = new System.Drawing.Point(15, 10);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(270, 285);
+            this.groupBox9.TabIndex = 0;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Chức năng";
+            // 
+            // txtTim
+            // 
+            this.txtTim.Location = new System.Drawing.Point(17, 233);
+            this.txtTim.Name = "txtTim";
+            this.txtTim.Size = new System.Drawing.Size(150, 24);
+            this.txtTim.TabIndex = 6;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(179, 229);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(75, 30);
+            this.btnSearch.TabIndex = 5;
+            this.btnSearch.Text = "Tìm";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(17, 160);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(90, 35);
+            this.button6.TabIndex = 4;
+            this.button6.Text = "Làm mới";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.btnLamMoi_Click);
+            // 
+            // btnExcel
+            // 
+            this.btnExcel.Location = new System.Drawing.Point(164, 105);
+            this.btnExcel.Name = "btnExcel";
+            this.btnExcel.Size = new System.Drawing.Size(90, 35);
+            this.btnExcel.TabIndex = 3;
+            this.btnExcel.Text = "Xuất Excel";
+            this.btnExcel.UseVisualStyleBackColor = true;
+            this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(17, 105);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(90, 35);
+            this.btnDelete.TabIndex = 2;
+            this.btnDelete.Text = "Xóa";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Location = new System.Drawing.Point(164, 50);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(90, 35);
+            this.btnUpdate.TabIndex = 1;
+            this.btnUpdate.Text = "Sửa";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(17, 50);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(90, 35);
+            this.btnAdd.TabIndex = 0;
+            this.btnAdd.Text = "Thêm";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // panel6
             // 
@@ -357,13 +459,34 @@
             this.panel6.Size = new System.Drawing.Size(1098, 247);
             this.panel6.TabIndex = 1;
             // 
-            // panel7
+            // groupBox8
             // 
-            this.panel7.Controls.Add(this.groupBox9);
-            this.panel7.Location = new System.Drawing.Point(800, 7);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(295, 314);
-            this.panel7.TabIndex = 2;
+            this.groupBox8.Controls.Add(this.dgvListLoaiPhong);
+            this.groupBox8.Location = new System.Drawing.Point(11, 15);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(1068, 229);
+            this.groupBox8.TabIndex = 0;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Danh sách loại phòng";
+            // 
+            // dgvListLoaiPhong
+            // 
+            this.dgvListLoaiPhong.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvListLoaiPhong.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvListLoaiPhong.Location = new System.Drawing.Point(7, 22);
+            this.dgvListLoaiPhong.Name = "dgvListLoaiPhong";
+            this.dgvListLoaiPhong.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvListLoaiPhong.Size = new System.Drawing.Size(1055, 201);
+            this.dgvListLoaiPhong.TabIndex = 0;
+            this.dgvListLoaiPhong.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvListLoaiPhong_CellClick);
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.groupBox7);
+            this.panel5.Location = new System.Drawing.Point(6, 6);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(787, 315);
+            this.panel5.TabIndex = 0;
             // 
             // groupBox7
             // 
@@ -378,51 +501,22 @@
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Thông tin loại phòng";
             // 
-            // groupBox8
+            // groupBox13
             // 
-            this.groupBox8.Controls.Add(this.dgvListLoaiPhong);
-            this.groupBox8.Location = new System.Drawing.Point(11, 15);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(1068, 229);
-            this.groupBox8.TabIndex = 0;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Danh sách loại phòng";
+            this.groupBox13.Controls.Add(this.txtSoNguoi);
+            this.groupBox13.Location = new System.Drawing.Point(442, 143);
+            this.groupBox13.Name = "groupBox13";
+            this.groupBox13.Size = new System.Drawing.Size(300, 55);
+            this.groupBox13.TabIndex = 3;
+            this.groupBox13.TabStop = false;
+            this.groupBox13.Text = "Số người tối đa";
             // 
-            // groupBox9
+            // txtSoNguoi
             // 
-            this.groupBox9.Controls.Add(this.txtTim);
-            this.groupBox9.Controls.Add(this.btnSearch);
-            this.groupBox9.Controls.Add(this.button6);
-            this.groupBox9.Controls.Add(this.button5);
-            this.groupBox9.Controls.Add(this.btnDelete);
-            this.groupBox9.Controls.Add(this.btnUpdate);
-            this.groupBox9.Controls.Add(this.btnAdd);
-            this.groupBox9.Location = new System.Drawing.Point(15, 10);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(270, 285);
-            this.groupBox9.TabIndex = 0;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Chức năng";
-            // 
-            // groupBox10
-            // 
-            this.groupBox10.Controls.Add(this.txtTenLoaiPhong);
-            this.groupBox10.Location = new System.Drawing.Point(46, 49);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(300, 55);
-            this.groupBox10.TabIndex = 0;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Tên  loại phòng";
-            // 
-            // groupBox11
-            // 
-            this.groupBox11.Controls.Add(this.txtMoTa);
-            this.groupBox11.Location = new System.Drawing.Point(46, 143);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(300, 106);
-            this.groupBox11.TabIndex = 1;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "Mô tả";
+            this.txtSoNguoi.Location = new System.Drawing.Point(7, 23);
+            this.txtSoNguoi.Name = "txtSoNguoi";
+            this.txtSoNguoi.Size = new System.Drawing.Size(287, 24);
+            this.txtSoNguoi.TabIndex = 0;
             // 
             // groupBox12
             // 
@@ -434,31 +528,22 @@
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "Giá phòng";
             // 
-            // groupBox13
+            // txtGiaPhong
             // 
-            this.groupBox13.Controls.Add(this.txtSoNguoi);
-            this.groupBox13.Location = new System.Drawing.Point(442, 143);
-            this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(300, 55);
-            this.groupBox13.TabIndex = 3;
-            this.groupBox13.TabStop = false;
-            this.groupBox13.Text = "Số người tối đa";
+            this.txtGiaPhong.Location = new System.Drawing.Point(7, 22);
+            this.txtGiaPhong.Name = "txtGiaPhong";
+            this.txtGiaPhong.Size = new System.Drawing.Size(287, 24);
+            this.txtGiaPhong.TabIndex = 0;
             // 
-            // dgvListLoaiPhong
+            // groupBox11
             // 
-            this.dgvListLoaiPhong.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvListLoaiPhong.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvListLoaiPhong.Location = new System.Drawing.Point(7, 22);
-            this.dgvListLoaiPhong.Name = "dgvListLoaiPhong";
-            this.dgvListLoaiPhong.Size = new System.Drawing.Size(1055, 201);
-            this.dgvListLoaiPhong.TabIndex = 0;
-            // 
-            // txtTenLoaiPhong
-            // 
-            this.txtTenLoaiPhong.Location = new System.Drawing.Point(7, 22);
-            this.txtTenLoaiPhong.Name = "txtTenLoaiPhong";
-            this.txtTenLoaiPhong.Size = new System.Drawing.Size(287, 24);
-            this.txtTenLoaiPhong.TabIndex = 0;
+            this.groupBox11.Controls.Add(this.txtMoTa);
+            this.groupBox11.Location = new System.Drawing.Point(46, 143);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(300, 106);
+            this.groupBox11.TabIndex = 1;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "Mô tả";
             // 
             // txtMoTa
             // 
@@ -469,99 +554,22 @@
             this.txtMoTa.Size = new System.Drawing.Size(285, 75);
             this.txtMoTa.TabIndex = 0;
             // 
-            // txtGiaPhong
+            // groupBox10
             // 
-            this.txtGiaPhong.Location = new System.Drawing.Point(7, 22);
-            this.txtGiaPhong.Name = "txtGiaPhong";
-            this.txtGiaPhong.Size = new System.Drawing.Size(287, 24);
-            this.txtGiaPhong.TabIndex = 0;
+            this.groupBox10.Controls.Add(this.txtTenLoaiPhong);
+            this.groupBox10.Location = new System.Drawing.Point(46, 49);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(300, 55);
+            this.groupBox10.TabIndex = 0;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Tên  loại phòng";
             // 
-            // txtSoNguoi
+            // txtTenLoaiPhong
             // 
-            this.txtSoNguoi.Location = new System.Drawing.Point(7, 23);
-            this.txtSoNguoi.Name = "txtSoNguoi";
-            this.txtSoNguoi.Size = new System.Drawing.Size(287, 24);
-            this.txtSoNguoi.TabIndex = 0;
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.Location = new System.Drawing.Point(17, 50);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(90, 35);
-            this.btnAdd.TabIndex = 0;
-            this.btnAdd.Text = "Thêm";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            // 
-            // btnUpdate
-            // 
-            this.btnUpdate.Location = new System.Drawing.Point(164, 50);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(90, 35);
-            this.btnUpdate.TabIndex = 1;
-            this.btnUpdate.Text = "Sửa";
-            this.btnUpdate.UseVisualStyleBackColor = true;
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Location = new System.Drawing.Point(17, 105);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(90, 35);
-            this.btnDelete.TabIndex = 2;
-            this.btnDelete.Text = "Xóa";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(164, 105);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(90, 35);
-            this.button5.TabIndex = 3;
-            this.button5.Text = "Xuất Excel";
-            this.button5.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(17, 160);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(90, 35);
-            this.button6.TabIndex = 4;
-            this.button6.Text = "Làm mới";
-            this.button6.UseVisualStyleBackColor = true;
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.Location = new System.Drawing.Point(179, 229);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(75, 30);
-            this.btnSearch.TabIndex = 5;
-            this.btnSearch.Text = "Tìm";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            // 
-            // txtTim
-            // 
-            this.txtTim.Location = new System.Drawing.Point(17, 233);
-            this.txtTim.Name = "txtTim";
-            this.txtTim.Size = new System.Drawing.Size(150, 24);
-            this.txtTim.TabIndex = 6;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.dgvListPhong);
-            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(8, 12);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(1071, 240);
-            this.groupBox3.TabIndex = 0;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Danh sách phòng";
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.groupBox3);
-            this.panel4.Location = new System.Drawing.Point(6, 316);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1089, 255);
-            this.panel4.TabIndex = 2;
+            this.txtTenLoaiPhong.Location = new System.Drawing.Point(7, 22);
+            this.txtTenLoaiPhong.Name = "txtTenLoaiPhong";
+            this.txtTenLoaiPhong.Size = new System.Drawing.Size(287, 24);
+            this.txtTenLoaiPhong.TabIndex = 0;
             // 
             // PhongForm
             // 
@@ -573,8 +581,10 @@
             this.Load += new System.EventHandler(this.PhongForm_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPhong.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvListPhong)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -585,24 +595,22 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.tabLoaiPhong.ResumeLayout(false);
-            this.panel5.ResumeLayout(false);
-            this.panel6.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox8.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
-            this.groupBox10.ResumeLayout(false);
-            this.groupBox10.PerformLayout();
-            this.groupBox11.ResumeLayout(false);
-            this.groupBox11.PerformLayout();
-            this.groupBox12.ResumeLayout(false);
-            this.groupBox12.PerformLayout();
+            this.panel6.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvListLoaiPhong)).EndInit();
+            this.panel5.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
             this.groupBox13.ResumeLayout(false);
             this.groupBox13.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvListLoaiPhong)).EndInit();
-            this.groupBox3.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
+            this.groupBox12.ResumeLayout(false);
+            this.groupBox12.PerformLayout();
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -649,7 +657,7 @@
         private System.Windows.Forms.TextBox txtTim;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btnExcel;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.Button btnAdd;

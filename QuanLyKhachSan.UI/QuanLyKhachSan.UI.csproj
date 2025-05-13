@@ -208,10 +208,6 @@
       <Project>{ecfccf88-7781-4a32-9bd2-93eba7f70b16}</Project>
       <Name>QuanLyKhachSan.BLL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\QuanLyKhachSan.DAL\QuanLyKhachSan.DAL.csproj">
-      <Project>{CEE37512-9D05-4961-9388-9B8514133579}</Project>
-      <Name>QuanLyKhachSan.DAL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\QuanLyKhachSan.Models\QuanLyKhachSan.Models.csproj">
       <Project>{19aa1996-08b1-4fb9-90da-0663c9cbd0b9}</Project>
       <Name>QuanLyKhachSan.Models</Name>

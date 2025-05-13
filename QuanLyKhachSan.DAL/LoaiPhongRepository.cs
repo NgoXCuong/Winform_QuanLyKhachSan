@@ -76,7 +76,6 @@ namespace QuanLyKhachSan.DAL
                     new SqlParameter("@MoTa", loaiPhong.MoTa),
                     new SqlParameter("@GiaPhong", loaiPhong.GiaPhong),
                     new SqlParameter("@SoNguoiToiDa", loaiPhong.SoNguoiToiDa),
-                    
                     new SqlParameter("@MaLoaiPhong", loaiPhong.MaLoaiPhong)
                 };
 
@@ -84,7 +83,7 @@ namespace QuanLyKhachSan.DAL
             }
         }
 
-        public bool XoaNhanVien(int maLoaiPhong)
+        public bool XoaLoaiPhong(int maLoaiPhong)
         {
             string sql = "DELETE FROM LoaiPhong WHERE MaLoaiPhong = @MaLoaiPhong";
 
@@ -92,7 +91,6 @@ namespace QuanLyKhachSan.DAL
             {
                 new SqlParameter("@MaLoaiPhong", maLoaiPhong)
             };
-
             return connDb.ExecuteNonQuery(sql, parameters) > 0;
         }
 
@@ -125,7 +123,6 @@ namespace QuanLyKhachSan.DAL
                 };
                 listLoaiPhong.Add(loaiPhong);
             }
-
             return listLoaiPhong;
         }
     }

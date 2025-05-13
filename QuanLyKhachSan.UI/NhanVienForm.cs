@@ -70,7 +70,6 @@ namespace QuanLyKhachSan.UI
             {
                 MessageBox.Show("Thêm nhân viên thất bại", Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
@@ -223,12 +222,10 @@ namespace QuanLyKhachSan.UI
 
         private void btnTim_Click(object sender, EventArgs e)
         {
-            string keyword = txtTim.Text.Trim(); // Lấy từ khóa tìm kiếm từ TextBox
+            string keyword = txtTim.Text.Trim(); 
 
-            // Gọi phương thức tìm kiếm từ service
             List<NhanVienModel> result = nhanVienService.TimNhanVien(keyword);
 
-            // Hiển thị kết quả lên DataGridView
             if (result.Count > 0)
             {
                 dgvListNhanVien.DataSource = result;
@@ -310,7 +307,6 @@ namespace QuanLyKhachSan.UI
 
                 int maNV = Convert.ToInt32(row.Cells["MaNV"].Value);
 
-                // Gọi service để lấy ảnh của nhân viên
                 string base64Anh = nhanVienService.LayAnhNhanVien(maNV);
 
                 if (!string.IsNullOrEmpty(base64Anh) && IsValidBase64(base64Anh))
@@ -322,7 +318,6 @@ namespace QuanLyKhachSan.UI
                 {
                     picAnhNhanVien.Image = null;
                 }
-
             }
         }
 
@@ -330,7 +325,6 @@ namespace QuanLyKhachSan.UI
         {
             try
             {
-                // Loại bỏ các ký tự không hợp lệ (nếu có)
                 base64String = base64String.Trim(); // Loại bỏ khoảng trắng thừa
                 base64String = base64String.Replace(" ", "+"); // Thay thế dấu cách bằng dấu "+" nếu có
 
@@ -351,7 +345,6 @@ namespace QuanLyKhachSan.UI
             }
             catch (FormatException ex)
             {
-                // Xử lý lỗi nếu chuỗi Base64 không hợp lệ
                 MessageBox.Show("Chuỗi Base64 không hợp lệ: " + ex.Message);
                 return null; // Trả về null nếu không thể giải mã
             }
@@ -437,7 +430,6 @@ namespace QuanLyKhachSan.UI
                 MessageBox.Show("Nhân viên này đã có tài khoản!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
 
             if (taiKhoanService.ThemTaiKhoan(tk))
             {
@@ -579,8 +571,6 @@ namespace QuanLyKhachSan.UI
                             worksheet.Cell(1, i + 1).Style.Fill.BackgroundColor = XLColor.LightSteelBlue;
                             worksheet.Cell(1, i + 1).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
                         }
-
-                        // Dữ liệu
                         // Dữ liệu
                         for (int i = 0; i < dgvListTaiKhoan.Rows.Count; i++)
                         {
@@ -592,8 +582,6 @@ namespace QuanLyKhachSan.UI
                                 worksheet.Cell(i + 2, j + 1).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
                             }
                         }
-
-
                         // Tự động điều chỉnh độ rộng
                         worksheet.Columns().AdjustToContents();
 
@@ -679,7 +667,5 @@ namespace QuanLyKhachSan.UI
                 rbChuaKichHoat.Checked = !trangThai;
             }
         }
-
-        
     }
 }

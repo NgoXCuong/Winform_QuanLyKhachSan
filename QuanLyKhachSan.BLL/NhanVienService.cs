@@ -74,7 +74,7 @@ namespace QuanLyKhachSan.BLL
 
         public List<NhanVienModel> GetNhanVienByIdName()
         {
-            return nhanVienRepository.getNhanVienByIdName();
+            return nhanVienRepository.GetNhanVienByIdName();
         }
 
         public string GetChucVuByMaNV(int maNV)

@@ -53,7 +53,6 @@ namespace QuanLyKhachSan.DAL
                 };
                 list.Add(tk);
             }
-
             return list;
         }
 
@@ -160,6 +159,5 @@ namespace QuanLyKhachSan.DAL
             int count = Convert.ToInt32(connDb.ExecuteScalar(sql, parameters));
             return count > 0;
         }
-
     }
 }

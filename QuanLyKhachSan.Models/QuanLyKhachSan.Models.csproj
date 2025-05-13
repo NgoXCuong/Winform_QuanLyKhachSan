@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatPhongModel.cs" />
+    <Compile Include="LoaiPhongModel.cs" />
     <Compile Include="NhanVienModel.cs" />
     <Compile Include="PhongModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

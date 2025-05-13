@@ -38,7 +38,7 @@ namespace QuanLyKhachSan.DAL
             return listNhanVien;
         }
 
-        public List<NhanVienModel> getNhanVienByIdName()
+        public List<NhanVienModel> GetNhanVienByIdName()
         {
             List<NhanVienModel> ds = new List<NhanVienModel>();
             string sql = "SELECT MaNV, HoTen FROM NhanVien";
