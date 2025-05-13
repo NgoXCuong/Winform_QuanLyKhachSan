@@ -223,7 +223,9 @@
     <Content Include="Image\logo.ico" />
     <Content Include="Image\logout.png" />
     <Content Include="Image\password.png" />
+    <Content Include="Image\phongbaotri.png" />
     <Content Include="Image\phongdadat.png" />
+    <Content Include="Image\phongdango.png" />
     <Content Include="Image\phongtrong.png" />
     <Content Include="Image\profile.png" />
     <Content Include="Image\thongke.png" />
