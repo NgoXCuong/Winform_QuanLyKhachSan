@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.txtSearch = new System.Windows.Forms.TextBox();
             this.cbTrangThai = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.cbMaKH = new System.Windows.Forms.ComboBox();
@@ -51,8 +53,6 @@
             this.dgvListPhongDatPhong = new System.Windows.Forms.DataGridView();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.txtSearch = new System.Windows.Forms.TextBox();
-            this.btnSearch = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -87,17 +87,34 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
+            // btnSearch
+            // 
+            this.btnSearch.BackColor = System.Drawing.SystemColors.Highlight;
+            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSearch.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnSearch.Location = new System.Drawing.Point(607, 27);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(85, 31);
+            this.btnSearch.TabIndex = 32;
+            this.btnSearch.Text = "Tìm";
+            this.btnSearch.UseVisualStyleBackColor = false;
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearch.Location = new System.Drawing.Point(400, 29);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(187, 26);
+            this.txtSearch.TabIndex = 18;
+            // 
             // cbTrangThai
             // 
             this.cbTrangThai.FormattingEnabled = true;
-            this.cbTrangThai.Items.AddRange(new object[] {
-            "Tự động",
-            "Thủ công"});
             this.cbTrangThai.Location = new System.Drawing.Point(796, 107);
             this.cbTrangThai.Name = "cbTrangThai";
             this.cbTrangThai.Size = new System.Drawing.Size(187, 21);
             this.cbTrangThai.TabIndex = 17;
-            this.cbTrangThai.Text = "Tự động";
             // 
             // label5
             // 
@@ -112,14 +129,10 @@
             // cbMaKH
             // 
             this.cbMaKH.FormattingEnabled = true;
-            this.cbMaKH.Items.AddRange(new object[] {
-            "Tự động",
-            "Thủ công"});
             this.cbMaKH.Location = new System.Drawing.Point(796, 68);
             this.cbMaKH.Name = "cbMaKH";
             this.cbMaKH.Size = new System.Drawing.Size(187, 21);
             this.cbMaKH.TabIndex = 15;
-            this.cbMaKH.Text = "Tự động";
             // 
             // label4
             // 
@@ -141,7 +154,6 @@
             this.cbMaNV.Name = "cbMaNV";
             this.cbMaNV.Size = new System.Drawing.Size(187, 21);
             this.cbMaNV.TabIndex = 13;
-            this.cbMaNV.Text = "Tự động";
             // 
             // label3
             // 
@@ -214,7 +226,6 @@
             this.cbMaPhong.Name = "cbMaPhong";
             this.cbMaPhong.Size = new System.Drawing.Size(187, 21);
             this.cbMaPhong.TabIndex = 5;
-            this.cbMaPhong.Text = "Tự động";
             // 
             // dtpEnd
             // 
@@ -291,6 +302,7 @@
             this.btnSave.TabIndex = 30;
             this.btnSave.Text = "Lưu";
             this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnCancel
             // 
@@ -304,27 +316,6 @@
             this.btnCancel.TabIndex = 31;
             this.btnCancel.Text = "Hủy";
             this.btnCancel.UseVisualStyleBackColor = false;
-            // 
-            // txtSearch
-            // 
-            this.txtSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSearch.Location = new System.Drawing.Point(400, 29);
-            this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(187, 26);
-            this.txtSearch.TabIndex = 18;
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.BackColor = System.Drawing.SystemColors.Highlight;
-            this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnSearch.Location = new System.Drawing.Point(607, 27);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(85, 31);
-            this.btnSearch.TabIndex = 32;
-            this.btnSearch.Text = "Tìm";
-            this.btnSearch.UseVisualStyleBackColor = false;
             // 
             // button1
             // 

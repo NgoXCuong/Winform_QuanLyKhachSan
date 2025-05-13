@@ -21,6 +21,10 @@ namespace QuanLyKhachSan.BLL
         {
             return datPhongRepository.GetAllDatPhong();
         }
+        public bool DatPhong(DatPhongModel datPhong)
+        {
+            return datPhongRepository.DatPhong(datPhong);
+        }
 
     }
 }

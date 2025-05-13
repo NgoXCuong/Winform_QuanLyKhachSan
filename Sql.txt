@@ -1,0 +1,14 @@
+﻿thêm cột vào bảng đặt phòng theo sql sau
+
+
+-- Thêm cột MaPhong và DatCoc vào bảng DatPhong
+ALTER TABLE DatPhong
+ADD MaPhong INT,
+    DatCoc DECIMAL(18,2);
+
+alter table DatPhong add GhiChu varchar(100)
+
+-- Thêm ràng buộc khóa ngoại cho MaPhong
+ALTER TABLE DatPhong
+ADD CONSTRAINT FK_DatPhong_Phong
+FOREIGN KEY (MaPhong) REFERENCES Phong(MaPhong);
