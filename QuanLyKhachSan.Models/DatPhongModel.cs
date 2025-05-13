@@ -10,10 +10,12 @@ namespace QuanLyKhachSan.Models
     {
         public int MaDatPhong { get; set; }
         public int MaKhachHang { get; set; }
-        public int MaPhong { get; set; }
+        //public int MaPhong { get; set; }
         public DateTime NgayDat { get; set; }
         public DateTime NgayNhan { get; set; }
         public DateTime NgayTra { get; set; }
         public string TrangThai { get; set; }
+        //public decimal DatCoc { get; set; }
+        //public  int MaNV { get; set; }
     }
 }

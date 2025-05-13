@@ -22,11 +22,10 @@ namespace QuanLyKhachSan.DAL
                 DatPhongModel datPhong = new DatPhongModel
                 {
                     MaDatPhong = row["MaDatPhong"] == DBNull.Value ? 0 : Convert.ToInt32(row["MaDatPhong"]),
-                    MaKhachHang = row["MaKhachHang"] == DBNull.Value ? 0 : Convert.ToInt32(row["MaKhachHang"]),
-                    MaPhong = row["MaPhong"] == DBNull.Value ? 0 : Convert.ToInt32(row["MaPhong"]),
+                    MaKhachHang = row["MaKH"] == DBNull.Value ? 0 : Convert.ToInt32(row["MaKH"]),
                     NgayDat = row["NgayDat"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(row["NgayDat"]),
-                    NgayNhan = row["NgayNhan"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(row["NgayNhan"]),
-                    NgayTra = row["NgayTra"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(row["NgayTra"]),
+                    NgayNhan = row["NgayNhanPhong"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(row["NgayNhanPhong"]),
+                    NgayTra = row["NgayTraPhong"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(row["NgayTraPhong"]),
                     TrangThai = row["TrangThai"] == DBNull.Value ? "" : row["TrangThai"].ToString()
                 };
 
@@ -41,7 +40,7 @@ namespace QuanLyKhachSan.DAL
             var parameters = new List<SqlParameter>
             {
                 new SqlParameter("@MaKhachHang", datPhong.MaKhachHang),
-                new SqlParameter("@MaPhong", datPhong.MaPhong),
+                //new SqlParameter("@MaPhong", datPhong.MaPhong),
                 new SqlParameter("@NgayDat", datPhong.NgayDat),
                 new SqlParameter("@NgayNhan", datPhong.NgayNhan),
                 new SqlParameter("@NgayTra", datPhong.NgayTra),
