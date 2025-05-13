@@ -74,6 +74,9 @@ namespace QuanLyKhachSan.UI
             btnThongKe.BackColor = Color.White;
             btnThongKe.ForeColor = Color.Black;
 
+            btnBooking.BackColor = Color.White;
+            btnBooking.ForeColor = Color.Black;
+
             // Chỉ đổi màu nút được click
             btn.BackColor = Color.DarkBlue;
             btn.ForeColor = Color.White;
@@ -131,6 +134,12 @@ namespace QuanLyKhachSan.UI
         {
             OpenChildForm(new ThongKeForm());
             HighlightButton(btnThongKe);
+        }
+
+        private void btnBooking_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new BookingRoom());
+            HighlightButton(btnBooking);
         }
     }
 }
