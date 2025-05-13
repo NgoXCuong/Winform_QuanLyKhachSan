@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConnectDB.cs" />
+    <Compile Include="DatPhongRepository.cs" />
     <Compile Include="NhanVienRepository.cs" />
     <Compile Include="PhongRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

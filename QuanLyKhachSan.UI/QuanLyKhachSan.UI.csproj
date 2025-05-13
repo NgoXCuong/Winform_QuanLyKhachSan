@@ -222,6 +222,7 @@
     <Content Include="Image\hotel64px.png" />
     <Content Include="Image\logo.ico" />
     <Content Include="Image\logout.png" />
+    <Content Include="Image\nvnu.png" />
     <Content Include="Image\password.png" />
     <Content Include="Image\phongbaotri.png" />
     <Content Include="Image\phongdadat.png" />
