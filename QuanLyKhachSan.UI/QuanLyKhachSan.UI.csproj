@@ -150,6 +150,15 @@
     <EmbeddedResource Include="DatPhongForm.resx">
       <DependentUpon>DatPhongForm.cs</DependentUpon>
     </EmbeddedResource>
+<<<<<<< Updated upstream
+=======
+    <EmbeddedResource Include="DichVuForm.resx">
+      <DependentUpon>DichVuForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="KhachHangForm.resx">
+      <DependentUpon>KhachHangForm.cs</DependentUpon>
+    </EmbeddedResource>
+>>>>>>> Stashed changes
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
