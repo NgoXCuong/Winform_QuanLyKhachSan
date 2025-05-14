@@ -464,7 +464,6 @@ namespace QuanLyKhachSan.UI
 
             TaiKhoanModel tk = new TaiKhoanModel
             {
-
                 TenDangNhap = txtTenDangNhap.Text,
                 MatKhau = txtMatKhau.Text.Trim(),
                 MaNV = Convert.ToInt32(cbMaNhanVien.SelectedValue),

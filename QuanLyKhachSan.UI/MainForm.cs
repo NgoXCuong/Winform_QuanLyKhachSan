@@ -124,11 +124,11 @@ namespace QuanLyKhachSan.UI
             HighlightButton(btnKhachHang);
         }
 
-        private void btnDatPhong_Click(object sender, EventArgs e)
-        {
-            OpenChildForm(new DatPhongForm());
-            HighlightButton(btnDatPhong);
-        }
+        //private void btnDatPhong_Click(object sender, EventArgs e)
+        //{
+        //    OpenChildForm(new DatPhongForm());
+        //    HighlightButton(btnDatPhong);
+        //}
 
         private void btnThongKe_Click(object sender, EventArgs e)
         {

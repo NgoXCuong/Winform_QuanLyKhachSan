@@ -185,7 +185,7 @@
             this.btnDatPhong.TabIndex = 13;
             this.btnDatPhong.Text = "Đặt phòng";
             this.btnDatPhong.UseVisualStyleBackColor = true;
-            this.btnDatPhong.Click += new System.EventHandler(this.btnDatPhong_Click);
+            //this.btnDatPhong.Click += new System.EventHandler(this.btnDatPhong_Click);
             // 
             // pictureBox10
             // 

@@ -151,6 +151,67 @@ namespace QuanLyKhachSan.UI
             }
         }
 
+        private void btnXuat_Click(object sender, EventArgs e)
+        {
+            if (dgvListPhong.Rows.Count == 0)
+            {
+                MessageBox.Show("Không có dữ liệu để xuất!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "Excel Workbook|*.xlsx";
+                saveFileDialog.Title = "Lưu file Excel";
+                saveFileDialog.FileName = "DanhSachPhong.xlsx";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    using (var workbook = new XLWorkbook())
+                    {
+                        var worksheet = workbook.Worksheets.Add("Loại Phòng");
+
+                        // Header
+                        for (int i = 0; i < dgvListPhong.Columns.Count; i++)
+                        {
+                            worksheet.Cell(1, i + 1).Value = dgvListPhong.Columns[i].HeaderText;
+                            worksheet.Cell(1, i + 1).Style.Font.Bold = true;
+                            worksheet.Cell(1, i + 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                            worksheet.Cell(1, i + 1).Style.Fill.BackgroundColor = XLColor.LightSteelBlue;
+                            worksheet.Cell(1, i + 1).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                        }
+
+                        // Dữ liệu
+                        for (int i = 0; i < dgvListPhong.Rows.Count; i++)
+                        {
+                            for (int j = 0; j < dgvListPhong.Columns.Count; j++)
+                            {
+                                object value = dgvListPhong.Rows[i].Cells[j].Value;
+                                worksheet.Cell(i + 2, j + 1).Value = value?.ToString();
+
+                                // Căn giữa, bo viền
+                                worksheet.Cell(i + 2, j + 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                                worksheet.Cell(i + 2, j + 1).Style.Border.OutsideBorder = XLBorderStyleValues.Thin;
+                            }
+                        }
+
+                        // Tự động điều chỉnh độ rộng
+                        worksheet.Columns().AdjustToContents();
+
+                        // Lưu file
+                        workbook.SaveAs(saveFileDialog.FileName);
+                        MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+        }
+
+        private void btnLoad_Click(object sender, EventArgs e)
+        {
+            LoadListPhong();
+            ClearFormPhong();
+        }
+
         private void dvgListPhong_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dgvListPhong.SelectedRows.Count > 0)
@@ -175,7 +236,6 @@ namespace QuanLyKhachSan.UI
             dgvListPhong.Columns["LoaiPhong"].HeaderText = "Loại Phòng";
             dgvListPhong.Columns["TrangThai"].HeaderText = "Trạng Thái";
 
-            
             var danhSachLoaiPhong = loaiPhongService.GetLoaiPhongByIdName();
             cbLoaiPhong.DataSource = danhSachLoaiPhong;
             cbLoaiPhong.DisplayMember = "HienThiMaVaTen";  // hiển thị "Mã - Tên"
@@ -367,6 +427,7 @@ namespace QuanLyKhachSan.UI
             }
         }
 
+
         private void btnLamMoi_Click(object sender, EventArgs e)
         {
             LoadListLoaiPhong();
@@ -399,6 +460,8 @@ namespace QuanLyKhachSan.UI
             dgvListLoaiPhong.Columns["MoTa"].HeaderText = "Mô Tả";
             dgvListLoaiPhong.Columns["GiaPhong"].HeaderText = "Giá Phòng";
             dgvListLoaiPhong.Columns["SoNguoiToiDa"].HeaderText = "Số Người Tối Đa";
+
+            dgvListLoaiPhong.Columns["HienThiMaVaTen"].Visible = false; // Ẩn cột này nếu không cần thiết
         }
 
         private void ClearFormLoaiPhong()

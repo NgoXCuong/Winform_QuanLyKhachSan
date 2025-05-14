@@ -219,7 +219,10 @@
     <Content Include="Image\bill.png" />
     <Content Include="Image\booking.png" />
     <Content Include="Image\customer.png" />
+    <Content Include="Image\doanhthuthanh.png" />
+    <Content Include="Image\doanthu.png" />
     <Content Include="Image\employee.png" />
+    <Content Include="Image\financial-statement.png" />
     <Content Include="Image\home.png" />
     <Content Include="Image\Hotel.png" />
     <Content Include="Image\hotel64px.png" />
@@ -227,6 +230,7 @@
     <Content Include="Image\logout.png" />
     <Content Include="Image\nvnu.png" />
     <Content Include="Image\password.png" />
+    <Content Include="Image\phong64px.png" />
     <Content Include="Image\phongbaotri.png" />
     <Content Include="Image\phongdadat.png" />
     <Content Include="Image\phongdango.png" />

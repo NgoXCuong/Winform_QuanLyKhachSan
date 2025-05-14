@@ -195,9 +195,11 @@
             this.btnLoad.TabIndex = 6;
             this.btnLoad.Text = "Làm mới";
             this.btnLoad.UseVisualStyleBackColor = true;
+            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
             // txtSearch
             // 
+            this.txtSearch.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearch.Location = new System.Drawing.Point(28, 243);
             this.txtSearch.Name = "txtSearch";
@@ -235,6 +237,7 @@
             this.btnXuat.TabIndex = 2;
             this.btnXuat.Text = "Xuất Excel";
             this.btnXuat.UseVisualStyleBackColor = true;
+            this.btnXuat.Click += new System.EventHandler(this.btnXuat_Click);
             // 
             // btnSua
             // 
@@ -317,11 +320,6 @@
             // cbLoaiPhong
             // 
             this.cbLoaiPhong.FormattingEnabled = true;
-            //this.cbLoaiPhong.Items.AddRange(new object[] {
-            //"1",
-            //"2",
-            //"3",
-            //"4"});
             this.cbLoaiPhong.Location = new System.Drawing.Point(6, 21);
             this.cbLoaiPhong.Name = "cbLoaiPhong";
             this.cbLoaiPhong.Size = new System.Drawing.Size(263, 26);
@@ -340,6 +338,7 @@
             // 
             // txtSoPhong
             // 
+            this.txtSoPhong.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSoPhong.Location = new System.Drawing.Point(6, 23);
             this.txtSoPhong.Name = "txtSoPhong";
             this.txtSoPhong.Size = new System.Drawing.Size(264, 24);
@@ -385,6 +384,7 @@
             // 
             // txtTim
             // 
+            this.txtTim.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtTim.Location = new System.Drawing.Point(17, 233);
             this.txtTim.Name = "txtTim";
             this.txtTim.Size = new System.Drawing.Size(150, 24);
@@ -513,6 +513,7 @@
             // 
             // txtSoNguoi
             // 
+            this.txtSoNguoi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSoNguoi.Location = new System.Drawing.Point(7, 23);
             this.txtSoNguoi.Name = "txtSoNguoi";
             this.txtSoNguoi.Size = new System.Drawing.Size(287, 24);
@@ -530,6 +531,7 @@
             // 
             // txtGiaPhong
             // 
+            this.txtGiaPhong.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtGiaPhong.Location = new System.Drawing.Point(7, 22);
             this.txtGiaPhong.Name = "txtGiaPhong";
             this.txtGiaPhong.Size = new System.Drawing.Size(287, 24);
@@ -547,6 +549,7 @@
             // 
             // txtMoTa
             // 
+            this.txtMoTa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMoTa.Location = new System.Drawing.Point(7, 22);
             this.txtMoTa.Multiline = true;
             this.txtMoTa.Name = "txtMoTa";
@@ -566,6 +569,7 @@
             // 
             // txtTenLoaiPhong
             // 
+            this.txtTenLoaiPhong.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtTenLoaiPhong.Location = new System.Drawing.Point(7, 22);
             this.txtTenLoaiPhong.Name = "txtTenLoaiPhong";
             this.txtTenLoaiPhong.Size = new System.Drawing.Size(287, 24);
