@@ -98,15 +98,20 @@ namespace QuanLyKhachSan.DAL
         {
             List<LoaiPhongModel> listLoaiPhong = new List<LoaiPhongModel>();
 
-            string sql = @"SELECT * FROM LoaiPhong
-                WHERE (@Keyword = '' OR TenLoaiPhong LIKE '%' + @Keyword + '%')
-                OR (@Keyword = '' OR MoTa LIKE '%' + @Keyword + '%')
-                OR (@Keyword = '' OR GiaPhong LIKE '%' + @Keyword + '%')
-                OR (@Keyword = '' OR SoNguoiToiDa LIKE '%' + @Keyword + '%')";
+            string sql = @"SELECT * FROM LoaiPhong WHERE 
+                TenLoaiPhong = @Keyword
+                OR MoTa = @Keyword
+                OR CAST(GiaPhong AS NVARCHAR) = @Keyword
+                OR CAST(SoNguoiToiDa AS NVARCHAR) = @Keyword";
+
+            if (string.IsNullOrWhiteSpace(keyword))
+            {
+                sql = "SELECT * FROM LoaiPhong"; // Nếu không nhập từ khóa, trả về tất cả
+            }
 
             var parameters = new SqlParameter[]
             {
-                new SqlParameter("@Keyword", keyword),                
+                new SqlParameter("@Keyword", keyword ?? string.Empty),
             };
 
             var dataTable = connDb.ExecuteQuery(sql, parameters);
@@ -125,5 +130,6 @@ namespace QuanLyKhachSan.DAL
             }
             return listLoaiPhong;
         }
+
     }
 }

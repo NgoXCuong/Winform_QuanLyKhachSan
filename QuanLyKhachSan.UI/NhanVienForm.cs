@@ -232,7 +232,7 @@ namespace QuanLyKhachSan.UI
             }
             else
             {
-                MessageBox.Show("Không tìm thấy nhân viên nào!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Không tìm thấy nhân viên nào với từ khóa {keyword}!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 dgvListNhanVien.DataSource = null;
             }
         }
