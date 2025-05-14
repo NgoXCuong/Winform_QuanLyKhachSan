@@ -16,6 +16,7 @@ namespace QuanLyKhachSan.DAL
         {
             List<KhachHangModel> listKhachHang = new List<KhachHangModel>();
             string sql = "SELECT * FROM KhachHang";
+            
             var dataTable = connDb.ExecuteQuery(sql);
             foreach (System.Data.DataRow row in dataTable.Rows)
             {
@@ -90,23 +91,39 @@ namespace QuanLyKhachSan.DAL
         {
             List<KhachHangModel> listKhachHang = new List<KhachHangModel>();
 
-            string sql = @"SELECT * FROM KhachHang
-                WHERE (@Keyword = '' OR HoTen LIKE '%' + @Keyword + '%')
-                OR (@Keyword = '' OR GioiTinh LIKE '%' + @Keyword + '%')
-                OR (@Keyword = '' OR NgaySinh BETWEEN @NgaySinhStart AND @NgaySinhEnd)  -- Tìm trong khoảng thời gian
-                OR (@Keyword = '' OR CMND LIKE '%' + @Keyword + '%')
-                OR (@Keyword = '' OR SDT LIKE '%' + @Keyword + '%')
-                OR (@Keyword = '' OR Email LIKE '%' + @Keyword + '%')
-                OR (@Keyword = '' OR DiaChi LIKE '%' + @Keyword + '%')";
+            string sql = "SELECT * FROM KhachHang WHERE 1=1";
+            List<SqlParameter> parameters = new List<SqlParameter>();
 
-            var parameters = new SqlParameter[]
+            if (!string.IsNullOrWhiteSpace(keyword))
             {
-                new SqlParameter("@Keyword", keyword),
-                new SqlParameter("@NgaySinhStart", DateTime.TryParse(keyword, out DateTime startDate) ? (object)startDate : DBNull.Value),
-                new SqlParameter("@NgaySinhEnd", DateTime.TryParse(keyword, out DateTime endDate) ? (object)endDate.AddDays(1) : DBNull.Value)  // Cộng thêm một ngày để tìm đến hết ngày kết thúc
-            };
+                if (int.TryParse(keyword, out int maKH))
+                {
+                    sql += " AND MaKH = @MaKH";// Nếu là số → tìm theo MãKH
+                    parameters.Add(new SqlParameter("@MaKH", maKH));
+                }
+                else
+                {
+                    // Nếu không phải số → tìm gần đúng các trường khác
+                    List<string> conditions = new List<string>
+                {
+                    "HoTen LIKE @kw", "GioiTinh LIKE @kw", "CMND LIKE @kw",
+                    "SDT LIKE @kw", "Email LIKE @kw", "DiaChi LIKE @kw"
+                };
 
-            var dataTable = connDb.ExecuteQuery(sql, parameters);
+                    parameters.Add(new SqlParameter("@kw", "%" + keyword + "%"));
+
+                    if (DateTime.TryParse(keyword, out DateTime ngaySinh))
+                    {
+                        conditions.Add("(NgaySinh >= @NgaySinhStart AND NgaySinh < @NgaySinhEnd)");
+                        parameters.Add(new SqlParameter("@NgaySinhStart", ngaySinh.Date));
+                        parameters.Add(new SqlParameter("@NgaySinhEnd", ngaySinh.Date.AddDays(1)));
+                    }
+
+                    sql += " AND (" + string.Join(" OR ", conditions) + ")";
+                }
+            }
+
+            var dataTable = connDb.ExecuteQuery(sql, parameters.ToArray());
 
             foreach (System.Data.DataRow row in dataTable.Rows)
             {
@@ -123,8 +140,48 @@ namespace QuanLyKhachSan.DAL
                 };
                 listKhachHang.Add(khachHang);
             }
-
             return listKhachHang;
         }
+
+        //public List<KhachHangModel> TimKhachHang(string keyword)
+        //{
+        //    List<KhachHangModel> listKhachHang = new List<KhachHangModel>();
+
+        //    string sql = @"SELECT * FROM KhachHang
+        //        WHERE (@Keyword = '' OR MaKH LIKE '%' + @Keyword + '%')
+        //        OR (@Keyword = '' OR HoTen LIKE '%' + @Keyword + '%')
+        //        OR (@Keyword = '' OR GioiTinh LIKE '%' + @Keyword + '%')
+        //        OR (@Keyword = '' OR NgaySinh BETWEEN @NgaySinhStart AND @NgaySinhEnd)  -- Tìm trong khoảng thời gian
+        //        OR (@Keyword = '' OR CMND LIKE '%' + @Keyword + '%')
+        //        OR (@Keyword = '' OR SDT LIKE '%' + @Keyword + '%')
+        //        OR (@Keyword = '' OR Email LIKE '%' + @Keyword + '%')
+        //        OR (@Keyword = '' OR DiaChi LIKE '%' + @Keyword + '%')";
+
+        //    var parameters = new SqlParameter[]
+        //    {
+        //        new SqlParameter("@Keyword", keyword),
+        //        new SqlParameter("@NgaySinhStart", DateTime.TryParse(keyword, out DateTime startDate) ? (object)startDate : DBNull.Value),
+        //        new SqlParameter("@NgaySinhEnd", DateTime.TryParse(keyword, out DateTime endDate) ? (object)endDate.AddDays(1) : DBNull.Value)  // Cộng thêm một ngày để tìm đến hết ngày kết thúc
+        //    };
+
+        //    var dataTable = connDb.ExecuteQuery(sql, parameters);
+
+        //    foreach (System.Data.DataRow row in dataTable.Rows)
+        //    {
+        //        KhachHangModel khachHang = new KhachHangModel
+        //        {
+        //            MaKH = (int)row["MaKH"],
+        //            HoTen = row["HoTen"].ToString(),
+        //            GioiTinh = row["GioiTinh"].ToString(),
+        //            NgaySinh = (DateTime)row["NgaySinh"],
+        //            CMND = row["CMND"].ToString(),
+        //            SoDienThoai = row["SDT"].ToString(),
+        //            Email = row["Email"].ToString(),
+        //            DiaChi = row["DiaChi"].ToString()
+        //        };
+        //        listKhachHang.Add(khachHang);
+        //    }
+        //    return listKhachHang;
+        //}
     }
 }

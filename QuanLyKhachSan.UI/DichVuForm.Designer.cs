@@ -48,7 +48,6 @@
             this.btnXoa = new System.Windows.Forms.Button();
             this.btnSua = new System.Windows.Forms.Button();
             this.btnThem = new System.Windows.Forms.Button();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -94,6 +93,7 @@
             // 
             // txtDonViTinh
             // 
+            this.txtDonViTinh.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDonViTinh.Location = new System.Drawing.Point(7, 24);
             this.txtDonViTinh.Name = "txtDonViTinh";
             this.txtDonViTinh.Size = new System.Drawing.Size(337, 24);
@@ -111,6 +111,7 @@
             // 
             // txtDonGia
             // 
+            this.txtDonGia.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDonGia.Location = new System.Drawing.Point(7, 24);
             this.txtDonGia.Name = "txtDonGia";
             this.txtDonGia.Size = new System.Drawing.Size(337, 24);
@@ -128,6 +129,7 @@
             // 
             // txtTenDichVu
             // 
+            this.txtTenDichVu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtTenDichVu.Location = new System.Drawing.Point(7, 24);
             this.txtTenDichVu.Name = "txtTenDichVu";
             this.txtTenDichVu.Size = new System.Drawing.Size(337, 24);
@@ -191,6 +193,7 @@
             // 
             // txtTim
             // 
+            this.txtTim.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtTim.Location = new System.Drawing.Point(27, 286);
             this.txtTim.Name = "txtTim";
             this.txtTim.Size = new System.Drawing.Size(156, 24);
@@ -299,7 +302,6 @@
         private System.Windows.Forms.DataGridView dgvListDichVu;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox5;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.TextBox txtDonViTinh;
         private System.Windows.Forms.TextBox txtDonGia;

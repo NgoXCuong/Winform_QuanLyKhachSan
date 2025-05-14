@@ -41,7 +41,7 @@ namespace QuanLyKhachSan.UI
                 string.IsNullOrWhiteSpace(txtChucVu.Text) ||
                 string.IsNullOrWhiteSpace(txtSDT.Text) ||
                 string.IsNullOrWhiteSpace(txtEmail.Text))
-            // dtNgaySinh không bao giồ null
+                // dtNgaySinh không bao giồ null
             {
                 MessageBox.Show("Vui lòng nhập đầy đủ thông tin nhân viên", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -89,8 +89,8 @@ namespace QuanLyKhachSan.UI
                     if (xoaThanhCong)
                     {
                         MessageBox.Show("Xóa nhân viên thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        LoadListNhanVien(); // Refresh danh sách
-                        ResetNhanVien();        // Xóa thông tin trên form
+                        LoadListNhanVien(); 
+                        ResetNhanVien();       
                         picAnhNhanVien.Image = null;
                     }
                     else
@@ -355,7 +355,6 @@ namespace QuanLyKhachSan.UI
             if (string.IsNullOrEmpty(base64String))
                 return false;
 
-            // Kiểm tra xem chuỗi có hợp lệ với Base64 hay không
             try
             {
                 Convert.FromBase64String(base64String);
@@ -373,7 +372,6 @@ namespace QuanLyKhachSan.UI
             {
                 int maNV = Convert.ToInt32(dgvListNhanVien.CurrentRow.Cells["MaNV"].Value);
 
-                // Gọi service để xóa ảnh nhân viên
                 bool result = nhanVienService.XoaAnhNhanVien(maNV);
 
                 if (result)
@@ -393,7 +391,6 @@ namespace QuanLyKhachSan.UI
         }
 
         //  TAI KHOAN NHAN VIEN
-
         private void btnAdd_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtTenDangNhap.Text) ||
@@ -489,7 +486,6 @@ namespace QuanLyKhachSan.UI
         {
             if (dgvListTaiKhoan.CurrentRow != null)
             {
-                // Xác nhận trước khi xóa
                 DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa tài khoản này?",
                     "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
@@ -502,8 +498,8 @@ namespace QuanLyKhachSan.UI
                     if (xoaThanhCong)
                     {
                         MessageBox.Show("Xóa tài khoản thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        LoadDanhSachTaiKhoan(); // Refresh danh sách tài khoản
-                        ResetTaiKhoan();    // Reset form nhập liệu
+                        LoadDanhSachTaiKhoan(); 
+                        ResetTaiKhoan();    
                     }
                     else
                     {
@@ -527,17 +523,15 @@ namespace QuanLyKhachSan.UI
         {
             string keyword = txtSearch.Text.Trim(); // Lấy từ khóa tìm kiếm từ TextBox
 
-            // Gọi phương thức tìm kiếm từ service
             List<TaiKhoanModel> result = taiKhoanService.TimKiemTaiKhoan(keyword);
 
-            // Hiển thị kết quả lên DataGridView
             if (result.Count > 0)
             {
                 dgvListTaiKhoan.DataSource = result;
             }
             else
             {
-                MessageBox.Show("Không tìm thấy nhân viên nào!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Không tìm thấy tài khoản nào với từ khóa {keyword}!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 dgvListTaiKhoan.DataSource = null;
             }
         }
@@ -593,7 +587,6 @@ namespace QuanLyKhachSan.UI
         }
         public void LoadDanhSachTaiKhoan()
         {
-            // Lấy danh sách tài khoản
             dgvListTaiKhoan.DataSource = taiKhoanService.GetAllTaiKhoan();
             dgvListTaiKhoan.Columns["TenDangNhap"].HeaderText = "Tên đăng nhập";
             dgvListTaiKhoan.Columns["MatKhau"].HeaderText = "Mật khẩu";

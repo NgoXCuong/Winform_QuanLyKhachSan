@@ -49,5 +49,14 @@ namespace QuanLyKhachSan.BLL
             return taiKhoanRepository.KiemTraTonTaiMaNV(maNV);
         }
 
+        public TaiKhoanModel GetTaiKhoanByTenDangNhap(string tenDangNhap, string matKhau)
+        {
+            var allAccounts = taiKhoanRepository.getAllTaiKhoan();
+            return allAccounts.FirstOrDefault(tk =>
+                tk.TenDangNhap.Equals(tenDangNhap, StringComparison.OrdinalIgnoreCase)
+                && tk.MatKhau == matKhau
+                && tk.TrangThai == true);
+        }
+
     }
 }

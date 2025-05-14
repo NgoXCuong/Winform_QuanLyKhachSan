@@ -43,7 +43,6 @@ namespace QuanLyKhachSan.DAL
             List<NhanVienModel> ds = new List<NhanVienModel>();
             string sql = "SELECT MaNV, HoTen FROM NhanVien";
 
-            // Giả sử ExecuteQuery thực thi truy vấn và trả về DataTable
             var table = connDb.ExecuteQuery(sql);
 
             foreach (DataRow row in table.Rows)
@@ -118,26 +117,84 @@ namespace QuanLyKhachSan.DAL
             return connDb.ExecuteNonQuery(sql, parameters) > 0;
         }
 
+        //public List<NhanVienModel> TimNhanVien(string keyword)
+        //{
+        //    List<NhanVienModel> listNhanVien = new List<NhanVienModel>();
+
+        //    string sql = @"SELECT * FROM NhanVien
+        //        WHERE (@Keyword = '' OR HoTen LIKE '%' + @Keyword + '%')
+        //        OR (@Keyword = '' OR GioiTinh LIKE '%' + @Keyword + '%')
+        //        OR (@Keyword = '' OR NgaySinh BETWEEN @NgaySinhStart AND @NgaySinhEnd)  -- Tìm trong khoảng thời gian
+        //        OR (@Keyword = '' OR ChucVu LIKE '%' + @Keyword + '%')
+        //        OR (@Keyword = '' OR SDT LIKE '%' + @Keyword + '%')
+        //        OR (@Keyword = '' OR Email LIKE '%' + @Keyword + '%')";
+
+        //    var parameters = new SqlParameter[]
+        //    {
+        //        new SqlParameter("@Keyword", keyword),
+        //        new SqlParameter("@NgaySinhStart", DateTime.TryParse(keyword, out DateTime startDate) ? (object)startDate : DBNull.Value),
+        //        new SqlParameter("@NgaySinhEnd", DateTime.TryParse(keyword, out DateTime endDate) ? (object)endDate.AddDays(1) : DBNull.Value)  // Cộng thêm một ngày để tìm đến hết ngày kết thúc
+        //    };
+
+        //    var dataTable = connDb.ExecuteQuery(sql, parameters);
+
+        //    foreach (DataRow row in dataTable.Rows)
+        //    {
+        //        NhanVienModel nhanVien = new NhanVienModel
+        //        {
+        //            MaNV = (int)row["MaNV"],
+        //            HoTen = row["HoTen"].ToString(),
+        //            GioiTinh = row["GioiTinh"].ToString(),
+        //            NgaySinh = (DateTime)row["NgaySinh"],
+        //            ChucVu = row["ChucVu"].ToString(),
+        //            SoDienThoai = row["SDT"].ToString(),
+        //            Email = row["Email"].ToString(),
+        //            Anh = row["Anh"] as byte[] // Lấy ảnh dưới dạng byte
+        //        };
+        //        listNhanVien.Add(nhanVien);
+        //    }
+        //    return listNhanVien;
+        //}
+
         public List<NhanVienModel> TimNhanVien(string keyword)
         {
             List<NhanVienModel> listNhanVien = new List<NhanVienModel>();
 
-            string sql = @"SELECT * FROM NhanVien
-                WHERE (@Keyword = '' OR HoTen LIKE '%' + @Keyword + '%')
-                OR (@Keyword = '' OR GioiTinh LIKE '%' + @Keyword + '%')
-                OR (@Keyword = '' OR NgaySinh BETWEEN @NgaySinhStart AND @NgaySinhEnd)  -- Tìm trong khoảng thời gian
-                OR (@Keyword = '' OR ChucVu LIKE '%' + @Keyword + '%')
-                OR (@Keyword = '' OR SDT LIKE '%' + @Keyword + '%')
-                OR (@Keyword = '' OR Email LIKE '%' + @Keyword + '%')";
+            string sql = "SELECT * FROM NhanVien WHERE 1=1";
 
-            var parameters = new SqlParameter[]
+            List<SqlParameter> parameters = new List<SqlParameter>();
+
+            if (!string.IsNullOrWhiteSpace(keyword))
             {
-                new SqlParameter("@Keyword", keyword),
-                new SqlParameter("@NgaySinhStart", DateTime.TryParse(keyword, out DateTime startDate) ? (object)startDate : DBNull.Value),
-                new SqlParameter("@NgaySinhEnd", DateTime.TryParse(keyword, out DateTime endDate) ? (object)endDate.AddDays(1) : DBNull.Value)  // Cộng thêm một ngày để tìm đến hết ngày kết thúc
-            };
+                List<string> conditions = new List<string>();
 
-            var dataTable = connDb.ExecuteQuery(sql, parameters);
+                // Nếu keyword là số nguyên --> so sánh với MaNV
+                if (int.TryParse(keyword, out int maNv))
+                {
+                    conditions.Add("MaNV = @MaNV");
+                    parameters.Add(new SqlParameter("@MaNV", maNv));
+                }
+
+                // Các điều kiện so sánh chuỗi (exact match)
+                conditions.Add("HoTen = @kw");
+                conditions.Add("GioiTinh = @kw");
+                conditions.Add("ChucVu = @kw");
+                conditions.Add("SDT = @kw");
+                conditions.Add("Email = @kw");
+                parameters.Add(new SqlParameter("@kw", keyword));
+
+                // Nếu keyword là ngày --> so sánh ngày sinh
+                if (DateTime.TryParse(keyword, out DateTime ngaySinh))
+                {
+                    conditions.Add("(NgaySinh >= @NgaySinhStart AND NgaySinh < @NgaySinhEnd)");
+                    parameters.Add(new SqlParameter("@NgaySinhStart", ngaySinh.Date));
+                    parameters.Add(new SqlParameter("@NgaySinhEnd", ngaySinh.Date.AddDays(1)));
+                }
+
+                sql += " AND (" + string.Join(" OR ", conditions) + ")";
+            }
+
+            var dataTable = connDb.ExecuteQuery(sql, parameters.ToArray());
 
             foreach (DataRow row in dataTable.Rows)
             {
@@ -150,12 +207,15 @@ namespace QuanLyKhachSan.DAL
                     ChucVu = row["ChucVu"].ToString(),
                     SoDienThoai = row["SDT"].ToString(),
                     Email = row["Email"].ToString(),
-                    Anh = row["Anh"] as byte[] // Lấy ảnh dưới dạng byte
+                    Anh = row["Anh"] as byte[]
                 };
                 listNhanVien.Add(nhanVien);
             }
+
             return listNhanVien;
         }
+
+
 
         public bool CapNhatAnh(int maNV, string base64Image)
         {

@@ -12,7 +12,11 @@ namespace QuanLyKhachSan.UI
 {
     public partial class MainForm : Form
     {
-        private string userName;
+        private string tenDangNhap;
+        private string quyen;
+
+        private List<Button> allowedButtons = new List<Button>();
+
         public MainForm()
         {
             InitializeComponent();
@@ -21,16 +25,71 @@ namespace QuanLyKhachSan.UI
         public MainForm(string userName)
         {
             InitializeComponent();
-            this.userName = userName;
+            this.tenDangNhap = userName;
+        }
+
+        public MainForm(string tenDangNhap, string quyen)
+        {
+            InitializeComponent();
+            this.tenDangNhap = tenDangNhap;
+            this.quyen = quyen;
+
+            PhanQuyenNguoiDung();
+        }
+
+        private void PhanQuyenNguoiDung()
+        {
+            allowedButtons.Clear();
+
+            if (quyen == "Admin")
+            {
+                // Admin được quyền tất cả các nút
+                allowedButtons.AddRange(new[]
+                {
+                    btnTrangChu, btnPhong, btnNhanVien,
+                    btnHoaDon, btnKhachHang, btnDichVu, 
+                    btnDatPhong, btnThongKe, btnBooking
+                });
+            }
+            else
+            {
+                // Nhân viên chỉ được quyền vài nút
+                DisableButton(btnPhong);
+                DisableButton(btnNhanVien);
+                DisableButton(btnHoaDon);
+                DisableButton(btnKhachHang);
+                DisableButton(btnDichVu);
+                DisableButton(btnDatPhong);
+
+                // Các nút được phép
+                allowedButtons.AddRange(new[]
+                {
+                    btnTrangChu, btnThongKe, btnBooking
+                });
+            }
+        }
+
+        private void DisableButton(Button btn)
+        {
+            btn.BackColor = Color.Gray;
+            btn.ForeColor = Color.LightGray;
+        }
+
+        private void EnableButton(Button btn)
+        {
+            btn.BackColor = Color.White;
+            btn.ForeColor = Color.Black;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             lbDate.Text = DateTime.Now.ToString("dddd, dd/MM/yyyy");
-            lbUser.Text = userName;
+            lbUser.Text = tenDangNhap;
 
             OpenChildForm(new TrangChuForm());
             HighlightButton(btnTrangChu);
+
+            PhanQuyenNguoiDung();
         }
 
         private void OpenChildForm(Form childForm)
@@ -49,38 +108,16 @@ namespace QuanLyKhachSan.UI
 
         private void HighlightButton(Button btn)
         {
-            // Reset tất cả các nút về màu mặc định
-            btnTrangChu.BackColor = Color.White;
-            btnTrangChu.ForeColor = Color.Black;
+            foreach (var b in allowedButtons)
+            {
+                b.BackColor = Color.White;
+                b.ForeColor = Color.Black;
+            }
 
-            btnPhong.BackColor = Color.White;
-            btnPhong.ForeColor = Color.Black;
-
-            btnNhanVien.BackColor = Color.White;
-            btnNhanVien.ForeColor = Color.Black;
-
-            btnHoaDon.BackColor = Color.White;
-            btnHoaDon.ForeColor = Color.Black;
-
-            btnKhachHang.BackColor = Color.White;
-            btnKhachHang.ForeColor = Color.Black;
-
-            btnDichVu.BackColor = Color.White;
-            btnDichVu.ForeColor = Color.Black;
-
-            btnDatPhong.BackColor = Color.White;
-            btnDatPhong.ForeColor = Color.Black;
-
-            btnThongKe.BackColor = Color.White;
-            btnThongKe.ForeColor = Color.Black;
-
-            btnBooking.BackColor = Color.White;
-            btnBooking.ForeColor = Color.Black;
-
-            // Chỉ đổi màu nút được click
             btn.BackColor = Color.DarkBlue;
             btn.ForeColor = Color.White;
         }
+
 
         private void btnExit_Click(object sender, EventArgs e)
         {
@@ -96,30 +133,55 @@ namespace QuanLyKhachSan.UI
 
         private void btnPhong_Click(object sender, EventArgs e)
         {
+            if (quyen != "Admin")
+            {
+                MessageBox.Show("Bạn không có quyền truy cập chức năng này!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             OpenChildForm(new PhongForm());
             HighlightButton(btnPhong);
         }
 
         private void btnNhanVien_Click(object sender, EventArgs e)
         {
+            if (quyen != "Admin")
+            {
+                MessageBox.Show("Bạn không có quyền truy cập chức năng này!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             OpenChildForm(new NhanVienForm());
             HighlightButton(btnNhanVien);
         }
 
         private void btnHoaDon_Click(object sender, EventArgs e)
         {
+            if (quyen != "Admin")
+            {
+                MessageBox.Show("Bạn không có quyền truy cập chức năng này!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             OpenChildForm(new HoaDonForm());
             HighlightButton(btnHoaDon);
         }
 
         private void btnDichVu_Click(object sender, EventArgs e)
         {
+            if (quyen != "Admin")
+            {
+                MessageBox.Show("Bạn không có quyền truy cập chức năng này!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             OpenChildForm(new DichVuForm());
             HighlightButton(btnDichVu);
         }
 
         private void btnKhachHang_Click(object sender, EventArgs e)
         {
+            if (quyen != "Admin")
+            {
+                MessageBox.Show("Bạn không có quyền truy cập chức năng này!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             OpenChildForm(new KhachHangForm());
             HighlightButton(btnKhachHang);
         }
