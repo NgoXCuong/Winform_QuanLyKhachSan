@@ -20,7 +20,7 @@ namespace QuanLyKhachSan.DAL
             string sql = "SELECT * FROM NhanVien";
 
             var dataTable = connDb.ExecuteQuery(sql);
-            foreach (System.Data.DataRow row in dataTable.Rows)
+            foreach (DataRow row in dataTable.Rows)
             {
                 NhanVienModel nhanVien = new NhanVienModel
                 {
@@ -76,7 +76,6 @@ namespace QuanLyKhachSan.DAL
                     // Kiểm tra nếu nv.Anh là null thì truyền DBNull.Value, nếu có ảnh thì truyền mảng byte
                     new SqlParameter("@Anh", System.Data.SqlDbType.VarBinary) { Value = nv.Anh ?? (object)DBNull.Value }
                 };
-
                 return connDb.ExecuteNonQuery(sql, parameters) > 0;
             }
         }
@@ -104,7 +103,6 @@ namespace QuanLyKhachSan.DAL
                     //new SqlParameter("@Anh", (object)nv.Anh ?? DBNull.Value),
                     new SqlParameter("@MaNV", nv.MaNV)
                 };
-
                 return connDb.ExecuteNonQuery(sql, parameters) > 0;
             }
         }
@@ -117,7 +115,6 @@ namespace QuanLyKhachSan.DAL
             {
                 new SqlParameter("@MaNV", maNv)
             };
-
             return connDb.ExecuteNonQuery(sql, parameters) > 0;
         }
 
@@ -142,7 +139,7 @@ namespace QuanLyKhachSan.DAL
 
             var dataTable = connDb.ExecuteQuery(sql, parameters);
 
-            foreach (System.Data.DataRow row in dataTable.Rows)
+            foreach (DataRow row in dataTable.Rows)
             {
                 NhanVienModel nhanVien = new NhanVienModel
                 {
@@ -157,7 +154,6 @@ namespace QuanLyKhachSan.DAL
                 };
                 listNhanVien.Add(nhanVien);
             }
-
             return listNhanVien;
         }
 
@@ -168,10 +164,9 @@ namespace QuanLyKhachSan.DAL
             string sql = "UPDATE NhanVien SET Anh = @Anh WHERE MaNV = @MaNV";
             SqlParameter[] parameters =
             {
-                new SqlParameter("@Anh", System.Data.SqlDbType.VarBinary) { Value = imageBytes },
+                new SqlParameter("@Anh", SqlDbType.VarBinary) { Value = imageBytes },
                 new SqlParameter("@MaNV", maNV)
             };
-
             return connDb.ExecuteNonQuery(sql, parameters) > 0;
         }
 
@@ -192,7 +187,6 @@ namespace QuanLyKhachSan.DAL
             {
                 Console.WriteLine("Lỗi lấy ảnh (repo): " + ex.Message);
             }
-
             return null;
         }
 
@@ -228,7 +222,6 @@ namespace QuanLyKhachSan.DAL
             {
                 return result.ToString();
             }
-
             return null; // Trả về null nếu không tìm thấy
         }
     }

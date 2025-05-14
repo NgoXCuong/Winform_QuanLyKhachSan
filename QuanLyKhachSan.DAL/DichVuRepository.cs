@@ -114,8 +114,6 @@ namespace QuanLyKhachSan.DAL
                 listDichVu.Add(dichVu);
             }
             return listDichVu;
-
         }
-
     }
 }
