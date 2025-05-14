@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BookingRoomModel.cs" />
     <Compile Include="DatPhongModel.cs" />
     <Compile Include="DichVuModel.cs" />
     <Compile Include="KhachHangModel.cs" />

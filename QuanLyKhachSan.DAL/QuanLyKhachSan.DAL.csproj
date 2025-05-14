@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BookingRoomRepository.cs" />
     <Compile Include="ConnectDB.cs" />
     <Compile Include="DatPhongRepository.cs" />
     <Compile Include="DichVuRepository.cs" />
