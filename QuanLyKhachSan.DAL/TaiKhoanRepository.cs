@@ -159,5 +159,33 @@ namespace QuanLyKhachSan.DAL
             int count = Convert.ToInt32(connDb.ExecuteScalar(sql, parameters));
             return count > 0;
         }
+
+        // Phân quyền đăng nhập
+        public TaiKhoanModel DangNhap(string tenDangNhap, string matKhau)
+        {
+            string sql = "SELECT * FROM TaiKhoan WHERE TenDangNhap = @TenDangNhap AND MatKhau = @MatKhau AND TrangThai = 1";
+            var parameters = new SqlParameter[]
+            {
+        new SqlParameter("@TenDangNhap", tenDangNhap),
+        new SqlParameter("@MatKhau", matKhau)
+            };
+
+            var dt = connDb.ExecuteQuery(sql, parameters);
+            if (dt.Rows.Count > 0)
+            {
+                var row = dt.Rows[0];
+                return new TaiKhoanModel
+                {
+                    TenDangNhap = row["TenDangNhap"].ToString(),
+                    MatKhau = row["MatKhau"].ToString(),
+                    MaNV = Convert.ToInt32(row["MaNV"]),
+                    Quyen = row["Quyen"].ToString(),
+                    TrangThai = Convert.ToBoolean(row["TrangThai"])
+                };
+            }
+
+            return null; // Sai tài khoản hoặc bị khóa
+        }
+
     }
 }

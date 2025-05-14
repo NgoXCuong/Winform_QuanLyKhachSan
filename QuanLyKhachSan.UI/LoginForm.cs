@@ -30,6 +30,39 @@ namespace QuanLyKhachSan.UI
             this.Close();
         }
 
+        //private void btnLogin_Click(object sender, EventArgs e)
+        //{
+        //    string username = txtUsername.Text;
+        //    string password = txtPassword.Text;
+
+        //    if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+        //    {
+        //        MessageBox.Show("Vui lòng nhập tên đăng nhập và mật khẩu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //        return;
+        //    }
+
+        //    List<TaiKhoanModel> listLogin = taiKhoanService.GetTaiKhoanLogin();
+
+        //    bool xacThuc = listLogin.Any(tk => 
+        //    tk.TenDangNhap.Equals(username, StringComparison.OrdinalIgnoreCase)
+        //    && tk.MatKhau == password);
+
+        //    if(xacThuc)
+        //    {
+        //        MessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //        this.Hide();
+        //        // Mở form chính của ứng dụng
+        //        MainForm mainForm = new MainForm(username);
+        //        mainForm.Show();
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        txtUsername.Clear();
+        //        txtPassword.Clear();
+        //        txtUsername.Focus();
+        //    }   
+        //}
         private void btnLogin_Click(object sender, EventArgs e)
         {
             string username = txtUsername.Text;
@@ -41,18 +74,16 @@ namespace QuanLyKhachSan.UI
                 return;
             }
 
-            List<TaiKhoanModel> listLogin = taiKhoanService.GetTaiKhoanLogin();
+            // Gọi service để xác thực và lấy tài khoản
+            TaiKhoanModel tk = taiKhoanService.GetTaiKhoanByTenDangNhap(username, password);
 
-            bool xacThuc = listLogin.Any(tk => 
-            tk.TenDangNhap.Equals(username, StringComparison.OrdinalIgnoreCase)
-            && tk.MatKhau == password);
-
-            if(xacThuc)
+            if (tk != null)
             {
                 MessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Hide();
-                // Mở form chính của ứng dụng
-                MainForm mainForm = new MainForm(username);
+
+                // Truyền quyền vào MainForm để phân quyền
+                MainForm mainForm = new MainForm(tk.TenDangNhap, tk.Quyen);
                 mainForm.Show();
             }
             else
@@ -61,8 +92,9 @@ namespace QuanLyKhachSan.UI
                 txtUsername.Clear();
                 txtPassword.Clear();
                 txtUsername.Focus();
-            }   
+            }
         }
+
 
         private void cbAnPassword_CheckedChanged(object sender, EventArgs e)
         {
