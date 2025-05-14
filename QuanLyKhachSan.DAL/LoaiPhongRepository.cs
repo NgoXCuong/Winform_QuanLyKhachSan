@@ -99,7 +99,8 @@ namespace QuanLyKhachSan.DAL
             List<LoaiPhongModel> listLoaiPhong = new List<LoaiPhongModel>();
 
             string sql = @"SELECT * FROM LoaiPhong WHERE 
-                TenLoaiPhong = @Keyword
+                MaLoaiPhong = @Keyword
+                OR TenLoaiPhong = @Keyword
                 OR MoTa = @Keyword
                 OR CAST(GiaPhong AS NVARCHAR) = @Keyword
                 OR CAST(SoNguoiToiDa AS NVARCHAR) = @Keyword";

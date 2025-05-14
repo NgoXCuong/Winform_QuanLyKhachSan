@@ -279,16 +279,16 @@
             // txtTim
             // 
             this.txtTim.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtTim.Location = new System.Drawing.Point(21, 292);
+            this.txtTim.Location = new System.Drawing.Point(25, 292);
             this.txtTim.Name = "txtTim";
-            this.txtTim.Size = new System.Drawing.Size(163, 24);
+            this.txtTim.Size = new System.Drawing.Size(159, 24);
             this.txtTim.TabIndex = 6;
             // 
             // btnTim
             // 
             this.btnTim.Location = new System.Drawing.Point(190, 289);
             this.btnTim.Name = "btnTim";
-            this.btnTim.Size = new System.Drawing.Size(88, 30);
+            this.btnTim.Size = new System.Drawing.Size(85, 30);
             this.btnTim.TabIndex = 5;
             this.btnTim.Text = "Tìm";
             this.btnTim.UseVisualStyleBackColor = true;
@@ -296,9 +296,9 @@
             // 
             // btnLoad
             // 
-            this.btnLoad.Location = new System.Drawing.Point(45, 180);
+            this.btnLoad.Location = new System.Drawing.Point(25, 190);
             this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(88, 35);
+            this.btnLoad.Size = new System.Drawing.Size(90, 40);
             this.btnLoad.TabIndex = 4;
             this.btnLoad.Text = "Làm mới";
             this.btnLoad.UseVisualStyleBackColor = true;
@@ -306,9 +306,9 @@
             // 
             // btnExcel
             // 
-            this.btnExcel.Location = new System.Drawing.Point(190, 118);
+            this.btnExcel.Location = new System.Drawing.Point(188, 120);
             this.btnExcel.Name = "btnExcel";
-            this.btnExcel.Size = new System.Drawing.Size(88, 35);
+            this.btnExcel.Size = new System.Drawing.Size(90, 40);
             this.btnExcel.TabIndex = 3;
             this.btnExcel.Text = "Xuất Excel";
             this.btnExcel.UseVisualStyleBackColor = true;
@@ -316,9 +316,9 @@
             // 
             // btnXoa
             // 
-            this.btnXoa.Location = new System.Drawing.Point(45, 120);
+            this.btnXoa.Location = new System.Drawing.Point(25, 120);
             this.btnXoa.Name = "btnXoa";
-            this.btnXoa.Size = new System.Drawing.Size(88, 35);
+            this.btnXoa.Size = new System.Drawing.Size(90, 40);
             this.btnXoa.TabIndex = 2;
             this.btnXoa.Text = "Xóa";
             this.btnXoa.UseVisualStyleBackColor = true;
@@ -326,9 +326,9 @@
             // 
             // btnSua
             // 
-            this.btnSua.Location = new System.Drawing.Point(190, 50);
+            this.btnSua.Location = new System.Drawing.Point(188, 50);
             this.btnSua.Name = "btnSua";
-            this.btnSua.Size = new System.Drawing.Size(88, 35);
+            this.btnSua.Size = new System.Drawing.Size(90, 40);
             this.btnSua.TabIndex = 1;
             this.btnSua.Text = "Sửa";
             this.btnSua.UseVisualStyleBackColor = true;
@@ -336,9 +336,9 @@
             // 
             // btnThem
             // 
-            this.btnThem.Location = new System.Drawing.Point(45, 50);
+            this.btnThem.Location = new System.Drawing.Point(25, 50);
             this.btnThem.Name = "btnThem";
-            this.btnThem.Size = new System.Drawing.Size(88, 35);
+            this.btnThem.Size = new System.Drawing.Size(90, 40);
             this.btnThem.TabIndex = 0;
             this.btnThem.Text = "Thêm";
             this.btnThem.UseVisualStyleBackColor = true;
@@ -356,7 +356,7 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.dgvKhachHang);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(13, 15);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(1089, 205);
