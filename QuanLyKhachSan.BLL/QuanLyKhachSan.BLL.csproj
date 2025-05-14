@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="DatPhongService.cs" />
     <Compile Include="DichVuService.cs" />
+    <Compile Include="KhachHangService.cs" />
     <Compile Include="LoaiPhongService.cs" />
     <Compile Include="NhanVienService.cs" />
     <Compile Include="PhongService.cs" />

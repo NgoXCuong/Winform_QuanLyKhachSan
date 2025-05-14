@@ -162,6 +162,9 @@
     <EmbeddedResource Include="DichVuForm.resx">
       <DependentUpon>DichVuForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="KhachHangForm.resx">
+      <DependentUpon>KhachHangForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>

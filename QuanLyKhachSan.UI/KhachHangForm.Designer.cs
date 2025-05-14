@@ -292,6 +292,7 @@
             this.btnTim.TabIndex = 5;
             this.btnTim.Text = "Tìm";
             this.btnTim.UseVisualStyleBackColor = true;
+            this.btnTim.Click += new System.EventHandler(this.btnTim_Click);
             // 
             // btnLoad
             // 
@@ -301,6 +302,7 @@
             this.btnLoad.TabIndex = 4;
             this.btnLoad.Text = "Làm mới";
             this.btnLoad.UseVisualStyleBackColor = true;
+            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
             // btnExcel
             // 
@@ -310,6 +312,7 @@
             this.btnExcel.TabIndex = 3;
             this.btnExcel.Text = "Xuất Excel";
             this.btnExcel.UseVisualStyleBackColor = true;
+            this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
             // 
             // btnXoa
             // 
@@ -319,6 +322,7 @@
             this.btnXoa.TabIndex = 2;
             this.btnXoa.Text = "Xóa";
             this.btnXoa.UseVisualStyleBackColor = true;
+            this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // btnSua
             // 
@@ -368,6 +372,7 @@
             this.dgvKhachHang.Name = "dgvKhachHang";
             this.dgvKhachHang.Size = new System.Drawing.Size(1057, 175);
             this.dgvKhachHang.TabIndex = 0;
+            this.dgvKhachHang.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvKhachHang_CellClick);
             // 
             // KhachHangForm
             // 
@@ -381,6 +386,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "KhachHangForm";
             this.Text = "KhachHangForm";
+            this.Load += new System.EventHandler(this.KhachHangForm_Load);
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox10.ResumeLayout(false);
