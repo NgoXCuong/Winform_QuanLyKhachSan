@@ -42,6 +42,7 @@ namespace QuanLyKhachSan.UI
             allowedButtons.Clear();
 
             if (quyen == "Admin")
+
             {
                 // Admin được quyền tất cả các nút
                 allowedButtons.AddRange(new[]
