@@ -75,16 +75,82 @@ namespace QuanLyKhachSan.UI
 
         public void loadChonDichVu()
         {
-            //dgvChonDichVu.DataSource = bookingRoomService.GetAllDichVu();
-            //dgvChonDichVu.Columns["MaDichVu"].HeaderText = "Mã Dịch Vụ";
-            //dgvChonDichVu.Columns["TenDichVu"].HeaderText = "Tên Dịch Vụ";
-            //dgvChonDichVu.Columns["DonGia"].HeaderText = "Đơn Giá";
-            //dgvChonDichVu.Columns["MaPhong"].HeaderText = "Mã Phòng";
-            //dgvChonDichVu.Columns["SoPhong"].HeaderText = "Số Phòng";
-            //dgvChonDichVu.Columns["SoLuong"].HeaderText = "Số Lượng";
+            dgvChonDichVu.DataSource = bookingRoomService.GetAllDichVu();
+            dgvChonDichVu.Columns["MaDichVu"].HeaderText = "Mã Dịch Vụ";
+            dgvChonDichVu.Columns["TenDichVu"].HeaderText = "Tên Dịch Vụ";
+            dgvChonDichVu.Columns["SoPhong"].HeaderText = "Số Phòng";
+            dgvChonDichVu.Columns["DonGia"].HeaderText = "Đơn Giá";
+            dgvChonDichVu.Columns["SoLuong"].HeaderText = "Số Lượng";
+
+
+            dgvChonDichVu.Columns["NgayDat"].Visible = false;
+            dgvChonDichVu.Columns["NgayNhan"].Visible = false;
+            dgvChonDichVu.Columns["NgayTra"].Visible = false;
+            dgvChonDichVu.Columns["MaPhong"].Visible = false;
+            dgvChonDichVu.Columns["MaDatPhong"].Visible = false;
+            dgvChonDichVu.Columns["GiaPhong"].Visible = false;
+
+        }
+        private void LoadDichVuTheoPhong(int soPhong)
+        {
+            var danhSach = bookingRoomService.GetAllDichVu()
+                .Where(dv => dv.SoPhong == soPhong)
+                .ToList();
+
+            dgvChonDichVu.DataSource = danhSach;
+
+            dgvChonDichVu.Columns["MaDichVu"].HeaderText = "Mã Dịch Vụ";
+            dgvChonDichVu.Columns["TenDichVu"].HeaderText = "Tên Dịch Vụ";
+            dgvChonDichVu.Columns["SoPhong"].HeaderText = "Số Phòng";
+            dgvChonDichVu.Columns["DonGia"].HeaderText = "Đơn Giá";
+            dgvChonDichVu.Columns["SoLuong"].HeaderText = "Số Lượng";
+
+            // Ẩn các cột không cần hiển thị
+            dgvChonDichVu.Columns["NgayDat"].Visible = false;
+            dgvChonDichVu.Columns["NgayNhan"].Visible = false;
+            dgvChonDichVu.Columns["NgayTra"].Visible = false;
+            dgvChonDichVu.Columns["MaPhong"].Visible = false;
+            dgvChonDichVu.Columns["MaDatPhong"].Visible = false;
+            dgvChonDichVu.Columns["GiaPhong"].Visible = false;
+
+            // Tính tổng tiền dịch vụ
+            decimal tongTienDichVu = 0;
+            foreach (var dv in danhSach)
+            {
+                tongTienDichVu += dv.DonGia * dv.SoLuong;
+            }
+
+            // Lấy GiaPhong từ bảng LoaiPhong dựa theo SoPhong
+            decimal giaPhong = bookingRoomService.GetGiaPhongTheoSoPhong(soPhong);
+
+            decimal tongTienAll = tongTienDichVu + giaPhong;
+
+            lbTienDV.Text = tongTienDichVu.ToString("N0") + " VNĐ";
+            lbTongTienAll.Text = tongTienAll.ToString("N0") + " VNĐ";
 
         }
 
+        public void LoadDatPhong()
+        {
+            dgvListDatPhong.DataSource = bookingRoomService.GetAllPhongDat();
+            dgvListDatPhong.Columns["MaPhong"].HeaderText = "Mã Phòng";
+            dgvListDatPhong.Columns["SoPhong"].HeaderText = "Số Phòng";
+            dgvListDatPhong.Columns["MaLoaiPhong"].HeaderText = "Mã Loại Phòng";
+            dgvListDatPhong.Columns["TenLoaiPhong"].HeaderText = "Tên Loại Phòng";
+            dgvListDatPhong.Columns["GiaPhong"].HeaderText = "Giá Phòng";
+            dgvListDatPhong.Columns["TrangThai"].HeaderText = "Trạng Thái";
+
+            dgvListDatPhong.Columns["MaDatPhong"].Visible = false;
+            dgvListDatPhong.Columns["MaDichVu"].Visible = false;
+            dgvListDatPhong.Columns["TenDichVu"].Visible = false;
+            dgvListDatPhong.Columns["DonGia"].Visible = false;
+            dgvListDatPhong.Columns["SoLuong"].Visible = false;
+            dgvListDatPhong.Columns["NgayDat"].Visible = false;
+            dgvListDatPhong.Columns["NgayNhan"].Visible = false;
+            dgvListDatPhong.Columns["NgayTra"].Visible = false;
+            dgvListDatPhong.Columns["MaKH"].Visible = false;
+            dgvListDatPhong.Columns["MaNV"].Visible = false;
+        }
 
         private void lvPhong_Click(object sender, EventArgs e)
         {
@@ -96,8 +162,8 @@ namespace QuanLyKhachSan.UI
                 if (phong != null)
                 {
                     txtTenDatPhong.Text = phong.SoPhong.ToString();     // Hiện số phòng
-                    //txtMaPhong.Text = phong.MaPhong.ToString();         // (nếu có textbox MaPhong)
-                    //txtTrangThai.Text = phong.TrangThai;                // (nếu có textbox Trạng Thái)
+
+                    LoadDichVuTheoPhong(phong.SoPhong);
                 }
             }
         }
@@ -109,6 +175,7 @@ namespace QuanLyKhachSan.UI
         {
             LoadPhong();
             loadChonDichVu();
+            LoadDatPhong();
         }
 
         private void rbTrong_CheckedChanged(object sender, EventArgs e)
@@ -211,7 +278,7 @@ namespace QuanLyKhachSan.UI
             // Tạo đối tượng BookingRoomModel
             BookingRoomModel bookingRoom = new BookingRoomModel
             {
-                MaDichVu = Convert.ToInt32(cbDichVu.SelectedValue),
+                MaDichVu = Convert.ToInt32(cbDichVu.Text),
                 SoPhong = Convert.ToInt32(txtTenDatPhong.Text),
                 SoLuong = Convert.ToInt32(txtSoLuong.Text),
                 MaKH = Convert.ToInt32(txtMaKH.Text),  // Gán MaKH từ TextBox
@@ -226,6 +293,7 @@ namespace QuanLyKhachSan.UI
             if (ketqua)
             {
                 MessageBox.Show("Đặt phòng thành công!");
+                bookingRoomService.CapNhatTrangThaiPhong_DaDat(bookingRoom);
                 LoadPhong();
                 loadChonDichVu();
             }
@@ -234,7 +302,140 @@ namespace QuanLyKhachSan.UI
                 MessageBox.Show("Đặt phòng thất bại!");
             }
         }
+        private void btnHuyDat_Click(object sender, EventArgs e)
+        {
+            if (lvPhong.SelectedItems.Count > 0)
+            {
+                var item = lvPhong.SelectedItems[0];
+                PhongModel phong = item.Tag as PhongModel;
 
+                if (phong != null)
+                {
+                    BookingRoomModel booking = new BookingRoomModel
+                    {
+                        SoPhong = phong.SoPhong
+                        // Có thể gán thêm MaPhong hoặc MaDatPhong nếu đã có
+                    };
 
+                    DialogResult result = MessageBox.Show("Bạn có chắc muốn hủy đặt phòng này?", "Xác nhận", MessageBoxButtons.YesNo);
+                    if (result == DialogResult.Yes)
+                    {
+                        bool thanhCong = bookingRoomService.HuyDatPhong(booking);
+                        if (thanhCong)
+                        {
+                            MessageBox.Show("Hủy đặt phòng thành công.");
+                            LoadPhong(); // Cập nhật giao diện
+                            txtTenDatPhong.Text = "";
+                            lbTienDV.Text = "";
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không thể hủy vì không tìm thấy dữ liệu.");
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn phòng cần hủy.");
+            }
+        }
+
+        private void btnHuyDV_Click(object sender, EventArgs e)
+        {
+            if (dgvChonDichVu.CurrentRow != null)
+            {
+                BookingRoomModel booking = new BookingRoomModel
+                {
+                    SoPhong = Convert.ToInt32(dgvChonDichVu.CurrentRow.Cells["SoPhong"].Value),
+                    MaDichVu = Convert.ToInt32(dgvChonDichVu.CurrentRow.Cells["MaDichVu"].Value)
+                };
+
+                bool ketQua = bookingRoomService.HuyDichVuTheoSoPhongVaMaDV(booking);
+                if (ketQua)
+                {
+                    MessageBox.Show("Đã hủy dịch vụ thành công!");
+                    LoadDichVuTheoPhong(booking.SoPhong);
+                }
+                else
+                {
+                    MessageBox.Show("Hủy dịch vụ thất bại!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn một dòng dịch vụ để hủy.");
+            }
+        }
+
+        private void btnThemDV_Click(object sender, EventArgs e)
+        {
+            // Kiểm tra ngày tháng
+            if (dtNgayDat.Value < new DateTime(1753, 1, 1) ||
+                dtNgayNhan.Value < new DateTime(1753, 1, 1) ||
+                dtNgayTra.Value < new DateTime(1753, 1, 1))
+            {
+                MessageBox.Show("Ngày chọn không hợp lệ. Vui lòng kiểm tra lại.");
+                return;
+            }
+
+            // Kiểm tra dữ liệu đầu vào
+            if (string.IsNullOrEmpty(txtTenDatPhong.Text))
+            {
+                MessageBox.Show("Vui lòng chọn phòng trước khi đặt!");
+                return;
+            }
+            else if (string.IsNullOrEmpty(txtSoLuong.Text))
+            {
+                MessageBox.Show("Vui lòng nhập số lượng dịch vụ!");
+                return;
+            }
+            else if (string.IsNullOrEmpty(cbDichVu.Text))
+            {
+                MessageBox.Show("Vui lòng chọn dịch vụ!");
+                return;
+            }
+
+            // Kiểm tra Mã Khách Hàng có hợp lệ không
+            if (string.IsNullOrEmpty(txtMaKH.Text) || txtMaKH.Text == "0")
+            {
+                MessageBox.Show("Vui lòng chọn khách hàng hợp lệ.");
+                return;
+            }
+
+            // Kiểm tra Mã Nhân Viên có hợp lệ không
+            if (string.IsNullOrEmpty(txtMaNV.Text) || txtMaNV.Text == "0")
+            {
+                MessageBox.Show("Vui lòng chọn nhân viên hợp lệ.");
+                return;
+            }
+
+            // Tạo đối tượng BookingRoomModel
+            BookingRoomModel bookingRoom = new BookingRoomModel
+            {
+                MaDichVu = Convert.ToInt32(cbDichVu.Text),
+                SoPhong = Convert.ToInt32(txtTenDatPhong.Text),
+                SoLuong = Convert.ToInt32(txtSoLuong.Text),
+                MaKH = Convert.ToInt32(txtMaKH.Text),  // Gán MaKH từ TextBox
+                MaNV = Convert.ToInt32(txtMaNV.Text),  // Gán MaNV từ TextBox
+                NgayDat = dtNgayDat.Value,
+                NgayNhan = dtNgayNhan.Value,
+                NgayTra = dtNgayTra.Value
+            };
+
+            // Thực hiện gọi Insert
+            bool ketqua = bookingRoomService.InsertBookingRoom(bookingRoom);
+            if (ketqua)
+            {
+                MessageBox.Show("Thêm dịch vụ thành công!");
+                LoadPhong();
+                loadChonDichVu();
+            }
+            else
+            {
+                MessageBox.Show("Thêm dịch vụ thất bại!");
+            }
+
+        }
     }
 }

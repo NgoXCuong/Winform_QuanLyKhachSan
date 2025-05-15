@@ -9,9 +9,9 @@ namespace QuanLyKhachSan.Models
     public class BookingRoomModel
     {
         public int MaDichVu { get; set; }
-        //public string TenDichVu { get; set; }
-        //public decimal DonGia { get; set; }
+        public string TenDichVu { get; set; }
         public int SoPhong { get; set; }
+        public decimal DonGia { get; set; }
         public int SoLuong { get; set; }
         public DateTime NgayDat { get; set; }
         public DateTime NgayNhan { get; set; }
@@ -19,6 +19,12 @@ namespace QuanLyKhachSan.Models
 
         public int MaKH { get; set; }
         public int MaNV { get; set; }
+        public int MaDatPhong { get; set; }
+        public int MaPhong { get; set; }
+        public int MaLoaiPhong { get; set; }
+        public string TenLoaiPhong { get; set; }
+        public string TrangThai { get; set; }
+        public decimal GiaPhong { get; set; }
     }
 
 }
