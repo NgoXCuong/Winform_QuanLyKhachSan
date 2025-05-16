@@ -51,6 +51,7 @@
     <Compile Include="PhongRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TaiKhoanRepository.cs" />
+    <Compile Include="ThongKeRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QuanLyKhachSan.Models\QuanLyKhachSan.Models.csproj">

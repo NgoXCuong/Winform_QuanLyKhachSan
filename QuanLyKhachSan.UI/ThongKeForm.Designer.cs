@@ -37,19 +37,19 @@
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel12 = new System.Windows.Forms.Panel();
-            this.label10 = new System.Windows.Forms.Label();
+            this.lbTongKhachHang = new System.Windows.Forms.Label();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.label6 = new System.Windows.Forms.Label();
             this.panel11 = new System.Windows.Forms.Panel();
-            this.label9 = new System.Windows.Forms.Label();
+            this.lbTongSoPhong = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.label5 = new System.Windows.Forms.Label();
             this.panel10 = new System.Windows.Forms.Panel();
-            this.label8 = new System.Windows.Forms.Label();
+            this.lbTongNhanVien = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label4 = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
-            this.label7 = new System.Windows.Forms.Label();
+            this.lbTongDoanhThu = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -94,7 +94,7 @@
             // panel12
             // 
             this.panel12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.panel12.Controls.Add(this.label10);
+            this.panel12.Controls.Add(this.lbTongKhachHang);
             this.panel12.Controls.Add(this.pictureBox4);
             this.panel12.Controls.Add(this.label6);
             this.panel12.Location = new System.Drawing.Point(860, 14);
@@ -102,16 +102,16 @@
             this.panel12.Size = new System.Drawing.Size(210, 100);
             this.panel12.TabIndex = 1;
             // 
-            // label10
+            // lbTongKhachHang
             // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.Color.Red;
-            this.label10.Location = new System.Drawing.Point(11, 72);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(67, 20);
-            this.label10.TabIndex = 6;
-            this.label10.Text = "label10";
+            this.lbTongKhachHang.AutoSize = true;
+            this.lbTongKhachHang.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTongKhachHang.ForeColor = System.Drawing.Color.Red;
+            this.lbTongKhachHang.Location = new System.Drawing.Point(11, 72);
+            this.lbTongKhachHang.Name = "lbTongKhachHang";
+            this.lbTongKhachHang.Size = new System.Drawing.Size(67, 20);
+            this.lbTongKhachHang.TabIndex = 6;
+            this.lbTongKhachHang.Text = "label10";
             // 
             // pictureBox4
             // 
@@ -136,7 +136,7 @@
             // panel11
             // 
             this.panel11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.panel11.Controls.Add(this.label9);
+            this.panel11.Controls.Add(this.lbTongSoPhong);
             this.panel11.Controls.Add(this.pictureBox3);
             this.panel11.Controls.Add(this.label5);
             this.panel11.Location = new System.Drawing.Point(590, 12);
@@ -144,16 +144,16 @@
             this.panel11.Size = new System.Drawing.Size(210, 100);
             this.panel11.TabIndex = 1;
             // 
-            // label9
+            // lbTongSoPhong
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.Color.Red;
-            this.label9.Location = new System.Drawing.Point(11, 72);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(57, 20);
-            this.label9.TabIndex = 5;
-            this.label9.Text = "label9";
+            this.lbTongSoPhong.AutoSize = true;
+            this.lbTongSoPhong.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTongSoPhong.ForeColor = System.Drawing.Color.Red;
+            this.lbTongSoPhong.Location = new System.Drawing.Point(11, 72);
+            this.lbTongSoPhong.Name = "lbTongSoPhong";
+            this.lbTongSoPhong.Size = new System.Drawing.Size(57, 20);
+            this.lbTongSoPhong.TabIndex = 5;
+            this.lbTongSoPhong.Text = "label9";
             // 
             // pictureBox3
             // 
@@ -178,7 +178,7 @@
             // panel10
             // 
             this.panel10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.panel10.Controls.Add(this.label8);
+            this.panel10.Controls.Add(this.lbTongNhanVien);
             this.panel10.Controls.Add(this.pictureBox1);
             this.panel10.Controls.Add(this.label4);
             this.panel10.Location = new System.Drawing.Point(320, 14);
@@ -186,16 +186,16 @@
             this.panel10.Size = new System.Drawing.Size(210, 100);
             this.panel10.TabIndex = 1;
             // 
-            // label8
+            // lbTongNhanVien
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.Red;
-            this.label8.Location = new System.Drawing.Point(11, 72);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(57, 20);
-            this.label8.TabIndex = 4;
-            this.label8.Text = "label8";
+            this.lbTongNhanVien.AutoSize = true;
+            this.lbTongNhanVien.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTongNhanVien.ForeColor = System.Drawing.Color.Red;
+            this.lbTongNhanVien.Location = new System.Drawing.Point(11, 72);
+            this.lbTongNhanVien.Name = "lbTongNhanVien";
+            this.lbTongNhanVien.Size = new System.Drawing.Size(57, 20);
+            this.lbTongNhanVien.TabIndex = 4;
+            this.lbTongNhanVien.Text = "label8";
             // 
             // pictureBox2
             // 
@@ -213,14 +213,14 @@
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(11, 49);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(158, 20);
+            this.label4.Size = new System.Drawing.Size(117, 20);
             this.label4.TabIndex = 0;
-            this.label4.Text = "Doanh thu tháng này";
+            this.label4.Text = "Tổng nhân viên";
             // 
             // panel9
             // 
             this.panel9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.panel9.Controls.Add(this.label7);
+            this.panel9.Controls.Add(this.lbTongDoanhThu);
             this.panel9.Controls.Add(this.label3);
             this.panel9.Controls.Add(this.pictureBox2);
             this.panel9.Location = new System.Drawing.Point(50, 12);
@@ -228,16 +228,16 @@
             this.panel9.Size = new System.Drawing.Size(210, 100);
             this.panel9.TabIndex = 0;
             // 
-            // label7
+            // lbTongDoanhThu
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.Red;
-            this.label7.Location = new System.Drawing.Point(11, 72);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(57, 20);
-            this.label7.TabIndex = 3;
-            this.label7.Text = "label7";
+            this.lbTongDoanhThu.AutoSize = true;
+            this.lbTongDoanhThu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTongDoanhThu.ForeColor = System.Drawing.Color.Red;
+            this.lbTongDoanhThu.Location = new System.Drawing.Point(11, 72);
+            this.lbTongDoanhThu.Name = "lbTongDoanhThu";
+            this.lbTongDoanhThu.Size = new System.Drawing.Size(57, 20);
+            this.lbTongDoanhThu.TabIndex = 3;
+            this.lbTongDoanhThu.Text = "label7";
             // 
             // pictureBox1
             // 
@@ -413,10 +413,10 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lbTongKhachHang;
+        private System.Windows.Forms.Label lbTongSoPhong;
+        private System.Windows.Forms.Label lbTongNhanVien;
+        private System.Windows.Forms.Label lbTongDoanhThu;
         private System.Windows.Forms.Label label2;
     }
 }
