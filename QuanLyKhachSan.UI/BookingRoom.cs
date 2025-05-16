@@ -89,6 +89,10 @@ namespace QuanLyKhachSan.UI
             dgvChonDichVu.Columns["MaPhong"].Visible = false;
             dgvChonDichVu.Columns["MaDatPhong"].Visible = false;
             dgvChonDichVu.Columns["GiaPhong"].Visible = false;
+            dgvChonDichVu.Columns["MaLoaiPhong"].Visible = false;
+            dgvChonDichVu.Columns["TenLoaiPhong"].Visible = false;
+            dgvChonDichVu.Columns["TrangThai"].Visible = false;
+
 
         }
         private void LoadDichVuTheoPhong(int soPhong)
