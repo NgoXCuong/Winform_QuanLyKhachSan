@@ -91,12 +91,6 @@
     <Compile Include="BookingRoom.Designer.cs">
       <DependentUpon>BookingRoom.cs</DependentUpon>
     </Compile>
-    <Compile Include="DatPhongForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DatPhongForm.Designer.cs">
-      <DependentUpon>DatPhongForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="DichVuForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -156,9 +150,6 @@
     <EmbeddedResource Include="BookingRoom.resx">
       <DependentUpon>BookingRoom.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DatPhongForm.resx">
-      <DependentUpon>DatPhongForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="DichVuForm.resx">
       <DependentUpon>DichVuForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -188,6 +179,7 @@
     </Compile>
     <EmbeddedResource Include="ThongKeForm.resx">
       <DependentUpon>ThongKeForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="TrangChuForm.resx">
       <DependentUpon>TrangChuForm.cs</DependentUpon>

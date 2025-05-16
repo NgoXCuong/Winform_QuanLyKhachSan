@@ -49,7 +49,7 @@ namespace QuanLyKhachSan.UI
                 {
                     btnTrangChu, btnPhong, btnNhanVien,
                     btnHoaDon, btnKhachHang, btnDichVu, 
-                    btnDatPhong, btnThongKe, btnBooking
+                    btnThongKe, btnBooking
                 });
             }
             else
@@ -60,7 +60,6 @@ namespace QuanLyKhachSan.UI
                 DisableButton(btnHoaDon);
                 DisableButton(btnKhachHang);
                 DisableButton(btnDichVu);
-                DisableButton(btnDatPhong);
 
                 // Các nút được phép
                 allowedButtons.AddRange(new[]
@@ -186,12 +185,6 @@ namespace QuanLyKhachSan.UI
             OpenChildForm(new KhachHangForm());
             HighlightButton(btnKhachHang);
         }
-
-        //private void btnDatPhong_Click(object sender, EventArgs e)
-        //{
-        //    OpenChildForm(new DatPhongForm());
-        //    HighlightButton(btnDatPhong);
-        //}
 
         private void btnThongKe_Click(object sender, EventArgs e)
         {

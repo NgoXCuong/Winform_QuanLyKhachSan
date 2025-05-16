@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookingRoomModel.cs" />
-    <Compile Include="DatPhongModel.cs" />
     <Compile Include="DichVuModel.cs" />
     <Compile Include="KhachHangModel.cs" />
     <Compile Include="LoaiPhongModel.cs" />

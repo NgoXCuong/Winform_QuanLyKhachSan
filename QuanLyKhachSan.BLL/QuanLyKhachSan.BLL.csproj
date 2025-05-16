@@ -43,7 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookingRoomService.cs" />
-    <Compile Include="DatPhongService.cs" />
     <Compile Include="DichVuService.cs" />
     <Compile Include="KhachHangService.cs" />
     <Compile Include="LoaiPhongService.cs" />

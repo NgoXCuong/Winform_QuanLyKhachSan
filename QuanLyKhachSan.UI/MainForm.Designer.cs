@@ -35,10 +35,10 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.pictureBox9 = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnBooking = new System.Windows.Forms.Button();
+            this.pictureBox12 = new System.Windows.Forms.PictureBox();
             this.btnThongKe = new System.Windows.Forms.Button();
             this.pictureBox11 = new System.Windows.Forms.PictureBox();
-            this.btnDatPhong = new System.Windows.Forms.Button();
-            this.pictureBox10 = new System.Windows.Forms.PictureBox();
             this.btnDichVu = new System.Windows.Forms.Button();
             this.pictureBox8 = new System.Windows.Forms.PictureBox();
             this.btnHoaDon = new System.Windows.Forms.Button();
@@ -58,14 +58,12 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pnPage = new System.Windows.Forms.Panel();
-            this.btnBooking = new System.Windows.Forms.Button();
-            this.pictureBox12 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
@@ -75,7 +73,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -137,8 +134,6 @@
             this.panel3.Controls.Add(this.pictureBox12);
             this.panel3.Controls.Add(this.btnThongKe);
             this.panel3.Controls.Add(this.pictureBox11);
-            this.panel3.Controls.Add(this.btnDatPhong);
-            this.panel3.Controls.Add(this.pictureBox10);
             this.panel3.Controls.Add(this.btnDichVu);
             this.panel3.Controls.Add(this.pictureBox8);
             this.panel3.Controls.Add(this.btnHoaDon);
@@ -155,6 +150,26 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(140, 485);
             this.panel3.TabIndex = 1;
+            // 
+            // btnBooking
+            // 
+            this.btnBooking.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBooking.Location = new System.Drawing.Point(37, 260);
+            this.btnBooking.Name = "btnBooking";
+            this.btnBooking.Size = new System.Drawing.Size(99, 28);
+            this.btnBooking.TabIndex = 17;
+            this.btnBooking.Text = "Booking";
+            this.btnBooking.UseVisualStyleBackColor = true;
+            this.btnBooking.Click += new System.EventHandler(this.btnBooking_Click);
+            // 
+            // pictureBox12
+            // 
+            this.pictureBox12.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox12.Image")));
+            this.pictureBox12.Location = new System.Drawing.Point(4, 260);
+            this.pictureBox12.Name = "pictureBox12";
+            this.pictureBox12.Size = new System.Drawing.Size(28, 28);
+            this.pictureBox12.TabIndex = 16;
+            this.pictureBox12.TabStop = false;
             // 
             // btnThongKe
             // 
@@ -175,26 +190,6 @@
             this.pictureBox11.Size = new System.Drawing.Size(28, 28);
             this.pictureBox11.TabIndex = 14;
             this.pictureBox11.TabStop = false;
-            // 
-            // btnDatPhong
-            // 
-            this.btnDatPhong.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDatPhong.Location = new System.Drawing.Point(37, 260);
-            this.btnDatPhong.Name = "btnDatPhong";
-            this.btnDatPhong.Size = new System.Drawing.Size(99, 28);
-            this.btnDatPhong.TabIndex = 13;
-            this.btnDatPhong.Text = "Đặt phòng";
-            this.btnDatPhong.UseVisualStyleBackColor = true;
-            //this.btnDatPhong.Click += new System.EventHandler(this.btnDatPhong_Click);
-            // 
-            // pictureBox10
-            // 
-            this.pictureBox10.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox10.Image")));
-            this.pictureBox10.Location = new System.Drawing.Point(4, 260);
-            this.pictureBox10.Name = "pictureBox10";
-            this.pictureBox10.Size = new System.Drawing.Size(28, 28);
-            this.pictureBox10.TabIndex = 12;
-            this.pictureBox10.TabStop = false;
             // 
             // btnDichVu
             // 
@@ -391,26 +386,6 @@
             this.pnPage.Size = new System.Drawing.Size(1130, 627);
             this.pnPage.TabIndex = 2;
             // 
-            // btnBooking
-            // 
-            this.btnBooking.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBooking.Location = new System.Drawing.Point(36, 343);
-            this.btnBooking.Name = "btnBooking";
-            this.btnBooking.Size = new System.Drawing.Size(99, 28);
-            this.btnBooking.TabIndex = 17;
-            this.btnBooking.Text = "Booking";
-            this.btnBooking.UseVisualStyleBackColor = true;
-            this.btnBooking.Click += new System.EventHandler(this.btnBooking_Click);
-            // 
-            // pictureBox12
-            // 
-            this.pictureBox12.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox12.Image")));
-            this.pictureBox12.Location = new System.Drawing.Point(3, 343);
-            this.pictureBox12.Name = "pictureBox12";
-            this.pictureBox12.Size = new System.Drawing.Size(28, 28);
-            this.pictureBox12.TabIndex = 16;
-            this.pictureBox12.TabStop = false;
-            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -430,8 +405,8 @@
             this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
             this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
@@ -442,7 +417,6 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox12)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -472,8 +446,6 @@
         private System.Windows.Forms.Button btnTrangChu;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.Label lbDate;
-        private System.Windows.Forms.Button btnDatPhong;
-        private System.Windows.Forms.PictureBox pictureBox10;
         private System.Windows.Forms.Button btnThongKe;
         private System.Windows.Forms.PictureBox pictureBox11;
         private System.Windows.Forms.Label label2;
