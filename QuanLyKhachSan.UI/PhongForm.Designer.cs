@@ -152,6 +152,7 @@
             this.dgvListPhong.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvListPhong.Size = new System.Drawing.Size(1059, 205);
             this.dgvListPhong.TabIndex = 0;
+            this.dgvListPhong.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvListPhong_CellClick);
             // 
             // panel1
             // 

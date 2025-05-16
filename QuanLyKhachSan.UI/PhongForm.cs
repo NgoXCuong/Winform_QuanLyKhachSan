@@ -26,7 +26,10 @@ namespace QuanLyKhachSan.UI
         private void PhongForm_Load(object sender, EventArgs e)
         {
             LoadListPhong();
+            ClearFormPhong();
+
             LoadListLoaiPhong();
+            ClearFormLoaiPhong();
         }
 
         private void btnThem_Click(object sender, EventArgs e)
@@ -136,10 +139,8 @@ namespace QuanLyKhachSan.UI
         {
             string keyword = txtSearch.Text.Trim(); // Lấy từ khóa tìm kiếm từ TextBox
 
-            // Gọi phương thức tìm kiếm từ service
             List<PhongModel> result = phongService.TimPhong(keyword);
 
-            // Hiển thị kết quả lên DataGridView
             if (result.Count > 0)
             {
                 dgvListPhong.DataSource = result;
@@ -212,19 +213,21 @@ namespace QuanLyKhachSan.UI
             ClearFormPhong();
         }
 
-        private void dvgListPhong_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvListPhong_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgvListPhong.SelectedRows.Count > 0)
+            if (e.RowIndex >= 0)
             {
-                DataGridViewRow row = dgvListPhong.SelectedRows[0];
-                //txtMaPhong.Text = row.Cells["MaPhong"].Value.ToString();
-                txtSoPhong.Text = row.Cells["SoPhong"].Value.ToString();
-                cbLoaiPhong.Text = row.Cells["LoaiPhong"].Value.ToString();
-                cbTrangThai.Text = row.Cells["TrangThai"].Value.ToString();
-            }
-            else
-            {
-                MessageBox.Show("Vui lòng chọn phòng để xem thông tin", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                DataGridViewRow row = dgvListPhong.Rows[e.RowIndex];
+
+                txtSoPhong.Text = row.Cells["SoPhong"].Value?.ToString();
+
+                // Nếu cột "LoaiPhong" là mã loại phòng (int), dùng SelectedValue
+                if (int.TryParse(row.Cells["LoaiPhong"].Value?.ToString(), out int maLoaiPhong))
+                {
+                    cbLoaiPhong.SelectedValue = maLoaiPhong;
+                }
+
+                cbTrangThai.Text = row.Cells["TrangThai"].Value?.ToString();
             }
         }
 
@@ -274,8 +277,8 @@ namespace QuanLyKhachSan.UI
             if (ketQua)
             {
                 MessageBox.Show("Thêm loại phòng thành công", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                LoadListLoaiPhong(); // Refresh danh sách
-                ClearFormLoaiPhong();        // Xóa thông tin trên form
+                LoadListLoaiPhong(); 
+                ClearFormLoaiPhong();        
             }
             else
             {
@@ -287,7 +290,6 @@ namespace QuanLyKhachSan.UI
         {
             if (dgvListLoaiPhong.CurrentRow != null)
             {
-                // Xác nhận trước khi xóa
                 DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa loại phòng này?",
                     "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
@@ -300,8 +302,8 @@ namespace QuanLyKhachSan.UI
                     if (xoaThanhCong)
                     {
                         MessageBox.Show("Xóa loại phòng thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        LoadListLoaiPhong(); // Refresh danh sách
-                        ClearFormLoaiPhong();        // Xóa thông tin trên form
+                        LoadListLoaiPhong(); 
+                        ClearFormLoaiPhong();       
                     }
                     else
                     {
@@ -472,5 +474,7 @@ namespace QuanLyKhachSan.UI
             txtSoNguoi.Clear();
             cbLoaiPhong.SelectedIndex = -1;
         }
+
+        
     }
 }
