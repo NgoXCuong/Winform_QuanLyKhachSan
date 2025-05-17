@@ -123,5 +123,17 @@ namespace QuanLyKhachSan.DAL
             }
             return listPhong;
         }
+
+        // Kiểm tra số phong đã tồn tại hay chưa
+        public bool KiemTraSoPhongTonTai(int soPhong)
+        {
+            string sql = "SELECT COUNT(*) FROM Phong WHERE SoPhong = @SoPhong";
+            var parameters = new SqlParameter[]
+            {
+                new SqlParameter("@SoPhong", soPhong)
+            };
+            int count = (int)connDb.ExecuteScalar(sql, parameters);
+            return count > 0;
+        }
     }
 }

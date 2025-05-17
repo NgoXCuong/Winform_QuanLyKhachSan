@@ -11,14 +11,17 @@ namespace QuanLyKhachSan.BLL
     public class TaiKhoanService
     {
         private readonly TaiKhoanRepository taiKhoanRepository;
+
         public TaiKhoanService()
         {
             taiKhoanRepository = new TaiKhoanRepository();
         }
+
         public List<TaiKhoanModel> GetAllTaiKhoan()
         {
             return taiKhoanRepository.getAllTaiKhoan();
         }
+
         public List<TaiKhoanModel> GetTaiKhoanLogin()
         {
             return taiKhoanRepository.getTaiKhoanLogin();

@@ -178,7 +178,7 @@
             // 
             // btnLamMoi
             // 
-            this.btnLamMoi.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.btnLamMoi.BackColor = System.Drawing.Color.DarkTurquoise;
             this.btnLamMoi.Location = new System.Drawing.Point(27, 180);
             this.btnLamMoi.Name = "btnLamMoi";
             this.btnLamMoi.Size = new System.Drawing.Size(88, 35);
@@ -198,7 +198,7 @@
             // 
             // btnTim
             // 
-            this.btnTim.BackColor = System.Drawing.Color.MediumPurple;
+            this.btnTim.BackColor = System.Drawing.Color.Magenta;
             this.btnTim.Location = new System.Drawing.Point(169, 243);
             this.btnTim.Name = "btnTim";
             this.btnTim.Size = new System.Drawing.Size(86, 35);
@@ -209,7 +209,7 @@
             // 
             // xuatExcel
             // 
-            this.xuatExcel.BackColor = System.Drawing.Color.YellowGreen;
+            this.xuatExcel.BackColor = System.Drawing.Color.MediumAquamarine;
             this.xuatExcel.Location = new System.Drawing.Point(151, 115);
             this.xuatExcel.Name = "xuatExcel";
             this.xuatExcel.Size = new System.Drawing.Size(88, 35);

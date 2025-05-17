@@ -11,18 +11,22 @@ namespace QuanLyKhachSan.BLL
     public class KhachHangService
     {
         private readonly KhachHangRepository khachHangRepository;
+
         public KhachHangService()
         {
             khachHangRepository = new KhachHangRepository();
         }
+
         public List<KhachHangModel> GetAllKhachHang()
         {
             return khachHangRepository.GetAllKhachHang();
         }
+
         public bool ThemKhachHang(KhachHangModel kh)
         {
             return khachHangRepository.ThemKhachHang(kh);
         }
+
         public bool SuaKhachHang(KhachHangModel kh)
         {
             return khachHangRepository.SuaKhachHang(kh);

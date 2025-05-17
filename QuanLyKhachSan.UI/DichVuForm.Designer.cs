@@ -201,10 +201,10 @@
             // 
             // btnTim
             // 
-            this.btnTim.BackColor = System.Drawing.Color.MediumPurple;
-            this.btnTim.Location = new System.Drawing.Point(189, 283);
+            this.btnTim.BackColor = System.Drawing.Color.Magenta;
+            this.btnTim.Location = new System.Drawing.Point(189, 275);
             this.btnTim.Name = "btnTim";
-            this.btnTim.Size = new System.Drawing.Size(90, 30);
+            this.btnTim.Size = new System.Drawing.Size(90, 35);
             this.btnTim.TabIndex = 5;
             this.btnTim.Text = "Tìm";
             this.btnTim.UseVisualStyleBackColor = false;
@@ -212,7 +212,7 @@
             // 
             // btnLoad
             // 
-            this.btnLoad.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.btnLoad.BackColor = System.Drawing.Color.DarkTurquoise;
             this.btnLoad.Location = new System.Drawing.Point(27, 198);
             this.btnLoad.Name = "btnLoad";
             this.btnLoad.Size = new System.Drawing.Size(90, 35);
@@ -223,7 +223,7 @@
             // 
             // btnExcel
             // 
-            this.btnExcel.BackColor = System.Drawing.Color.YellowGreen;
+            this.btnExcel.BackColor = System.Drawing.Color.MediumAquamarine;
             this.btnExcel.Location = new System.Drawing.Point(180, 126);
             this.btnExcel.Name = "btnExcel";
             this.btnExcel.Size = new System.Drawing.Size(90, 35);

@@ -286,62 +286,68 @@
             // 
             // btnTim
             // 
-            this.btnTim.Location = new System.Drawing.Point(190, 289);
+            this.btnTim.BackColor = System.Drawing.Color.Magenta;
+            this.btnTim.Location = new System.Drawing.Point(190, 281);
             this.btnTim.Name = "btnTim";
-            this.btnTim.Size = new System.Drawing.Size(85, 30);
+            this.btnTim.Size = new System.Drawing.Size(85, 35);
             this.btnTim.TabIndex = 5;
             this.btnTim.Text = "Tìm";
-            this.btnTim.UseVisualStyleBackColor = true;
+            this.btnTim.UseVisualStyleBackColor = false;
             this.btnTim.Click += new System.EventHandler(this.btnTim_Click);
             // 
             // btnLoad
             // 
+            this.btnLoad.BackColor = System.Drawing.Color.DarkTurquoise;
             this.btnLoad.Location = new System.Drawing.Point(25, 190);
             this.btnLoad.Name = "btnLoad";
             this.btnLoad.Size = new System.Drawing.Size(90, 40);
             this.btnLoad.TabIndex = 4;
             this.btnLoad.Text = "Làm mới";
-            this.btnLoad.UseVisualStyleBackColor = true;
+            this.btnLoad.UseVisualStyleBackColor = false;
             this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
             // btnExcel
             // 
+            this.btnExcel.BackColor = System.Drawing.Color.MediumAquamarine;
             this.btnExcel.Location = new System.Drawing.Point(188, 120);
             this.btnExcel.Name = "btnExcel";
             this.btnExcel.Size = new System.Drawing.Size(90, 40);
             this.btnExcel.TabIndex = 3;
             this.btnExcel.Text = "Xuất Excel";
-            this.btnExcel.UseVisualStyleBackColor = true;
+            this.btnExcel.UseVisualStyleBackColor = false;
             this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
             // 
             // btnXoa
             // 
+            this.btnXoa.BackColor = System.Drawing.Color.Tomato;
             this.btnXoa.Location = new System.Drawing.Point(25, 120);
             this.btnXoa.Name = "btnXoa";
             this.btnXoa.Size = new System.Drawing.Size(90, 40);
             this.btnXoa.TabIndex = 2;
             this.btnXoa.Text = "Xóa";
-            this.btnXoa.UseVisualStyleBackColor = true;
+            this.btnXoa.UseVisualStyleBackColor = false;
             this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // btnSua
             // 
+            this.btnSua.BackColor = System.Drawing.Color.Orange;
             this.btnSua.Location = new System.Drawing.Point(188, 50);
             this.btnSua.Name = "btnSua";
             this.btnSua.Size = new System.Drawing.Size(90, 40);
             this.btnSua.TabIndex = 1;
             this.btnSua.Text = "Sửa";
-            this.btnSua.UseVisualStyleBackColor = true;
+            this.btnSua.UseVisualStyleBackColor = false;
             this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
             // 
             // btnThem
             // 
+            this.btnThem.BackColor = System.Drawing.Color.LimeGreen;
             this.btnThem.Location = new System.Drawing.Point(25, 50);
             this.btnThem.Name = "btnThem";
             this.btnThem.Size = new System.Drawing.Size(90, 40);
             this.btnThem.TabIndex = 0;
             this.btnThem.Text = "Thêm";
-            this.btnThem.UseVisualStyleBackColor = true;
+            this.btnThem.UseVisualStyleBackColor = false;
             this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
             // 
             // panel3
