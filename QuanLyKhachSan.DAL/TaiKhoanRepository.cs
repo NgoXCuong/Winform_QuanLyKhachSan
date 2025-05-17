@@ -75,7 +75,8 @@ namespace QuanLyKhachSan.DAL
             }
         }
 
-        public bool SuaTaiKhoan(TaiKhoanModel tk)
+        public bool SuaTaiKhoan
+            (TaiKhoanModel tk)
         {
             using (SqlConnection conn = new SqlConnection(connDb.GetConnection().ConnectionString))
             {

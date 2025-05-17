@@ -178,12 +178,13 @@
             // 
             // btnLamMoi
             // 
+            this.btnLamMoi.BackColor = System.Drawing.Color.LightSkyBlue;
             this.btnLamMoi.Location = new System.Drawing.Point(27, 180);
             this.btnLamMoi.Name = "btnLamMoi";
             this.btnLamMoi.Size = new System.Drawing.Size(88, 35);
             this.btnLamMoi.TabIndex = 6;
             this.btnLamMoi.Text = "Làm mới";
-            this.btnLamMoi.UseVisualStyleBackColor = true;
+            this.btnLamMoi.UseVisualStyleBackColor = false;
             this.btnLamMoi.Click += new System.EventHandler(this.btnLamMoi_Click);
             // 
             // txtTim
@@ -197,52 +198,57 @@
             // 
             // btnTim
             // 
-            this.btnTim.Location = new System.Drawing.Point(169, 250);
+            this.btnTim.BackColor = System.Drawing.Color.MediumPurple;
+            this.btnTim.Location = new System.Drawing.Point(169, 243);
             this.btnTim.Name = "btnTim";
-            this.btnTim.Size = new System.Drawing.Size(86, 30);
+            this.btnTim.Size = new System.Drawing.Size(86, 35);
             this.btnTim.TabIndex = 4;
             this.btnTim.Text = "Tìm";
-            this.btnTim.UseVisualStyleBackColor = true;
+            this.btnTim.UseVisualStyleBackColor = false;
             this.btnTim.Click += new System.EventHandler(this.btnTim_Click);
             // 
             // xuatExcel
             // 
+            this.xuatExcel.BackColor = System.Drawing.Color.YellowGreen;
             this.xuatExcel.Location = new System.Drawing.Point(151, 115);
             this.xuatExcel.Name = "xuatExcel";
             this.xuatExcel.Size = new System.Drawing.Size(88, 35);
             this.xuatExcel.TabIndex = 3;
             this.xuatExcel.Text = "Xuất Excel";
-            this.xuatExcel.UseVisualStyleBackColor = true;
+            this.xuatExcel.UseVisualStyleBackColor = false;
             this.xuatExcel.Click += new System.EventHandler(this.xuatExcel_Click);
             // 
             // btnXoa
             // 
+            this.btnXoa.BackColor = System.Drawing.Color.Tomato;
             this.btnXoa.Location = new System.Drawing.Point(27, 115);
             this.btnXoa.Name = "btnXoa";
             this.btnXoa.Size = new System.Drawing.Size(88, 35);
             this.btnXoa.TabIndex = 2;
             this.btnXoa.Text = "Xóa";
-            this.btnXoa.UseVisualStyleBackColor = true;
+            this.btnXoa.UseVisualStyleBackColor = false;
             this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // btnSua
             // 
+            this.btnSua.BackColor = System.Drawing.Color.Orange;
             this.btnSua.Location = new System.Drawing.Point(151, 50);
             this.btnSua.Name = "btnSua";
             this.btnSua.Size = new System.Drawing.Size(88, 35);
             this.btnSua.TabIndex = 1;
             this.btnSua.Text = "Sửa";
-            this.btnSua.UseVisualStyleBackColor = true;
+            this.btnSua.UseVisualStyleBackColor = false;
             this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
             // 
             // btnThem
             // 
+            this.btnThem.BackColor = System.Drawing.Color.LimeGreen;
             this.btnThem.Location = new System.Drawing.Point(27, 50);
             this.btnThem.Name = "btnThem";
             this.btnThem.Size = new System.Drawing.Size(88, 35);
             this.btnThem.TabIndex = 0;
             this.btnThem.Text = "Thêm";
-            this.btnThem.UseVisualStyleBackColor = true;
+            this.btnThem.UseVisualStyleBackColor = false;
             this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
             // 
             // panel4
