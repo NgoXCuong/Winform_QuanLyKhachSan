@@ -272,35 +272,34 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Roboto", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Red;
-            this.label3.Location = new System.Drawing.Point(631, 127);
+            this.label3.Location = new System.Drawing.Point(635, 127);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(78, 20);
+            this.label3.Size = new System.Drawing.Size(91, 25);
             this.label3.TabIndex = 2;
             this.label3.Text = "Tiền DV:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Roboto", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(994, 501);
+            this.label1.Location = new System.Drawing.Point(983, 513);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(89, 20);
+            this.label1.Size = new System.Drawing.Size(106, 25);
             this.label1.TabIndex = 3;
             this.label1.Text = "Tổng tiền:";
             // 
             // lbTongTienAll
             // 
             this.lbTongTienAll.AutoSize = true;
-            this.lbTongTienAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTongTienAll.Font = new System.Drawing.Font("Roboto", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTongTienAll.ForeColor = System.Drawing.Color.Red;
-            this.lbTongTienAll.Location = new System.Drawing.Point(994, 546);
+            this.lbTongTienAll.Location = new System.Drawing.Point(984, 552);
             this.lbTongTienAll.Name = "lbTongTienAll";
-            this.lbTongTienAll.Size = new System.Drawing.Size(57, 20);
+            this.lbTongTienAll.Size = new System.Drawing.Size(0, 23);
             this.lbTongTienAll.TabIndex = 4;
-            this.lbTongTienAll.Text = "label2";
             // 
             // panel2
             // 
@@ -475,7 +474,7 @@
             this.panel4.Controls.Add(this.groupBox4);
             this.panel4.Location = new System.Drawing.Point(348, 459);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(640, 152);
+            this.panel4.Size = new System.Drawing.Size(628, 152);
             this.panel4.TabIndex = 3;
             // 
             // groupBox4
@@ -513,13 +512,12 @@
             // lbTienDV
             // 
             this.lbTienDV.AutoSize = true;
-            this.lbTienDV.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTienDV.Font = new System.Drawing.Font("Roboto", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTienDV.ForeColor = System.Drawing.Color.Red;
-            this.lbTienDV.Location = new System.Drawing.Point(631, 161);
+            this.lbTienDV.Location = new System.Drawing.Point(635, 161);
             this.lbTienDV.Name = "lbTienDV";
-            this.lbTienDV.Size = new System.Drawing.Size(57, 20);
+            this.lbTienDV.Size = new System.Drawing.Size(0, 23);
             this.lbTienDV.TabIndex = 5;
-            this.lbTienDV.Text = "label4";
             // 
             // btnHuyDV
             // 

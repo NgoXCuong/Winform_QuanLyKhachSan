@@ -108,11 +108,11 @@
             // lbTongKhachHang
             // 
             this.lbTongKhachHang.AutoSize = true;
-            this.lbTongKhachHang.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTongKhachHang.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTongKhachHang.ForeColor = System.Drawing.Color.Red;
             this.lbTongKhachHang.Location = new System.Drawing.Point(11, 72);
             this.lbTongKhachHang.Name = "lbTongKhachHang";
-            this.lbTongKhachHang.Size = new System.Drawing.Size(67, 20);
+            this.lbTongKhachHang.Size = new System.Drawing.Size(63, 19);
             this.lbTongKhachHang.TabIndex = 6;
             this.lbTongKhachHang.Text = "label10";
             // 
@@ -150,11 +150,11 @@
             // lbTongSoPhong
             // 
             this.lbTongSoPhong.AutoSize = true;
-            this.lbTongSoPhong.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTongSoPhong.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTongSoPhong.ForeColor = System.Drawing.Color.Red;
             this.lbTongSoPhong.Location = new System.Drawing.Point(11, 72);
             this.lbTongSoPhong.Name = "lbTongSoPhong";
-            this.lbTongSoPhong.Size = new System.Drawing.Size(57, 20);
+            this.lbTongSoPhong.Size = new System.Drawing.Size(54, 19);
             this.lbTongSoPhong.TabIndex = 5;
             this.lbTongSoPhong.Text = "label9";
             // 
@@ -192,11 +192,11 @@
             // lbTongNhanVien
             // 
             this.lbTongNhanVien.AutoSize = true;
-            this.lbTongNhanVien.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTongNhanVien.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTongNhanVien.ForeColor = System.Drawing.Color.Red;
             this.lbTongNhanVien.Location = new System.Drawing.Point(11, 72);
             this.lbTongNhanVien.Name = "lbTongNhanVien";
-            this.lbTongNhanVien.Size = new System.Drawing.Size(57, 20);
+            this.lbTongNhanVien.Size = new System.Drawing.Size(54, 19);
             this.lbTongNhanVien.TabIndex = 4;
             this.lbTongNhanVien.Text = "label8";
             // 
@@ -234,11 +234,11 @@
             // lbTongDoanhThu
             // 
             this.lbTongDoanhThu.AutoSize = true;
-            this.lbTongDoanhThu.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTongDoanhThu.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTongDoanhThu.ForeColor = System.Drawing.Color.Red;
             this.lbTongDoanhThu.Location = new System.Drawing.Point(11, 72);
             this.lbTongDoanhThu.Name = "lbTongDoanhThu";
-            this.lbTongDoanhThu.Size = new System.Drawing.Size(57, 20);
+            this.lbTongDoanhThu.Size = new System.Drawing.Size(54, 19);
             this.lbTongDoanhThu.TabIndex = 3;
             this.lbTongDoanhThu.Text = "label7";
             // 
@@ -275,11 +275,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Roboto", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Blue;
-            this.label1.Location = new System.Drawing.Point(12, 14);
+            this.label1.Location = new System.Drawing.Point(12, 10);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(309, 29);
+            this.label1.Size = new System.Drawing.Size(272, 29);
             this.label1.TabIndex = 0;
             this.label1.Text = "THỐNG KÊ TỔNG QUAN";
             // 
