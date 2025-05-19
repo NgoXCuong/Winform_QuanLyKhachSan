@@ -202,7 +202,7 @@
             // btnTim
             // 
             this.btnTim.BackColor = System.Drawing.Color.Magenta;
-            this.btnTim.Location = new System.Drawing.Point(189, 275);
+            this.btnTim.Location = new System.Drawing.Point(189, 280);
             this.btnTim.Name = "btnTim";
             this.btnTim.Size = new System.Drawing.Size(90, 35);
             this.btnTim.TabIndex = 5;

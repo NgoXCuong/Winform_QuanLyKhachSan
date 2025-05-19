@@ -52,7 +52,6 @@ namespace QuanLyKhachSan.UI
                     this.Hide();
 
                     // Truyền quyền vào MainForm để phân quyền
-                    //MainForm mainForm = new MainForm(tk.TenDangNhap, tk.Quyen);
                     MainForm mainForm = new MainForm(tk.TenDangNhap);
                     mainForm.Show();
                 }

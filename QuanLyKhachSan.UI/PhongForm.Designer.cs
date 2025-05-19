@@ -38,7 +38,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnLoad = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnTim = new System.Windows.Forms.Button();
             this.btnXoa = new System.Windows.Forms.Button();
             this.btnXuat = new System.Windows.Forms.Button();
             this.btnSua = new System.Windows.Forms.Button();
@@ -56,7 +56,7 @@
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.txtTim = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.btnLamMoi = new System.Windows.Forms.Button();
             this.btnExcel = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
@@ -175,7 +175,7 @@
             // 
             this.groupBox2.Controls.Add(this.btnLoad);
             this.groupBox2.Controls.Add(this.txtSearch);
-            this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Controls.Add(this.btnTim);
             this.groupBox2.Controls.Add(this.btnXoa);
             this.groupBox2.Controls.Add(this.btnXuat);
             this.groupBox2.Controls.Add(this.btnSua);
@@ -208,17 +208,17 @@
             this.txtSearch.Size = new System.Drawing.Size(141, 26);
             this.txtSearch.TabIndex = 2;
             // 
-            // button1
+            // btnTim
             // 
-            this.button1.BackColor = System.Drawing.Color.Magenta;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(181, 230);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(81, 35);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Tìm";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.btnTim_Click);
+            this.btnTim.BackColor = System.Drawing.Color.Magenta;
+            this.btnTim.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTim.Location = new System.Drawing.Point(181, 230);
+            this.btnTim.Name = "btnTim";
+            this.btnTim.Size = new System.Drawing.Size(81, 35);
+            this.btnTim.TabIndex = 5;
+            this.btnTim.Text = "Tìm";
+            this.btnTim.UseVisualStyleBackColor = false;
+            this.btnTim.Click += new System.EventHandler(this.btnTim_Click);
             // 
             // btnXoa
             // 
@@ -378,7 +378,7 @@
             // 
             this.groupBox9.Controls.Add(this.txtTim);
             this.groupBox9.Controls.Add(this.btnSearch);
-            this.groupBox9.Controls.Add(this.button6);
+            this.groupBox9.Controls.Add(this.btnLamMoi);
             this.groupBox9.Controls.Add(this.btnExcel);
             this.groupBox9.Controls.Add(this.btnDelete);
             this.groupBox9.Controls.Add(this.btnUpdate);
@@ -408,15 +408,15 @@
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // button6
+            // btnLamMoi
             // 
-            this.button6.Location = new System.Drawing.Point(17, 160);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(90, 35);
-            this.button6.TabIndex = 4;
-            this.button6.Text = "Làm mới";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.btnLamMoi_Click);
+            this.btnLamMoi.Location = new System.Drawing.Point(17, 160);
+            this.btnLamMoi.Name = "btnLamMoi";
+            this.btnLamMoi.Size = new System.Drawing.Size(90, 35);
+            this.btnLamMoi.TabIndex = 4;
+            this.btnLamMoi.Text = "Làm mới";
+            this.btnLamMoi.UseVisualStyleBackColor = true;
+            this.btnLamMoi.Click += new System.EventHandler(this.btnLamMoi_Click);
             // 
             // btnExcel
             // 
@@ -636,7 +636,7 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox txtSearch;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnTim;
         private System.Windows.Forms.Button btnXoa;
         private System.Windows.Forms.Button btnXuat;
         private System.Windows.Forms.Button btnSua;
@@ -668,7 +668,7 @@
         private System.Windows.Forms.TextBox txtTenLoaiPhong;
         private System.Windows.Forms.TextBox txtTim;
         private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button btnLamMoi;
         private System.Windows.Forms.Button btnExcel;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnUpdate;
