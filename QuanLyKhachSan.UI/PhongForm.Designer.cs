@@ -400,62 +400,68 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(179, 229);
+            this.btnSearch.BackColor = System.Drawing.Color.Magenta;
+            this.btnSearch.Location = new System.Drawing.Point(179, 227);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(75, 30);
+            this.btnSearch.Size = new System.Drawing.Size(75, 35);
             this.btnSearch.TabIndex = 5;
             this.btnSearch.Text = "Tìm";
-            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.UseVisualStyleBackColor = false;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // btnLamMoi
             // 
+            this.btnLamMoi.BackColor = System.Drawing.Color.DarkTurquoise;
             this.btnLamMoi.Location = new System.Drawing.Point(17, 160);
             this.btnLamMoi.Name = "btnLamMoi";
             this.btnLamMoi.Size = new System.Drawing.Size(90, 35);
             this.btnLamMoi.TabIndex = 4;
             this.btnLamMoi.Text = "Làm mới";
-            this.btnLamMoi.UseVisualStyleBackColor = true;
+            this.btnLamMoi.UseVisualStyleBackColor = false;
             this.btnLamMoi.Click += new System.EventHandler(this.btnLamMoi_Click);
             // 
             // btnExcel
             // 
+            this.btnExcel.BackColor = System.Drawing.Color.MediumAquamarine;
             this.btnExcel.Location = new System.Drawing.Point(164, 105);
             this.btnExcel.Name = "btnExcel";
             this.btnExcel.Size = new System.Drawing.Size(90, 35);
             this.btnExcel.TabIndex = 3;
             this.btnExcel.Text = "Xuất Excel";
-            this.btnExcel.UseVisualStyleBackColor = true;
+            this.btnExcel.UseVisualStyleBackColor = false;
             this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
             // 
             // btnDelete
             // 
+            this.btnDelete.BackColor = System.Drawing.Color.Tomato;
             this.btnDelete.Location = new System.Drawing.Point(17, 105);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(90, 35);
             this.btnDelete.TabIndex = 2;
             this.btnDelete.Text = "Xóa";
-            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.UseVisualStyleBackColor = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnUpdate
             // 
+            this.btnUpdate.BackColor = System.Drawing.Color.Orange;
             this.btnUpdate.Location = new System.Drawing.Point(164, 50);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(90, 35);
             this.btnUpdate.TabIndex = 1;
             this.btnUpdate.Text = "Sửa";
-            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.UseVisualStyleBackColor = false;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnAdd
             // 
+            this.btnAdd.BackColor = System.Drawing.Color.LimeGreen;
             this.btnAdd.Location = new System.Drawing.Point(17, 50);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(90, 35);
             this.btnAdd.TabIndex = 0;
             this.btnAdd.Text = "Thêm";
-            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.UseVisualStyleBackColor = false;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // panel6

@@ -163,25 +163,25 @@
             // txtTim
             // 
             this.txtTim.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTim.Location = new System.Drawing.Point(36, 25);
+            this.txtTim.Location = new System.Drawing.Point(22, 27);
             this.txtTim.Name = "txtTim";
-            this.txtTim.Size = new System.Drawing.Size(122, 26);
+            this.txtTim.Size = new System.Drawing.Size(142, 26);
             this.txtTim.TabIndex = 3;
             // 
             // btnTim
             // 
             this.btnTim.Location = new System.Drawing.Point(180, 24);
             this.btnTim.Name = "btnTim";
-            this.btnTim.Size = new System.Drawing.Size(80, 30);
+            this.btnTim.Size = new System.Drawing.Size(100, 35);
             this.btnTim.TabIndex = 2;
             this.btnTim.Text = "Tìm";
             this.btnTim.UseVisualStyleBackColor = true;
             // 
             // btnHuyDat
             // 
-            this.btnHuyDat.Location = new System.Drawing.Point(36, 87);
+            this.btnHuyDat.Location = new System.Drawing.Point(22, 78);
             this.btnHuyDat.Name = "btnHuyDat";
-            this.btnHuyDat.Size = new System.Drawing.Size(80, 30);
+            this.btnHuyDat.Size = new System.Drawing.Size(100, 35);
             this.btnHuyDat.TabIndex = 1;
             this.btnHuyDat.Text = "Hủy đặt";
             this.btnHuyDat.UseVisualStyleBackColor = true;
@@ -189,9 +189,9 @@
             // 
             // btnDatPhong
             // 
-            this.btnDatPhong.Location = new System.Drawing.Point(180, 87);
+            this.btnDatPhong.Location = new System.Drawing.Point(180, 78);
             this.btnDatPhong.Name = "btnDatPhong";
-            this.btnDatPhong.Size = new System.Drawing.Size(80, 30);
+            this.btnDatPhong.Size = new System.Drawing.Size(100, 35);
             this.btnDatPhong.TabIndex = 0;
             this.btnDatPhong.Text = "Đặt phòng";
             this.btnDatPhong.UseVisualStyleBackColor = true;
@@ -274,7 +274,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Red;
-            this.label3.Location = new System.Drawing.Point(954, 549);
+            this.label3.Location = new System.Drawing.Point(618, 146);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(72, 18);
             this.label3.TabIndex = 2;
@@ -285,7 +285,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(954, 581);
+            this.label1.Location = new System.Drawing.Point(965, 497);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(83, 18);
             this.label1.TabIndex = 3;
@@ -296,7 +296,7 @@
             this.lbTongTienAll.AutoSize = true;
             this.lbTongTienAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTongTienAll.ForeColor = System.Drawing.Color.Red;
-            this.lbTongTienAll.Location = new System.Drawing.Point(1037, 581);
+            this.lbTongTienAll.Location = new System.Drawing.Point(1048, 497);
             this.lbTongTienAll.Name = "lbTongTienAll";
             this.lbTongTienAll.Size = new System.Drawing.Size(46, 18);
             this.lbTongTienAll.TabIndex = 4;
@@ -494,11 +494,16 @@
             this.dgvListDatPhong.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvListDatPhong.Location = new System.Drawing.Point(7, 21);
             this.dgvListDatPhong.Name = "dgvListDatPhong";
+            this.dgvListDatPhong.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvListDatPhong.Size = new System.Drawing.Size(556, 116);
             this.dgvListDatPhong.TabIndex = 0;
             // 
             // panel5
             // 
+            this.panel5.Controls.Add(this.lbTienDV);
+            this.panel5.Controls.Add(this.btnHuyDV);
+            this.panel5.Controls.Add(this.label3);
+            this.panel5.Controls.Add(this.btnThemDV);
             this.panel5.Controls.Add(this.groupBox5);
             this.panel5.Location = new System.Drawing.Point(347, 243);
             this.panel5.Name = "panel5";
@@ -510,7 +515,7 @@
             this.groupBox5.Controls.Add(this.dgvChonDichVu);
             this.groupBox5.Location = new System.Drawing.Point(16, 9);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(725, 189);
+            this.groupBox5.Size = new System.Drawing.Size(588, 189);
             this.groupBox5.TabIndex = 0;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Danh sách dịch vụ đã chọn";
@@ -521,7 +526,8 @@
             this.dgvChonDichVu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvChonDichVu.Location = new System.Drawing.Point(7, 21);
             this.dgvChonDichVu.Name = "dgvChonDichVu";
-            this.dgvChonDichVu.Size = new System.Drawing.Size(712, 162);
+            this.dgvChonDichVu.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvChonDichVu.Size = new System.Drawing.Size(567, 162);
             this.dgvChonDichVu.TabIndex = 0;
             // 
             // imageList1
@@ -538,7 +544,7 @@
             this.lbTienDV.AutoSize = true;
             this.lbTienDV.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTienDV.ForeColor = System.Drawing.Color.Red;
-            this.lbTienDV.Location = new System.Drawing.Point(1032, 549);
+            this.lbTienDV.Location = new System.Drawing.Point(696, 146);
             this.lbTienDV.Name = "lbTienDV";
             this.lbTienDV.Size = new System.Drawing.Size(46, 18);
             this.lbTienDV.TabIndex = 5;
@@ -546,21 +552,21 @@
             // 
             // btnHuyDV
             // 
-            this.btnHuyDV.Location = new System.Drawing.Point(998, 504);
+            this.btnHuyDV.Location = new System.Drawing.Point(610, 81);
             this.btnHuyDV.Name = "btnHuyDV";
-            this.btnHuyDV.Size = new System.Drawing.Size(80, 30);
+            this.btnHuyDV.Size = new System.Drawing.Size(138, 30);
             this.btnHuyDV.TabIndex = 4;
-            this.btnHuyDV.Text = "Hủy DV";
+            this.btnHuyDV.Text = "Hủy Dịch Vụ";
             this.btnHuyDV.UseVisualStyleBackColor = true;
             this.btnHuyDV.Click += new System.EventHandler(this.btnHuyDV_Click);
             // 
             // btnThemDV
             // 
-            this.btnThemDV.Location = new System.Drawing.Point(998, 468);
+            this.btnThemDV.Location = new System.Drawing.Point(610, 30);
             this.btnThemDV.Name = "btnThemDV";
-            this.btnThemDV.Size = new System.Drawing.Size(80, 30);
+            this.btnThemDV.Size = new System.Drawing.Size(138, 30);
             this.btnThemDV.TabIndex = 6;
-            this.btnThemDV.Text = "Thêm DV";
+            this.btnThemDV.Text = "Thêm Dịch Vụ";
             this.btnThemDV.UseVisualStyleBackColor = true;
             this.btnThemDV.Click += new System.EventHandler(this.btnThemDV_Click);
             // 
@@ -569,10 +575,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1114, 611);
-            this.Controls.Add(this.btnThemDV);
-            this.Controls.Add(this.btnHuyDV);
-            this.Controls.Add(this.lbTienDV);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel4);
@@ -610,6 +612,7 @@
             this.groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvListDatPhong)).EndInit();
             this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvChonDichVu)).EndInit();
             this.ResumeLayout(false);

@@ -509,12 +509,13 @@
             // 
             // btnReset
             // 
+            this.btnReset.BackColor = System.Drawing.Color.DarkTurquoise;
             this.btnReset.Location = new System.Drawing.Point(25, 175);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(88, 35);
             this.btnReset.TabIndex = 6;
             this.btnReset.Text = "Làm mới";
-            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.UseVisualStyleBackColor = false;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // txtSearch
@@ -528,52 +529,57 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(169, 239);
+            this.btnSearch.BackColor = System.Drawing.Color.Magenta;
+            this.btnSearch.Location = new System.Drawing.Point(169, 236);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(88, 30);
+            this.btnSearch.Size = new System.Drawing.Size(88, 35);
             this.btnSearch.TabIndex = 4;
             this.btnSearch.Text = "Tìm";
-            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.UseVisualStyleBackColor = false;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // btnXuatExcel
             // 
+            this.btnXuatExcel.BackColor = System.Drawing.Color.MediumAquamarine;
             this.btnXuatExcel.Location = new System.Drawing.Point(158, 110);
             this.btnXuatExcel.Name = "btnXuatExcel";
             this.btnXuatExcel.Size = new System.Drawing.Size(88, 35);
             this.btnXuatExcel.TabIndex = 3;
             this.btnXuatExcel.Text = "Xuất Excel";
-            this.btnXuatExcel.UseVisualStyleBackColor = true;
+            this.btnXuatExcel.UseVisualStyleBackColor = false;
             this.btnXuatExcel.Click += new System.EventHandler(this.btnXuatExcel_Click);
             // 
             // btnDelete
             // 
+            this.btnDelete.BackColor = System.Drawing.Color.Tomato;
             this.btnDelete.Location = new System.Drawing.Point(25, 110);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(88, 35);
             this.btnDelete.TabIndex = 2;
             this.btnDelete.Text = "Xóa";
-            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.UseVisualStyleBackColor = false;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnUpdate
             // 
+            this.btnUpdate.BackColor = System.Drawing.Color.Orange;
             this.btnUpdate.Location = new System.Drawing.Point(158, 45);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(88, 35);
             this.btnUpdate.TabIndex = 1;
             this.btnUpdate.Text = "Sửa";
-            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.UseVisualStyleBackColor = false;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnAdd
             // 
+            this.btnAdd.BackColor = System.Drawing.Color.LimeGreen;
             this.btnAdd.Location = new System.Drawing.Point(25, 45);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(88, 35);
             this.btnAdd.TabIndex = 0;
             this.btnAdd.Text = "Thêm";
-            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.UseVisualStyleBackColor = false;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // panel7
@@ -673,6 +679,7 @@
             // 
             // txtQuyen
             // 
+            this.txtQuyen.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtQuyen.Location = new System.Drawing.Point(6, 27);
             this.txtQuyen.Name = "txtQuyen";
             this.txtQuyen.Size = new System.Drawing.Size(257, 22);
