@@ -71,12 +71,12 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.dgvListDatPhong = new System.Windows.Forms.DataGridView();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.dgvChonDichVu = new System.Windows.Forms.DataGridView();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.lbTienDV = new System.Windows.Forms.Label();
             this.btnHuyDV = new System.Windows.Forms.Button();
             this.btnThemDV = new System.Windows.Forms.Button();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.dgvChonDichVu = new System.Windows.Forms.DataGridView();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -272,33 +272,33 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Red;
-            this.label3.Location = new System.Drawing.Point(618, 146);
+            this.label3.Location = new System.Drawing.Point(631, 127);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(72, 18);
+            this.label3.Size = new System.Drawing.Size(78, 20);
             this.label3.TabIndex = 2;
             this.label3.Text = "Tiền DV:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(965, 497);
+            this.label1.Location = new System.Drawing.Point(994, 501);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 18);
+            this.label1.Size = new System.Drawing.Size(89, 20);
             this.label1.TabIndex = 3;
             this.label1.Text = "Tổng tiền:";
             // 
             // lbTongTienAll
             // 
             this.lbTongTienAll.AutoSize = true;
-            this.lbTongTienAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTongTienAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTongTienAll.ForeColor = System.Drawing.Color.Red;
-            this.lbTongTienAll.Location = new System.Drawing.Point(1048, 497);
+            this.lbTongTienAll.Location = new System.Drawing.Point(994, 546);
             this.lbTongTienAll.Name = "lbTongTienAll";
-            this.lbTongTienAll.Size = new System.Drawing.Size(46, 18);
+            this.lbTongTienAll.Size = new System.Drawing.Size(57, 20);
             this.lbTongTienAll.TabIndex = 4;
             this.lbTongTienAll.Text = "label2";
             // 
@@ -475,7 +475,7 @@
             this.panel4.Controls.Add(this.groupBox4);
             this.panel4.Location = new System.Drawing.Point(348, 459);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(603, 152);
+            this.panel4.Size = new System.Drawing.Size(640, 152);
             this.panel4.TabIndex = 3;
             // 
             // groupBox4
@@ -483,7 +483,7 @@
             this.groupBox4.Controls.Add(this.dgvListDatPhong);
             this.groupBox4.Location = new System.Drawing.Point(16, 3);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(573, 146);
+            this.groupBox4.Size = new System.Drawing.Size(607, 146);
             this.groupBox4.TabIndex = 0;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Danh sách đặt phòng";
@@ -495,7 +495,7 @@
             this.dgvListDatPhong.Location = new System.Drawing.Point(7, 21);
             this.dgvListDatPhong.Name = "dgvListDatPhong";
             this.dgvListDatPhong.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvListDatPhong.Size = new System.Drawing.Size(556, 116);
+            this.dgvListDatPhong.Size = new System.Drawing.Size(594, 116);
             this.dgvListDatPhong.TabIndex = 0;
             // 
             // panel5
@@ -510,12 +510,43 @@
             this.panel5.Size = new System.Drawing.Size(755, 210);
             this.panel5.TabIndex = 4;
             // 
+            // lbTienDV
+            // 
+            this.lbTienDV.AutoSize = true;
+            this.lbTienDV.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTienDV.ForeColor = System.Drawing.Color.Red;
+            this.lbTienDV.Location = new System.Drawing.Point(631, 161);
+            this.lbTienDV.Name = "lbTienDV";
+            this.lbTienDV.Size = new System.Drawing.Size(57, 20);
+            this.lbTienDV.TabIndex = 5;
+            this.lbTienDV.Text = "label4";
+            // 
+            // btnHuyDV
+            // 
+            this.btnHuyDV.Location = new System.Drawing.Point(635, 81);
+            this.btnHuyDV.Name = "btnHuyDV";
+            this.btnHuyDV.Size = new System.Drawing.Size(113, 30);
+            this.btnHuyDV.TabIndex = 4;
+            this.btnHuyDV.Text = "Hủy Dịch Vụ";
+            this.btnHuyDV.UseVisualStyleBackColor = true;
+            this.btnHuyDV.Click += new System.EventHandler(this.btnHuyDV_Click);
+            // 
+            // btnThemDV
+            // 
+            this.btnThemDV.Location = new System.Drawing.Point(635, 30);
+            this.btnThemDV.Name = "btnThemDV";
+            this.btnThemDV.Size = new System.Drawing.Size(113, 30);
+            this.btnThemDV.TabIndex = 6;
+            this.btnThemDV.Text = "Thêm Dịch Vụ";
+            this.btnThemDV.UseVisualStyleBackColor = true;
+            this.btnThemDV.Click += new System.EventHandler(this.btnThemDV_Click);
+            // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.dgvChonDichVu);
             this.groupBox5.Location = new System.Drawing.Point(16, 9);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(588, 189);
+            this.groupBox5.Size = new System.Drawing.Size(613, 189);
             this.groupBox5.TabIndex = 0;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Danh sách dịch vụ đã chọn";
@@ -527,7 +558,7 @@
             this.dgvChonDichVu.Location = new System.Drawing.Point(7, 21);
             this.dgvChonDichVu.Name = "dgvChonDichVu";
             this.dgvChonDichVu.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvChonDichVu.Size = new System.Drawing.Size(567, 162);
+            this.dgvChonDichVu.Size = new System.Drawing.Size(595, 162);
             this.dgvChonDichVu.TabIndex = 0;
             // 
             // imageList1
@@ -538,37 +569,6 @@
             this.imageList1.Images.SetKeyName(1, "phongdadat.png");
             this.imageList1.Images.SetKeyName(2, "phongdango.png");
             this.imageList1.Images.SetKeyName(3, "phongbaotri.png");
-            // 
-            // lbTienDV
-            // 
-            this.lbTienDV.AutoSize = true;
-            this.lbTienDV.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTienDV.ForeColor = System.Drawing.Color.Red;
-            this.lbTienDV.Location = new System.Drawing.Point(696, 146);
-            this.lbTienDV.Name = "lbTienDV";
-            this.lbTienDV.Size = new System.Drawing.Size(46, 18);
-            this.lbTienDV.TabIndex = 5;
-            this.lbTienDV.Text = "label4";
-            // 
-            // btnHuyDV
-            // 
-            this.btnHuyDV.Location = new System.Drawing.Point(610, 81);
-            this.btnHuyDV.Name = "btnHuyDV";
-            this.btnHuyDV.Size = new System.Drawing.Size(138, 30);
-            this.btnHuyDV.TabIndex = 4;
-            this.btnHuyDV.Text = "Hủy Dịch Vụ";
-            this.btnHuyDV.UseVisualStyleBackColor = true;
-            this.btnHuyDV.Click += new System.EventHandler(this.btnHuyDV_Click);
-            // 
-            // btnThemDV
-            // 
-            this.btnThemDV.Location = new System.Drawing.Point(610, 30);
-            this.btnThemDV.Name = "btnThemDV";
-            this.btnThemDV.Size = new System.Drawing.Size(138, 30);
-            this.btnThemDV.TabIndex = 6;
-            this.btnThemDV.Text = "Thêm Dịch Vụ";
-            this.btnThemDV.UseVisualStyleBackColor = true;
-            this.btnThemDV.Click += new System.EventHandler(this.btnThemDV_Click);
             // 
             // BookingRoom
             // 
