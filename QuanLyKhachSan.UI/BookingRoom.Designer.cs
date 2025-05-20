@@ -296,7 +296,7 @@
             this.lbTongTienAll.AutoSize = true;
             this.lbTongTienAll.Font = new System.Drawing.Font("Roboto", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTongTienAll.ForeColor = System.Drawing.Color.Red;
-            this.lbTongTienAll.Location = new System.Drawing.Point(984, 552);
+            this.lbTongTienAll.Location = new System.Drawing.Point(984, 550);
             this.lbTongTienAll.Name = "lbTongTienAll";
             this.lbTongTienAll.Size = new System.Drawing.Size(0, 23);
             this.lbTongTienAll.TabIndex = 4;
