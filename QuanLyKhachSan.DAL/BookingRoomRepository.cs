@@ -108,9 +108,6 @@ namespace QuanLyKhachSan.DAL
             return 0; // Nếu không tìm thấy giá phòng trả về 0
         }
 
-
-
-
         public bool insertBookingRoom(BookingRoomModel bookingRoom)
         {
             // Kiểm tra MaKH có hợp lệ không
@@ -179,6 +176,7 @@ namespace QuanLyKhachSan.DAL
             };
             return connDb.ExecuteNonQuery(sql, parameters) > 0;
         }
+
         public bool CapNhatTrangThaiPhong_Trong(BookingRoomModel bookingRoomModel)
         {
             string sql = "UPDATE Phong SET TrangThai = @TrangThai WHERE SoPhong = @SoPhong";
@@ -229,6 +227,7 @@ namespace QuanLyKhachSan.DAL
 
             return true;
         }
+
         public bool HuyDichVuTheoSoPhongVaMaDV(BookingRoomModel bookingRoomModel)
         {
             try
@@ -266,8 +265,5 @@ namespace QuanLyKhachSan.DAL
                 return false;
             }
         }
-
-
-
     }
 }
