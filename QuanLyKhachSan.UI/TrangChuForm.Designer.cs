@@ -51,7 +51,7 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Ravie", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label1.Location = new System.Drawing.Point(172, 240);
+            this.label1.Location = new System.Drawing.Point(137, 234);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(890, 39);
             this.label1.TabIndex = 1;
@@ -62,7 +62,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Ravie", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label2.Location = new System.Drawing.Point(264, 318);
+            this.label2.Location = new System.Drawing.Point(257, 340);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(653, 30);
             this.label2.TabIndex = 2;
@@ -79,7 +79,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "TrangChuForm";
             this.Text = "TrangChuForm";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
