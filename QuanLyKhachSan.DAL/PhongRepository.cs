@@ -19,7 +19,7 @@ namespace QuanLyKhachSan.DAL
             List<PhongModel> listPhong = new List<PhongModel>();
             string sql = "SELECT * FROM Phong";
             var dataTable = connDb.ExecuteQuery(sql);
-            foreach (System.Data.DataRow row in dataTable.Rows)
+            foreach (DataRow row in dataTable.Rows)
             {
                 PhongModel phong = new PhongModel
                 {
@@ -124,28 +124,16 @@ namespace QuanLyKhachSan.DAL
             return listPhong;
         }
 
-
-        //public List<PhongModel> TimPhong(string keyword)
-        //{
-        //    List<PhongModel> listPhong = new List<PhongModel>();
-        //    string sql = "SELECT * FROM Phong WHERE SoPhong = @Keyword";
-        //    var parameters = new SqlParameter[]
-        //    {
-        //        new SqlParameter("@Keyword",  keyword)
-        //    };
-        //    var dataTable = connDb.ExecuteQuery(sql, parameters);
-        //    foreach (System.Data.DataRow row in dataTable.Rows)
-        //    {
-        //        PhongModel phong = new PhongModel
-        //        {
-        //            MaPhong = row["MaPhong"] == DBNull.Value ? 0 : Convert.ToInt32(row["MaPhong"]),
-        //            SoPhong = row["SoPhong"] == DBNull.Value ? 0 : Convert.ToInt32(row["SoPhong"]),
-        //            LoaiPhong = row["MaLoaiPhong"] == DBNull.Value ? 0 : Convert.ToInt32(row["MaLoaiPhong"]),
-        //            TrangThai = row["TrangThai"] == DBNull.Value ? "" : row["TrangThai"].ToString()
-        //        };
-        //        listPhong.Add(phong);
-        //    }
-        //    return listPhong;
-        //}
+        // Kiểm tra số phong đã tồn tại hay chưa
+        public bool KiemTraSoPhongTonTai(int soPhong)
+        {
+            string sql = "SELECT COUNT(*) FROM Phong WHERE SoPhong = @SoPhong";
+            var parameters = new SqlParameter[]
+            {
+                new SqlParameter("@SoPhong", soPhong)
+            };
+            int count = (int)connDb.ExecuteScalar(sql, parameters);
+            return count > 0;
+        }
     }
 }

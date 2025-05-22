@@ -78,7 +78,7 @@
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(792, 373);
+            this.panel1.Size = new System.Drawing.Size(792, 357);
             this.panel1.TabIndex = 0;
             // 
             // groupBox1
@@ -93,7 +93,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(13, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(763, 344);
+            this.groupBox1.Size = new System.Drawing.Size(763, 330);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông tin khách hàng";
@@ -256,7 +256,7 @@
             this.panel2.Controls.Add(this.groupBox3);
             this.panel2.Location = new System.Drawing.Point(798, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(316, 373);
+            this.panel2.Size = new System.Drawing.Size(316, 357);
             this.panel2.TabIndex = 1;
             // 
             // groupBox3
@@ -271,7 +271,7 @@
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(13, 13);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(291, 344);
+            this.groupBox3.Size = new System.Drawing.Size(291, 330);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Chức năng";
@@ -286,80 +286,86 @@
             // 
             // btnTim
             // 
-            this.btnTim.Location = new System.Drawing.Point(190, 289);
+            this.btnTim.BackColor = System.Drawing.Color.Magenta;
+            this.btnTim.Location = new System.Drawing.Point(190, 281);
             this.btnTim.Name = "btnTim";
-            this.btnTim.Size = new System.Drawing.Size(85, 30);
+            this.btnTim.Size = new System.Drawing.Size(85, 35);
             this.btnTim.TabIndex = 5;
             this.btnTim.Text = "Tìm";
-            this.btnTim.UseVisualStyleBackColor = true;
+            this.btnTim.UseVisualStyleBackColor = false;
             this.btnTim.Click += new System.EventHandler(this.btnTim_Click);
             // 
             // btnLoad
             // 
+            this.btnLoad.BackColor = System.Drawing.Color.DarkTurquoise;
             this.btnLoad.Location = new System.Drawing.Point(25, 190);
             this.btnLoad.Name = "btnLoad";
             this.btnLoad.Size = new System.Drawing.Size(90, 40);
             this.btnLoad.TabIndex = 4;
             this.btnLoad.Text = "Làm mới";
-            this.btnLoad.UseVisualStyleBackColor = true;
+            this.btnLoad.UseVisualStyleBackColor = false;
             this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
             // btnExcel
             // 
+            this.btnExcel.BackColor = System.Drawing.Color.MediumAquamarine;
             this.btnExcel.Location = new System.Drawing.Point(188, 120);
             this.btnExcel.Name = "btnExcel";
             this.btnExcel.Size = new System.Drawing.Size(90, 40);
             this.btnExcel.TabIndex = 3;
             this.btnExcel.Text = "Xuất Excel";
-            this.btnExcel.UseVisualStyleBackColor = true;
+            this.btnExcel.UseVisualStyleBackColor = false;
             this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
             // 
             // btnXoa
             // 
+            this.btnXoa.BackColor = System.Drawing.Color.Tomato;
             this.btnXoa.Location = new System.Drawing.Point(25, 120);
             this.btnXoa.Name = "btnXoa";
             this.btnXoa.Size = new System.Drawing.Size(90, 40);
             this.btnXoa.TabIndex = 2;
             this.btnXoa.Text = "Xóa";
-            this.btnXoa.UseVisualStyleBackColor = true;
+            this.btnXoa.UseVisualStyleBackColor = false;
             this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // btnSua
             // 
+            this.btnSua.BackColor = System.Drawing.Color.Orange;
             this.btnSua.Location = new System.Drawing.Point(188, 50);
             this.btnSua.Name = "btnSua";
             this.btnSua.Size = new System.Drawing.Size(90, 40);
             this.btnSua.TabIndex = 1;
             this.btnSua.Text = "Sửa";
-            this.btnSua.UseVisualStyleBackColor = true;
+            this.btnSua.UseVisualStyleBackColor = false;
             this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
             // 
             // btnThem
             // 
+            this.btnThem.BackColor = System.Drawing.Color.LimeGreen;
             this.btnThem.Location = new System.Drawing.Point(25, 50);
             this.btnThem.Name = "btnThem";
             this.btnThem.Size = new System.Drawing.Size(90, 40);
             this.btnThem.TabIndex = 0;
             this.btnThem.Text = "Thêm";
-            this.btnThem.UseVisualStyleBackColor = true;
+            this.btnThem.UseVisualStyleBackColor = false;
             this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
             // 
             // panel3
             // 
             this.panel3.Controls.Add(this.groupBox2);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel3.Location = new System.Drawing.Point(0, 379);
+            this.panel3.Location = new System.Drawing.Point(0, 363);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1114, 232);
+            this.panel3.Size = new System.Drawing.Size(1114, 248);
             this.panel3.TabIndex = 2;
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.dgvKhachHang);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(13, 15);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(13, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1089, 205);
+            this.groupBox2.Size = new System.Drawing.Size(1089, 242);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Danh sách khách hàng";
@@ -370,7 +376,8 @@
             this.dgvKhachHang.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvKhachHang.Location = new System.Drawing.Point(17, 23);
             this.dgvKhachHang.Name = "dgvKhachHang";
-            this.dgvKhachHang.Size = new System.Drawing.Size(1057, 175);
+            this.dgvKhachHang.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvKhachHang.Size = new System.Drawing.Size(1057, 210);
             this.dgvKhachHang.TabIndex = 0;
             this.dgvKhachHang.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvKhachHang_CellClick);
             // 
@@ -385,6 +392,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "KhachHangForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "KhachHangForm";
             this.Load += new System.EventHandler(this.KhachHangForm_Load);
             this.panel1.ResumeLayout(false);

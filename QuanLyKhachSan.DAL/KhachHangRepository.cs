@@ -142,46 +142,5 @@ namespace QuanLyKhachSan.DAL
             }
             return listKhachHang;
         }
-
-        //public List<KhachHangModel> TimKhachHang(string keyword)
-        //{
-        //    List<KhachHangModel> listKhachHang = new List<KhachHangModel>();
-
-        //    string sql = @"SELECT * FROM KhachHang
-        //        WHERE (@Keyword = '' OR MaKH LIKE '%' + @Keyword + '%')
-        //        OR (@Keyword = '' OR HoTen LIKE '%' + @Keyword + '%')
-        //        OR (@Keyword = '' OR GioiTinh LIKE '%' + @Keyword + '%')
-        //        OR (@Keyword = '' OR NgaySinh BETWEEN @NgaySinhStart AND @NgaySinhEnd)  -- Tìm trong khoảng thời gian
-        //        OR (@Keyword = '' OR CMND LIKE '%' + @Keyword + '%')
-        //        OR (@Keyword = '' OR SDT LIKE '%' + @Keyword + '%')
-        //        OR (@Keyword = '' OR Email LIKE '%' + @Keyword + '%')
-        //        OR (@Keyword = '' OR DiaChi LIKE '%' + @Keyword + '%')";
-
-        //    var parameters = new SqlParameter[]
-        //    {
-        //        new SqlParameter("@Keyword", keyword),
-        //        new SqlParameter("@NgaySinhStart", DateTime.TryParse(keyword, out DateTime startDate) ? (object)startDate : DBNull.Value),
-        //        new SqlParameter("@NgaySinhEnd", DateTime.TryParse(keyword, out DateTime endDate) ? (object)endDate.AddDays(1) : DBNull.Value)  // Cộng thêm một ngày để tìm đến hết ngày kết thúc
-        //    };
-
-        //    var dataTable = connDb.ExecuteQuery(sql, parameters);
-
-        //    foreach (System.Data.DataRow row in dataTable.Rows)
-        //    {
-        //        KhachHangModel khachHang = new KhachHangModel
-        //        {
-        //            MaKH = (int)row["MaKH"],
-        //            HoTen = row["HoTen"].ToString(),
-        //            GioiTinh = row["GioiTinh"].ToString(),
-        //            NgaySinh = (DateTime)row["NgaySinh"],
-        //            CMND = row["CMND"].ToString(),
-        //            SoDienThoai = row["SDT"].ToString(),
-        //            Email = row["Email"].ToString(),
-        //            DiaChi = row["DiaChi"].ToString()
-        //        };
-        //        listKhachHang.Add(khachHang);
-        //    }
-        //    return listKhachHang;
-        //}
     }
 }

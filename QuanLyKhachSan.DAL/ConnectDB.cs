@@ -14,7 +14,6 @@ namespace QuanLyKhachSan.DAL
 
         // Để lại dòng đã Comment 
         //string connectionString = "Server=localhost;Database=QLKhachSan;User Id=sa;Password=123;";
-
         //string connectionString = "Data Source=Mr-Cuong\\SQLEXPRESS;Initial Catalog=BTL_QuanLyKhachSan;Integrated Security=True";
 
         public SqlConnection GetConnection()

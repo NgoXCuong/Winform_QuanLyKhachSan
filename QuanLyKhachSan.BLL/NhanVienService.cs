@@ -49,6 +49,7 @@ namespace QuanLyKhachSan.BLL
             return nhanVienRepository.CapNhatAnh(maNV, base64Image);
         }
 
+        // chuyển đổi một đối tượng hình ảnh (Image) thành chuỗi Base64
         private string ConvertImageToBase64(Image image)
         {
             using (var ms = new MemoryStream())

@@ -92,8 +92,6 @@ namespace QuanLyKhachSan.UI
             dgvChonDichVu.Columns["MaLoaiPhong"].Visible = false;
             dgvChonDichVu.Columns["TenLoaiPhong"].Visible = false;
             dgvChonDichVu.Columns["TrangThai"].Visible = false;
-
-
         }
         private void LoadDichVuTheoPhong(int soPhong)
         {
@@ -171,9 +169,6 @@ namespace QuanLyKhachSan.UI
                 }
             }
         }
-
-
-
 
         private void BookingRoom_Load(object sender, EventArgs e)
         {
@@ -307,6 +302,7 @@ namespace QuanLyKhachSan.UI
                 MessageBox.Show("Đặt phòng thất bại!");
             }
         }
+
         private void btnHuyDat_Click(object sender, EventArgs e)
         {
             if (lvPhong.SelectedItems.Count > 0)
