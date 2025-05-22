@@ -159,5 +159,15 @@ namespace QuanLyKhachSan.DAL
 
             return list;
         }
+
+        public decimal TinhTongTienTheoMaDatPhong(int maDatPhong)
+        {
+            string query = "SELECT ISNULL(SUM(DonGia), 0) FROM ChiTietDatPhong WHERE MaDatPhong = @MaDatPhong";
+            var parameter = new SqlParameter("@MaDatPhong", maDatPhong);
+            var result = connDb.ExecuteQuery(query, new[] { parameter });
+
+            return result.Rows.Count > 0 ? Convert.ToDecimal(result.Rows[0][0]) : 0;
+        }
+
     }
 }

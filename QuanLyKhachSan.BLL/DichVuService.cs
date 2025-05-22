@@ -11,6 +11,7 @@ namespace QuanLyKhachSan.BLL
     public class DichVuService
     {
         private DichVuRepository dichVuRepository = new DichVuRepository();
+        private HoaDonRepository hoaDonRepo = new HoaDonRepository(); // Add this field to resolve the error
 
         public List<DichVuModel> GetAllDichVu()
         {
@@ -31,9 +32,15 @@ namespace QuanLyKhachSan.BLL
         {
             return dichVuRepository.XoaDichVu(maDV);
         }
+
         public List<DichVuModel> TimKiemDichVu(string keyword)
         {
             return dichVuRepository.TimDichVu(keyword);
+        }
+
+        public decimal TinhTongTienTheoMaDatPhong(int maDatPhong)
+        {
+            return hoaDonRepo.TinhTongTienTheoMaDatPhong(maDatPhong);
         }
     }
 }

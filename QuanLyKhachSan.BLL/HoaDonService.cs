@@ -57,5 +57,10 @@ namespace QuanLyKhachSan.BLL
                 .Select(nv => new KeyValuePair<string, string>(nv.MaNV.ToString(), nv.HoTen))
                 .ToList();
         }
+
+        public decimal TinhTongTienTheoMaDatPhong(int maDatPhong)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
