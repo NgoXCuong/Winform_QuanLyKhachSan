@@ -183,20 +183,90 @@ namespace QuanLyKhachSan.UI
                 {
                     using (FileStream fs = new FileStream(saveFileDialog.FileName, FileMode.Create))
                     {
-                        Document doc = new Document();
+                        Document doc = new Document(PageSize.A4, 50f, 50f, 50f, 50f);
                         PdfWriter.GetInstance(doc, fs);
                         doc.Open();
 
-                        var titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 16);
-                        var normalFont = FontFactory.GetFont(FontFactory.HELVETICA, 12);
+                        // Font hỗ trợ tiếng Việt (Arial Unicode MS hoặc Times New Roman)
+                        string fontPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "C:\\Users\\LAPTOP\\Downloads\\Roboto\\static\\Roboto-Regular.ttf");
 
-                        doc.Add(new Paragraph("HÓA ĐƠN THANH TOÁN", titleFont));
-                        doc.Add(new Paragraph($"Mã hóa đơn: {hoaDon.MaHoaDon}", normalFont));
-                        doc.Add(new Paragraph($"Mã đặt phòng: {hoaDon.MaDatPhong}", normalFont));
-                        doc.Add(new Paragraph($"Khách hàng: {hoaDon.KhachHang}", normalFont));
-                        doc.Add(new Paragraph($"Nhân viên lập: {hoaDon.NhanVien}", normalFont));
-                        doc.Add(new Paragraph($"Ngày lập: {hoaDon.NgayLap:dd/MM/yyyy}", normalFont));
-                        doc.Add(new Paragraph($"Tổng tiền: {hoaDon.TongTien:N0} VND", normalFont));
+                        BaseFont baseFont = BaseFont.CreateFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+
+                        Font titleFont = new Font(new iTextSharp.text.Font(baseFont, 18, iTextSharp.text.Font.BOLD, BaseColor.BLACK));
+                        Font normalFont = new Font(baseFont, 12, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
+                        Font boldFont = new Font(baseFont, 12, iTextSharp.text.Font.BOLD, BaseColor.BLACK);
+
+                        // --- Header: Thông tin công ty ---
+                        Paragraph companyInfo = new Paragraph("N8 HOTEL\nĐịa chỉ: Nam Từ Liêm, Hà Nội\nĐiện thoại: 0123 456 789", normalFont)
+                        {
+                            Alignment = Element.ALIGN_LEFT,
+                            SpacingAfter = 20f
+                        };
+                        doc.Add(companyInfo);
+
+                        // --- Tiêu đề ---
+                        Paragraph title = new Paragraph("HÓA ĐƠN THANH TOÁN", titleFont)
+                        {
+                            Alignment = Element.ALIGN_CENTER,
+                            SpacingAfter = 20f
+                        };
+                        doc.Add(title);
+
+                        // --- Bảng thông tin hóa đơn ---
+                        PdfPTable table = new PdfPTable(2)
+                        {
+                            WidthPercentage = 100f,
+                            SpacingAfter = 20f
+                        };
+                        table.SetWidths(new float[] { 1f, 2f });
+
+                        PdfPCell MakeCell(string text, Font font, int alignment = Element.ALIGN_LEFT, float padding = 6f)
+                        {
+                            return new PdfPCell(new Phrase(text, font))
+                            {
+                                Border = PdfPCell.NO_BORDER,
+                                HorizontalAlignment = alignment,
+                                PaddingBottom = padding
+                            };
+                        }
+
+                        table.AddCell(MakeCell("Mã hóa đơn:", boldFont));
+                        table.AddCell(MakeCell(hoaDon.MaHoaDon.ToString(), normalFont, Element.ALIGN_RIGHT));
+
+                        table.AddCell(MakeCell("Mã đặt phòng:", boldFont));
+                        table.AddCell(MakeCell(hoaDon.MaDatPhong.ToString(), normalFont, Element.ALIGN_RIGHT));
+
+                        table.AddCell(MakeCell("Khách hàng:", boldFont));
+                        table.AddCell(MakeCell(hoaDon.KhachHang, normalFont, Element.ALIGN_RIGHT));
+
+                        table.AddCell(MakeCell("Nhân viên lập:", boldFont));
+                        table.AddCell(MakeCell(hoaDon.NhanVien, normalFont, Element.ALIGN_RIGHT));
+
+                        table.AddCell(MakeCell("Ngày lập:", boldFont));
+                        table.AddCell(MakeCell(hoaDon.NgayLap.ToString("dd/MM/yyyy"), normalFont, Element.ALIGN_RIGHT));
+
+                        table.AddCell(MakeCell("Tổng tiền:", boldFont));
+                        table.AddCell(MakeCell($"{hoaDon.TongTien:N0} VND", normalFont, Element.ALIGN_RIGHT));
+
+                        doc.Add(table);
+
+                        // --- Gạch ngang ---
+                        PdfPTable line = new PdfPTable(1)
+                        {
+                            WidthPercentage = 100f,
+                            SpacingBefore = 10f,
+                            SpacingAfter = 10f
+                        };
+                        line.AddCell(new PdfPCell() { Border = PdfPCell.TOP_BORDER, BorderColor = BaseColor.GRAY });
+                        doc.Add(line);
+
+                        // --- Footer: Ngày in và cảm ơn ---
+                        Paragraph footer = new Paragraph($"Ngày in: {DateTime.Now:dd/MM/yyyy}\n\nCảm ơn quý khách đã sử dụng dịch vụ của chúng tôi!", normalFont)
+                        {
+                            Alignment = Element.ALIGN_CENTER,
+                            SpacingBefore = 30f
+                        };
+                        doc.Add(footer);
 
                         doc.Close();
                     }
@@ -209,5 +279,6 @@ namespace QuanLyKhachSan.UI
                 }
             }
         }
+
     }
 }
