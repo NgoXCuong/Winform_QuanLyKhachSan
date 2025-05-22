@@ -22,7 +22,8 @@ namespace QuanLyKhachSan.DAL
                         p.MaPhong, p.SoPhong, 
                         sdv.SoLuong,
                         dp.MaKH,
-                        dp.MaNV
+                        dp.MaNV,
+                        dp.NgayDat
                    FROM SuDungDichVu sdv
                    JOIN DichVu dv ON sdv.MaDV = dv.MaDV
                    JOIN DatPhong dp ON sdv.MaDatPhong = dp.MaDatPhong
@@ -39,7 +40,8 @@ namespace QuanLyKhachSan.DAL
                     SoPhong = Convert.ToInt32(row["SoPhong"]),
                     SoLuong = Convert.ToInt32(row["SoLuong"]),
                     MaKH = Convert.ToInt32(row["MaKH"]),
-                    MaNV = Convert.ToInt32(row["MaNV"])
+                    MaNV = Convert.ToInt32(row["MaNV"]),
+                    NgayDat = Convert.ToDateTime(row["NgayDat"]),
                 };
                 listDichVu.Add(dichvu);
             }
@@ -273,6 +275,8 @@ namespace QuanLyKhachSan.DAL
             {
                 return false;
             }
+
+
         }
     }
 }

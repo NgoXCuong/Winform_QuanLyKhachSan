@@ -437,7 +437,55 @@ namespace QuanLyKhachSan.UI
             {
                 MessageBox.Show("Thêm dịch vụ thất bại!");
             }
+             
+        }
+        public void timphong()
+        {
+            List<PhongModel> danhSachPhong = phongService.GetAllPhong(); // Lấy toàn bộ danh sách
+            lvPhong.View = View.LargeIcon;
+            lvPhong.LargeImageList = imageList1;
+            lvPhong.Items.Clear();
 
+            string soPhongCanTim = txtTim.Text.Trim(); // Lấy số phòng từ TextBox
+
+            // Lọc danh sách theo số phòng
+            var ketQuaTimKiem = danhSachPhong
+                .Where(p => p.SoPhong.ToString().Contains(soPhongCanTim))
+                .ToList();
+
+            foreach (var phong in ketQuaTimKiem)
+            {
+                string trangThai = phong.TrangThai?.Trim().ToLower();
+
+                ListViewItem item = new ListViewItem($"Phòng {phong.SoPhong} ({phong.TrangThai})");
+
+                // Gán hình theo trạng thái
+                switch (trangThai)
+                {
+                    case "trống":
+                        item.ImageIndex = 0;
+                        break;
+                    case "đã đặt":
+                        item.ImageIndex = 1;
+                        break;
+                    case "đang ở":
+                        item.ImageIndex = 2;
+                        break;
+                    case "bảo trì":
+                        item.ImageIndex = 3;
+                        break;
+                    default:
+                        item.ImageIndex = 4; // Hình mặc định
+                        break;
+                }
+
+                lvPhong.Items.Add(item); // QUAN TRỌNG: thêm item vào ListView
+            }
+        }
+
+        private void btnTim_Click(object sender, EventArgs e)
+        {
+            timphong();
         }
     }
 }
