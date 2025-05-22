@@ -299,6 +299,7 @@ namespace QuanLyKhachSan.UI
                 MessageBox.Show("Đặt phòng thành công!");
                 bookingRoomService.CapNhatTrangThaiPhong_DaDat(bookingRoom);
                 LoadPhong();
+                LoadDatPhong();
                 loadChonDichVu();
             }
             else
@@ -329,6 +330,7 @@ namespace QuanLyKhachSan.UI
                         {
                             MessageBox.Show("Hủy đặt phòng thành công.");
                             LoadPhong(); // Cập nhật giao diện
+                            LoadDatPhong(); // Cập nhật danh sách đặt phòng
                             txtTenDatPhong.Text = "";
                             lbTienDV.Text = "";
                         }

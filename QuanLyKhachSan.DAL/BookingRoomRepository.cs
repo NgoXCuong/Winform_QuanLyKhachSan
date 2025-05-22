@@ -120,39 +120,48 @@ namespace QuanLyKhachSan.DAL
                 return false;
             }
 
-            // 1. Lấy MaPhong từ SoPhong
-            string getMaPhongSql = "SELECT MaPhong FROM Phong WHERE SoPhong = @SoPhong";
-            SqlParameter[] getMaPhongParams = new SqlParameter[] {
-                new SqlParameter("@SoPhong", bookingRoom.SoPhong)
-                };
-            object maPhongObj = connDb.ExecuteScalar(getMaPhongSql, getMaPhongParams);
-            if (maPhongObj == null)
+            // 1. Lấy MaPhong và TrangThai từ SoPhong
+            string getPhongSql = "SELECT MaPhong, TrangThai FROM Phong WHERE SoPhong = @SoPhong";
+            SqlParameter[] getPhongParams = new SqlParameter[] {
+        new SqlParameter("@SoPhong", bookingRoom.SoPhong)
+    };
+            DataTable phongTable = connDb.ExecuteQuery(getPhongSql, getPhongParams);
+
+            if (phongTable.Rows.Count == 0)
             {
                 MessageBox.Show("Không tìm thấy phòng với số phòng đã cho.");
                 return false;
             }
 
-            int maPhong = Convert.ToInt32(maPhongObj);
+            string trangThai = phongTable.Rows[0]["TrangThai"].ToString();
+            if (!trangThai.Equals("Trống", StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show("Phòng đã được đặt hoặc không thể đặt.");
+                return false;
+            }
+
+            int maPhong = Convert.ToInt32(phongTable.Rows[0]["MaPhong"]);
 
             // 2. Insert vào bảng DatPhong
             string insertDatPhongSql = @"
-                INSERT INTO DatPhong (MaPhong, NgayDat, NgayNhanPhong, NgayTraPhong, MaKH, MaNV)
-                OUTPUT INSERTED.MaDatPhong
-                VALUES (@MaPhong, @NgayDat, @NgayNhan, @NgayTra, @MaKH, @MaNV)";
+        INSERT INTO DatPhong (MaPhong, NgayDat, NgayNhanPhong, NgayTraPhong, MaKH, MaNV)
+        OUTPUT INSERTED.MaDatPhong
+        VALUES (@MaPhong, @NgayDat, @NgayNhan, @NgayTra, @MaKH, @MaNV)";
             SqlParameter[] datPhongParams = new SqlParameter[] {
-                new SqlParameter("@MaPhong", maPhong),
-                new SqlParameter("@NgayDat", bookingRoom.NgayDat),
-                new SqlParameter("@NgayNhan", bookingRoom.NgayNhan),
-                new SqlParameter("@NgayTra", bookingRoom.NgayTra),
-                new SqlParameter("@MaKH", bookingRoom.MaKH),
-                new SqlParameter("@MaNV", bookingRoom.MaNV)
-            };
+        new SqlParameter("@MaPhong", maPhong),
+        new SqlParameter("@NgayDat", bookingRoom.NgayDat),
+        new SqlParameter("@NgayNhan", bookingRoom.NgayNhan),
+        new SqlParameter("@NgayTra", bookingRoom.NgayTra),
+        new SqlParameter("@MaKH", bookingRoom.MaKH),
+        new SqlParameter("@MaNV", bookingRoom.MaNV)
+    };
             object maDatPhongObj = connDb.ExecuteScalar(insertDatPhongSql, datPhongParams);
             if (maDatPhongObj == null)
             {
                 MessageBox.Show("Không thể thêm đặt phòng.");
                 return false;
             }
+
 
             int maDatPhong = Convert.ToInt32(maDatPhongObj);
 
