@@ -92,5 +92,6 @@ namespace QuanLyKhachSan.UI
         {
             LoadBieuDo(cboLoaiThongKe.SelectedItem.ToString());
         }
+
     }
 }

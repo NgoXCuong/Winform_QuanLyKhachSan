@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using QuanLyKhachSan.BLL;
 using QuanLyKhachSan.Models;
@@ -17,13 +13,13 @@ namespace QuanLyKhachSan.UI
 {
     public partial class HoaDonForm : Form
     {
-        private HoaDonService service = new HoaDonService();
+        private readonly HoaDonService hoaDonService = new HoaDonService();
 
         public HoaDonForm()
         {
+            InitializeComponent();
             try
             {
-                InitializeComponent();
                 LoadComboBoxData();
                 LoadData();
             }
@@ -35,67 +31,62 @@ namespace QuanLyKhachSan.UI
 
         private void LoadData()
         {
-            dgvChiTietHoaDon.DataSource = service.LayTatCaHoaDon();
+            dgvChiTietHoaDon.DataSource = hoaDonService.LayTatCaHoaDon();
         }
 
-        private void BtnThem_Click(object sender, EventArgs e)
+        private void LoadComboBoxData()
         {
-            var model = new HoaDonModel
-            {
-                MaDatPhong = int.Parse(cbMaDatPhong.Text),
-                NgayLap = dtpNgayLap.Value,
-                TongTien = decimal.Parse(txtTongTien.Text)
-            };
-            service.Them(model);
-            LoadData();
+            cbKhachHang.DataSource = hoaDonService.LayDanhSachKhachHang();
+            cbKhachHang.DisplayMember = "Value";
+            cbKhachHang.ValueMember = "Key";
+
+            cbNhanVien.DataSource = hoaDonService.LayDanhSachNhanVien();
+            cbNhanVien.DisplayMember = "Value";
+            cbNhanVien.ValueMember = "Key";
+        }
+
+        private void ClearForm()
+        {
+            txtMaHoaDon.Clear();
+            cbMaDatPhong.SelectedIndex = -1;
+            cbKhachHang.SelectedIndex = -1;
+            cbNhanVien.SelectedIndex = -1;
+            txtTongTien.Clear();
+            dtpNgayLap.Value = DateTime.Today;
         }
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            if (!int.TryParse(cbMaDatPhong.Text, out int maDatPhong))
+            if (!int.TryParse(cbMaDatPhong.Text, out int maDatPhong) ||
+                !decimal.TryParse(txtTongTien.Text, out decimal tongTien))
             {
-                MessageBox.Show("Mã đặt phòng không hợp lệ!");
+                MessageBox.Show("Vui lòng nhập đúng định dạng cho Mã đặt phòng và Tổng tiền.");
                 return;
             }
 
-            if (!decimal.TryParse(txtTongTien.Text, out decimal tongTien))
-            {
-                MessageBox.Show("Tổng tiền không hợp lệ!");
-                return;
-            }
-
-            var model = new HoaDonModel
+            var hoaDon = new HoaDonModel
             {
                 MaDatPhong = maDatPhong,
                 NgayLap = dtpNgayLap.Value,
                 TongTien = tongTien
             };
 
-            service.Them(model);
+            hoaDonService.ThemHoaDon(hoaDon);
             LoadData();
+            ClearForm();
         }
 
         private void btnSua_Click(object sender, EventArgs e)
         {
-            if (!int.TryParse(txtMaHoaDon.Text, out int maHoaDon))
+            if (!int.TryParse(txtMaHoaDon.Text, out int maHoaDon) ||
+                !int.TryParse(cbMaDatPhong.Text, out int maDatPhong) ||
+                !decimal.TryParse(txtTongTien.Text, out decimal tongTien))
             {
-                MessageBox.Show("Mã hóa đơn không hợp lệ!");
+                MessageBox.Show("Vui lòng nhập đúng định dạng các trường!");
                 return;
             }
 
-            if (!int.TryParse(cbMaDatPhong.Text, out int maDatPhong))
-            {
-                MessageBox.Show("Mã đặt phòng không hợp lệ!");
-                return;
-            }
-
-            if (!decimal.TryParse(txtTongTien.Text, out decimal tongTien))
-            {
-                MessageBox.Show("Tổng tiền không hợp lệ!");
-                return;
-            }
-
-            var model = new HoaDonModel
+            var hoaDon = new HoaDonModel
             {
                 MaHoaDon = maHoaDon,
                 MaDatPhong = maDatPhong,
@@ -103,7 +94,7 @@ namespace QuanLyKhachSan.UI
                 TongTien = tongTien
             };
 
-            service.CapNhat(model);
+            hoaDonService.CapNhatHoaDon(hoaDon);
             LoadData();
         }
 
@@ -115,22 +106,22 @@ namespace QuanLyKhachSan.UI
                 return;
             }
 
-            service.Xoa(maHoaDon);
+            hoaDonService.XoaHoaDon(maHoaDon);
             LoadData();
+            ClearForm();
         }
 
         private void btnTim_Click(object sender, EventArgs e)
         {
             if (!int.TryParse(txtTim.Text, out int maHoaDon))
             {
-                MessageBox.Show("Mã hóa đơn tìm kiếm không hợp lệ!");
+                MessageBox.Show("Mã hóa đơn không hợp lệ!");
                 return;
             }
 
-            var hoaDon = service.TimHoaDon(maHoaDon);
+            var hoaDon = hoaDonService.TimHoaDonTheoMa(maHoaDon);
             if (hoaDon != null)
             {
-                // Hiển thị lên các ô
                 txtMaHoaDon.Text = hoaDon.MaHoaDon.ToString();
                 cbMaDatPhong.Text = hoaDon.MaDatPhong.ToString();
                 dtpNgayLap.Value = hoaDon.NgayLap;
@@ -138,7 +129,6 @@ namespace QuanLyKhachSan.UI
                 cbNhanVien.Text = hoaDon.NhanVien;
                 txtTongTien.Text = hoaDon.TongTien.ToString("N2");
 
-                // Đổ lại dữ liệu vào DataGridView (chỉ 1 hóa đơn)
                 dgvChiTietHoaDon.DataSource = new List<HoaDonModel> { hoaDon };
             }
             else
@@ -147,6 +137,24 @@ namespace QuanLyKhachSan.UI
             }
         }
 
+        private void btnLamMoi_Click(object sender, EventArgs e)
+        {
+            LoadData();
+            ClearForm();
+        }
+
+        private void dgvChiTietHoaDon_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            var row = dgvChiTietHoaDon.Rows[e.RowIndex];
+            txtMaHoaDon.Text = row.Cells["MaHoaDon"].Value.ToString();
+            cbMaDatPhong.Text = row.Cells["MaDatPhong"].Value.ToString();
+            dtpNgayLap.Value = Convert.ToDateTime(row.Cells["NgayLap"].Value);
+            cbKhachHang.Text = row.Cells["KhachHang"].Value.ToString();
+            cbNhanVien.Text = row.Cells["NhanVien"].Value.ToString();
+            txtTongTien.Text = row.Cells["TongTien"].Value.ToString();
+        }
 
         private void btnXuat_Click(object sender, EventArgs e)
         {
@@ -156,7 +164,7 @@ namespace QuanLyKhachSan.UI
                 return;
             }
 
-            var hoaDon = service.TimHoaDon(maHoaDon);
+            var hoaDon = hoaDonService.TimHoaDonTheoMa(maHoaDon);
             if (hoaDon == null)
             {
                 MessageBox.Show("Không tìm thấy hóa đơn!");
@@ -173,22 +181,26 @@ namespace QuanLyKhachSan.UI
             {
                 try
                 {
-                    Document doc = new Document();
-                    PdfWriter.GetInstance(doc, new FileStream(saveFileDialog.FileName, FileMode.Create));
-                    doc.Open();
+                    using (FileStream fs = new FileStream(saveFileDialog.FileName, FileMode.Create))
+                    {
+                        Document doc = new Document();
+                        PdfWriter.GetInstance(doc, fs);
+                        doc.Open();
 
-                    var titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 16);
-                    var normalFont = FontFactory.GetFont(FontFactory.HELVETICA, 12);
+                        var titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 16);
+                        var normalFont = FontFactory.GetFont(FontFactory.HELVETICA, 12);
 
-                    doc.Add(new Paragraph("HÓA ĐƠN THANH TOÁN", titleFont));
-                    doc.Add(new Paragraph($"Mã hóa đơn: {hoaDon.MaHoaDon}", normalFont));
-                    doc.Add(new Paragraph($"Mã đặt phòng: {hoaDon.MaDatPhong}", normalFont));
-                    doc.Add(new Paragraph($"Khách hàng: {hoaDon.KhachHang}", normalFont));
-                    doc.Add(new Paragraph($"Nhân viên lập: {hoaDon.NhanVien}", normalFont));
-                    doc.Add(new Paragraph($"Ngày lập: {hoaDon.NgayLap:dd/MM/yyyy}", normalFont));
-                    doc.Add(new Paragraph($"Tổng tiền: {hoaDon.TongTien:N0} VND", normalFont));
+                        doc.Add(new Paragraph("HÓA ĐƠN THANH TOÁN", titleFont));
+                        doc.Add(new Paragraph($"Mã hóa đơn: {hoaDon.MaHoaDon}", normalFont));
+                        doc.Add(new Paragraph($"Mã đặt phòng: {hoaDon.MaDatPhong}", normalFont));
+                        doc.Add(new Paragraph($"Khách hàng: {hoaDon.KhachHang}", normalFont));
+                        doc.Add(new Paragraph($"Nhân viên lập: {hoaDon.NhanVien}", normalFont));
+                        doc.Add(new Paragraph($"Ngày lập: {hoaDon.NgayLap:dd/MM/yyyy}", normalFont));
+                        doc.Add(new Paragraph($"Tổng tiền: {hoaDon.TongTien:N0} VND", normalFont));
 
-                    doc.Close();
+                        doc.Close();
+                    }
+
                     MessageBox.Show("Xuất hóa đơn thành công!");
                 }
                 catch (Exception ex)
@@ -198,42 +210,14 @@ namespace QuanLyKhachSan.UI
             }
         }
 
-
-        private void btnLamMoi_Click(object sender, EventArgs e)
+        private void label4_Click(object sender, EventArgs e)
         {
-            LoadData();
+
         }
 
-        private void dgvChiTietHoaDon_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void groupBox1_Enter(object sender, EventArgs e)
         {
 
-            if (e.RowIndex >= 0)
-            {
-                DataGridViewRow row = dgvChiTietHoaDon.Rows[e.RowIndex];
-
-                //cbKhachHang.Text = row.Cells["TenKhachHang"].Value.ToString();
-                //cbNhanVien.Text = row.Cells["TenNhanVien"].Value.ToString();
-                cbKhachHang.Text = row.Cells["KhachHang"].Value.ToString();
-                cbNhanVien.Text = row.Cells["NhanVien"].Value.ToString();
-
-                txtMaHoaDon.Text = row.Cells["MaHoaDon"].Value.ToString();
-                cbMaDatPhong.Text = row.Cells["MaDatPhong"].Value.ToString();
-                dtpNgayLap.Value = Convert.ToDateTime(row.Cells["NgayLap"].Value);
-                txtTongTien.Text = row.Cells["TongTien"].Value.ToString();
-
-            }
-        }
-        private HoaDonService hoaDonService = new HoaDonService();
-
-        private void LoadComboBoxData()
-        {
-            cbKhachHang.DataSource = hoaDonService.GetDanhSachKhachHang();
-            cbKhachHang.DisplayMember = "Value";
-            cbKhachHang.ValueMember = "Key";
-
-            cbNhanVien.DataSource = hoaDonService.GetDanhSachNhanVien();
-            cbNhanVien.DisplayMember = "Value";
-            cbNhanVien.ValueMember = "Key";
         }
     }
 }
