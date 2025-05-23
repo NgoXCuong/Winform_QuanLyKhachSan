@@ -163,14 +163,14 @@ namespace QuanLyKhachSan.UI
         {
             if (!int.TryParse(txtMaHoaDon.Text, out int maHoaDon))
             {
-                MessageBox.Show("Mã hóa đơn không hợp lệ!");
+                MessageBox.Show("Mã hóa đơn không hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            var hoaDon = hoaDonService.TimHoaDonTheoMa(maHoaDon); // Corrected the service name and method call  
+            var hoaDon = hoaDonService.TimHoaDonTheoMa(maHoaDon);
             if (hoaDon == null)
             {
-                MessageBox.Show("Không tìm thấy hóa đơn!");
+                MessageBox.Show("Không tìm thấy hóa đơn!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -184,30 +184,122 @@ namespace QuanLyKhachSan.UI
             {
                 try
                 {
-                    Document doc = new Document();
-                    PdfWriter.GetInstance(doc, new FileStream(saveFileDialog.FileName, FileMode.Create));
-                    doc.Open();
+                    using (FileStream fs = new FileStream(saveFileDialog.FileName, FileMode.Create))
+                    {
+                        Document doc = new Document(PageSize.A4, 40f, 40f, 40f, 40f);
+                        PdfWriter writer = PdfWriter.GetInstance(doc, fs);
+                        doc.Open();
 
-                    var titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 16);
-                    var normalFont = FontFactory.GetFont(FontFactory.HELVETICA, 12);
+                        // Kiểm tra và tải font
+                        string fontPath = Path.Combine(Application.StartupPath, "Fonts", "C:\\Users\\LAPTOP\\Downloads\\Roboto\\static\\Roboto-Regular.ttf");
+                        BaseFont baseFont;
+                        if (File.Exists(fontPath))
+                        {
+                            baseFont = BaseFont.CreateFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+                        }
+                        else
+                        {
+                            baseFont = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                            MessageBox.Show("Font Roboto không tìm thấy, sử dụng font mặc định.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
 
-                    doc.Add(new Paragraph("HÓA ĐƠN THANH TOÁN", titleFont));
-                    doc.Add(new Paragraph($"Mã hóa đơn: {hoaDon.MaHoaDon}", normalFont));
-                    doc.Add(new Paragraph($"Mã đặt phòng: {hoaDon.MaDatPhong}", normalFont));
-                    doc.Add(new Paragraph($"Khách hàng: {hoaDon.KhachHang}", normalFont));
-                    doc.Add(new Paragraph($"Nhân viên lập: {hoaDon.NhanVien}", normalFont));
-                    doc.Add(new Paragraph($"Ngày lập: {hoaDon.NgayLap:dd/MM/yyyy}", normalFont));
-                    doc.Add(new Paragraph($"Tổng tiền: {hoaDon.TongTien:N0} VND", normalFont));
+                        // Tạo các font để tái sử dụng
+                        Font titleFont = new Font(baseFont, 20, iTextSharp.text.Font.BOLD, new BaseColor(33, 150, 243)); // Màu xanh dương
+                        Font headerFont = new Font(baseFont, 10, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
+                        Font boldFont = new Font(baseFont, 12, iTextSharp.text.Font.BOLD, BaseColor.BLACK);
+                        Font normalFont = new Font(baseFont, 12, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
+                        Font italicFont = new Font(baseFont, 10, iTextSharp.text.Font.ITALIC, BaseColor.GRAY);
 
-                    doc.Close();
-                    MessageBox.Show("Xuất hóa đơn thành công!");
+                        // Thêm logo
+                        string logoPath = Path.Combine(Application.StartupPath, "Images", "F:\\Code_BTL\\CShap\\QuanLyKhachSan\\QuanLyKhachSan.UI\\Image\\hotel64px.png");
+                        if (File.Exists(logoPath))
+                        {
+                            iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(logoPath);
+                            logo.ScaleToFit(80f, 80f);
+                            logo.Alignment = Element.ALIGN_CENTER;
+                            doc.Add(logo);
+                        }
+
+                        // Thêm thông tin công ty
+                        Paragraph companyInfo = new Paragraph(
+                            "Tập đoàn N8\nNam Từ Liêm, TP.Hà Nội\nHotline: 0123 456 789\nEmail: n8@gmail.com",
+                            headerFont)
+                        {
+                            Alignment = Element.ALIGN_CENTER,
+                            SpacingAfter = 10f
+                        };
+                        doc.Add(companyInfo);
+
+                        // Tiêu đề hóa đơn
+                        Paragraph title = new Paragraph("HÓA ĐƠN THANH TOÁN", titleFont)
+                        {
+                            Alignment = Element.ALIGN_CENTER,
+                            SpacingAfter = 15f
+                        };
+                        doc.Add(title);
+
+                        // Bảng thông tin hóa đơn
+                        PdfPTable infoTable = new PdfPTable(2)
+                        {
+                            WidthPercentage = 100f,
+                            SpacingAfter = 15f
+                        };
+                        infoTable.SetWidths(new float[] { 1f, 2f });
+
+                        // Thêm các ô với viền và màu nền
+                        infoTable.AddCell(new PdfPCell(new Phrase("Mã hóa đơn:", boldFont)) { Padding = 5f, BackgroundColor = new BaseColor(240, 240, 240) });
+                        infoTable.AddCell(new PdfPCell(new Phrase(hoaDon.MaHoaDon.ToString(), normalFont)) { Padding = 5f });
+                        infoTable.AddCell(new PdfPCell(new Phrase("Mã đặt phòng:", boldFont)) { Padding = 5f, BackgroundColor = new BaseColor(240, 240, 240) });
+                        infoTable.AddCell(new PdfPCell(new Phrase(hoaDon.MaDatPhong.ToString(), normalFont)) { Padding = 5f });
+                        infoTable.AddCell(new PdfPCell(new Phrase("Khách hàng:", boldFont)) { Padding = 5f, BackgroundColor = new BaseColor(240, 240, 240) });
+                        infoTable.AddCell(new PdfPCell(new Phrase(hoaDon.KhachHang, normalFont)) { Padding = 5f });
+                        infoTable.AddCell(new PdfPCell(new Phrase("Nhân viên lập:", boldFont)) { Padding = 5f, BackgroundColor = new BaseColor(240, 240, 240) });
+                        infoTable.AddCell(new PdfPCell(new Phrase(hoaDon.NhanVien, normalFont)) { Padding = 5f });
+                        infoTable.AddCell(new PdfPCell(new Phrase("Ngày lập:", boldFont)) { Padding = 5f, BackgroundColor = new BaseColor(240, 240, 240) });
+                        infoTable.AddCell(new PdfPCell(new Phrase(hoaDon.NgayLap.ToString("dd/MM/yyyy"), normalFont)) { Padding = 5f });
+                        infoTable.AddCell(new PdfPCell(new Phrase("Tổng tiền:", boldFont)) { Padding = 5f, BackgroundColor = new BaseColor(240, 240, 240) });
+                        infoTable.AddCell(new PdfPCell(new Phrase($"{hoaDon.TongTien:N0} VND", normalFont)) { Padding = 5f });
+
+                        doc.Add(infoTable);
+
+                        // Đường phân cách
+                        PdfPTable separator = new PdfPTable(1)
+                        {
+                            WidthPercentage = 100f,
+                            SpacingBefore = 10f,
+                            SpacingAfter = 10f
+                        };
+                        separator.AddCell(new PdfPCell() { Border = PdfPCell.TOP_BORDER, BorderColor = new BaseColor(200, 200, 200) });
+                        doc.Add(separator);
+
+                        // Dòng cảm ơn
+                        Paragraph thankYou = new Paragraph("Cảm ơn quý khách đã sử dụng dịch vụ!", italicFont)
+                        {
+                            Alignment = Element.ALIGN_CENTER,
+                            SpacingBefore = 10f
+                        };
+                        doc.Add(thankYou);
+
+                        // Chân trang
+                        Paragraph footer = new Paragraph($"Hóa đơn được tạo vào: {DateTime.Now:dd/MM/yyyy HH:mm}", italicFont)
+                        {
+                            Alignment = Element.ALIGN_CENTER,
+                            SpacingBefore = 10f
+                        };
+                        doc.Add(footer);
+
+                        doc.Close();
+                    }
+
+                    MessageBox.Show("Xuất hóa đơn thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Lỗi khi xuất PDF: " + ex.Message);
+                    MessageBox.Show($"Lỗi khi xuất PDF: {ex.Message}\nVui lòng kiểm tra đường dẫn file font hoặc quyền ghi file.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
+
         private void cbMaDatPhong_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (int.TryParse(cbMaDatPhong.SelectedItem?.ToString(), out int maDatPhong))
