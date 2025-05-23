@@ -284,5 +284,21 @@ namespace QuanLyKhachSan.DAL
             }
             return null; // Trả về null nếu không tìm thấy
         }
+        public NhanVienModel GetById(int maNV)
+        {
+            string query = "SELECT * FROM NhanVien WHERE MaNV = @MaNV";
+            var parameter = new SqlParameter("@MaNV", maNV);
+            var table = connDb.ExecuteQuery(query, new[] { parameter });
+
+            if (table.Rows.Count == 0) return null;
+
+            var row = table.Rows[0];
+            return new NhanVienModel
+            {
+                MaNV = (int)row["MaNV"],
+                HoTen = row["HoTen"].ToString(),
+                // Thêm các trường khác nếu cần
+            };
+        }
     }
 }

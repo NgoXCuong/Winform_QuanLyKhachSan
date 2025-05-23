@@ -41,5 +41,10 @@ namespace QuanLyKhachSan.BLL
         {
             return khachHangRepository.TimKhachHang(keyword);
         }
+
+        public KhachHangModel LayThongTinKhachHang(int maKH)
+        {
+            return khachHangRepository.GetById(maKH);
+        }
     }
 }

@@ -14,5 +14,7 @@ namespace QuanLyKhachSan.Models
         public string KhachHang { get; set; }
         public string NhanVien { get; set; }
         public decimal TongTien { get; set; }
+        public object MaKhachHang { get; set; }
+        public object MaNhanVien { get; set; }
     }
 }

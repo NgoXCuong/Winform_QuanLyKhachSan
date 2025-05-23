@@ -9,16 +9,24 @@ using QuanLyKhachSan.Models;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 
+
 namespace QuanLyKhachSan.UI
 {
     public partial class HoaDonForm : Form
     {
         private readonly HoaDonService hoaDonService = new HoaDonService();
+        private KhachHangService khachHangService;
+        private NhanVienService nhanVienService;
 
         public HoaDonForm()
         {
             InitializeComponent();
             cbMaDatPhong.SelectedIndexChanged += cbMaDatPhong_SelectedIndexChanged;
+            cbKhachHang.SelectedIndexChanged += cbKhachHang_SelectedIndexChanged;
+            cbNhanVien.SelectedIndexChanged += cbNhanVien_SelectedIndexChanged;
+            khachHangService = new KhachHangService(); // hoặc truyền từ bên ngoài nếu dùng DI
+    nhanVienService = new NhanVienService();   
+
 
 
             try
@@ -35,6 +43,18 @@ namespace QuanLyKhachSan.UI
         private void LoadData()
         {
             dgvChiTietHoaDon.DataSource = hoaDonService.LayTatCaHoaDon();
+
+            dgvChiTietHoaDon.Columns["MaHoaDon"].HeaderText = "Mã Hóa Đơn";
+            dgvChiTietHoaDon.Columns["MaDatPhong"].HeaderText = "Mã Đặt Phòng";
+            dgvChiTietHoaDon.Columns["NgayLap"].HeaderText = "Ngày Lập";
+            dgvChiTietHoaDon.Columns["KhachHang"].HeaderText = "Khách Hàng";
+            dgvChiTietHoaDon.Columns["NhanVien"].HeaderText = "Nhân Viên";
+            dgvChiTietHoaDon.Columns["TongTien"].HeaderText = "Tổng tiền";
+
+
+
+            dgvChiTietHoaDon.Columns["MaKhachHang"].Visible = false;
+            dgvChiTietHoaDon.Columns["MaNhanVien"].Visible = false;
         }
 
         //private void LoadComboBoxData()
@@ -53,12 +73,14 @@ namespace QuanLyKhachSan.UI
             try
             {
                 // Load customer list
-                cbKhachHang.DataSource = hoaDonService.LayDanhSachKhachHang();
+                var dsKhachHang = hoaDonService.LayDanhSachKhachHang();
+                cbKhachHang.DataSource = dsKhachHang;
                 cbKhachHang.DisplayMember = "Value";
                 cbKhachHang.ValueMember = "Key";
 
                 // Load employee list
-                cbNhanVien.DataSource = hoaDonService.LayDanhSachNhanVien();
+                var dsNhanVien = hoaDonService.LayDanhSachNhanVien();
+                cbNhanVien.DataSource = dsNhanVien;
                 cbNhanVien.DisplayMember = "Value";
                 cbNhanVien.ValueMember = "Key";
 
@@ -204,12 +226,13 @@ namespace QuanLyKhachSan.UI
             var hoaDon = hoaDonService.TimHoaDonTheoMa(maHoaDon);
             if (hoaDon != null)
             {
-                txtMaHoaDon.Text = hoaDon.MaHoaDon.ToString();
-                cbMaDatPhong.Text = hoaDon.MaDatPhong.ToString();
-                dtpNgayLap.Value = hoaDon.NgayLap;
-                cbKhachHang.Text = hoaDon.KhachHang;
-                cbNhanVien.Text = hoaDon.NhanVien;
-                txtTongTien.Text = hoaDon.TongTien.ToString("N2");
+                //txtMaHoaDon.Text = hoaDon.MaHoaDon.ToString();
+                //cbMaDatPhong.Text = hoaDon.MaDatPhong.ToString();
+                //dtpNgayLap.Value = hoaDon.NgayLap;
+                //cbKhachHang.Text = hoaDon.MaKhachHang.ToString();
+                //cbNhanVien.Text = hoaDon.MaNhanVien.ToString();
+
+                //txtTongTien.Text = hoaDon.TongTien.ToString("N2");
 
                 dgvChiTietHoaDon.DataSource = new List<HoaDonModel> { hoaDon };
             }
@@ -224,19 +247,24 @@ namespace QuanLyKhachSan.UI
             LoadData();
             ClearForm();
         }
-
         private void dgvChiTietHoaDon_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
 
             var row = dgvChiTietHoaDon.Rows[e.RowIndex];
-            txtMaHoaDon.Text = row.Cells["MaHoaDon"].Value.ToString();
-            cbMaDatPhong.Text = row.Cells["MaDatPhong"].Value.ToString();
+            //001
+            txtMaHoaDon.Text = row.Cells["MaHoaDon"].Value?.ToString();
+            cbMaDatPhong.Text = row.Cells["MaDatPhong"].Value?.ToString();
+
             dtpNgayLap.Value = Convert.ToDateTime(row.Cells["NgayLap"].Value);
-            cbKhachHang.Text = row.Cells["KhachHang"].Value.ToString();
-            cbNhanVien.Text = row.Cells["NhanVien"].Value.ToString();
-            txtTongTien.Text = row.Cells["TongTien"].Value.ToString();
+            txtTongTien.Text = Convert.ToDecimal(row.Cells["TongTien"].Value).ToString("N2");
+
+            // Gán SelectedValue theo ID (chắc chắn có trong model)
+            cbKhachHang.SelectedValue = Convert.ToInt32(row.Cells["MaKhachHang"].Value);
+            cbNhanVien.SelectedValue = Convert.ToInt32(row.Cells["MaNhanVien"].Value);
         }
+
+
 
         private void btnXuat_Click(object sender, EventArgs e)
         {
@@ -399,5 +427,48 @@ namespace QuanLyKhachSan.UI
                 txtTongTien.Text = "0";
             }
         }
+        private void cbKhachHang_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (cbKhachHang.SelectedValue != null && int.TryParse(cbKhachHang.SelectedValue.ToString(), out int maKH))
+                {
+                    var khachHang = khachHangService.LayThongTinKhachHang(maKH);
+                    if (khachHang != null)
+                    {
+                        // Không cần set lại Text vì ComboBox đã binding tự động
+                        // Chỉ cần xử lý logic nếu cần
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi lấy thông tin khách hàng: " + ex.Message,
+                                "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void cbNhanVien_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (cbNhanVien.SelectedValue != null && int.TryParse(cbNhanVien.SelectedValue.ToString(), out int maNV))
+                {
+                    var nhanVien = nhanVienService.LayThongTinNhanVien(maNV);
+                    if (nhanVien != null)
+                    {
+                        // Không cần set lại Text vì ComboBox đã binding tự động
+                        // Chỉ cần xử lý logic nếu cần
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi lấy thông tin nhân viên: " + ex.Message,
+                                "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
     }
 }

@@ -42,13 +42,16 @@ namespace QuanLyKhachSan.DAL
         public HoaDonModel GetById(int maHoaDon)
         {
             string query = @"
-                SELECT hd.MaHoaDon, hd.MaDatPhong, hd.NgayLap, hd.TongTien,
-                       kh.HoTen AS TenKhachHang, nv.HoTen AS TenNhanVien
-                FROM HoaDon hd
-                JOIN DatPhong dp ON hd.MaDatPhong = dp.MaDatPhong
-                JOIN KhachHang kh ON dp.MaKH = kh.MaKH
-                JOIN NhanVien nv ON dp.MaNV = nv.MaNV
-                WHERE hd.MaHoaDon = @MaHoaDon";
+                SELECT 
+                    hd.MaHoaDon, hd.MaDatPhong, hd.NgayLap, hd.TongTien,
+                    kh.MaKH, kh.HoTen AS TenKhachHang,
+                    nv.MaNV, nv.HoTen AS TenNhanVien
+                    FROM HoaDon hd
+                    JOIN DatPhong dp ON hd.MaDatPhong = dp.MaDatPhong
+                    JOIN KhachHang kh ON dp.MaKH = kh.MaKH
+                    JOIN NhanVien nv ON dp.MaNV = nv.MaNV
+                    WHERE hd.MaHoaDon = @MaHoaDon";
+
 
             var parameters = new SqlParameter[]
             {
@@ -123,7 +126,8 @@ namespace QuanLyKhachSan.DAL
             foreach (DataRow row in table.Rows)
             {
                 int maDatPhong = (int)row["MaDatPhong"];
-                string display = $"{row["TenKhachHang"]} - {Convert.ToDateTime(row["NgayDat"]).ToString("dd/MM/yyyy")}";
+                //string display = $"{row["TenKhachHang"]} - {Convert.ToDateTime(row["NgayDat"]).ToString("dd/MM/yyyy")}"; ;
+                string display = $"{(int)row["MaDatPhong"]}";
                 list.Add(new KeyValuePair<int, string>(maDatPhong, display));
             }
 

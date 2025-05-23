@@ -82,5 +82,10 @@ namespace QuanLyKhachSan.BLL
         {
             return nhanVienRepository.GetChucVuByMaNV(maNV);
         }
+
+        public NhanVienModel LayThongTinNhanVien(int maNV)
+        {
+            return nhanVienRepository.GetById(maNV);
+        }
     }
 }

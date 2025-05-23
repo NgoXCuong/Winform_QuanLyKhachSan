@@ -69,5 +69,15 @@ namespace QuanLyKhachSan.BLL
         {
             return hoaDonRepo.TinhTongTienTheoMaDatPhong(maDatPhong);
         }
+
+        public KhachHangModel LayThongTinKhachHang(int maKH)
+        {
+            return khachHangRepo.GetById(maKH);
+        }
+
+        public NhanVienModel LayThongTinNhanVien(int maNV)
+        {
+            return nhanVienRepo.GetById(maNV);
+        }
     }
 }

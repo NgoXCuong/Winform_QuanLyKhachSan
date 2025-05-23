@@ -142,5 +142,21 @@ namespace QuanLyKhachSan.DAL
             }
             return listKhachHang;
         }
+        public KhachHangModel GetById(int maKH)
+        {
+            string query = "SELECT * FROM KhachHang WHERE MaKH = @MaKH";
+            var parameter = new SqlParameter("@MaKH", maKH);
+            var table = connDb.ExecuteQuery(query, new[] { parameter });
+
+            if (table.Rows.Count == 0) return null;
+
+            var row = table.Rows[0];
+            return new KhachHangModel
+            {
+                //MaKH = (int)row["MaKH"],
+                HoTen = row["HoTen"].ToString(),
+                // Thêm các trường khác nếu cần
+            };
+        }
     }
 }
