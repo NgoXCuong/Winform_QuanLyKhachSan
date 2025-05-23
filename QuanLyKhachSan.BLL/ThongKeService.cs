@@ -33,13 +33,13 @@ namespace QuanLyKhachSan.BLL
             return thongKeRepository.GetDoanhThuTheoNgay();
         }
 
-        // ✅ Bổ sung: Thống kê doanh thu theo tháng
+        
         public Dictionary<int, decimal> GetDoanhThuTheoThang()
         {
             return thongKeRepository.GetDoanhThuTheoThang();
         }
 
-        // ✅ Bổ sung: Thống kê doanh thu theo năm
+        
         public Dictionary<int, decimal> GetDoanhThuTheoNam()
         {
             return thongKeRepository.GetDoanhThuTheoNam();

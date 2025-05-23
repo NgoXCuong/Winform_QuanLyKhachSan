@@ -60,7 +60,7 @@ namespace QuanLyKhachSan.UI
                 var data = thongKeService.GetDoanhThuTheoNgay();
                 foreach (var item in data)
                 {
-                    series.Points.AddXY(item.Key.ToString("dd/MM"), item.Value);
+                    series.Points.AddXY(item.Key.ToString("dd/MM/yyyy"), item.Value);
                 }
                 chart1.ChartAreas[0].AxisX.Title = "Ngày";
             }
