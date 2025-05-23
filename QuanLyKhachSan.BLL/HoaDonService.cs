@@ -42,6 +42,13 @@ namespace QuanLyKhachSan.BLL
             hoaDonRepo.Delete(maHoaDon);
         }
 
+        public List<KeyValuePair<string, string>> LayDanhSachDatPhong()
+        {
+            return hoaDonRepo.GetDanhSachMaDatPhong()
+                .Select(dp => new KeyValuePair<string, string>(dp.Key.ToString(), dp.Value))
+                .ToList();
+        }
+
         // Lấy danh sách khách hàng (dạng KeyValuePair)
         public List<KeyValuePair<string, string>> LayDanhSachKhachHang()
         {
@@ -60,7 +67,7 @@ namespace QuanLyKhachSan.BLL
 
         public decimal TinhTongTienTheoMaDatPhong(int maDatPhong)
         {
-            throw new NotImplementedException();
+            return hoaDonRepo.TinhTongTienTheoMaDatPhong(maDatPhong);
         }
     }
 }

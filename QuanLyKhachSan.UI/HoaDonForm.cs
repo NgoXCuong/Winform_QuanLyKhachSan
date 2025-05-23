@@ -37,15 +37,52 @@ namespace QuanLyKhachSan.UI
             dgvChiTietHoaDon.DataSource = hoaDonService.LayTatCaHoaDon();
         }
 
+        //private void LoadComboBoxData()
+        //{
+        //    cbKhachHang.DataSource = hoaDonService.LayDanhSachKhachHang();
+        //    cbKhachHang.DisplayMember = "Value";
+        //    cbKhachHang.ValueMember = "Key";
+
+        //    cbNhanVien.DataSource = hoaDonService.LayDanhSachNhanVien();
+        //    cbNhanVien.DisplayMember = "Value";
+        //    cbNhanVien.ValueMember = "Key";
+        //}
+
         private void LoadComboBoxData()
         {
-            cbKhachHang.DataSource = hoaDonService.LayDanhSachKhachHang();
-            cbKhachHang.DisplayMember = "Value";
-            cbKhachHang.ValueMember = "Key";
+            try
+            {
+                // Load customer list
+                cbKhachHang.DataSource = hoaDonService.LayDanhSachKhachHang();
+                cbKhachHang.DisplayMember = "Value";
+                cbKhachHang.ValueMember = "Key";
 
-            cbNhanVien.DataSource = hoaDonService.LayDanhSachNhanVien();
-            cbNhanVien.DisplayMember = "Value";
-            cbNhanVien.ValueMember = "Key";
+                // Load employee list
+                cbNhanVien.DataSource = hoaDonService.LayDanhSachNhanVien();
+                cbNhanVien.DisplayMember = "Value";
+                cbNhanVien.ValueMember = "Key";
+
+                // Load booking ID list
+                var maDatPhongList = hoaDonService.LayDanhSachDatPhong();
+                cbMaDatPhong.DataSource = maDatPhongList;
+                cbMaDatPhong.DisplayMember = "Value"; // Displays "TenKhachHang - NgayDat"
+                cbMaDatPhong.ValueMember = "Key";     // Uses MaDatPhong as the value
+                cbMaDatPhong.SelectedIndex = -1;      // Ensure no item is selected by default
+
+                if (maDatPhongList == null || maDatPhongList.Count == 0)
+                {
+                    cbMaDatPhong.Enabled = false;
+                    MessageBox.Show("Không có mã đặt phòng nào trong hệ thống.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    cbMaDatPhong.Enabled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải dữ liệu ComboBox: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void ClearForm()
@@ -58,60 +95,102 @@ namespace QuanLyKhachSan.UI
             dtpNgayLap.Value = DateTime.Today;
         }
 
+        //private void btnThem_Click(object sender, EventArgs e)
+        //{
+        //    if (!int.TryParse(cbMaDatPhong.Text, out int maDatPhong) ||
+        //        !decimal.TryParse(txtTongTien.Text, out decimal tongTien))
+        //    {
+        //        MessageBox.Show("Vui lòng nhập đúng định dạng cho Mã đặt phòng và Tổng tiền.");
+        //        return;
+        //    }
+
+        //    var hoaDon = new HoaDonModel
+        //    {
+        //        MaDatPhong = maDatPhong,
+        //        NgayLap = dtpNgayLap.Value,
+        //        TongTien = tongTien
+        //    };
+
+        //    hoaDonService.ThemHoaDon(hoaDon);
+        //    LoadData();
+        //    ClearForm();
+        //}
         private void btnThem_Click(object sender, EventArgs e)
         {
-            if (!int.TryParse(cbMaDatPhong.Text, out int maDatPhong) ||
-                !decimal.TryParse(txtTongTien.Text, out decimal tongTien))
+            try
             {
-                MessageBox.Show("Vui lòng nhập đúng định dạng cho Mã đặt phòng và Tổng tiền.");
-                return;
+                if (cbMaDatPhong.SelectedValue == null || !int.TryParse(cbMaDatPhong.SelectedValue.ToString(), out int maDatPhong) ||
+                    !decimal.TryParse(txtTongTien.Text, out decimal tongTien))
+                {
+                    MessageBox.Show("Vui lòng nhập đúng định dạng cho Mã đặt phòng và Tổng tiền.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var hoaDon = new HoaDonModel
+                {
+                    MaDatPhong = maDatPhong,
+                    NgayLap = dtpNgayLap.Value,
+                    TongTien = tongTien
+                };
+
+                hoaDonService.ThemHoaDon(hoaDon);
+                LoadData();
+                ClearForm();
+                MessageBox.Show("Thêm hóa đơn thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
-            var hoaDon = new HoaDonModel
+            catch (Exception ex)
             {
-                MaDatPhong = maDatPhong,
-                NgayLap = dtpNgayLap.Value,
-                TongTien = tongTien
-            };
-
-            hoaDonService.ThemHoaDon(hoaDon);
-            LoadData();
-            ClearForm();
+                MessageBox.Show("Lỗi khi thêm hóa đơn: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnSua_Click(object sender, EventArgs e)
         {
-            if (!int.TryParse(txtMaHoaDon.Text, out int maHoaDon) ||
+            try
+            {
+                if (!int.TryParse(txtMaHoaDon.Text, out int maHoaDon) ||
                 !int.TryParse(cbMaDatPhong.Text, out int maDatPhong) ||
                 !decimal.TryParse(txtTongTien.Text, out decimal tongTien))
-            {
-                MessageBox.Show("Vui lòng nhập đúng định dạng các trường!");
-                return;
+                {
+                    MessageBox.Show("Vui lòng nhập đúng định dạng các trường!");
+                    return;
+                }
+
+                var hoaDon = new HoaDonModel
+                {
+                    MaHoaDon = maHoaDon,
+                    MaDatPhong = maDatPhong,
+                    NgayLap = dtpNgayLap.Value,
+                    TongTien = tongTien
+                };
+
+                hoaDonService.CapNhatHoaDon(hoaDon);
+                LoadData();
             }
-
-            var hoaDon = new HoaDonModel
+            catch (Exception ex)
             {
-                MaHoaDon = maHoaDon,
-                MaDatPhong = maDatPhong,
-                NgayLap = dtpNgayLap.Value,
-                TongTien = tongTien
-            };
-
-            hoaDonService.CapNhatHoaDon(hoaDon);
-            LoadData();
+                MessageBox.Show("Lỗi khi cập nhật hóa đơn: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
-            if (!int.TryParse(txtMaHoaDon.Text, out int maHoaDon))
+            try
             {
-                MessageBox.Show("Mã hóa đơn không hợp lệ!");
-                return;
-            }
+                if (!int.TryParse(txtMaHoaDon.Text, out int maHoaDon))
+                {
+                    MessageBox.Show("Mã hóa đơn không hợp lệ!");
+                    return;
+                }
 
-            hoaDonService.XoaHoaDon(maHoaDon);
-            LoadData();
-            ClearForm();
+                hoaDonService.XoaHoaDon(maHoaDon);
+                LoadData();
+                ClearForm();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi xóa hóa đơn: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnTim_Click(object sender, EventArgs e)
@@ -302,17 +381,23 @@ namespace QuanLyKhachSan.UI
 
         private void cbMaDatPhong_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (int.TryParse(cbMaDatPhong.SelectedItem?.ToString(), out int maDatPhong))
+            try
             {
-                decimal tongTien = hoaDonService.TinhTongTienTheoMaDatPhong(maDatPhong);
-                txtTongTien.Text = tongTien.ToString("N0"); // Định dạng số
+                if (cbMaDatPhong.SelectedValue != null && int.TryParse(cbMaDatPhong.SelectedValue.ToString(), out int maDatPhong))
+                {
+                    decimal tongTien = hoaDonService.TinhTongTienTheoMaDatPhong(maDatPhong);
+                    txtTongTien.Text = tongTien.ToString("N0"); // Format number without decimals
+                }
+                else
+                {
+                    txtTongTien.Text = "0";
+                }
             }
-            else
+            catch (Exception ex)
             {
+                MessageBox.Show("Lỗi khi tính tổng tiền: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txtTongTien.Text = "0";
             }
         }
-
-
     }
 }
