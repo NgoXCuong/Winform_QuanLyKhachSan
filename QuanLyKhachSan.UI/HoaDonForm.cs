@@ -15,8 +15,8 @@ namespace QuanLyKhachSan.UI
     public partial class HoaDonForm : Form
     {
         private readonly HoaDonService hoaDonService = new HoaDonService();
-        private KhachHangService khachHangService;
-        private NhanVienService nhanVienService;
+        private KhachHangService khachHangService = new KhachHangService();
+        private NhanVienService nhanVienService =  new NhanVienService();
 
         public HoaDonForm()
         {
@@ -24,11 +24,6 @@ namespace QuanLyKhachSan.UI
             cbMaDatPhong.SelectedIndexChanged += cbMaDatPhong_SelectedIndexChanged;
             cbKhachHang.SelectedIndexChanged += cbKhachHang_SelectedIndexChanged;
             cbNhanVien.SelectedIndexChanged += cbNhanVien_SelectedIndexChanged;
-            khachHangService = new KhachHangService(); // hoặc truyền từ bên ngoài nếu dùng DI
-    nhanVienService = new NhanVienService();   
-
-
-
             try
             {
                 LoadComboBoxData();
@@ -51,22 +46,9 @@ namespace QuanLyKhachSan.UI
             dgvChiTietHoaDon.Columns["NhanVien"].HeaderText = "Nhân Viên";
             dgvChiTietHoaDon.Columns["TongTien"].HeaderText = "Tổng tiền";
 
-
-
             dgvChiTietHoaDon.Columns["MaKhachHang"].Visible = false;
             dgvChiTietHoaDon.Columns["MaNhanVien"].Visible = false;
         }
-
-        //private void LoadComboBoxData()
-        //{
-        //    cbKhachHang.DataSource = hoaDonService.LayDanhSachKhachHang();
-        //    cbKhachHang.DisplayMember = "Value";
-        //    cbKhachHang.ValueMember = "Key";
-
-        //    cbNhanVien.DataSource = hoaDonService.LayDanhSachNhanVien();
-        //    cbNhanVien.DisplayMember = "Value";
-        //    cbNhanVien.ValueMember = "Key";
-        //}
 
         private void LoadComboBoxData()
         {
@@ -117,26 +99,6 @@ namespace QuanLyKhachSan.UI
             dtpNgayLap.Value = DateTime.Today;
         }
 
-        //private void btnThem_Click(object sender, EventArgs e)
-        //{
-        //    if (!int.TryParse(cbMaDatPhong.Text, out int maDatPhong) ||
-        //        !decimal.TryParse(txtTongTien.Text, out decimal tongTien))
-        //    {
-        //        MessageBox.Show("Vui lòng nhập đúng định dạng cho Mã đặt phòng và Tổng tiền.");
-        //        return;
-        //    }
-
-        //    var hoaDon = new HoaDonModel
-        //    {
-        //        MaDatPhong = maDatPhong,
-        //        NgayLap = dtpNgayLap.Value,
-        //        TongTien = tongTien
-        //    };
-
-        //    hoaDonService.ThemHoaDon(hoaDon);
-        //    LoadData();
-        //    ClearForm();
-        //}
         private void btnThem_Click(object sender, EventArgs e)
         {
             try
@@ -226,14 +188,6 @@ namespace QuanLyKhachSan.UI
             var hoaDon = hoaDonService.TimHoaDonTheoMa(maHoaDon);
             if (hoaDon != null)
             {
-                //txtMaHoaDon.Text = hoaDon.MaHoaDon.ToString();
-                //cbMaDatPhong.Text = hoaDon.MaDatPhong.ToString();
-                //dtpNgayLap.Value = hoaDon.NgayLap;
-                //cbKhachHang.Text = hoaDon.MaKhachHang.ToString();
-                //cbNhanVien.Text = hoaDon.MaNhanVien.ToString();
-
-                //txtTongTien.Text = hoaDon.TongTien.ToString("N2");
-
                 dgvChiTietHoaDon.DataSource = new List<HoaDonModel> { hoaDon };
             }
             else
@@ -247,6 +201,7 @@ namespace QuanLyKhachSan.UI
             LoadData();
             ClearForm();
         }
+
         private void dgvChiTietHoaDon_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
@@ -263,8 +218,6 @@ namespace QuanLyKhachSan.UI
             cbKhachHang.SelectedValue = Convert.ToInt32(row.Cells["MaKhachHang"].Value);
             cbNhanVien.SelectedValue = Convert.ToInt32(row.Cells["MaNhanVien"].Value);
         }
-
-
 
         private void btnXuat_Click(object sender, EventArgs e)
         {
@@ -468,7 +421,5 @@ namespace QuanLyKhachSan.UI
                                 "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
     }
 }

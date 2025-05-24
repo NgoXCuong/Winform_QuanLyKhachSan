@@ -14,13 +14,13 @@ namespace QuanLyKhachSan.DAL
         {
             var list = new List<HoaDonModel>();
             string query = @"
-                SELECT 
+                    SELECT 
                     hd.MaHoaDon, hd.MaDatPhong, hd.NgayLap, hd.TongTien,
                     kh.HoTen AS TenKhachHang, nv.HoTen AS TenNhanVien
-                FROM HoaDon hd
-                JOIN DatPhong dp ON hd.MaDatPhong = dp.MaDatPhong
-                JOIN KhachHang kh ON dp.MaKH = kh.MaKH
-                JOIN NhanVien nv ON dp.MaNV = nv.MaNV";
+                    FROM HoaDon hd
+                    JOIN DatPhong dp ON hd.MaDatPhong = dp.MaDatPhong
+                    JOIN KhachHang kh ON dp.MaKH = kh.MaKH
+                    JOIN NhanVien nv ON dp.MaNV = nv.MaNV";
 
             var table = connDb.ExecuteQuery(query);
             foreach (DataRow row in table.Rows)
@@ -35,14 +35,13 @@ namespace QuanLyKhachSan.DAL
                     NhanVien = row["TenNhanVien"].ToString()
                 });
             }
-
             return list;
         }
 
         public HoaDonModel GetById(int maHoaDon)
         {
             string query = @"
-                SELECT 
+                    SELECT 
                     hd.MaHoaDon, hd.MaDatPhong, hd.NgayLap, hd.TongTien,
                     kh.MaKH, kh.HoTen AS TenKhachHang,
                     nv.MaNV, nv.HoTen AS TenNhanVien
@@ -83,14 +82,14 @@ namespace QuanLyKhachSan.DAL
                 new SqlParameter("@NgayLap", model.NgayLap),
                 new SqlParameter("@TongTien", model.TongTien)
             };
-
             return connDb.ExecuteNonQuery(query, parameters) > 0;
         }
 
         public bool Update(HoaDonModel model)
         {
             string query = @"UPDATE HoaDon 
-                             SET MaDatPhong = @MaDatPhong, NgayLap = @NgayLap, TongTien = @TongTien
+                             SET MaDatPhong = @MaDatPhong,
+                             NgayLap = @NgayLap, TongTien = @TongTien
                              WHERE MaHoaDon = @MaHoaDon";
             var parameters = new SqlParameter[]
             {
@@ -99,7 +98,6 @@ namespace QuanLyKhachSan.DAL
                 new SqlParameter("@NgayLap", model.NgayLap),
                 new SqlParameter("@TongTien", model.TongTien)
             };
-
             return connDb.ExecuteNonQuery(query, parameters) > 0;
         }
 
@@ -126,11 +124,9 @@ namespace QuanLyKhachSan.DAL
             foreach (DataRow row in table.Rows)
             {
                 int maDatPhong = (int)row["MaDatPhong"];
-                //string display = $"{row["TenKhachHang"]} - {Convert.ToDateTime(row["NgayDat"]).ToString("dd/MM/yyyy")}"; ;
                 string display = $"{(int)row["MaDatPhong"]}";
                 list.Add(new KeyValuePair<int, string>(maDatPhong, display));
             }
-
             return list;
         }
 
@@ -145,7 +141,6 @@ namespace QuanLyKhachSan.DAL
                 string hoTen = row["HoTen"].ToString();
                 list.Add(new KeyValuePair<int, string>(maKH, hoTen));
             }
-
             return list;
         }
 
@@ -160,7 +155,6 @@ namespace QuanLyKhachSan.DAL
                 string hoTen = row["HoTen"].ToString();
                 list.Add(new KeyValuePair<int, string>(maNV, hoTen));
             }
-
             return list;
         }
 
@@ -172,6 +166,5 @@ namespace QuanLyKhachSan.DAL
 
             return result.Rows.Count > 0 ? Convert.ToDecimal(result.Rows[0][0]) : 0;
         }
-
     }
 }
