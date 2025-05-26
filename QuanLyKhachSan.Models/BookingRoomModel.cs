@@ -25,6 +25,12 @@ namespace QuanLyKhachSan.Models
         public string TenLoaiPhong { get; set; }
         public string TrangThai { get; set; }
         public decimal GiaPhong { get; set; }
+
+        /// <summary>
+        /// //////////////////
+        /// </summary>
+        public string TenNhanVien { get; set; }
+        public string TenKhachHang { get; set; }
     }
 
 }

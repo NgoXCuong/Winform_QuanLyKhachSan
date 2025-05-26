@@ -17,6 +17,7 @@ namespace QuanLyKhachSan.UI
         private readonly HoaDonService hoaDonService = new HoaDonService();
         private KhachHangService khachHangService = new KhachHangService();
         private NhanVienService nhanVienService =  new NhanVienService();
+        private BookingRoomService datPhongService = new BookingRoomService();
 
         public HoaDonForm()
         {
@@ -52,26 +53,66 @@ namespace QuanLyKhachSan.UI
 
         private void LoadComboBoxData()
         {
+            //////////////////////// GỐC ///////////////////////
+            //try
+            //{
+            //    // Load customer list
+            //    var dsKhachHang = hoaDonService.LayDanhSachKhachHang();
+            //    cbKhachHang.DataSource = dsKhachHang;
+            //    cbKhachHang.DisplayMember = "Value";
+            //    cbKhachHang.ValueMember = "Key";
+
+            //    // Load employee list
+            //    var dsNhanVien = hoaDonService.LayDanhSachNhanVien();
+            //    cbNhanVien.DataSource = dsNhanVien;
+            //    cbNhanVien.DisplayMember = "Value";
+            //    cbNhanVien.ValueMember = "Key";
+
+            //    // Load booking ID list
+            //    var maDatPhongList = hoaDonService.LayDanhSachDatPhong();
+            //    cbMaDatPhong.DataSource = maDatPhongList;
+            //    cbMaDatPhong.DisplayMember = "Value"; // Displays "TenKhachHang - NgayDat"
+            //    cbMaDatPhong.ValueMember = "Key";     // Uses MaDatPhong as the value
+            //    cbMaDatPhong.SelectedIndex = -1;      // Ensure no item is selected by default
+
+            //    if (maDatPhongList == null || maDatPhongList.Count == 0)
+            //    {
+            //        cbMaDatPhong.Enabled = false;
+            //        MessageBox.Show("Không có mã đặt phòng nào trong hệ thống.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    }
+            //    else
+            //    {
+            //        cbMaDatPhong.Enabled = true;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show("Lỗi khi tải dữ liệu ComboBox: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
+            //////////////////////// GỐC ///////////////////////
+            ///
             try
             {
                 // Load customer list
-                var dsKhachHang = hoaDonService.LayDanhSachKhachHang();
-                cbKhachHang.DataSource = dsKhachHang;
+                var dsKhachHangList = hoaDonService.LayDanhSachKhachHang(); // List<KeyValuePair<string, string>>
+                var dsKhachHang = dsKhachHangList.ToDictionary(kvp => int.Parse(kvp.Key), kvp => kvp.Value);
+                cbKhachHang.DataSource = new BindingSource(dsKhachHang, null);
                 cbKhachHang.DisplayMember = "Value";
                 cbKhachHang.ValueMember = "Key";
 
                 // Load employee list
-                var dsNhanVien = hoaDonService.LayDanhSachNhanVien();
-                cbNhanVien.DataSource = dsNhanVien;
+                var dsNhanVienList = hoaDonService.LayDanhSachNhanVien(); // List<KeyValuePair<string, string>>
+                var dsNhanVien = dsNhanVienList.ToDictionary(kvp => int.Parse(kvp.Key), kvp => kvp.Value);
+                cbNhanVien.DataSource = new BindingSource(dsNhanVien, null);
                 cbNhanVien.DisplayMember = "Value";
                 cbNhanVien.ValueMember = "Key";
 
                 // Load booking ID list
                 var maDatPhongList = hoaDonService.LayDanhSachDatPhong();
                 cbMaDatPhong.DataSource = maDatPhongList;
-                cbMaDatPhong.DisplayMember = "Value"; // Displays "TenKhachHang - NgayDat"
-                cbMaDatPhong.ValueMember = "Key";     // Uses MaDatPhong as the value
-                cbMaDatPhong.SelectedIndex = -1;      // Ensure no item is selected by default
+                cbMaDatPhong.DisplayMember = "Value";
+                cbMaDatPhong.ValueMember = "Key";
+                cbMaDatPhong.SelectedIndex = -1;
 
                 if (maDatPhongList == null || maDatPhongList.Count == 0)
                 {
@@ -82,11 +123,16 @@ namespace QuanLyKhachSan.UI
                 {
                     cbMaDatPhong.Enabled = true;
                 }
+
+                // Debug: Kiểm tra dữ liệu binding
+                Console.WriteLine("KhachHang Keys: " + string.Join(", ", dsKhachHang.Keys));
+                Console.WriteLine("NhanVien Keys: " + string.Join(", ", dsNhanVien.Keys));
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi tải dữ liệu ComboBox: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
 
         private void ClearForm()
@@ -204,12 +250,13 @@ namespace QuanLyKhachSan.UI
 
         private void dgvChiTietHoaDon_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            ///////////////////////// GỐC ///////////////////////
             if (e.RowIndex < 0) return;
 
             var row = dgvChiTietHoaDon.Rows[e.RowIndex];
             //001
             txtMaHoaDon.Text = row.Cells["MaHoaDon"].Value?.ToString();
-            cbMaDatPhong.Text = row.Cells["MaDatPhong"].Value?.ToString();
+            cbMaDatPhong.SelectedValue = Convert.ToInt32(row.Cells["MaDatPhong"].Value); // Use SelectedValue instead of Text
 
             dtpNgayLap.Value = Convert.ToDateTime(row.Cells["NgayLap"].Value);
             txtTongTien.Text = Convert.ToDecimal(row.Cells["TongTien"].Value).ToString("N2");
@@ -217,6 +264,70 @@ namespace QuanLyKhachSan.UI
             // Gán SelectedValue theo ID (chắc chắn có trong model)
             cbKhachHang.SelectedValue = Convert.ToInt32(row.Cells["MaKhachHang"].Value);
             cbNhanVien.SelectedValue = Convert.ToInt32(row.Cells["MaNhanVien"].Value);
+            /////////////////////// GỐC ///////////////////////
+
+
+
+            //try
+            //{
+            //    // Load customer list
+            //    var dsKhachHangList = hoaDonService.LayDanhSachKhachHang();
+            //    if (dsKhachHangList == null || !dsKhachHangList.Any())
+            //    {
+            //        Console.WriteLine("dsKhachHangList is null or empty");
+            //        MessageBox.Show("Không có khách hàng nào trong hệ thống.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //        cbKhachHang.DataSource = null;
+            //    }
+            //    else
+            //    {
+            //        var dsKhachHang = dsKhachHangList.ToDictionary(kvp => int.Parse(kvp.Key), kvp => kvp.Value);
+            //        cbKhachHang.DataSource = new BindingSource(dsKhachHang, null);
+            //        cbKhachHang.DisplayMember = "Value";
+            //        cbKhachHang.ValueMember = "Key";
+            //        Console.WriteLine($"cbKhachHang Keys: {string.Join(", ", dsKhachHang.Keys)}");
+            //    }
+
+            //    // Load employee list
+            //    var dsNhanVienList = hoaDonService.LayDanhSachNhanVien();
+            //    if (dsNhanVienList == null || !dsNhanVienList.Any())
+            //    {
+            //        Console.WriteLine("dsNhanVienList is null or empty");
+            //        MessageBox.Show("Không có nhân viên nào trong hệ thống.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //        cbNhanVien.DataSource = null;
+            //    }
+            //    else
+            //    {
+            //        var dsNhanVien = dsNhanVienList.ToDictionary(kvp => int.Parse(kvp.Key), kvp => kvp.Value);
+            //        cbNhanVien.DataSource = new BindingSource(dsNhanVien, null);
+            //        cbNhanVien.DisplayMember = "Value";
+            //        cbNhanVien.ValueMember = "Key";
+            //        Console.WriteLine($"cbNhanVien Keys: {string.Join(", ", dsNhanVien.Keys)}");
+            //    }
+
+            //    // Load booking ID list
+            //    var maDatPhongList = hoaDonService.LayDanhSachDatPhong();
+            //    if (maDatPhongList == null || !maDatPhongList.Any())
+            //    {
+            //        Console.WriteLine("maDatPhongList is null or empty");
+            //        cbMaDatPhong.Enabled = false;
+            //        MessageBox.Show("Không có mã đặt phòng nào trong hệ thống.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //        cbMaDatPhong.DataSource = null;
+            //    }
+            //    else
+            //    {
+            //        cbMaDatPhong.DataSource = maDatPhongList;
+            //        cbMaDatPhong.DisplayMember = "Value";
+            //        cbMaDatPhong.ValueMember = "Key";
+            //        cbMaDatPhong.SelectedIndex = -1;
+            //        cbMaDatPhong.Enabled = true;
+            //        Console.WriteLine($"cbMaDatPhong Keys: {string.Join(", ", maDatPhongList.Select(kvp => kvp.Key))}");
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine($"Exception in LoadComboBoxData: {ex.Message}");
+            //    MessageBox.Show("Lỗi khi tải dữ liệu ComboBox: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
 
         private void btnXuat_Click(object sender, EventArgs e)
@@ -362,21 +473,82 @@ namespace QuanLyKhachSan.UI
 
         private void cbMaDatPhong_SelectedIndexChanged(object sender, EventArgs e)
         {
+            //////////////// Gốc /////////////////////
+            //try
+            //{
+            //    if (cbMaDatPhong.SelectedValue != null && int.TryParse(cbMaDatPhong.SelectedValue.ToString(), out int maDatPhong))
+            //    {
+            //        decimal tongTien = hoaDonService.TinhTongTienTheoMaDatPhong(maDatPhong);
+            //        txtTongTien.Text = tongTien.ToString("N0"); // Format number without decimals
+            //    }
+            //    else
+            //    {
+            //        txtTongTien.Text = "0";
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show("Lỗi khi tính tổng tiền: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    txtTongTien.Text = "0";
+            //}
+            //////////////// Gốc /////////////////////
+
             try
             {
                 if (cbMaDatPhong.SelectedValue != null && int.TryParse(cbMaDatPhong.SelectedValue.ToString(), out int maDatPhong))
                 {
+                    // Calculate total amount
                     decimal tongTien = hoaDonService.TinhTongTienTheoMaDatPhong(maDatPhong);
-                    txtTongTien.Text = tongTien.ToString("N0"); // Format number without decimals
+                    txtTongTien.Text = tongTien > 0 ? tongTien.ToString("N0") : "0";
+
+                    // Fetch booking details for the selected MaDatPhong
+                    var datPhong = datPhongService.GetDatPhongByID(maDatPhong);
+                    if (datPhong != null)
+                    {
+                        // Debug: Kiểm tra giá trị MaNV và MaKH
+                        Console.WriteLine($"MaDatPhong: {maDatPhong}, MaNV: {datPhong.MaNV}, MaKH: {datPhong.MaKH}");
+
+                        // Kiểm tra xem MaNV và MaKH có trong danh sách binding không
+                        var dsNhanVien = (Dictionary<int, string>)((BindingSource)cbNhanVien.DataSource).DataSource;
+                        var dsKhachHang = (Dictionary<int, string>)((BindingSource)cbKhachHang.DataSource).DataSource;
+
+                        bool nvExists = dsNhanVien.ContainsKey(datPhong.MaNV);
+                        bool khExists = dsKhachHang.ContainsKey(datPhong.MaKH);
+
+                        if (nvExists && khExists)
+                        {
+                            cbNhanVien.SelectedValue = datPhong.MaNV;
+                            cbKhachHang.SelectedValue = datPhong.MaKH;
+                        }
+                        else
+                        {
+                            cbNhanVien.SelectedIndex = -1;
+                            cbKhachHang.SelectedIndex = -1;
+                            MessageBox.Show("Mã nhân viên hoặc mã khách hàng không tồn tại trong danh sách!\n" +
+                                            $"MaNV: {datPhong.MaNV}, MaKH: {datPhong.MaKH}",
+                                            "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    else
+                    {
+                        cbNhanVien.SelectedIndex = -1;
+                        cbKhachHang.SelectedIndex = -1;
+                        txtTongTien.Text = "0";
+                        MessageBox.Show("Không tìm thấy thông tin đặt phòng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
                 else
                 {
+                    cbNhanVien.SelectedIndex = -1;
+                    cbKhachHang.SelectedIndex = -1;
                     txtTongTien.Text = "0";
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi tính tổng tiền: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi khi lấy thông tin đặt phòng: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                cbNhanVien.SelectedIndex = -1;
+                cbKhachHang.SelectedIndex = -1;
                 txtTongTien.Text = "0";
             }
         }
@@ -387,10 +559,9 @@ namespace QuanLyKhachSan.UI
                 if (cbKhachHang.SelectedValue != null && int.TryParse(cbKhachHang.SelectedValue.ToString(), out int maKH))
                 {
                     var khachHang = khachHangService.LayThongTinKhachHang(maKH);
-                    if (khachHang != null)
+                    if (khachHang == null)
                     {
-                        // Không cần set lại Text vì ComboBox đã binding tự động
-                        // Chỉ cần xử lý logic nếu cần
+                        MessageBox.Show("Không tìm thấy thông tin khách hàng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
             }
@@ -408,10 +579,9 @@ namespace QuanLyKhachSan.UI
                 if (cbNhanVien.SelectedValue != null && int.TryParse(cbNhanVien.SelectedValue.ToString(), out int maNV))
                 {
                     var nhanVien = nhanVienService.LayThongTinNhanVien(maNV);
-                    if (nhanVien != null)
+                    if (nhanVien == null)
                     {
-                        // Không cần set lại Text vì ComboBox đã binding tự động
-                        // Chỉ cần xử lý logic nếu cần
+                        MessageBox.Show("Không tìm thấy thông tin nhân viên!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
             }

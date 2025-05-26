@@ -121,9 +121,9 @@ namespace QuanLyKhachSan.DAL
 
             // 1. Lấy MaPhong và TrangThai từ SoPhong
             string getPhongSql = "SELECT MaPhong, TrangThai FROM Phong WHERE SoPhong = @SoPhong";
-            SqlParameter[] getPhongParams = new SqlParameter[] {
-        new SqlParameter("@SoPhong", bookingRoom.SoPhong)
-    };
+                SqlParameter[] getPhongParams = new SqlParameter[] {
+                new SqlParameter("@SoPhong", bookingRoom.SoPhong)
+            };
             DataTable phongTable = connDb.ExecuteQuery(getPhongSql, getPhongParams);
 
             if (phongTable.Rows.Count == 0)
@@ -143,17 +143,17 @@ namespace QuanLyKhachSan.DAL
 
             // 2. Insert vào bảng DatPhong
             string insertDatPhongSql = @"
-        INSERT INTO DatPhong (MaPhong, NgayDat, NgayNhanPhong, NgayTraPhong, MaKH, MaNV)
-        OUTPUT INSERTED.MaDatPhong
-        VALUES (@MaPhong, @NgayDat, @NgayNhan, @NgayTra, @MaKH, @MaNV)";
+                INSERT INTO DatPhong (MaPhong, NgayDat, NgayNhanPhong, NgayTraPhong, MaKH, MaNV)
+                OUTPUT INSERTED.MaDatPhong
+                VALUES (@MaPhong, @NgayDat, @NgayNhan, @NgayTra, @MaKH, @MaNV)";
             SqlParameter[] datPhongParams = new SqlParameter[] {
-        new SqlParameter("@MaPhong", maPhong),
-        new SqlParameter("@NgayDat", bookingRoom.NgayDat),
-        new SqlParameter("@NgayNhan", bookingRoom.NgayNhan),
-        new SqlParameter("@NgayTra", bookingRoom.NgayTra),
-        new SqlParameter("@MaKH", bookingRoom.MaKH),
-        new SqlParameter("@MaNV", bookingRoom.MaNV)
-    };
+                new SqlParameter("@MaPhong", maPhong),
+                new SqlParameter("@NgayDat", bookingRoom.NgayDat),
+                new SqlParameter("@NgayNhan", bookingRoom.NgayNhan),
+                new SqlParameter("@NgayTra", bookingRoom.NgayTra),
+                new SqlParameter("@MaKH", bookingRoom.MaKH),
+                new SqlParameter("@MaNV", bookingRoom.MaNV)
+            };
             object maDatPhongObj = connDb.ExecuteScalar(insertDatPhongSql, datPhongParams);
             if (maDatPhongObj == null)
             {
@@ -275,8 +275,39 @@ namespace QuanLyKhachSan.DAL
             {
                 return false;
             }
+        }
 
-
+        public List<BookingRoomModel> getDatPhongByIdNameNVAndKH()
+        {
+            List<BookingRoomModel> listDatPhong = new List<BookingRoomModel>();
+            string sql = @"
+        SELECT 
+            dp.MaDatPhong,
+            nv.HoTen AS TenNhanVien,
+            kh.HoTen AS TenKhachHang,
+            dp.MaNV,
+            dp.MaKH
+        FROM 
+            DatPhong dp
+        JOIN 
+            NhanVien nv ON dp.MaNV = nv.MaNV
+        JOIN 
+            KhachHang kh ON dp.MaKH = kh.MaKH;
+    ";
+            var dataTable = connDb.ExecuteQuery(sql);
+            foreach (DataRow row in dataTable.Rows)
+            {
+                BookingRoomModel datPhong = new BookingRoomModel
+                {
+                    MaDatPhong = Convert.ToInt32(row["MaDatPhong"]),
+                    TenNhanVien = row["TenNhanVien"].ToString(),
+                    TenKhachHang = row["TenKhachHang"].ToString(),
+                    MaNV = Convert.ToInt32(row["MaNV"]),
+                    MaKH = Convert.ToInt32(row["MaKH"])
+                };
+                listDatPhong.Add(datPhong);
+            }
+            return listDatPhong;
         }
     }
 }

@@ -53,6 +53,16 @@ namespace QuanLyKhachSan.BLL
             return bookingRoomRepository.HuyDichVuTheoSoPhongVaMaDV(bookingRoom);
         }
 
+        ///////////////////////
+        public List<BookingRoomModel> GetDatPhongByIdNameNVAndKH()
+        {
+            return bookingRoomRepository.getDatPhongByIdNameNVAndKH();
+        }
 
+        public BookingRoomModel GetDatPhongByID(int maDatPhong)
+        {
+            var listDatPhong = GetDatPhongByIdNameNVAndKH();
+            return listDatPhong.FirstOrDefault(dp => dp.MaDatPhong == maDatPhong);
+        }
     }
 }
