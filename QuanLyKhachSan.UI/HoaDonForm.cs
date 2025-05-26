@@ -256,7 +256,7 @@ namespace QuanLyKhachSan.UI
             var row = dgvChiTietHoaDon.Rows[e.RowIndex];
             //001
             txtMaHoaDon.Text = row.Cells["MaHoaDon"].Value?.ToString();
-            cbMaDatPhong.SelectedValue = Convert.ToInt32(row.Cells["MaDatPhong"].Value); // Use SelectedValue instead of Text
+            //cbMaDatPhong.SelectedValue = Convert.ToInt32(row.Cells["MaDatPhong"].Value); // Use SelectedValue instead of Text
 
             dtpNgayLap.Value = Convert.ToDateTime(row.Cells["NgayLap"].Value);
             txtTongTien.Text = Convert.ToDecimal(row.Cells["TongTien"].Value).ToString("N2");
@@ -264,6 +264,20 @@ namespace QuanLyKhachSan.UI
             // Gán SelectedValue theo ID (chắc chắn có trong model)
             cbKhachHang.SelectedValue = Convert.ToInt32(row.Cells["MaKhachHang"].Value);
             cbNhanVien.SelectedValue = Convert.ToInt32(row.Cells["MaNhanVien"].Value);
+
+            if(int.TryParse(row.Cells["MaDatPhong"].Value?.ToString(), out int maDatPhong))
+            {
+                cbMaDatPhong.SelectedValue = maDatPhong.ToString();
+            }
+            else
+            {
+                txtMaHoaDon.Clear();
+            }
+
+            //if (int.TryParse(row.Cells["LoaiPhong"].Value?.ToString(), out int maLoaiPhong))
+            //{
+            //    cbLoaiPhong.SelectedValue = maLoaiPhong;
+            //}
             /////////////////////// GỐC ///////////////////////
 
 
