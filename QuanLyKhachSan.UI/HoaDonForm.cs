@@ -415,35 +415,13 @@ namespace QuanLyKhachSan.UI
 
         private void cbMaDatPhong_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //////////////// Gốc /////////////////////
-            //try
-            //{
-            //    if (cbMaDatPhong.SelectedValue != null && int.TryParse(cbMaDatPhong.SelectedValue.ToString(), out int maDatPhong))
-            //    {
-            //        decimal tongTien = hoaDonService.TinhTongTienTheoMaDatPhong(maDatPhong);
-            //        txtTongTien.Text = tongTien.ToString("N0"); // Format number without decimals
-            //    }
-            //    else
-            //    {
-            //        txtTongTien.Text = "0";
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Lỗi khi tính tổng tiền: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    txtTongTien.Text = "0";
-            //}
-            //////////////// Gốc /////////////////////
-
             try
             {
                 if (cbMaDatPhong.SelectedValue != null && int.TryParse(cbMaDatPhong.SelectedValue.ToString(), out int maDatPhong))
                 {
-                    // Calculate total amount
                     decimal tongTien = hoaDonService.TinhTongTienTheoMaDatPhong(maDatPhong);
                     txtTongTien.Text = tongTien > 0 ? tongTien.ToString("N0") : "0";
 
-                    // Fetch booking details for the selected MaDatPhong
                     var datPhong = datPhongService.GetDatPhongByID(maDatPhong);
                     if (datPhong != null)
                     {
