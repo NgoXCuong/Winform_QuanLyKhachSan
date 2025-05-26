@@ -250,13 +250,10 @@ namespace QuanLyKhachSan.UI
 
         private void dgvChiTietHoaDon_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            ///////////////////////// GỐC ///////////////////////
             if (e.RowIndex < 0) return;
 
             var row = dgvChiTietHoaDon.Rows[e.RowIndex];
-            //001
             txtMaHoaDon.Text = row.Cells["MaHoaDon"].Value?.ToString();
-            //cbMaDatPhong.SelectedValue = Convert.ToInt32(row.Cells["MaDatPhong"].Value); // Use SelectedValue instead of Text
 
             dtpNgayLap.Value = Convert.ToDateTime(row.Cells["NgayLap"].Value);
             txtTongTien.Text = Convert.ToDecimal(row.Cells["TongTien"].Value).ToString("N2");
@@ -273,75 +270,6 @@ namespace QuanLyKhachSan.UI
             {
                 txtMaHoaDon.Clear();
             }
-
-            //if (int.TryParse(row.Cells["LoaiPhong"].Value?.ToString(), out int maLoaiPhong))
-            //{
-            //    cbLoaiPhong.SelectedValue = maLoaiPhong;
-            //}
-            /////////////////////// GỐC ///////////////////////
-
-
-
-            //try
-            //{
-            //    // Load customer list
-            //    var dsKhachHangList = hoaDonService.LayDanhSachKhachHang();
-            //    if (dsKhachHangList == null || !dsKhachHangList.Any())
-            //    {
-            //        Console.WriteLine("dsKhachHangList is null or empty");
-            //        MessageBox.Show("Không có khách hàng nào trong hệ thống.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //        cbKhachHang.DataSource = null;
-            //    }
-            //    else
-            //    {
-            //        var dsKhachHang = dsKhachHangList.ToDictionary(kvp => int.Parse(kvp.Key), kvp => kvp.Value);
-            //        cbKhachHang.DataSource = new BindingSource(dsKhachHang, null);
-            //        cbKhachHang.DisplayMember = "Value";
-            //        cbKhachHang.ValueMember = "Key";
-            //        Console.WriteLine($"cbKhachHang Keys: {string.Join(", ", dsKhachHang.Keys)}");
-            //    }
-
-            //    // Load employee list
-            //    var dsNhanVienList = hoaDonService.LayDanhSachNhanVien();
-            //    if (dsNhanVienList == null || !dsNhanVienList.Any())
-            //    {
-            //        Console.WriteLine("dsNhanVienList is null or empty");
-            //        MessageBox.Show("Không có nhân viên nào trong hệ thống.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //        cbNhanVien.DataSource = null;
-            //    }
-            //    else
-            //    {
-            //        var dsNhanVien = dsNhanVienList.ToDictionary(kvp => int.Parse(kvp.Key), kvp => kvp.Value);
-            //        cbNhanVien.DataSource = new BindingSource(dsNhanVien, null);
-            //        cbNhanVien.DisplayMember = "Value";
-            //        cbNhanVien.ValueMember = "Key";
-            //        Console.WriteLine($"cbNhanVien Keys: {string.Join(", ", dsNhanVien.Keys)}");
-            //    }
-
-            //    // Load booking ID list
-            //    var maDatPhongList = hoaDonService.LayDanhSachDatPhong();
-            //    if (maDatPhongList == null || !maDatPhongList.Any())
-            //    {
-            //        Console.WriteLine("maDatPhongList is null or empty");
-            //        cbMaDatPhong.Enabled = false;
-            //        MessageBox.Show("Không có mã đặt phòng nào trong hệ thống.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //        cbMaDatPhong.DataSource = null;
-            //    }
-            //    else
-            //    {
-            //        cbMaDatPhong.DataSource = maDatPhongList;
-            //        cbMaDatPhong.DisplayMember = "Value";
-            //        cbMaDatPhong.ValueMember = "Key";
-            //        cbMaDatPhong.SelectedIndex = -1;
-            //        cbMaDatPhong.Enabled = true;
-            //        Console.WriteLine($"cbMaDatPhong Keys: {string.Join(", ", maDatPhongList.Select(kvp => kvp.Key))}");
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine($"Exception in LoadComboBoxData: {ex.Message}");
-            //    MessageBox.Show("Lỗi khi tải dữ liệu ComboBox: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
         }
 
         private void btnXuat_Click(object sender, EventArgs e)
