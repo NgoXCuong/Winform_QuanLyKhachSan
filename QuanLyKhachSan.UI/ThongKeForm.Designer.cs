@@ -339,6 +339,7 @@
             // ThongKeForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1114, 611);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel3);
