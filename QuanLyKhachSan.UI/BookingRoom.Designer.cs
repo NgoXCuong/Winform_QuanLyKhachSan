@@ -182,9 +182,9 @@
             // 
             this.btnHuyDat.Location = new System.Drawing.Point(22, 78);
             this.btnHuyDat.Name = "btnHuyDat";
-            this.btnHuyDat.Size = new System.Drawing.Size(100, 35);
+            this.btnHuyDat.Size = new System.Drawing.Size(103, 35);
             this.btnHuyDat.TabIndex = 1;
-            this.btnHuyDat.Text = "Hủy đặt";
+            this.btnHuyDat.Text = "Hủy đặt phòng";
             this.btnHuyDat.UseVisualStyleBackColor = true;
             this.btnHuyDat.Click += new System.EventHandler(this.btnHuyDat_Click);
             // 
@@ -299,7 +299,7 @@
             this.lbTongTienAll.ForeColor = System.Drawing.Color.Red;
             this.lbTongTienAll.Location = new System.Drawing.Point(984, 550);
             this.lbTongTienAll.Name = "lbTongTienAll";
-            this.lbTongTienAll.Size = new System.Drawing.Size(0, 24);
+            this.lbTongTienAll.Size = new System.Drawing.Size(0, 25);
             this.lbTongTienAll.TabIndex = 4;
             // 
             // panel2
@@ -320,7 +320,7 @@
             this.groupBox2.Controls.Add(this.groupBox9);
             this.groupBox2.Controls.Add(this.groupBox8);
             this.groupBox2.Controls.Add(this.groupBox7);
-            this.groupBox2.Location = new System.Drawing.Point(16, 13);
+            this.groupBox2.Location = new System.Drawing.Point(9, 12);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(738, 221);
             this.groupBox2.TabIndex = 0;
@@ -330,7 +330,7 @@
             // groupBox14
             // 
             this.groupBox14.Controls.Add(this.txtMaNV);
-            this.groupBox14.Location = new System.Drawing.Point(593, 40);
+            this.groupBox14.Location = new System.Drawing.Point(581, 36);
             this.groupBox14.Name = "groupBox14";
             this.groupBox14.Size = new System.Drawing.Size(139, 50);
             this.groupBox14.TabIndex = 8;
@@ -347,7 +347,7 @@
             // groupBox13
             // 
             this.groupBox13.Controls.Add(this.txtMaKH);
-            this.groupBox13.Location = new System.Drawing.Point(353, 40);
+            this.groupBox13.Location = new System.Drawing.Point(341, 36);
             this.groupBox13.Name = "groupBox13";
             this.groupBox13.Size = new System.Drawing.Size(220, 50);
             this.groupBox13.TabIndex = 7;
@@ -364,7 +364,7 @@
             // groupBox12
             // 
             this.groupBox12.Controls.Add(this.txtTenDatPhong);
-            this.groupBox12.Location = new System.Drawing.Point(353, 96);
+            this.groupBox12.Location = new System.Drawing.Point(341, 92);
             this.groupBox12.Name = "groupBox12";
             this.groupBox12.Size = new System.Drawing.Size(220, 50);
             this.groupBox12.TabIndex = 6;
@@ -381,7 +381,7 @@
             // groupBox11
             // 
             this.groupBox11.Controls.Add(this.txtSoLuong);
-            this.groupBox11.Location = new System.Drawing.Point(593, 160);
+            this.groupBox11.Location = new System.Drawing.Point(581, 156);
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.Size = new System.Drawing.Size(132, 54);
             this.groupBox11.TabIndex = 1;
@@ -398,7 +398,7 @@
             // groupBox10
             // 
             this.groupBox10.Controls.Add(this.cbDichVu);
-            this.groupBox10.Location = new System.Drawing.Point(353, 160);
+            this.groupBox10.Location = new System.Drawing.Point(341, 156);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(220, 50);
             this.groupBox10.TabIndex = 5;
@@ -422,7 +422,7 @@
             // groupBox9
             // 
             this.groupBox9.Controls.Add(this.dtNgayTra);
-            this.groupBox9.Location = new System.Drawing.Point(46, 162);
+            this.groupBox9.Location = new System.Drawing.Point(34, 158);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(265, 50);
             this.groupBox9.TabIndex = 2;
@@ -439,7 +439,7 @@
             // groupBox8
             // 
             this.groupBox8.Controls.Add(this.dtNgayNhan);
-            this.groupBox8.Location = new System.Drawing.Point(46, 96);
+            this.groupBox8.Location = new System.Drawing.Point(34, 92);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(265, 50);
             this.groupBox8.TabIndex = 1;
@@ -456,7 +456,7 @@
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.dtNgayDat);
-            this.groupBox7.Location = new System.Drawing.Point(46, 32);
+            this.groupBox7.Location = new System.Drawing.Point(34, 28);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(265, 50);
             this.groupBox7.TabIndex = 0;
@@ -473,9 +473,9 @@
             // panel4
             // 
             this.panel4.Controls.Add(this.groupBox4);
-            this.panel4.Location = new System.Drawing.Point(348, 459);
+            this.panel4.Location = new System.Drawing.Point(348, 447);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(628, 152);
+            this.panel4.Size = new System.Drawing.Size(628, 164);
             this.panel4.TabIndex = 3;
             // 
             // groupBox4
@@ -483,7 +483,7 @@
             this.groupBox4.Controls.Add(this.dgvListDatPhong);
             this.groupBox4.Location = new System.Drawing.Point(16, 3);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(607, 146);
+            this.groupBox4.Size = new System.Drawing.Size(607, 158);
             this.groupBox4.TabIndex = 0;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Danh sách đặt phòng";
@@ -495,7 +495,7 @@
             this.dgvListDatPhong.Location = new System.Drawing.Point(7, 21);
             this.dgvListDatPhong.Name = "dgvListDatPhong";
             this.dgvListDatPhong.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvListDatPhong.Size = new System.Drawing.Size(594, 116);
+            this.dgvListDatPhong.Size = new System.Drawing.Size(594, 134);
             this.dgvListDatPhong.TabIndex = 0;
             // 
             // panel5
@@ -507,7 +507,7 @@
             this.panel5.Controls.Add(this.groupBox5);
             this.panel5.Location = new System.Drawing.Point(347, 243);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(767, 210);
+            this.panel5.Size = new System.Drawing.Size(767, 198);
             this.panel5.TabIndex = 4;
             // 
             // lbTienDV
@@ -517,7 +517,7 @@
             this.lbTienDV.ForeColor = System.Drawing.Color.Red;
             this.lbTienDV.Location = new System.Drawing.Point(635, 161);
             this.lbTienDV.Name = "lbTienDV";
-            this.lbTienDV.Size = new System.Drawing.Size(0, 24);
+            this.lbTienDV.Size = new System.Drawing.Size(0, 25);
             this.lbTienDV.TabIndex = 5;
             // 
             // btnHuyDV
@@ -526,7 +526,7 @@
             this.btnHuyDV.Name = "btnHuyDV";
             this.btnHuyDV.Size = new System.Drawing.Size(113, 30);
             this.btnHuyDV.TabIndex = 4;
-            this.btnHuyDV.Text = "Hủy Dịch Vụ";
+            this.btnHuyDV.Text = "Hủy dịch vụ";
             this.btnHuyDV.UseVisualStyleBackColor = true;
             this.btnHuyDV.Click += new System.EventHandler(this.btnHuyDV_Click);
             // 
@@ -536,7 +536,7 @@
             this.btnThemDV.Name = "btnThemDV";
             this.btnThemDV.Size = new System.Drawing.Size(113, 30);
             this.btnThemDV.TabIndex = 6;
-            this.btnThemDV.Text = "Thêm Dịch Vụ";
+            this.btnThemDV.Text = "Thêm dịch vụ";
             this.btnThemDV.UseVisualStyleBackColor = true;
             this.btnThemDV.Click += new System.EventHandler(this.btnThemDV_Click);
             // 
@@ -545,7 +545,7 @@
             this.groupBox5.Controls.Add(this.dgvChonDichVu);
             this.groupBox5.Location = new System.Drawing.Point(16, 9);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(613, 189);
+            this.groupBox5.Size = new System.Drawing.Size(613, 177);
             this.groupBox5.TabIndex = 0;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Danh sách dịch vụ đã chọn";
@@ -554,10 +554,10 @@
             // 
             this.dgvChonDichVu.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvChonDichVu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvChonDichVu.Location = new System.Drawing.Point(7, 21);
+            this.dgvChonDichVu.Location = new System.Drawing.Point(8, 21);
             this.dgvChonDichVu.Name = "dgvChonDichVu";
             this.dgvChonDichVu.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvChonDichVu.Size = new System.Drawing.Size(595, 162);
+            this.dgvChonDichVu.Size = new System.Drawing.Size(595, 153);
             this.dgvChonDichVu.TabIndex = 0;
             // 
             // imageList1
