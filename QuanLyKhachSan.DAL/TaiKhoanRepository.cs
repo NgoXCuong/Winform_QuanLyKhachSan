@@ -31,28 +31,6 @@ namespace QuanLyKhachSan.DAL
             return list;
         }
 
-        //public List<TaiKhoanModel> getTaiKhoanLogin()
-        //{
-        //    List<TaiKhoanModel> list = new List<TaiKhoanModel>();
-        //    string query = "SELECT * FROM TaiKhoan WHERE Quyen = 'Admin' AND TrangThai = 1";
-            
-        //    var dataTable = connDb.ExecuteQuery(query);
-
-        //    foreach(System.Data.DataRow row in dataTable.Rows)
-        //    {
-        //        TaiKhoanModel tk = new TaiKhoanModel
-        //        {
-        //            TenDangNhap = row["TenDangNhap"].ToString(),
-        //            MatKhau = row["MatKhau"].ToString(),
-        //            //MaNV = row["MaNV"].ToString(),
-        //            //Quyen = row["Quyen"].ToString(),
-        //            //TrangThai = row["TrangThai"].ToString()
-        //        };
-        //        list.Add(tk);
-        //    }
-        //    return list;
-        //}
-
         public bool ThemTaiKhoan (TaiKhoanModel tk)
         {
             using (SqlConnection conn = new SqlConnection(connDb.GetConnection().ConnectionString))

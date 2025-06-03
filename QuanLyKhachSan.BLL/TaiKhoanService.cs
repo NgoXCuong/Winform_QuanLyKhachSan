@@ -22,11 +22,6 @@ namespace QuanLyKhachSan.BLL
             return taiKhoanRepository.getAllTaiKhoan();
         }
 
-        //public List<TaiKhoanModel> GetTaiKhoanLogin()
-        //{
-        //    return taiKhoanRepository.getTaiKhoanLogin();
-        //}
-
         public bool ThemTaiKhoan(TaiKhoanModel tk)
         {
             return taiKhoanRepository.ThemTaiKhoan(tk);
@@ -60,6 +55,5 @@ namespace QuanLyKhachSan.BLL
                 && tk.MatKhau == matKhau
                 && tk.TrangThai == true);
         }
-
     }
 }
