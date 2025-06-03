@@ -21,11 +21,6 @@ namespace QuanLyKhachSan.UI
             InitializeComponent();
         }
 
-        private void LoginForm_Load(object sender, EventArgs e)
-        {
-            txtPassword.UseSystemPasswordChar = false;
-        }
-
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();

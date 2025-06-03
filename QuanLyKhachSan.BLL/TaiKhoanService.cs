@@ -22,10 +22,10 @@ namespace QuanLyKhachSan.BLL
             return taiKhoanRepository.getAllTaiKhoan();
         }
 
-        public List<TaiKhoanModel> GetTaiKhoanLogin()
-        {
-            return taiKhoanRepository.getTaiKhoanLogin();
-        }
+        //public List<TaiKhoanModel> GetTaiKhoanLogin()
+        //{
+        //    return taiKhoanRepository.getTaiKhoanLogin();
+        //}
 
         public bool ThemTaiKhoan(TaiKhoanModel tk)
         {

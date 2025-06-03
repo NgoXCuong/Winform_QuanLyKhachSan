@@ -35,6 +35,7 @@ namespace QuanLyKhachSan.DAL
             }
             return listKhachHang;
         }
+
         public bool ThemKhachHang(KhachHangModel kh)
         {
             string sql = @"INSERT INTO KhachHang 
@@ -142,6 +143,8 @@ namespace QuanLyKhachSan.DAL
             }
             return listKhachHang;
         }
+
+        // Lay id trong hoa don
         public KhachHangModel GetById(int maKH)
         {
             string query = "SELECT * FROM KhachHang WHERE MaKH = @MaKH";

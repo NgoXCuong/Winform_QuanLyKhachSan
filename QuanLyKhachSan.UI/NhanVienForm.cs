@@ -376,6 +376,7 @@ namespace QuanLyKhachSan.UI
             }
         }
 
+        // chuyen chuoi base64( chuoi nhi phan) thanh img
         public Image Base64ToImage(string base64String)
         {
             try
@@ -410,6 +411,7 @@ namespace QuanLyKhachSan.UI
             }
         }
 
+        // kiem tra co phai chuoi base64 hop lle
         bool IsValidBase64(string base64String)
         {
             if (string.IsNullOrEmpty(base64String))

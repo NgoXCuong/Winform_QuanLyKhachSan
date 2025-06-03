@@ -117,45 +117,6 @@ namespace QuanLyKhachSan.DAL
             return connDb.ExecuteNonQuery(sql, parameters) > 0;
         }
 
-        //public List<NhanVienModel> TimNhanVien(string keyword)
-        //{
-        //    List<NhanVienModel> listNhanVien = new List<NhanVienModel>();
-
-        //    string sql = @"SELECT * FROM NhanVien
-        //        WHERE (@Keyword = '' OR HoTen LIKE '%' + @Keyword + '%')
-        //        OR (@Keyword = '' OR GioiTinh LIKE '%' + @Keyword + '%')
-        //        OR (@Keyword = '' OR NgaySinh BETWEEN @NgaySinhStart AND @NgaySinhEnd)  -- Tìm trong khoảng thời gian
-        //        OR (@Keyword = '' OR ChucVu LIKE '%' + @Keyword + '%')
-        //        OR (@Keyword = '' OR SDT LIKE '%' + @Keyword + '%')
-        //        OR (@Keyword = '' OR Email LIKE '%' + @Keyword + '%')";
-
-        //    var parameters = new SqlParameter[]
-        //    {
-        //        new SqlParameter("@Keyword", keyword),
-        //        new SqlParameter("@NgaySinhStart", DateTime.TryParse(keyword, out DateTime startDate) ? (object)startDate : DBNull.Value),
-        //        new SqlParameter("@NgaySinhEnd", DateTime.TryParse(keyword, out DateTime endDate) ? (object)endDate.AddDays(1) : DBNull.Value)  // Cộng thêm một ngày để tìm đến hết ngày kết thúc
-        //    };
-
-        //    var dataTable = connDb.ExecuteQuery(sql, parameters);
-
-        //    foreach (DataRow row in dataTable.Rows)
-        //    {
-        //        NhanVienModel nhanVien = new NhanVienModel
-        //        {
-        //            MaNV = (int)row["MaNV"],
-        //            HoTen = row["HoTen"].ToString(),
-        //            GioiTinh = row["GioiTinh"].ToString(),
-        //            NgaySinh = (DateTime)row["NgaySinh"],
-        //            ChucVu = row["ChucVu"].ToString(),
-        //            SoDienThoai = row["SDT"].ToString(),
-        //            Email = row["Email"].ToString(),
-        //            Anh = row["Anh"] as byte[] // Lấy ảnh dưới dạng byte
-        //        };
-        //        listNhanVien.Add(nhanVien);
-        //    }
-        //    return listNhanVien;
-        //}
-
         public List<NhanVienModel> TimNhanVien(string keyword)
         {
             List<NhanVienModel> listNhanVien = new List<NhanVienModel>();
@@ -214,8 +175,6 @@ namespace QuanLyKhachSan.DAL
 
             return listNhanVien;
         }
-
-
 
         public bool CapNhatAnh(int maNV, string base64Image)
         {
@@ -284,6 +243,7 @@ namespace QuanLyKhachSan.DAL
             }
             return null; // Trả về null nếu không tìm thấy
         }
+
         public NhanVienModel GetById(int maNV)
         {
             string query = "SELECT * FROM NhanVien WHERE MaNV = @MaNV";
