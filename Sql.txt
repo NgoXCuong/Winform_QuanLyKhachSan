@@ -1,7 +1,12 @@
-﻿thêm cột vào bảng đặt phòng theo sql sau
+﻿create database BTL_QuanLyKhachSan
+
+use BTL_QuanLyKhachSan
+go
 
 
--- Thêm cột MaPhong và DatCoc vào bảng DatPhong
+ALTER TABLE NhanVien
+ADD Anh VARBINARY(MAX);  -- Lưu ảnh dưới dạng nhị phân
+
 ALTER TABLE DatPhong
 ADD MaPhong INT,
     DatCoc DECIMAL(18,2);
@@ -12,3 +17,116 @@ alter table DatPhong add GhiChu varchar(100)
 ALTER TABLE DatPhong
 ADD CONSTRAINT FK_DatPhong_Phong
 FOREIGN KEY (MaPhong) REFERENCES Phong(MaPhong);
+
+-- KHÁCH HÀNG
+CREATE TABLE KhachHang (
+    MaKH INT PRIMARY KEY IDENTITY,
+    HoTen NVARCHAR(100),
+    GioiTinh NVARCHAR(10),
+    NgaySinh DATE,
+    CMND NVARCHAR(20),
+    SDT NVARCHAR(15),
+    Email NVARCHAR(100),
+    DiaChi NVARCHAR(200)
+);
+
+-- NHÂN VIÊN
+CREATE TABLE NhanVien (
+    MaNV INT PRIMARY KEY IDENTITY,
+    HoTen NVARCHAR(100),
+    GioiTinh NVARCHAR(10),
+    NgaySinh DATE,
+    ChucVu NVARCHAR(50),
+    SDT NVARCHAR(15),
+    Email NVARCHAR(100)
+);
+
+-- LOẠI PHÒNG
+CREATE TABLE LoaiPhong (
+    MaLoaiPhong INT PRIMARY KEY IDENTITY,
+    TenLoaiPhong NVARCHAR(50),
+    MoTa NVARCHAR(200),
+    GiaPhong DECIMAL(18, 2),
+    SoNguoiToiDa INT
+);
+
+-- PHÒNG
+CREATE TABLE Phong (
+    MaPhong INT PRIMARY KEY IDENTITY,
+    SoPhong NVARCHAR(10),
+    MaLoaiPhong INT,
+    TrangThai NVARCHAR(20), -- Trống, Đã đặt, Đang ở, Bảo trì
+    FOREIGN KEY (MaLoaiPhong) REFERENCES LoaiPhong(MaLoaiPhong)
+);
+
+-- DỊCH VỤ
+CREATE TABLE DichVu (
+    MaDV INT PRIMARY KEY IDENTITY,
+    TenDV NVARCHAR(100),
+    DonGia DECIMAL(18,2),
+    DonViTinh NVARCHAR(50)
+);
+
+-- ĐẶT PHÒNG (đóng vai trò là phiếu đặt và thuê luôn)
+CREATE TABLE DatPhong (
+    MaDatPhong INT PRIMARY KEY IDENTITY,
+    MaKH INT,
+    MaNV INT,
+    NgayDat DATETIME,
+    NgayNhanPhong DATETIME,
+    NgayTraPhong DATETIME,
+    TrangThai NVARCHAR(20), -- Đã đặt, Đã nhận, Đã hủy, Đã trả
+    FOREIGN KEY (MaKH) REFERENCES KhachHang(MaKH),
+    FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV)
+);
+
+-- CHI TIẾT ĐẶT PHÒNG (nhiều phòng trong một đơn đặt)
+CREATE TABLE ChiTietDatPhong (
+    MaChiTiet INT PRIMARY KEY IDENTITY,
+    MaDatPhong INT,
+    MaPhong INT,
+    DonGia DECIMAL(18,2),
+    FOREIGN KEY (MaDatPhong) REFERENCES DatPhong(MaDatPhong),
+    FOREIGN KEY (MaPhong) REFERENCES Phong(MaPhong)
+);
+
+-- SỬ DỤNG DỊCH VỤ
+CREATE TABLE SuDungDichVu (
+    MaSDDV INT PRIMARY KEY IDENTITY,
+    MaDatPhong INT,
+    MaDV INT,
+    SoLuong INT,
+    ThoiGianSuDung DATETIME,
+    FOREIGN KEY (MaDatPhong) REFERENCES DatPhong(MaDatPhong),
+    FOREIGN KEY (MaDV) REFERENCES DichVu(MaDV)
+);
+
+-- HÓA ĐƠN
+CREATE TABLE HoaDon (
+    MaHoaDon INT PRIMARY KEY IDENTITY,
+    MaDatPhong INT,
+    NgayLap DATETIME,
+    TongTien DECIMAL(18,2),
+    FOREIGN KEY (MaDatPhong) REFERENCES DatPhong(MaDatPhong)
+);
+
+-- CHI TIẾT HÓA ĐƠN (dịch vụ và phòng)
+CREATE TABLE ChiTietHoaDon (
+    MaChiTiet INT PRIMARY KEY IDENTITY,
+    MaHoaDon INT,
+    NoiDung NVARCHAR(200), -- VD: "Tiền phòng", "Nước suối", ...
+    SoLuong INT,
+    DonGia DECIMAL(18,2),
+    ThanhTien AS (SoLuong * DonGia) PERSISTED,
+    FOREIGN KEY (MaHoaDon) REFERENCES HoaDon(MaHoaDon)
+);
+
+-- TÀI KHOẢN ĐĂNG NHẬP
+CREATE TABLE TaiKhoan (
+    TenDangNhap NVARCHAR(50) PRIMARY KEY,
+    MatKhau NVARCHAR(255),
+    MaNV INT UNIQUE,
+    Quyen NVARCHAR(20), -- Admin, QuanLy, NhanVien
+    TrangThai BIT DEFAULT 1,
+    FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV)
+);
