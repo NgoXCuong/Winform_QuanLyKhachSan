@@ -27,4 +27,21 @@
 ---
 
 ## 🧩 Kiến trúc hệ thống
+Hệ thống tuân thủ mô hình **3 lớp (3-tier architecture)**:
+- **UI Layer:** Giao diện người dùng (Windows Forms)
+- **BLL Layer:** Xử lý nghiệp vụ (Business Logic Layer)
+- **DAL Layer:** Truy xuất dữ liệu (Data Access Layer)
+
+---
+
+## 🛠️ Công nghệ sử dụng
+
+| Công nghệ | Mô tả |
+|------------|--------|
+| 💻 **Ngôn ngữ:** | C# (.NET Framework / .NET 6+) |
+| 🧱 **Giao diện:** | Windows Forms |
+| 🗄️ **Cơ sở dữ liệu:** | SQL Server |
+| 🔗 **ORM / Kết nối:** | ADO.NET / Repository Pattern |
+| 📊 **Report:** | ReportViewer / Crystal Reports |
+| 🧪 **IDE:** | Visual Studio 2022 |
 
