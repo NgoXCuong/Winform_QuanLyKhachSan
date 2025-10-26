@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using QuanLyKhachSan.Models;
+using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
-using System.Data;
+using QuanLyKhachSan.Models;
 
 namespace QuanLyKhachSan.DAL
 {
@@ -14,18 +11,21 @@ namespace QuanLyKhachSan.DAL
     {
         private readonly ConnectDB connDb = new ConnectDB();
 
-        public List<PhongModel> getAllPhong()
+        // Lấy tất cả phòng
+        public List<PhongModel> GetAllPhong()
         {
             List<PhongModel> listPhong = new List<PhongModel>();
             string sql = "SELECT * FROM Phong";
             var dataTable = connDb.ExecuteQuery(sql);
+
             foreach (DataRow row in dataTable.Rows)
             {
                 PhongModel phong = new PhongModel
                 {
-                    MaPhong = Convert.ToInt32(row["MaPhong"]),
-                    SoPhong = Convert.ToInt32(row["SoPhong"]),
-                    LoaiPhong = Convert.ToInt32(row["MaLoaiPhong"]),
+                    MaPhong = row["MaPhong"] == DBNull.Value ? 0 : Convert.ToInt32(row["MaPhong"]),
+                    SoPhong = row["SoPhong"]?.ToString(),
+                    MaLoaiPhong = row["MaLoaiPhong"] == DBNull.Value ? 0 : Convert.ToInt32(row["MaLoaiPhong"]),
+                    Tang = row["Tang"] == DBNull.Value ? 0 : Convert.ToInt32(row["Tang"]),
                     TrangThai = row["TrangThai"]?.ToString()
                 };
                 listPhong.Add(phong);
@@ -33,33 +33,39 @@ namespace QuanLyKhachSan.DAL
             return listPhong;
         }
 
+        // Thêm phòng
         public bool ThemPhong(PhongModel phong)
         {
-            string sql = @"INSERT INTO Phong (SoPhong, MaLoaiPhong, TrangThai) 
-                           VALUES (@SoPhong, @MaLoaiPhong, @TrangThai)";
+            string sql = @"INSERT INTO Phong (SoPhong, MaLoaiPhong, Tang, TrangThai) 
+                           VALUES (@SoPhong, @MaLoaiPhong, @Tang, @TrangThai)";
             var parameters = new SqlParameter[]
             {
                 new SqlParameter("@SoPhong", phong.SoPhong),
-                new SqlParameter("@MaLoaiPhong", phong.LoaiPhong),
+                new SqlParameter("@MaLoaiPhong", phong.MaLoaiPhong),
+                new SqlParameter("@Tang", phong.Tang),
                 new SqlParameter("@TrangThai", phong.TrangThai)
             };
             return connDb.ExecuteNonQuery(sql, parameters) > 0;
         }
 
+        // Sửa phòng
         public bool SuaPhong(PhongModel phong)
         {
             string sql = @"UPDATE Phong 
-                       SET SoPhong = @SoPhong, MaLoaiPhong = @MaLoaiPhong, TrangThai = @TrangThai 
-                       WHERE MaPhong = @MaPhong";
+                           SET SoPhong = @SoPhong, MaLoaiPhong = @MaLoaiPhong, Tang = @Tang, TrangThai = @TrangThai 
+                           WHERE MaPhong = @MaPhong";
             var parameters = new SqlParameter[]
             {
-            new SqlParameter("@MaPhong", phong.MaPhong),
-            new SqlParameter("@SoPhong", phong.SoPhong),
-            new SqlParameter("@MaLoaiPhong", phong.LoaiPhong),
-            new SqlParameter("@TrangThai", phong.TrangThai)
+                new SqlParameter("@MaPhong", phong.MaPhong),
+                new SqlParameter("@SoPhong", phong.SoPhong),
+                new SqlParameter("@MaLoaiPhong", phong.MaLoaiPhong),
+                new SqlParameter("@Tang", phong.Tang),
+                new SqlParameter("@TrangThai", phong.TrangThai)
             };
             return connDb.ExecuteNonQuery(sql, parameters) > 0;
         }
+
+        // Xóa phòng
         public bool XoaPhong(int maPhong)
         {
             try
@@ -67,15 +73,14 @@ namespace QuanLyKhachSan.DAL
                 string sql = "DELETE FROM Phong WHERE MaPhong = @MaPhong";
                 var parameters = new SqlParameter[]
                 {
-            new SqlParameter("@MaPhong", maPhong)
+                    new SqlParameter("@MaPhong", maPhong)
                 };
                 int rowsAffected = connDb.ExecuteNonQuery(sql, parameters);
                 return rowsAffected > 0;
             }
             catch (SqlException ex)
             {
-                // Kiểm tra nếu lỗi do ràng buộc khóa ngoại (error number 547)
-                if (ex.Number == 547)
+                if (ex.Number == 547) // Khóa ngoại
                 {
                     MessageBox.Show("Phòng không thể xóa vì tồn tại chi tiết đặt phòng liên quan.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
@@ -92,15 +97,15 @@ namespace QuanLyKhachSan.DAL
             }
         }
 
-        // Tìm  phòng theo bất kỳ  keyword nào
+        // Tìm phòng theo keyword
         public List<PhongModel> TimPhong(string keyword)
         {
             List<PhongModel> listPhong = new List<PhongModel>();
-
             string sql = @"SELECT * FROM Phong WHERE 
                 CAST(MaPhong AS NVARCHAR) = @Keyword OR
-                CAST(SoPhong AS NVARCHAR) = @Keyword OR
+                SoPhong = @Keyword OR
                 CAST(MaLoaiPhong AS NVARCHAR) = @Keyword OR
+                CAST(Tang AS NVARCHAR) = @Keyword OR
                 TrangThai = @Keyword";
 
             var parameters = new SqlParameter[]
@@ -109,23 +114,23 @@ namespace QuanLyKhachSan.DAL
             };
 
             var dataTable = connDb.ExecuteQuery(sql, parameters);
-
-            foreach (System.Data.DataRow row in dataTable.Rows)
+            foreach (DataRow row in dataTable.Rows)
             {
                 PhongModel phong = new PhongModel
                 {
                     MaPhong = row["MaPhong"] == DBNull.Value ? 0 : Convert.ToInt32(row["MaPhong"]),
-                    SoPhong = row["SoPhong"] == DBNull.Value ? 0 : Convert.ToInt32(row["SoPhong"]),
-                    LoaiPhong = row["MaLoaiPhong"] == DBNull.Value ? 0 : Convert.ToInt32(row["MaLoaiPhong"]),
-                    TrangThai = row["TrangThai"] == DBNull.Value ? "" : row["TrangThai"].ToString()
+                    SoPhong = row["SoPhong"]?.ToString(),
+                    MaLoaiPhong = row["MaLoaiPhong"] == DBNull.Value ? 0 : Convert.ToInt32(row["MaLoaiPhong"]),
+                    Tang = row["Tang"] == DBNull.Value ? 0 : Convert.ToInt32(row["Tang"]),
+                    TrangThai = row["TrangThai"]?.ToString()
                 };
                 listPhong.Add(phong);
             }
             return listPhong;
         }
 
-        // Kiểm tra số phong đã tồn tại hay chưa
-        public bool KiemTraSoPhongTonTai(int soPhong)
+        // Kiểm tra số phòng tồn tại
+        public bool KiemTraSoPhongTonTai(string soPhong)
         {
             string sql = "SELECT COUNT(*) FROM Phong WHERE SoPhong = @SoPhong";
             var parameters = new SqlParameter[]

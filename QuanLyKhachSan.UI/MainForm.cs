@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Data.SqlTypes;
 using System.Drawing;
+using System.Globalization;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace QuanLyKhachSan.UI
@@ -8,12 +11,14 @@ namespace QuanLyKhachSan.UI
     {
         private string tenDangNhap;
         private Button currentButton = null;
+        private System.Windows.Forms.Timer clockTimer; // Timer cho đồng hồ
 
         public MainForm()
         {
             try
             {
                 InitializeComponent();
+                InitializeClock();
             }
             catch (Exception ex)
             {
@@ -27,6 +32,7 @@ namespace QuanLyKhachSan.UI
             {
                 InitializeComponent();
                 this.tenDangNhap = userName;
+                InitializeClock();
             }
             catch (Exception ex)
             {
@@ -38,11 +44,10 @@ namespace QuanLyKhachSan.UI
         {
             try
             {
-                lbDate.Text = DateTime.Now.ToString("dddd, dd/MM/yyyy");
                 lbUser.Text = tenDangNhap;
-
                 OpenChildForm(new TrangChuForm());
                 HighlightButton(btnTrangChu);
+                UpdateClock();
             }
             catch (Exception ex)
             {
@@ -50,6 +55,29 @@ namespace QuanLyKhachSan.UI
             }
         }
 
+        // ====================== CLOCK ======================
+        private void InitializeClock()
+        {
+            // Đặt ngôn ngữ tiếng Việt
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("vi-VN");
+
+            clockTimer = new System.Windows.Forms.Timer();
+            clockTimer.Interval = 1000; // 1 giây
+            clockTimer.Tick += ClockTimer_Tick;
+            clockTimer.Start();
+        }
+
+        private void ClockTimer_Tick(object sender, EventArgs e)
+        {
+            UpdateClock();
+        }
+
+        private void UpdateClock()
+        {
+            lbDate.Text = DateTime.Now.ToString("dddd, 'ngày' dd 'tháng' MM 'năm' yyyy - HH:mm:ss");
+        }
+
+        // ====================== FORM HIỂN THỊ ======================
         private void OpenChildForm(Form childForm)
         {
             try
@@ -71,22 +99,22 @@ namespace QuanLyKhachSan.UI
             }
         }
 
+        // ====================== BUTTON ======================
         private void HighlightButton(Button btn)
         {
             try
             {
-                // Khôi phục màu của nút trước đó nếu có
+                // Khôi phục màu nút cũ
                 if (currentButton != null)
                 {
-                    currentButton.BackColor = Color.White;
-                    currentButton.ForeColor = Color.Black;
+                    currentButton.BackColor = Color.FromArgb(38, 40, 52);
+                    currentButton.ForeColor = Color.FromArgb(220, 220, 220);
                 }
 
-                // Cập nhật màu cho nút mới
-                btn.BackColor = Color.DarkBlue;
+                // Làm nổi nút hiện tại
+                btn.BackColor = Color.FromArgb(33, 150, 243);
                 btn.ForeColor = Color.White;
 
-                // Cập nhật lại nút đang được chọn
                 currentButton = btn;
             }
             catch (Exception ex)
@@ -95,12 +123,23 @@ namespace QuanLyKhachSan.UI
             }
         }
 
+        // ====================== SỰ KIỆN NÚT ======================
         private void btnExit_Click(object sender, EventArgs e)
         {
             try
             {
-                this.Close();
-                new LoginForm().Show();
+                DialogResult result = MessageBox.Show(
+                    "Bạn có chắc chắn muốn đăng xuất?",
+                    "Xác nhận đăng xuất",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (result == DialogResult.Yes)
+                {
+                    this.Close();
+                    new LoginForm().Show();
+                }
             }
             catch (Exception ex)
             {
@@ -110,106 +149,72 @@ namespace QuanLyKhachSan.UI
 
         private void btnTrangChu_Click(object sender, EventArgs e)
         {
-            try
-            {
-                OpenChildForm(new TrangChuForm());
-                HighlightButton(btnTrangChu);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi mở Trang chủ: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            OpenChildForm(new TrangChuForm());
+            HighlightButton(btnTrangChu);
         }
 
         private void btnPhong_Click(object sender, EventArgs e)
         {
-            try
-            {
-                OpenChildForm(new PhongForm());
-                HighlightButton(btnPhong);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi mở Phòng: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            OpenChildForm(new PhongForm());
+            HighlightButton(btnPhong);
         }
 
         private void btnNhanVien_Click(object sender, EventArgs e)
         {
-            try
-            {
-                OpenChildForm(new NhanVienForm());
-                HighlightButton(btnNhanVien);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi mở Nhân viên: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            OpenChildForm(new NhanVienForm());
+            HighlightButton(btnNhanVien);
         }
 
         private void btnHoaDon_Click(object sender, EventArgs e)
         {
-            try
-            {
-                OpenChildForm(new HoaDonForm());
-                HighlightButton(btnHoaDon);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi mở Hóa đơn: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            OpenChildForm(new TestHoaDon());
+            HighlightButton(btnHoaDon);
         }
 
         private void btnDichVu_Click(object sender, EventArgs e)
         {
-            try
-            {
-                OpenChildForm(new DichVuForm());
-                HighlightButton(btnDichVu);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi mở Dịch vụ: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            OpenChildForm(new DichVuForm());
+            HighlightButton(btnDichVu);
         }
 
         private void btnKhachHang_Click(object sender, EventArgs e)
         {
-            try
-            {
-                OpenChildForm(new KhachHangForm());
-                HighlightButton(btnKhachHang);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi mở Khách hàng: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            OpenChildForm(new KhachHangForm());
+            HighlightButton(btnKhachHang);
         }
 
         private void btnThongKe_Click(object sender, EventArgs e)
         {
-            try
-            {
-                OpenChildForm(new ThongKeForm());
-                HighlightButton(btnThongKe);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi mở Thống kê: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            OpenChildForm(new ThongKeForm());
+            HighlightButton(btnThongKe);
         }
 
         private void btnBooking_Click(object sender, EventArgs e)
         {
-            try
-            {
-                OpenChildForm(new BookingRoom());
-                HighlightButton(btnBooking);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi mở Booking: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            OpenChildForm(new DatPhongForm());
+            HighlightButton(btnBooking);
         }
+
+        // ====================== HIỆU ỨNG FADE-IN ======================
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            this.Opacity = 0;
+            var fadeTimer = new System.Windows.Forms.Timer();
+            fadeTimer.Interval = 10;
+            fadeTimer.Tick += (s, args) =>
+            {
+                if (this.Opacity < 1)
+                    this.Opacity += 0.05;
+                else
+                    fadeTimer.Stop();
+            };
+            fadeTimer.Start();
+        }
+
+        private void label2_Click(object sender, EventArgs e) { }
+
+        private void pictureBox1_Click(object sender, EventArgs e) { }
     }
 }

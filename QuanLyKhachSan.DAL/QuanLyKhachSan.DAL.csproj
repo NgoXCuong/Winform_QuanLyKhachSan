@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BookingRoomRepository.cs" />
+    <Compile Include="DatPhongRepository.cs" />
     <Compile Include="ConnectDB.cs" />
     <Compile Include="DichVuRepository.cs" />
     <Compile Include="HoaDonRepository.cs" />

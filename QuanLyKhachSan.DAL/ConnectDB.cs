@@ -10,11 +10,7 @@ namespace QuanLyKhachSan.DAL
 {
     public class ConnectDB
     {
-        string connectionString = "Server=localhost;Database=BTL_QuanLyKhachSan;User Id=sa;Password=123;";
-
-        // Để lại dòng đã Comment 
-        //string connectionString = "Server=localhost;Database=QLKhachSan;User Id=sa;Password=123;";
-        //string connectionString = "Data Source=Mr-Cuong\\SQLEXPRESS;Initial Catalog=BTL_QuanLyKhachSan;Integrated Security=True";
+        string connectionString = "Server=localhost;Database=DACN_QuanLyKhachSan;User Id=sa;Password=123;";
 
         public SqlConnection GetConnection()
         {

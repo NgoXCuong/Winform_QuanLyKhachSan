@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using QuanLyKhachSan.DAL;
 
 namespace QuanLyKhachSan.DAL
 {
@@ -11,97 +9,102 @@ namespace QuanLyKhachSan.DAL
     {
         private readonly ConnectDB connDb = new ConnectDB();
 
+        // Tổng doanh thu
         public decimal GetTongDoanhThu()
         {
-            string sql = "SELECT SUM(TongTien) FROM HoaDon";
+            string sql = "SELECT SUM(TongTienThanhToan) FROM HoaDon";
             var result = connDb.ExecuteScalar(sql);
-            return result != DBNull.Value ? Convert.ToDecimal(result) : 0;
+            return result != DBNull.Value && result != null ? Convert.ToDecimal(result) : 0;
         }
 
+        // Số khách hàng
         public int GetSoKhach()
         {
             string sql = "SELECT COUNT(*) FROM KhachHang";
             var result = connDb.ExecuteScalar(sql);
-            return result != DBNull.Value ? Convert.ToInt32(result) : 0;
+            return result != DBNull.Value && result != null ? Convert.ToInt32(result) : 0;
         }
 
+        // Số phòng
         public int GetSoPhong()
         {
             string sql = "SELECT COUNT(*) FROM Phong";
             var result = connDb.ExecuteScalar(sql);
-            return result != DBNull.Value ? Convert.ToInt32(result) : 0;
+            return result != DBNull.Value && result != null ? Convert.ToInt32(result) : 0;
         }
 
+        // Số nhân viên
         public int GetSoNhanVien()
         {
             string sql = "SELECT COUNT(*) FROM NhanVien";
             var result = connDb.ExecuteScalar(sql);
-            return result != DBNull.Value ? Convert.ToInt32(result) : 0;
+            return result != DBNull.Value && result != null ? Convert.ToInt32(result) : 0;
         }
 
+        // Doanh thu theo ngày
         public Dictionary<DateTime, decimal> GetDoanhThuTheoNgay()
         {
             string sql = @"
-                SELECT CONVERT(DATE, NgayLap) AS Ngay, SUM(TongTien) AS DoanhThu
+                SELECT CONVERT(DATE, NgayTao) AS Ngay, SUM(TongTienThanhToan) AS DoanhThu
                 FROM HoaDon
-                GROUP BY CONVERT(DATE, NgayLap)
+                GROUP BY CONVERT(DATE, NgayTao)
                 ORDER BY Ngay";
 
-            var doanhthutheoNgay = new Dictionary<DateTime, decimal>();
+            var resultDict = new Dictionary<DateTime, decimal>();
             DataTable table = connDb.ExecuteQuery(sql);
 
             foreach (DataRow row in table.Rows)
             {
                 DateTime ngay = Convert.ToDateTime(row["Ngay"]);
-                decimal doanhThu = Convert.ToDecimal(row["DoanhThu"]);
-                doanhthutheoNgay[ngay] = doanhThu;
+                decimal doanhThu = row["DoanhThu"] != DBNull.Value ? Convert.ToDecimal(row["DoanhThu"]) : 0;
+                resultDict[ngay] = doanhThu;
             }
 
-            return doanhthutheoNgay;
+            return resultDict;
         }
 
-        
+        // Doanh thu theo tháng
         public Dictionary<int, decimal> GetDoanhThuTheoThang()
         {
             string sql = @"
-                SELECT MONTH(NgayLap) AS Thang, SUM(TongTien) AS DoanhThu
+                SELECT MONTH(NgayTao) AS Thang, SUM(TongTienThanhToan) AS DoanhThu
                 FROM HoaDon
-                GROUP BY MONTH(NgayLap)
+                GROUP BY MONTH(NgayTao)
                 ORDER BY Thang";
 
-            var doanhthutheoThang = new Dictionary<int, decimal>();
+            var resultDict = new Dictionary<int, decimal>();
             DataTable table = connDb.ExecuteQuery(sql);
 
             foreach (DataRow row in table.Rows)
             {
                 int thang = Convert.ToInt32(row["Thang"]);
-                decimal doanhThu = Convert.ToDecimal(row["DoanhThu"]);
-                doanhthutheoThang[thang] = doanhThu;
+                decimal doanhThu = row["DoanhThu"] != DBNull.Value ? Convert.ToDecimal(row["DoanhThu"]) : 0;
+                resultDict[thang] = doanhThu;
             }
 
-            return doanhthutheoThang;
+            return resultDict;
         }
 
-        // ✅ 3. Doanh thu theo năm
+        // Doanh thu theo năm
         public Dictionary<int, decimal> GetDoanhThuTheoNam()
         {
             string sql = @"
-                SELECT YEAR(NgayLap) AS Nam, SUM(TongTien) AS DoanhThu
+                SELECT YEAR(NgayTao) AS Nam, SUM(TongTienThanhToan) AS DoanhThu
                 FROM HoaDon
-                GROUP BY YEAR(NgayLap)
+                GROUP BY YEAR(NgayTao)
                 ORDER BY Nam";
 
-            var doanhthutheoNam = new Dictionary<int, decimal>();
+            var resultDict = new Dictionary<int, decimal>();
             DataTable table = connDb.ExecuteQuery(sql);
 
             foreach (DataRow row in table.Rows)
             {
                 int nam = Convert.ToInt32(row["Nam"]);
-                decimal doanhThu = Convert.ToDecimal(row["DoanhThu"]);
-                doanhthutheoNam[nam] = doanhThu;
+                decimal doanhThu = row["DoanhThu"] != DBNull.Value ? Convert.ToDecimal(row["DoanhThu"]) : 0;
+                resultDict[nam] = doanhThu;
             }
 
-            return doanhthutheoNam;
+            return resultDict;
         }
     }
 }

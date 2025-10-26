@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace QuanLyKhachSan.Models
+﻿namespace QuanLyKhachSan.Models
 {
     public class TaiKhoanModel
     {
+        public int MaNguoiDung { get; set; }
         public string TenDangNhap { get; set; }
         public string MatKhau { get; set; }
+        public string Email { get; set; }
         public int MaNV { get; set; }
-        public string Quyen { get; set; }
-        public bool TrangThai { get; set; }
+        public string VaiTro { get; set; } // "Quản trị" / "Nhân viên"
+        public string TrangThai { get; set; } // "Hoạt động" / "Ngưng hoạt động"
     }
 }

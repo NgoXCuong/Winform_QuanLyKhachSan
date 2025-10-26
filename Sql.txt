@@ -1,14 +1,183 @@
-﻿thêm cột vào bảng đặt phòng theo sql sau
+﻿CREATE DATABASE DACN_QuanLyKhachSan;
+GO
+USE DACN_QuanLyKhachSan;
+GO
+
+-- ===============================================
+-- 1. BẢNG LOẠI PHÒNG
+-- ===============================================
+CREATE TABLE LoaiPhong (
+    MaLoaiPhong INT IDENTITY(1,1) PRIMARY KEY,
+    TenLoaiPhong NVARCHAR(100) NOT NULL,
+    GiaCoBan DECIMAL(10, 2),
+    SucChuaToiDa INT,
+	MoTa NVARCHAR(255) NULL
+);
+GO
+
+-- ===============================================
+-- 2. BẢNG NHÂN VIÊN
+-- ===============================================
+CREATE TABLE NhanVien (
+    MaNV INT IDENTITY(1,1) PRIMARY KEY,
+    HoTen NVARCHAR(255) NOT NULL,
+	GioiTinh NVARCHAR(10),
+	NgaySinh DATE,
+    ChucVu NVARCHAR(100),
+    SoDienThoai NVARCHAR(15),
+    Email NVARCHAR(255),
+	Anh varbinary(MAX),
+    TrangThai NVARCHAR(20) CHECK (TrangThai IN (N'Đang làm', N'Nghỉ việc')) DEFAULT N'Đang làm'
+);
+GO
+
+-- ===============================================
+-- 3. BẢNG PHÒNG
+-- ===============================================
+CREATE TABLE Phong (
+    MaPhong INT IDENTITY(1,1) PRIMARY KEY,
+    SoPhong NVARCHAR(10) NOT NULL UNIQUE,
+    MaLoaiPhong INT NOT NULL,
+    Tang INT,
+    TrangThai NVARCHAR(20) CHECK (TrangThai IN (N'Trống', N'Có khách', N'Bảo trì')) DEFAULT N'Trống',
+	Anh VARBINARY(MAX) NULL,
+    FOREIGN KEY (MaLoaiPhong) REFERENCES LoaiPhong(MaLoaiPhong)
+);
+GO
+
+-- ===============================================
+-- 4. BẢNG KHÁCH HÀNG
+-- ===============================================
+CREATE TABLE KhachHang (
+    MaKH INT IDENTITY(1,1) PRIMARY KEY,
+    HoTen NVARCHAR(255) NOT NULL,
+	GioiTinh NVARCHAR(10),
+	NgaySinh DATE,
+    SoDienThoai NVARCHAR(15),
+    Email NVARCHAR(255),
+    CCCD NVARCHAR(20),
+    NgayTao DATETIME DEFAULT GETDATE()
+);
+GO
+
+-- ===============================================
+-- 5. BẢNG ĐẶT PHÒNG
+-- ===============================================
+CREATE TABLE DatPhong (
+    MaDatPhong INT IDENTITY(1,1) PRIMARY KEY,
+    MaKH INT NOT NULL,
+    MaPhong INT NOT NULL,
+    MaNV INT NULL, -- nhân viên đặt phòng
+    NgayNhanPhong DATE NOT NULL,
+    NgayTraPhong DATE NOT NULL,
+    SoNguoi INT,
+    TongTien DECIMAL(10, 2),
+    TrangThai NVARCHAR(30) CHECK (TrangThai IN (N'Chờ xác nhận', N'Đã xác nhận', N'Đã nhận phòng', N'Đã trả phòng', N'Đã hủy')) DEFAULT N'Chờ xác nhận',
+    GhiChu NVARCHAR(255),
+    NgayTao DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (MaKH) REFERENCES KhachHang(MaKH),
+    FOREIGN KEY (MaPhong) REFERENCES Phong(MaPhong),
+    FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV),
+    CONSTRAINT CHK_Ngay CHECK (NgayTraPhong >= NgayNhanPhong)
+);
+GO
+
+-- ===============================================
+-- 6. BẢNG HÓA ĐƠN
+-- ===============================================
+CREATE TABLE HoaDon (
+    MaHD INT IDENTITY(1,1) PRIMARY KEY,
+    MaDatPhong INT NOT NULL,
+    MaKH INT NOT NULL,
+    TienPhong DECIMAL(10, 2),
+    TongTienThanhToan DECIMAL(10, 2),
+    TrangThaiThanhToan NVARCHAR(20) CHECK (TrangThaiThanhToan IN (N'Chưa thanh toán', N'Đã thanh toán', N'Thanh toán một phần')) DEFAULT N'Chưa thanh toán',
+    PhuongThucThanhToan NVARCHAR(50),
+    NgayThanhToan DATETIME,
+    GhiChu NVARCHAR(255),
+    NgayTao DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (MaDatPhong) REFERENCES DatPhong(MaDatPhong),
+    FOREIGN KEY (MaKH) REFERENCES KhachHang(MaKH)
+);
+GO
+
+-- ===============================================
+-- 7. BẢNG DỊCH VỤ
+-- ===============================================
+CREATE TABLE DichVu (
+    MaDV INT IDENTITY(1,1) PRIMARY KEY,
+    TenDichVu NVARCHAR(100) NOT NULL,
+    DonGia DECIMAL(10, 2),
+    MoTa NVARCHAR(200),
+	DonViTinh NVARCHAR(50) NULL,
+	Anh VARBINARY(MAX) NULL
+);
+GO
+
+-- ===============================================
+-- 8. BẢNG DỊCH VỤ ĐẶT PHÒNG
+-- ===============================================
+CREATE TABLE DatPhong_DichVu (
+    MaDPDV INT IDENTITY(1,1) PRIMARY KEY,
+    MaDatPhong INT NOT NULL,
+    MaDV INT NOT NULL,
+    SoLuong INT DEFAULT 1,
+    DonGia DECIMAL(10, 2),
+    NgaySuDung DATE,
+    FOREIGN KEY (MaDatPhong) REFERENCES DatPhong(MaDatPhong),
+    FOREIGN KEY (MaDV) REFERENCES DichVu(MaDV)
+);
+GO
+
+-- ===============================================
+-- 9. BẢNG NGƯỜI DÙNG HỆ THỐNG
+-- ===============================================
+CREATE TABLE TaiKhoan (
+    MaNguoiDung INT IDENTITY(1,1) PRIMARY KEY,
+    TenDangNhap NVARCHAR(100) NOT NULL UNIQUE,
+    MatKhau NVARCHAR(255) NOT NULL,
+    MaNV INT NOT NULL,
+    VaiTro NVARCHAR(20) CHECK (VaiTro IN (N'Quản trị', N'Nhân viên')) DEFAULT N'Nhân viên',
+    TrangThai NVARCHAR(20) CHECK (TrangThai IN (N'Hoạt động', N'Ngưng hoạt động')) DEFAULT N'Hoạt động',
+	Email NVARCHAR(255),
+    FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV)
+);
+GO
+
+-- ===============================================
+-- 10. TẠO CÁC CHỈ MỤC (INDEXES)
+-- ===============================================
+CREATE INDEX IDX_DatPhong_MaKH ON DatPhong(MaKH);
+CREATE INDEX IDX_DatPhong_TrangThai ON DatPhong(TrangThai);
+CREATE INDEX IDX_Phong_TrangThai ON Phong(TrangThai);
+CREATE INDEX IDX_DatPhong_Ngay ON DatPhong(NgayNhanPhong, NgayTraPhong);
+GO
+
+INSERT INTO NhanVien (HoTen, GioiTinh, NgaySinh, ChucVu, SoDienThoai, Email, TrangThai)
+VALUES 
+(N'Nguyễn Văn Quản Trị', N'Nam', '1985-05-12', N'Quản trị hệ thống', '0901123456', 'admin@hotel.com', N'Đang làm'),
+(N'Lê Thị Nhân Viên', N'Nữ', '1995-08-20', N'Lễ tân', '0902987654', 'nhanvien@hotel.com', N'Đang làm');
+GO
 
 
--- Thêm cột MaPhong và DatCoc vào bảng DatPhong
-ALTER TABLE DatPhong
-ADD MaPhong INT,
-    DatCoc DECIMAL(18,2);
+-- ===============================================
+-- 2️⃣ Thêm tài khoản người dùng hệ thống
+-- ===============================================
 
-alter table DatPhong add GhiChu varchar(100)
+-- ⚙️ Tài khoản quản trị (admin)
+INSERT INTO NguoiDung (TenDangNhap, MatKhau, MaNV, VaiTro, TrangThai)
+VALUES (N'admin', N'123456', 1, N'Quản trị', N'Hoạt động');
 
--- Thêm ràng buộc khóa ngoại cho MaPhong
-ALTER TABLE DatPhong
-ADD CONSTRAINT FK_DatPhong_Phong
-FOREIGN KEY (MaPhong) REFERENCES Phong(MaPhong);
+-- 👩‍💼 Tài khoản nhân viên thường
+INSERT INTO NguoiDung (TenDangNhap, MatKhau, MaNV, VaiTro, TrangThai)
+VALUES (N'nhanvien', N'123456', 2, N'Nhân viên', N'Hoạt động');
+GO
+
+-- Cập nhật email cho các tài khoản đã có
+UPDATE TaiKhoan
+SET Email = 'admin@hotel.com'
+WHERE TenDangNhap = 'admin';
+
+UPDATE TaiKhoan
+SET Email = 'ngocuongcm2005@gmail.com'
+WHERE TenDangNhap = 'nhanvien';

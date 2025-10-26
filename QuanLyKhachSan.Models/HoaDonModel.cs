@@ -1,20 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace QuanLyKhachSan.Models
 {
     public class HoaDonModel
     {
-        public int MaHoaDon { get; set; }
+        public int MaHD { get; set; }
         public int MaDatPhong { get; set; }
-        public DateTime NgayLap { get; set; }
-        public string KhachHang { get; set; }
-        public string NhanVien { get; set; }
-        public decimal TongTien { get; set; }
-        public object MaKhachHang { get; set; }
-        public object MaNhanVien { get; set; }
+        public int MaKH { get; set; }
+        public decimal TienPhong { get; set; }
+        public decimal TongTienThanhToan { get; set; }
+        public string TrangThaiThanhToan { get; set; } // "Chưa thanh toán", "Đã thanh toán", ...
+        public string PhuongThucThanhToan { get; set; }
+        public DateTime? NgayThanhToan { get; set; }
+        public string GhiChu { get; set; }
+        public DateTime NgayTao { get; set; }
     }
 }

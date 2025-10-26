@@ -3,8 +3,6 @@ using QuanLyKhachSan.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace QuanLyKhachSan.BLL
 {
@@ -19,12 +17,12 @@ namespace QuanLyKhachSan.BLL
 
         public List<TaiKhoanModel> GetAllTaiKhoan()
         {
-            return taiKhoanRepository.getAllTaiKhoan();
+            return taiKhoanRepository.GetAllTaiKhoan();
         }
 
-        public List<TaiKhoanModel> GetTaiKhoanLogin()
+        public List<TaiKhoanModel> GetTaiKhoanAdmin()
         {
-            return taiKhoanRepository.getTaiKhoanLogin();
+            return taiKhoanRepository.GetTaiKhoanAdmin();
         }
 
         public bool ThemTaiKhoan(TaiKhoanModel tk)
@@ -52,13 +50,17 @@ namespace QuanLyKhachSan.BLL
             return taiKhoanRepository.KiemTraTonTaiMaNV(maNV);
         }
 
+        // ✅ Sửa lại đăng nhập
         public TaiKhoanModel GetTaiKhoanByTenDangNhap(string tenDangNhap, string matKhau)
         {
-            var allAccounts = taiKhoanRepository.getAllTaiKhoan();
-            return allAccounts.FirstOrDefault(tk =>
-                tk.TenDangNhap.Equals(tenDangNhap, StringComparison.OrdinalIgnoreCase)
-                && tk.MatKhau == matKhau
-                && tk.TrangThai == true);
+            // Gọi trực tiếp phương thức DangNhap từ repository
+            return taiKhoanRepository.DangNhap(tenDangNhap, matKhau);
+        }
+
+        // ✅ Lấy tài khoản theo email
+        public TaiKhoanModel GetTaiKhoanByEmail(string email)
+        {
+            return taiKhoanRepository.GetTaiKhoanByEmail(email);
         }
 
     }

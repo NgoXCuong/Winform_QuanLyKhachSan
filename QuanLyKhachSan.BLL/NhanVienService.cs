@@ -18,7 +18,7 @@ namespace QuanLyKhachSan.BLL
 
         public List<NhanVienModel> GetAllNhanVien()
         {
-            return nhanVienRepository.getAllNhanVien();
+            return nhanVienRepository.GetAllNhanVien();
         }
 
         public bool ThemNhanVien(NhanVienModel nv)

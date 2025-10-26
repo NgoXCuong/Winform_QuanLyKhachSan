@@ -60,7 +60,7 @@ namespace QuanLyKhachSan.BLL
         // Lấy danh sách nhân viên (dạng KeyValuePair)
         public List<KeyValuePair<string, string>> LayDanhSachNhanVien()
         {
-            return nhanVienRepo.getAllNhanVien()
+            return nhanVienRepo.GetAllNhanVien()
                 .Select(nv => new KeyValuePair<string, string>(nv.MaNV.ToString(), nv.HoTen))
                 .ToList();
         }

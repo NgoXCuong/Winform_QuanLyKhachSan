@@ -1,31 +1,32 @@
-﻿using System;
+﻿using QuanLyKhachSan.Models;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using QuanLyKhachSan.Models;
 
 namespace QuanLyKhachSan.DAL
 {
     public class LoaiPhongRepository
     {
         private readonly ConnectDB connDb = new ConnectDB();
+
         public List<LoaiPhongModel> GetAllLoaiPhong()
         {
             List<LoaiPhongModel> listLoaiPhong = new List<LoaiPhongModel>();
             string sql = "SELECT * FROM LoaiPhong";
             var dataTable = connDb.ExecuteQuery(sql);
-            foreach (System.Data.DataRow row in dataTable.Rows)
+
+            foreach (DataRow row in dataTable.Rows)
             {
                 LoaiPhongModel loaiPhong = new LoaiPhongModel
                 {
-                    MaLoaiPhong = (int)row["MaLoaiPhong"],
-                    TenLoaiPhong = row["TenLoaiPhong"].ToString(),
-                    MoTa = row["MoTa"].ToString(),
-                    GiaPhong = (decimal)row["GiaPhong"],
-                    SoNguoiToiDa = (int)row["SoNguoiToiDa"]
+                    MaLoaiPhong = row["MaLoaiPhong"] == DBNull.Value ? 0 : Convert.ToInt32(row["MaLoaiPhong"]),
+                    TenLoaiPhong = row["TenLoaiPhong"]?.ToString(),
+                    GiaCoBan = row["GiaCoBan"] == DBNull.Value ? 0 : Convert.ToDecimal(row["GiaCoBan"]),
+                    SucChuaToiDa = row["SucChuaToiDa"] == DBNull.Value ? 0 : Convert.ToInt32(row["SucChuaToiDa"]),
+                    MoTa = row["MoTa"]?.ToString()  // Thêm dòng này
                 };
+
                 listLoaiPhong.Add(loaiPhong);
             }
             return listLoaiPhong;
@@ -36,12 +37,13 @@ namespace QuanLyKhachSan.DAL
             List<LoaiPhongModel> ds = new List<LoaiPhongModel>();
             string sql = "SELECT MaLoaiPhong, TenLoaiPhong FROM LoaiPhong";
             var table = connDb.ExecuteQuery(sql);
-            foreach (System.Data.DataRow row in table.Rows)
+
+            foreach (DataRow row in table.Rows)
             {
                 ds.Add(new LoaiPhongModel
                 {
-                    MaLoaiPhong = Convert.ToInt32(row["MaLoaiPhong"]),
-                    TenLoaiPhong = row["TenLoaiPhong"].ToString()
+                    MaLoaiPhong = row["MaLoaiPhong"] == DBNull.Value ? 0 : Convert.ToInt32(row["MaLoaiPhong"]),
+                    TenLoaiPhong = row["TenLoaiPhong"]?.ToString()
                 });
             }
             return ds;
@@ -49,83 +51,89 @@ namespace QuanLyKhachSan.DAL
 
         public bool ThemLoaiPhong(LoaiPhongModel loaiPhong)
         {
-            string sql = "INSERT INTO LoaiPhong (TenLoaiPhong, MoTa, GiaPhong, SoNguoiToiDa) VALUES (@TenLoaiPhong, @MoTa, @GiaPhong, @SoNguoiToiDa)";
-            var parameters = new List<SqlParameter>
+            string sql = @"INSERT INTO LoaiPhong (TenLoaiPhong, GiaCoBan, SucChuaToiDa, MoTa) 
+               VALUES (@TenLoaiPhong, @GiaCoBan, @SucChuaToiDa, @MoTa)";
+
+            var parameters = new SqlParameter[]
             {
                 new SqlParameter("@TenLoaiPhong", loaiPhong.TenLoaiPhong),
-                new SqlParameter("@MoTa", loaiPhong.MoTa),
-                new SqlParameter("@GiaPhong", loaiPhong.GiaPhong),
-                new SqlParameter("@SoNguoiToiDa", loaiPhong.SoNguoiToiDa)
+                new SqlParameter("@GiaCoBan", loaiPhong.GiaCoBan),
+                new SqlParameter("@SucChuaToiDa", loaiPhong.SucChuaToiDa),
+                new SqlParameter("@MoTa", loaiPhong.MoTa ?? (object)DBNull.Value)
             };
-            return connDb.ExecuteNonQuery(sql, parameters.ToArray()) > 0;
+
+            return connDb.ExecuteNonQuery(sql, parameters) > 0;
         }
 
         public bool SuaLoaiPhong(LoaiPhongModel loaiPhong)
         {
-            using (SqlConnection conn = new SqlConnection(connDb.GetConnection().ConnectionString))
+            string sql = @"UPDATE LoaiPhong SET 
+               TenLoaiPhong = @TenLoaiPhong, 
+               GiaCoBan = @GiaCoBan,
+               SucChuaToiDa = @SucChuaToiDa,
+               MoTa = @MoTa
+               WHERE MaLoaiPhong = @MaLoaiPhong";
+
+            var parameters = new SqlParameter[]
             {
-                string sql = @"UPDATE LoaiPhong SET TenLoaiPhong = @TenLoaiPhong, 
-                        MoTa = @MoTa,
-                        GiaPhong = @GiaPhong,
-                        SoNguoiToiDa = @SoNguoiToiDa
-                        WHERE MaLoaiPhong = @MaLoaiPhong";
+                new SqlParameter("@TenLoaiPhong", loaiPhong.TenLoaiPhong),
+                new SqlParameter("@GiaCoBan", loaiPhong.GiaCoBan),
+                new SqlParameter("@SucChuaToiDa", loaiPhong.SucChuaToiDa),
+                new SqlParameter("@MoTa", loaiPhong.MoTa ?? (object)DBNull.Value),
+                new SqlParameter("@MaLoaiPhong", loaiPhong.MaLoaiPhong)
+            };
 
-                var parameters = new SqlParameter[]
-                {
-                    new SqlParameter("@TenLoaiPhong", loaiPhong.TenLoaiPhong),
-                    new SqlParameter("@MoTa", loaiPhong.MoTa),
-                    new SqlParameter("@GiaPhong", loaiPhong.GiaPhong),
-                    new SqlParameter("@SoNguoiToiDa", loaiPhong.SoNguoiToiDa),
-                    new SqlParameter("@MaLoaiPhong", loaiPhong.MaLoaiPhong)
-                };
-
-                return connDb.ExecuteNonQuery(sql, parameters) > 0;
-            }
+            return connDb.ExecuteNonQuery(sql, parameters) > 0;
         }
 
         public bool XoaLoaiPhong(int maLoaiPhong)
         {
-            string sql = "DELETE FROM LoaiPhong WHERE MaLoaiPhong = @MaLoaiPhong";
-
-            var parameters = new SqlParameter[]
+            try
             {
-                new SqlParameter("@MaLoaiPhong", maLoaiPhong)
-            };
-            return connDb.ExecuteNonQuery(sql, parameters) > 0;
+                string sql = "DELETE FROM LoaiPhong WHERE MaLoaiPhong = @MaLoaiPhong";
+                var parameters = new SqlParameter[]
+                {
+                    new SqlParameter("@MaLoaiPhong", maLoaiPhong)
+                };
+                return connDb.ExecuteNonQuery(sql, parameters) > 0;
+            }
+            catch (SqlException ex)
+            {
+                if (ex.Number == 547) // Ràng buộc khóa ngoại
+                {
+                    Console.WriteLine("Không thể xóa loại phòng vì tồn tại phòng liên quan.");
+                }
+                else
+                {
+                    Console.WriteLine("Lỗi SQL: " + ex.Message);
+                }
+                return false;
+            }
         }
 
         public List<LoaiPhongModel> TimLoaiPhong(string keyword)
         {
             List<LoaiPhongModel> listLoaiPhong = new List<LoaiPhongModel>();
+            string sql = "SELECT * FROM LoaiPhong";
+            List<SqlParameter> parameters = new List<SqlParameter>();
 
-            string sql = @"SELECT * FROM LoaiPhong WHERE 
-                MaLoaiPhong = @Keyword
-                OR TenLoaiPhong = @Keyword
-                OR MoTa = @Keyword
-                OR CAST(GiaPhong AS NVARCHAR) = @Keyword
-                OR CAST(SoNguoiToiDa AS NVARCHAR) = @Keyword";
-
-            if (string.IsNullOrWhiteSpace(keyword))
+            if (!string.IsNullOrWhiteSpace(keyword))
             {
-                sql = "SELECT * FROM LoaiPhong"; // Nếu không nhập từ khóa, trả về tất cả
+                sql += " WHERE TenLoaiPhong LIKE @kw OR CAST(GiaCoBan AS NVARCHAR(20)) LIKE @kw OR CAST(SucChuaToiDa AS NVARCHAR(10)) LIKE @kw";
+                parameters.Add(new SqlParameter("@kw", "%" + keyword + "%"));
             }
 
-            var parameters = new SqlParameter[]
-            {
-                new SqlParameter("@Keyword", keyword ?? string.Empty),
-            };
+            var dataTable = connDb.ExecuteQuery(sql, parameters.ToArray());
 
-            var dataTable = connDb.ExecuteQuery(sql, parameters);
-
-            foreach (System.Data.DataRow row in dataTable.Rows)
+            foreach (DataRow row in dataTable.Rows)
             {
                 LoaiPhongModel loaiPhong = new LoaiPhongModel
                 {
-                    MaLoaiPhong = (int)row["MaLoaiPhong"],
-                    TenLoaiPhong = row["TenLoaiPhong"].ToString(),
-                    MoTa = row["MoTa"].ToString(),
-                    GiaPhong = (decimal)row["GiaPhong"],
-                    SoNguoiToiDa = (int)row["SoNguoiToiDa"]
+                    MaLoaiPhong = row["MaLoaiPhong"] == DBNull.Value ? 0 : Convert.ToInt32(row["MaLoaiPhong"]),
+                    TenLoaiPhong = row["TenLoaiPhong"]?.ToString(),
+                    GiaCoBan = row["GiaCoBan"] == DBNull.Value ? 0 : Convert.ToDecimal(row["GiaCoBan"]),
+                    SucChuaToiDa = row["SucChuaToiDa"] == DBNull.Value ? 0 : Convert.ToInt32(row["SucChuaToiDa"]),
+                    MoTa = row["MoTa"]?.ToString()
                 };
                 listLoaiPhong.Add(loaiPhong);
             }

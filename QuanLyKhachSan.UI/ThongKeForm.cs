@@ -93,5 +93,9 @@ namespace QuanLyKhachSan.UI
             LoadBieuDo(cboLoaiThongKe.SelectedItem.ToString());
         }
 
+        private void panel5_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
