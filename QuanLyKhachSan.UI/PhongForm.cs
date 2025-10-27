@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using ClosedXML.Excel;
 using QuanLyKhachSan.BLL;
@@ -9,8 +11,10 @@ namespace QuanLyKhachSan.UI
 {
     public partial class PhongForm : Form
     {
-        private readonly PhongService phongService = new PhongService();
-        private readonly LoaiPhongService loaiPhongService = new LoaiPhongService();
+        private PhongService phongService = new PhongService();
+        private LoaiPhongService loaiPhongService = new LoaiPhongService();
+        private bool isEditing = false;  // ✅ false = thêm mới, true = đang sửa
+
 
         public PhongForm()
         {
@@ -76,126 +80,275 @@ namespace QuanLyKhachSan.UI
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
-            ClearFormPhong();
-            LoadDanhSachPhong();
+            try
+            {
+                LoadDanhSachPhong();
+                ClearFormPhong();
+                isEditing = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Đã xảy ra lỗi làm mới: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
-
-
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            if (!ValidatePhongInput(out string soPhong, out int maLoaiPhong, out int tang)) return;
-
-            if (phongService.KiemTraSoPhongTonTai(soPhong))
+            try
             {
-                MessageBox.Show("Số phòng đã tồn tại!", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                if (!ValidatePhongInput(out string soPhong, out int maLoaiPhong, out int tang)) return;
+
+                if (phongService.KiemTraSoPhongTonTai(soPhong))
+                {
+                    MessageBox.Show("Số phòng đã tồn tại!", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                byte[] imageBytes = null;
+                if (picAnhPhong.Image != null)
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        picAnhPhong.Image.Save(ms, picAnhPhong.Image.RawFormat);
+                        imageBytes = ms.ToArray();
+                    }
+                }
+
+                // ✅ Gán luôn ảnh vào model
+                PhongModel phong = new PhongModel
+                {
+                    SoPhong = soPhong,
+                    MaLoaiPhong = maLoaiPhong,
+                    Tang = tang,
+                    TrangThai = cbTrangThai.Text,
+                    Anh = imageBytes  // ✅ thêm dòng này
+                };
+
+                bool ketQua = phongService.ThemPhong(phong);
+
+                MessageBox.Show(ketQua ? "Thêm phòng thành công!" : "Thêm phòng thất bại!",
+                    Text,
+                    MessageBoxButtons.OK,
+                    ketQua ? MessageBoxIcon.Information : MessageBoxIcon.Error);
+
+                if (ketQua)
+                {
+                    LoadDanhSachPhong();
+                    ClearFormPhong();
+                    isEditing = false;
+                }
             }
-
-            PhongModel phong = new PhongModel
+            catch (Exception ex)
             {
-                SoPhong = soPhong,
-                MaLoaiPhong = maLoaiPhong,
-                Tang = tang,
-                TrangThai = cbTrangThai.Text
-            };
-
-            bool success = phongService.ThemPhong(phong);
-            MessageBox.Show(success ? "Thêm phòng thành công!" : "Thêm phòng thất bại!", Text,
-                MessageBoxButtons.OK, success ? MessageBoxIcon.Information : MessageBoxIcon.Error);
-
-            LoadDanhSachPhong();
-            ClearFormPhong();
+                MessageBox.Show("Đã xảy ra lỗi thêm: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
 
         private void btnSua_Click(object sender, EventArgs e)
         {
-            if (dgvListPhong.SelectedRows.Count == 0)
+            try
             {
-                MessageBox.Show("Vui lòng chọn phòng để sửa!", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                if (dgvListPhong.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Vui lòng chọn phòng để sửa!", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (!ValidatePhongInput(out string soPhong, out int maLoaiPhong, out int tang)) return;
+
+                DataGridViewRow row = dgvListPhong.SelectedRows[0];
+                PhongModel phong = new PhongModel
+                {
+                    MaPhong = Convert.ToInt32(row.Cells["MaPhong"].Value),
+                    SoPhong = soPhong,
+                    MaLoaiPhong = maLoaiPhong,
+                    Tang = tang,
+                    TrangThai = cbTrangThai.Text
+                };
+
+
+                bool success = phongService.SuaPhong(phong);
+                MessageBox.Show(success ? "Sửa phòng thành công!" : "Sửa phòng thất bại!", Text,
+                    MessageBoxButtons.OK, success ? MessageBoxIcon.Information : MessageBoxIcon.Error);
+
+                LoadDanhSachPhong();
+                ClearFormPhong();
+                isEditing = false;
+                picAnhPhong.Image = null;
             }
-
-            if (!ValidatePhongInput(out string soPhong, out int maLoaiPhong, out int tang)) return;
-
-            DataGridViewRow row = dgvListPhong.SelectedRows[0];
-            PhongModel phong = new PhongModel
+            catch (Exception ex)
             {
-                MaPhong = Convert.ToInt32(row.Cells["MaPhong"].Value),
-                SoPhong = soPhong,
-                MaLoaiPhong = maLoaiPhong,
-                Tang = tang,
-                TrangThai = cbTrangThai.Text
-            };
+                MessageBox.Show("Đã xảy ra lỗi sửa: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-            bool success = phongService.SuaPhong(phong);
-            MessageBox.Show(success ? "Sửa phòng thành công!" : "Sửa phòng thất bại!", Text,
-                MessageBoxButtons.OK, success ? MessageBoxIcon.Information : MessageBoxIcon.Error);
-
-            LoadDanhSachPhong();
-            ClearFormPhong();
+            }
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
-            if (dgvListPhong.SelectedRows.Count == 0)
+            try
             {
-                MessageBox.Show("Vui lòng chọn phòng để xóa!", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                if (dgvListPhong.CurrentRow != null)
+                {
+                    // Xác nhận trước khi xóa
+                    DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa phòng này?",
+                        "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        int maPhong = Convert.ToInt32(dgvListPhong.SelectedRows[0].Cells["MaPhong"].Value);
+                        bool ketQua = phongService.XoaPhong(maPhong);
+                        MessageBox.Show(ketQua ? "Xóa phòng thành công!" : "Xóa phòng thất bại!", Text,
+                            MessageBoxButtons.OK, ketQua ? MessageBoxIcon.Information : MessageBoxIcon.Error);
+
+                        LoadDanhSachPhong();
+                        ClearFormPhong();
+                        isEditing = false;
+                        picAnhPhong.Image = null;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Vui lòng chọn một phòng để xóa", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
-
-            int maPhong = Convert.ToInt32(dgvListPhong.SelectedRows[0].Cells["MaPhong"].Value);
-            bool success = phongService.XoaPhong(maPhong);
-            MessageBox.Show(success ? "Xóa phòng thành công!" : "Xóa phòng thất bại!", Text,
-                MessageBoxButtons.OK, success ? MessageBoxIcon.Information : MessageBoxIcon.Error);
-
-            LoadDanhSachPhong();
-            ClearFormPhong();
+            catch (Exception ex)
+            {
+                MessageBox.Show("Đã xảy ra lỗi xóa: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnTim_Click(object sender, EventArgs e)
         {
-            string keyword = txtTim.Text.Trim();
-            List<PhongModel> result = phongService.TimPhong(keyword);
-
-            if (result.Count > 0)
-                dgvListPhong.DataSource = result;
-            else
+            try
             {
-                MessageBox.Show($"Không tìm thấy phòng với từ khóa {keyword}!", "Thông báo",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                dgvListPhong.DataSource = null;
+                string keyword = txtTim.Text.Trim();
+                List<PhongModel> result = phongService.TimPhong(keyword);
+
+                if (result.Count > 0)
+                    dgvListPhong.DataSource = result;
+                else
+                {
+                    MessageBox.Show($"Không tìm thấy phòng với từ khóa {keyword}!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    dgvListPhong.DataSource = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Đã xảy ra lỗi tìm kiếm: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
         }
 
         private void dgvListPhong_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0) return;
+            try
+            {
+                if (e.RowIndex >= 0)
+                {
+                    isEditing = true;
 
-            DataGridViewRow row = dgvListPhong.Rows[e.RowIndex];
-            txtSoPhong.Text = row.Cells["SoPhong"].Value?.ToString();
-            cbLoaiPhong.SelectedValue = Convert.ToInt32(row.Cells["MaLoaiPhong"].Value);
-            numTang.Text = row.Cells["Tang"].Value?.ToString();
-            cbTrangThai.Text = row.Cells["TrangThai"].Value?.ToString();
+                    DataGridViewRow row = dgvListPhong.Rows[e.RowIndex];
+                    txtSoPhong.Text = row.Cells["SoPhong"].Value?.ToString();
+                    cbLoaiPhong.SelectedValue = Convert.ToInt32(row.Cells["MaLoaiPhong"].Value);
+                    numTang.Text = row.Cells["Tang"].Value?.ToString();
+                    cbTrangThai.Text = row.Cells["TrangThai"].Value?.ToString();
+
+                    int maPhong = Convert.ToInt32(row.Cells["MaPhong"].Value);
+
+                    string base64Anh = phongService.LayAnhPhong(maPhong);
+
+                    if (!string.IsNullOrEmpty(base64Anh) && IsValidBase64(base64Anh))
+                    {
+                        picAnhPhong.Image = Base64ToImage(base64Anh);
+                        picAnhPhong.SizeMode = PictureBoxSizeMode.Zoom;
+                    }
+                    else
+                    {
+                        picAnhPhong.Image = null;
+                    }
+                }
+            }
+            catch (Exception ex) {
+                MessageBox.Show("Lỗi khi tải dữ liệu nhân viên: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        public Image Base64ToImage(string base64String)
+        {
+            try
+            {
+                base64String = base64String.Trim(); // Loại bỏ khoảng trắng thừa
+                base64String = base64String.Replace(" ", "+"); // Thay thế dấu cách bằng dấu "+" nếu có
+
+                // Thêm padding nếu thiếu
+                int mod4 = base64String.Length % 4;
+                if (mod4 > 0)
+                {
+                    base64String = base64String.PadRight(base64String.Length + (4 - mod4), '=');
+                }
+
+                // Giải mã chuỗi Base64 thành mảng byte
+                byte[] imageBytes = Convert.FromBase64String(base64String);
+
+                using (var ms = new MemoryStream(imageBytes))
+                {
+                    return Image.FromStream(ms);
+                }
+            }
+            catch (FormatException ex)
+            {
+                MessageBox.Show("Chuỗi Base64 không hợp lệ: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null; // Trả về null nếu không thể giải mã
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi chuyển đổi ảnh: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+        }
+
+        bool IsValidBase64(string base64String)
+        {
+            if (string.IsNullOrEmpty(base64String))
+                return false;
+
+            try
+            {
+                Convert.FromBase64String(base64String);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         private void LoadDanhSachPhong()
         {
             dgvListPhong.DataSource = phongService.GetAllPhong();
+
             dgvListPhong.Columns["MaPhong"].HeaderText = "Mã Phòng";
             dgvListPhong.Columns["SoPhong"].HeaderText = "Số Phòng";
-            dgvListPhong.Columns["MaLoaiPhong"].HeaderText = "Loại Phòng";
+            dgvListPhong.Columns["MaLoaiPhong"].Visible = false; // ẩn nếu không cần
+            dgvListPhong.Columns["TenLoaiPhong"].HeaderText = "Loại Phòng";
             dgvListPhong.Columns["Tang"].HeaderText = "Tầng";
             dgvListPhong.Columns["TrangThai"].HeaderText = "Trạng Thái";
+            dgvListPhong.Columns["Anh"].HeaderText = "Ảnh Phòng";
         }
+
 
         private void ClearFormPhong()
         {
             txtSoPhong.Clear();
             cbLoaiPhong.SelectedIndex = -1;
-            //numTang.Clear();
             cbTrangThai.SelectedIndex = -1;
+            numTang.Value = 0; // nếu dùng NumericUpDown
+            picAnhPhong.Image = null; // ✅ chỉ xóa ảnh, không xóa control
         }
+
 
         private bool ValidatePhongInput(out string soPhong, out int maLoaiPhong, out int tang)
         {
@@ -235,6 +388,86 @@ namespace QuanLyKhachSan.UI
             cbLoaiPhong.DisplayMember = "HienThiMaVaTen";
             cbLoaiPhong.ValueMember = "MaLoaiPhong";
         }
+
+
+        private void linkThemAnh_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
+                {
+                    openFileDialog.Title = "Chọn ảnh phòng";
+                    openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp";
+
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        Image image = Image.FromFile(openFileDialog.FileName);
+                        picAnhPhong.Image = image;
+                        picAnhPhong.SizeMode = PictureBoxSizeMode.Zoom;
+
+                        if (isEditing)
+                        {
+                            // ✅ Chỉ cho sửa ảnh khi đang ở chế độ sửa (đã chọn dịch vụ)
+                            int maPhong = Convert.ToInt32(dgvListPhong.CurrentRow.Cells["MaPhong"].Value);
+                            if (MessageBox.Show("Bạn có muốn cập nhật ảnh cho phòng đang chọn không?",
+                                                "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                            {
+                                bool result = phongService.CapNhatAnh(maPhong, image);
+                                if (result)
+                                    MessageBox.Show("Cập nhật ảnh phòng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                else
+                                    MessageBox.Show("Không thể cập nhật ảnh phòng!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                        else
+                        {
+                            // ✅ Khi đang thêm mới → chỉ hiển thị ảnh
+                            MessageBox.Show("Ảnh đã được chọn, bạn có thể bấm 'Thêm' để lưu cùng phòng mới!",
+                                            "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi chọn ảnh: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void linkXoaAnh_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                if (dgvListPhong.CurrentRow != null)
+                {
+                    int maPhong = Convert.ToInt32(dgvListPhong.CurrentRow.Cells["MaPhong"].Value);
+
+                    if (MessageBox.Show("Bạn có chắc muốn xóa ảnh của phòng này?",
+                                        "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        bool result = phongService.XoaAnhPhong(maPhong);
+                        if (result)
+                        {
+                            picAnhPhong.Image = null;
+                            MessageBox.Show("Đã xóa ảnh phòng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không thể xóa ảnh phòng!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Vui lòng chọn phòng cần xóa ảnh.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi xóa ảnh phòng: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
 
         #endregion
 
@@ -293,12 +526,17 @@ namespace QuanLyKhachSan.UI
         private void LoadLoaiPhong()
         {
             dgvListLoaiPhong.DataSource = loaiPhongService.GetAllLoaiPhong();
+
+            if (dgvListLoaiPhong.Columns.Contains("HienThiMaVaTen"))
+                dgvListLoaiPhong.Columns["HienThiMaVaTen"].Visible = false; // ✅ Ẩn cột tính toán
+
             dgvListLoaiPhong.Columns["MaLoaiPhong"].HeaderText = "Mã loại phòng";
             dgvListLoaiPhong.Columns["TenLoaiPhong"].HeaderText = "Tên loại phòng";
             dgvListLoaiPhong.Columns["GiaCoBan"].HeaderText = "Giá cơ bản";
             dgvListLoaiPhong.Columns["SucChuaToiDa"].HeaderText = "Sức chứa tối đa";
             dgvListLoaiPhong.Columns["MoTa"].HeaderText = "Mô tả";
         }
+
 
         private void ClearFormLoaiPhong()
         {
@@ -468,6 +706,6 @@ namespace QuanLyKhachSan.UI
             txtMoTa.Text = row.Cells["MoTa"].Value?.ToString();
         }
 
-        
+
     }
 }

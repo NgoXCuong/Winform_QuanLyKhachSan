@@ -47,6 +47,9 @@
             this.btnXoa = new System.Windows.Forms.Button();
             this.btnXuat = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.linkXoaAnh = new System.Windows.Forms.LinkLabel();
+            this.linkThemAnh = new System.Windows.Forms.LinkLabel();
+            this.picAnhPhong = new System.Windows.Forms.PictureBox();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
             this.numTang = new System.Windows.Forms.NumericUpDown();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
@@ -83,9 +86,6 @@
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.dgvListLoaiPhong = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.linkXoaAnh = new System.Windows.Forms.LinkLabel();
-            this.linkThemAnh = new System.Windows.Forms.LinkLabel();
-            this.picAnhNhanVien = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.tabPhong.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -98,6 +98,7 @@
             this.tableLayoutPanel6.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAnhPhong)).BeginInit();
             this.groupBox14.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numTang)).BeginInit();
             this.groupBox6.SuspendLayout();
@@ -120,7 +121,6 @@
             this.groupBox8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListLoaiPhong)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picAnhNhanVien)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -368,7 +368,7 @@
             // 
             this.groupBox1.Controls.Add(this.linkXoaAnh);
             this.groupBox1.Controls.Add(this.linkThemAnh);
-            this.groupBox1.Controls.Add(this.picAnhNhanVien);
+            this.groupBox1.Controls.Add(this.picAnhPhong);
             this.groupBox1.Controls.Add(this.groupBox14);
             this.groupBox1.Controls.Add(this.groupBox6);
             this.groupBox1.Controls.Add(this.groupBox5);
@@ -382,6 +382,39 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông tin phòng";
+            // 
+            // linkXoaAnh
+            // 
+            this.linkXoaAnh.AutoSize = true;
+            this.linkXoaAnh.Location = new System.Drawing.Point(177, 325);
+            this.linkXoaAnh.Name = "linkXoaAnh";
+            this.linkXoaAnh.Size = new System.Drawing.Size(62, 19);
+            this.linkXoaAnh.TabIndex = 25;
+            this.linkXoaAnh.TabStop = true;
+            this.linkXoaAnh.Text = "Xóa ảnh";
+            this.linkXoaAnh.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkXoaAnh_LinkClicked);
+            // 
+            // linkThemAnh
+            // 
+            this.linkThemAnh.AutoSize = true;
+            this.linkThemAnh.Location = new System.Drawing.Point(88, 325);
+            this.linkThemAnh.Name = "linkThemAnh";
+            this.linkThemAnh.Size = new System.Drawing.Size(73, 19);
+            this.linkThemAnh.TabIndex = 24;
+            this.linkThemAnh.TabStop = true;
+            this.linkThemAnh.Text = "Thêm ảnh";
+            this.linkThemAnh.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkThemAnh_LinkClicked);
+            // 
+            // picAnhPhong
+            // 
+            this.picAnhPhong.BackColor = System.Drawing.Color.DarkGray;
+            this.picAnhPhong.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.picAnhPhong.Location = new System.Drawing.Point(14, 50);
+            this.picAnhPhong.Name = "picAnhPhong";
+            this.picAnhPhong.Size = new System.Drawing.Size(310, 260);
+            this.picAnhPhong.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picAnhPhong.TabIndex = 23;
+            this.picAnhPhong.TabStop = false;
             // 
             // groupBox14
             // 
@@ -814,37 +847,6 @@
             this.panel1.Size = new System.Drawing.Size(1590, 819);
             this.panel1.TabIndex = 0;
             // 
-            // linkXoaAnh
-            // 
-            this.linkXoaAnh.AutoSize = true;
-            this.linkXoaAnh.Location = new System.Drawing.Point(177, 325);
-            this.linkXoaAnh.Name = "linkXoaAnh";
-            this.linkXoaAnh.Size = new System.Drawing.Size(62, 19);
-            this.linkXoaAnh.TabIndex = 25;
-            this.linkXoaAnh.TabStop = true;
-            this.linkXoaAnh.Text = "Xóa ảnh";
-            // 
-            // linkThemAnh
-            // 
-            this.linkThemAnh.AutoSize = true;
-            this.linkThemAnh.Location = new System.Drawing.Point(88, 325);
-            this.linkThemAnh.Name = "linkThemAnh";
-            this.linkThemAnh.Size = new System.Drawing.Size(73, 19);
-            this.linkThemAnh.TabIndex = 24;
-            this.linkThemAnh.TabStop = true;
-            this.linkThemAnh.Text = "Thêm ảnh";
-            // 
-            // picAnhNhanVien
-            // 
-            this.picAnhNhanVien.BackColor = System.Drawing.Color.DarkGray;
-            this.picAnhNhanVien.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.picAnhNhanVien.Location = new System.Drawing.Point(14, 50);
-            this.picAnhNhanVien.Name = "picAnhNhanVien";
-            this.picAnhNhanVien.Size = new System.Drawing.Size(310, 260);
-            this.picAnhNhanVien.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picAnhNhanVien.TabIndex = 23;
-            this.picAnhNhanVien.TabStop = false;
-            // 
             // PhongForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -868,6 +870,7 @@
             this.tableLayoutPanel5.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAnhPhong)).EndInit();
             this.groupBox14.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numTang)).EndInit();
             this.groupBox6.ResumeLayout(false);
@@ -896,7 +899,6 @@
             this.groupBox8.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvListLoaiPhong)).EndInit();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picAnhNhanVien)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -960,6 +962,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
         private System.Windows.Forms.LinkLabel linkXoaAnh;
         private System.Windows.Forms.LinkLabel linkThemAnh;
-        private System.Windows.Forms.PictureBox picAnhNhanVien;
+        private System.Windows.Forms.PictureBox picAnhPhong;
     }
 }
