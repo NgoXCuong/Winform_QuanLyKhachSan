@@ -46,6 +46,16 @@ namespace QuanLyKhachSan.BLL
             return phongRepository.TimPhong(keyword);
         }
 
+        // 🏷️ Cập nhật trạng thái phòng (Trống / Đã đặt / Đang thuê)
+        public bool CapNhatTrangThaiPhong(int maPhong, string trangThai)
+        {
+            if (maPhong <= 0 || string.IsNullOrWhiteSpace(trangThai))
+                throw new ArgumentException("Mã phòng hoặc trạng thái không hợp lệ!");
+
+            return phongRepository.CapNhatTrangThai(maPhong, trangThai);
+        }
+
+
         // ✅ Kiểm tra số phòng tồn tại
         public bool KiemTraSoPhongTonTai(string soPhong)
         {

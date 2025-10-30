@@ -1,672 +1,1007 @@
-﻿//namespace QuanLyKhachSan.UI
-//{
-//    partial class BookingRoom
-//    {
-//        /// <summary>
-//        /// Required designer variable.
-//        /// </summary>
-//        private System.ComponentModel.IContainer components = null;
+﻿namespace QuanLyKhachSan.UI
+{
+    partial class BookingRoom
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-//        /// <summary>
-//        /// Clean up any resources being used.
-//        /// </summary>
-//        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-//        protected override void Dispose(bool disposing)
-//        {
-//            if (disposing && (components != null))
-//            {
-//                components.Dispose();
-//            }
-//            base.Dispose(disposing);
-//        }
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-//        #region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-//        /// <summary>
-//        /// Required method for Designer support - do not modify
-//        /// the contents of this method with the code editor.
-//        /// </summary>
-//        private void InitializeComponent()
-//        {
-//            this.components = new System.ComponentModel.Container();
-//            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BookingRoom));
-//            this.panel1 = new System.Windows.Forms.Panel();
-//            this.groupBox1 = new System.Windows.Forms.GroupBox();
-//            this.panel6 = new System.Windows.Forms.Panel();
-//            this.lvPhong = new System.Windows.Forms.ListView();
-//            this.panel3 = new System.Windows.Forms.Panel();
-//            this.groupBox3 = new System.Windows.Forms.GroupBox();
-//            this.txtTim = new System.Windows.Forms.TextBox();
-//            this.btnTim = new System.Windows.Forms.Button();
-//            this.btnHuyDat = new System.Windows.Forms.Button();
-//            this.btnDatPhong = new System.Windows.Forms.Button();
-//            this.groupBox6 = new System.Windows.Forms.GroupBox();
-//            this.rbBaoTri = new System.Windows.Forms.RadioButton();
-//            this.rbDangO = new System.Windows.Forms.RadioButton();
-//            this.rbDaDat = new System.Windows.Forms.RadioButton();
-//            this.rbTrong = new System.Windows.Forms.RadioButton();
-//            this.rbTatCa = new System.Windows.Forms.RadioButton();
-//            this.label3 = new System.Windows.Forms.Label();
-//            this.label1 = new System.Windows.Forms.Label();
-//            this.lbTongTienAll = new System.Windows.Forms.Label();
-//            this.panel2 = new System.Windows.Forms.Panel();
-//            this.groupBox2 = new System.Windows.Forms.GroupBox();
-//            this.groupBox14 = new System.Windows.Forms.GroupBox();
-//            this.txtMaNV = new System.Windows.Forms.TextBox();
-//            this.groupBox13 = new System.Windows.Forms.GroupBox();
-//            this.txtMaKH = new System.Windows.Forms.TextBox();
-//            this.groupBox12 = new System.Windows.Forms.GroupBox();
-//            this.txtTenDatPhong = new System.Windows.Forms.TextBox();
-//            this.groupBox11 = new System.Windows.Forms.GroupBox();
-//            this.txtSoLuong = new System.Windows.Forms.TextBox();
-//            this.groupBox10 = new System.Windows.Forms.GroupBox();
-//            this.cbDichVu = new System.Windows.Forms.ComboBox();
-//            this.groupBox9 = new System.Windows.Forms.GroupBox();
-//            this.dtNgayTra = new System.Windows.Forms.DateTimePicker();
-//            this.groupBox8 = new System.Windows.Forms.GroupBox();
-//            this.dtNgayNhan = new System.Windows.Forms.DateTimePicker();
-//            this.groupBox7 = new System.Windows.Forms.GroupBox();
-//            this.dtNgayDat = new System.Windows.Forms.DateTimePicker();
-//            this.panel4 = new System.Windows.Forms.Panel();
-//            this.groupBox4 = new System.Windows.Forms.GroupBox();
-//            this.dgvListDatPhong = new System.Windows.Forms.DataGridView();
-//            this.panel5 = new System.Windows.Forms.Panel();
-//            this.lbTienDV = new System.Windows.Forms.Label();
-//            this.btnHuyDV = new System.Windows.Forms.Button();
-//            this.btnThemDV = new System.Windows.Forms.Button();
-//            this.groupBox5 = new System.Windows.Forms.GroupBox();
-//            this.dgvChonDichVu = new System.Windows.Forms.DataGridView();
-//            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-//            this.panel1.SuspendLayout();
-//            this.groupBox1.SuspendLayout();
-//            this.panel6.SuspendLayout();
-//            this.panel3.SuspendLayout();
-//            this.groupBox3.SuspendLayout();
-//            this.groupBox6.SuspendLayout();
-//            this.panel2.SuspendLayout();
-//            this.groupBox2.SuspendLayout();
-//            this.groupBox14.SuspendLayout();
-//            this.groupBox13.SuspendLayout();
-//            this.groupBox12.SuspendLayout();
-//            this.groupBox11.SuspendLayout();
-//            this.groupBox10.SuspendLayout();
-//            this.groupBox9.SuspendLayout();
-//            this.groupBox8.SuspendLayout();
-//            this.groupBox7.SuspendLayout();
-//            this.panel4.SuspendLayout();
-//            this.groupBox4.SuspendLayout();
-//            ((System.ComponentModel.ISupportInitialize)(this.dgvListDatPhong)).BeginInit();
-//            this.panel5.SuspendLayout();
-//            this.groupBox5.SuspendLayout();
-//            ((System.ComponentModel.ISupportInitialize)(this.dgvChonDichVu)).BeginInit();
-//            this.SuspendLayout();
-//            // 
-//            // panel1
-//            // 
-//            this.panel1.Controls.Add(this.groupBox1);
-//            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-//            this.panel1.Location = new System.Drawing.Point(0, 0);
-//            this.panel1.Name = "panel1";
-//            this.panel1.Size = new System.Drawing.Size(341, 611);
-//            this.panel1.TabIndex = 0;
-//            // 
-//            // groupBox1
-//            // 
-//            this.groupBox1.Controls.Add(this.panel6);
-//            this.groupBox1.Controls.Add(this.panel3);
-//            this.groupBox1.Controls.Add(this.groupBox6);
-//            this.groupBox1.Location = new System.Drawing.Point(12, 12);
-//            this.groupBox1.Name = "groupBox1";
-//            this.groupBox1.Size = new System.Drawing.Size(323, 599);
-//            this.groupBox1.TabIndex = 0;
-//            this.groupBox1.TabStop = false;
-//            this.groupBox1.Text = "Danh sách phòng";
-//            // 
-//            // panel6
-//            // 
-//            this.panel6.Controls.Add(this.lvPhong);
-//            this.panel6.Location = new System.Drawing.Point(7, 87);
-//            this.panel6.Name = "panel6";
-//            this.panel6.Size = new System.Drawing.Size(310, 354);
-//            this.panel6.TabIndex = 1;
-//            // 
-//            // lvPhong
-//            // 
-//            this.lvPhong.HideSelection = false;
-//            this.lvPhong.Location = new System.Drawing.Point(4, 10);
-//            this.lvPhong.Name = "lvPhong";
-//            this.lvPhong.Size = new System.Drawing.Size(300, 332);
-//            this.lvPhong.TabIndex = 0;
-//            this.lvPhong.UseCompatibleStateImageBehavior = false;
-//            // 
-//            // panel3
-//            // 
-//            this.panel3.Controls.Add(this.groupBox3);
-//            this.panel3.Location = new System.Drawing.Point(7, 447);
-//            this.panel3.Name = "panel3";
-//            this.panel3.Size = new System.Drawing.Size(310, 146);
-//            this.panel3.TabIndex = 2;
-//            // 
-//            // groupBox3
-//            // 
-//            this.groupBox3.Controls.Add(this.txtTim);
-//            this.groupBox3.Controls.Add(this.btnTim);
-//            this.groupBox3.Controls.Add(this.btnHuyDat);
-//            this.groupBox3.Controls.Add(this.btnDatPhong);
-//            this.groupBox3.Location = new System.Drawing.Point(4, 3);
-//            this.groupBox3.Name = "groupBox3";
-//            this.groupBox3.Size = new System.Drawing.Size(300, 137);
-//            this.groupBox3.TabIndex = 0;
-//            this.groupBox3.TabStop = false;
-//            this.groupBox3.Text = "Chức năng";
-//            // 
-//            // txtTim
-//            // 
-//            this.txtTim.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-//            this.txtTim.Location = new System.Drawing.Point(22, 27);
-//            this.txtTim.Name = "txtTim";
-//            this.txtTim.Size = new System.Drawing.Size(142, 26);
-//            this.txtTim.TabIndex = 3;
-//            // 
-//            // btnTim
-//            // 
-//            this.btnTim.Location = new System.Drawing.Point(180, 24);
-//            this.btnTim.Name = "btnTim";
-//            this.btnTim.Size = new System.Drawing.Size(100, 35);
-//            this.btnTim.TabIndex = 2;
-//            this.btnTim.Text = "Tìm";
-//            this.btnTim.UseVisualStyleBackColor = true;
-//            this.btnTim.Click += new System.EventHandler(this.btnTim_Click);
-//            // 
-//            // btnHuyDat
-//            // 
-//            this.btnHuyDat.Location = new System.Drawing.Point(22, 78);
-//            this.btnHuyDat.Name = "btnHuyDat";
-//            this.btnHuyDat.Size = new System.Drawing.Size(100, 35);
-//            this.btnHuyDat.TabIndex = 1;
-//            this.btnHuyDat.Text = "Hủy đặt";
-//            this.btnHuyDat.UseVisualStyleBackColor = true;
-//            this.btnHuyDat.Click += new System.EventHandler(this.btnHuyDat_Click);
-//            // 
-//            // btnDatPhong
-//            // 
-//            this.btnDatPhong.Location = new System.Drawing.Point(180, 78);
-//            this.btnDatPhong.Name = "btnDatPhong";
-//            this.btnDatPhong.Size = new System.Drawing.Size(100, 35);
-//            this.btnDatPhong.TabIndex = 0;
-//            this.btnDatPhong.Text = "Đặt phòng";
-//            this.btnDatPhong.UseVisualStyleBackColor = true;
-//            this.btnDatPhong.Click += new System.EventHandler(this.btnDatPhong_Click);
-//            // 
-//            // groupBox6
-//            // 
-//            this.groupBox6.Controls.Add(this.rbBaoTri);
-//            this.groupBox6.Controls.Add(this.rbDangO);
-//            this.groupBox6.Controls.Add(this.rbDaDat);
-//            this.groupBox6.Controls.Add(this.rbTrong);
-//            this.groupBox6.Controls.Add(this.rbTatCa);
-//            this.groupBox6.Location = new System.Drawing.Point(7, 22);
-//            this.groupBox6.Name = "groupBox6";
-//            this.groupBox6.Size = new System.Drawing.Size(310, 59);
-//            this.groupBox6.TabIndex = 0;
-//            this.groupBox6.TabStop = false;
-//            // 
-//            // rbBaoTri
-//            // 
-//            this.rbBaoTri.AutoSize = true;
-//            this.rbBaoTri.Location = new System.Drawing.Point(226, 37);
-//            this.rbBaoTri.Name = "rbBaoTri";
-//            this.rbBaoTri.Size = new System.Drawing.Size(63, 20);
-//            this.rbBaoTri.TabIndex = 4;
-//            this.rbBaoTri.TabStop = true;
-//            this.rbBaoTri.Text = "Bảo trì";
-//            this.rbBaoTri.UseVisualStyleBackColor = true;
-//            this.rbBaoTri.CheckedChanged += new System.EventHandler(this.rbBaoTri_CheckedChanged);
-//            // 
-//            // rbDangO
-//            // 
-//            this.rbDangO.AutoSize = true;
-//            this.rbDangO.Location = new System.Drawing.Point(226, 11);
-//            this.rbDangO.Name = "rbDangO";
-//            this.rbDangO.Size = new System.Drawing.Size(68, 20);
-//            this.rbDangO.TabIndex = 3;
-//            this.rbDangO.TabStop = true;
-//            this.rbDangO.Text = "Đang ở";
-//            this.rbDangO.UseVisualStyleBackColor = true;
-//            this.rbDangO.CheckedChanged += new System.EventHandler(this.rbDangO_CheckedChanged);
-//            // 
-//            // rbDaDat
-//            // 
-//            this.rbDaDat.AutoSize = true;
-//            this.rbDaDat.Location = new System.Drawing.Point(6, 37);
-//            this.rbDaDat.Name = "rbDaDat";
-//            this.rbDaDat.Size = new System.Drawing.Size(105, 20);
-//            this.rbDaDat.TabIndex = 2;
-//            this.rbDaDat.Text = "Phòng đã đặt";
-//            this.rbDaDat.UseVisualStyleBackColor = true;
-//            this.rbDaDat.CheckedChanged += new System.EventHandler(this.rbDaDat_CheckedChanged);
-//            // 
-//            // rbTrong
-//            // 
-//            this.rbTrong.AutoSize = true;
-//            this.rbTrong.Location = new System.Drawing.Point(103, 11);
-//            this.rbTrong.Name = "rbTrong";
-//            this.rbTrong.Size = new System.Drawing.Size(97, 20);
-//            this.rbTrong.TabIndex = 1;
-//            this.rbTrong.Text = "Phòng trống";
-//            this.rbTrong.UseVisualStyleBackColor = true;
-//            this.rbTrong.CheckedChanged += new System.EventHandler(this.rbTrong_CheckedChanged);
-//            // 
-//            // rbTatCa
-//            // 
-//            this.rbTatCa.AutoSize = true;
-//            this.rbTatCa.Checked = true;
-//            this.rbTatCa.Location = new System.Drawing.Point(6, 11);
-//            this.rbTatCa.Name = "rbTatCa";
-//            this.rbTatCa.Size = new System.Drawing.Size(63, 20);
-//            this.rbTatCa.TabIndex = 0;
-//            this.rbTatCa.TabStop = true;
-//            this.rbTatCa.Text = "Tất cả";
-//            this.rbTatCa.UseVisualStyleBackColor = true;
-//            this.rbTatCa.CheckedChanged += new System.EventHandler(this.rbTatCa_CheckedChanged);
-//            // 
-//            // label3
-//            // 
-//            this.label3.AutoSize = true;
-//            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-//            this.label3.ForeColor = System.Drawing.Color.Red;
-//            this.label3.Location = new System.Drawing.Point(635, 127);
-//            this.label3.Name = "label3";
-//            this.label3.Size = new System.Drawing.Size(103, 25);
-//            this.label3.TabIndex = 2;
-//            this.label3.Text = "Tiền DV:";
-//            // 
-//            // label1
-//            // 
-//            this.label1.AutoSize = true;
-//            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-//            this.label1.ForeColor = System.Drawing.Color.Red;
-//            this.label1.Location = new System.Drawing.Point(983, 513);
-//            this.label1.Name = "label1";
-//            this.label1.Size = new System.Drawing.Size(118, 25);
-//            this.label1.TabIndex = 3;
-//            this.label1.Text = "Tổng tiền:";
-//            // 
-//            // lbTongTienAll
-//            // 
-//            this.lbTongTienAll.AutoSize = true;
-//            this.lbTongTienAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-//            this.lbTongTienAll.ForeColor = System.Drawing.Color.Red;
-//            this.lbTongTienAll.Location = new System.Drawing.Point(984, 550);
-//            this.lbTongTienAll.Name = "lbTongTienAll";
-//            this.lbTongTienAll.Size = new System.Drawing.Size(0, 24);
-//            this.lbTongTienAll.TabIndex = 4;
-//            // 
-//            // panel2
-//            // 
-//            this.panel2.Controls.Add(this.groupBox2);
-//            this.panel2.Location = new System.Drawing.Point(348, 0);
-//            this.panel2.Name = "panel2";
-//            this.panel2.Size = new System.Drawing.Size(766, 237);
-//            this.panel2.TabIndex = 1;
-//            // 
-//            // groupBox2
-//            // 
-//            this.groupBox2.Controls.Add(this.groupBox14);
-//            this.groupBox2.Controls.Add(this.groupBox13);
-//            this.groupBox2.Controls.Add(this.groupBox12);
-//            this.groupBox2.Controls.Add(this.groupBox11);
-//            this.groupBox2.Controls.Add(this.groupBox10);
-//            this.groupBox2.Controls.Add(this.groupBox9);
-//            this.groupBox2.Controls.Add(this.groupBox8);
-//            this.groupBox2.Controls.Add(this.groupBox7);
-//            this.groupBox2.Location = new System.Drawing.Point(16, 13);
-//            this.groupBox2.Name = "groupBox2";
-//            this.groupBox2.Size = new System.Drawing.Size(738, 221);
-//            this.groupBox2.TabIndex = 0;
-//            this.groupBox2.TabStop = false;
-//            this.groupBox2.Text = "Thông tin đặt phòng";
-//            // 
-//            // groupBox14
-//            // 
-//            this.groupBox14.Controls.Add(this.txtMaNV);
-//            this.groupBox14.Location = new System.Drawing.Point(593, 40);
-//            this.groupBox14.Name = "groupBox14";
-//            this.groupBox14.Size = new System.Drawing.Size(139, 50);
-//            this.groupBox14.TabIndex = 8;
-//            this.groupBox14.TabStop = false;
-//            this.groupBox14.Text = "Mã nhân viên";
-//            // 
-//            // txtMaNV
-//            // 
-//            this.txtMaNV.Location = new System.Drawing.Point(7, 21);
-//            this.txtMaNV.Name = "txtMaNV";
-//            this.txtMaNV.Size = new System.Drawing.Size(119, 22);
-//            this.txtMaNV.TabIndex = 0;
-//            // 
-//            // groupBox13
-//            // 
-//            this.groupBox13.Controls.Add(this.txtMaKH);
-//            this.groupBox13.Location = new System.Drawing.Point(353, 40);
-//            this.groupBox13.Name = "groupBox13";
-//            this.groupBox13.Size = new System.Drawing.Size(220, 50);
-//            this.groupBox13.TabIndex = 7;
-//            this.groupBox13.TabStop = false;
-//            this.groupBox13.Text = "Mã khách hàng";
-//            // 
-//            // txtMaKH
-//            // 
-//            this.txtMaKH.Location = new System.Drawing.Point(7, 21);
-//            this.txtMaKH.Name = "txtMaKH";
-//            this.txtMaKH.Size = new System.Drawing.Size(203, 22);
-//            this.txtMaKH.TabIndex = 0;
-//            // 
-//            // groupBox12
-//            // 
-//            this.groupBox12.Controls.Add(this.txtTenDatPhong);
-//            this.groupBox12.Location = new System.Drawing.Point(353, 96);
-//            this.groupBox12.Name = "groupBox12";
-//            this.groupBox12.Size = new System.Drawing.Size(220, 50);
-//            this.groupBox12.TabIndex = 6;
-//            this.groupBox12.TabStop = false;
-//            this.groupBox12.Text = "Phòng đặt";
-//            // 
-//            // txtTenDatPhong
-//            // 
-//            this.txtTenDatPhong.Location = new System.Drawing.Point(7, 21);
-//            this.txtTenDatPhong.Name = "txtTenDatPhong";
-//            this.txtTenDatPhong.Size = new System.Drawing.Size(203, 22);
-//            this.txtTenDatPhong.TabIndex = 0;
-//            // 
-//            // groupBox11
-//            // 
-//            this.groupBox11.Controls.Add(this.txtSoLuong);
-//            this.groupBox11.Location = new System.Drawing.Point(593, 160);
-//            this.groupBox11.Name = "groupBox11";
-//            this.groupBox11.Size = new System.Drawing.Size(132, 54);
-//            this.groupBox11.TabIndex = 1;
-//            this.groupBox11.TabStop = false;
-//            this.groupBox11.Text = "Số lượng";
-//            // 
-//            // txtSoLuong
-//            // 
-//            this.txtSoLuong.Location = new System.Drawing.Point(7, 22);
-//            this.txtSoLuong.Name = "txtSoLuong";
-//            this.txtSoLuong.Size = new System.Drawing.Size(119, 22);
-//            this.txtSoLuong.TabIndex = 0;
-//            // 
-//            // groupBox10
-//            // 
-//            this.groupBox10.Controls.Add(this.cbDichVu);
-//            this.groupBox10.Location = new System.Drawing.Point(353, 160);
-//            this.groupBox10.Name = "groupBox10";
-//            this.groupBox10.Size = new System.Drawing.Size(220, 50);
-//            this.groupBox10.TabIndex = 5;
-//            this.groupBox10.TabStop = false;
-//            this.groupBox10.Text = "Dịch vụ sử dụng";
-//            // 
-//            // cbDichVu
-//            // 
-//            this.cbDichVu.FormattingEnabled = true;
-//            this.cbDichVu.Items.AddRange(new object[] {
-//            "1",
-//            "2",
-//            "3",
-//            "4",
-//            "5"});
-//            this.cbDichVu.Location = new System.Drawing.Point(6, 22);
-//            this.cbDichVu.Name = "cbDichVu";
-//            this.cbDichVu.Size = new System.Drawing.Size(204, 24);
-//            this.cbDichVu.TabIndex = 7;
-//            // 
-//            // groupBox9
-//            // 
-//            this.groupBox9.Controls.Add(this.dtNgayTra);
-//            this.groupBox9.Location = new System.Drawing.Point(46, 162);
-//            this.groupBox9.Name = "groupBox9";
-//            this.groupBox9.Size = new System.Drawing.Size(265, 50);
-//            this.groupBox9.TabIndex = 2;
-//            this.groupBox9.TabStop = false;
-//            this.groupBox9.Text = "Ngày trả";
-//            // 
-//            // dtNgayTra
-//            // 
-//            this.dtNgayTra.Location = new System.Drawing.Point(7, 22);
-//            this.dtNgayTra.Name = "dtNgayTra";
-//            this.dtNgayTra.Size = new System.Drawing.Size(252, 22);
-//            this.dtNgayTra.TabIndex = 0;
-//            // 
-//            // groupBox8
-//            // 
-//            this.groupBox8.Controls.Add(this.dtNgayNhan);
-//            this.groupBox8.Location = new System.Drawing.Point(46, 96);
-//            this.groupBox8.Name = "groupBox8";
-//            this.groupBox8.Size = new System.Drawing.Size(265, 50);
-//            this.groupBox8.TabIndex = 1;
-//            this.groupBox8.TabStop = false;
-//            this.groupBox8.Text = "Ngày nhận";
-//            // 
-//            // dtNgayNhan
-//            // 
-//            this.dtNgayNhan.Location = new System.Drawing.Point(7, 27);
-//            this.dtNgayNhan.Name = "dtNgayNhan";
-//            this.dtNgayNhan.Size = new System.Drawing.Size(252, 22);
-//            this.dtNgayNhan.TabIndex = 0;
-//            // 
-//            // groupBox7
-//            // 
-//            this.groupBox7.Controls.Add(this.dtNgayDat);
-//            this.groupBox7.Location = new System.Drawing.Point(46, 32);
-//            this.groupBox7.Name = "groupBox7";
-//            this.groupBox7.Size = new System.Drawing.Size(265, 50);
-//            this.groupBox7.TabIndex = 0;
-//            this.groupBox7.TabStop = false;
-//            this.groupBox7.Text = "Ngày đặt";
-//            // 
-//            // dtNgayDat
-//            // 
-//            this.dtNgayDat.Location = new System.Drawing.Point(7, 21);
-//            this.dtNgayDat.Name = "dtNgayDat";
-//            this.dtNgayDat.Size = new System.Drawing.Size(252, 22);
-//            this.dtNgayDat.TabIndex = 0;
-//            // 
-//            // panel4
-//            // 
-//            this.panel4.Controls.Add(this.groupBox4);
-//            this.panel4.Location = new System.Drawing.Point(348, 459);
-//            this.panel4.Name = "panel4";
-//            this.panel4.Size = new System.Drawing.Size(628, 152);
-//            this.panel4.TabIndex = 3;
-//            // 
-//            // groupBox4
-//            // 
-//            this.groupBox4.Controls.Add(this.dgvListDatPhong);
-//            this.groupBox4.Location = new System.Drawing.Point(16, 3);
-//            this.groupBox4.Name = "groupBox4";
-//            this.groupBox4.Size = new System.Drawing.Size(607, 146);
-//            this.groupBox4.TabIndex = 0;
-//            this.groupBox4.TabStop = false;
-//            this.groupBox4.Text = "Danh sách đặt phòng";
-//            // 
-//            // dgvListDatPhong
-//            // 
-//            this.dgvListDatPhong.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-//            this.dgvListDatPhong.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-//            this.dgvListDatPhong.Location = new System.Drawing.Point(7, 21);
-//            this.dgvListDatPhong.Name = "dgvListDatPhong";
-//            this.dgvListDatPhong.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-//            this.dgvListDatPhong.Size = new System.Drawing.Size(594, 116);
-//            this.dgvListDatPhong.TabIndex = 0;
-//            // 
-//            // panel5
-//            // 
-//            this.panel5.Controls.Add(this.lbTienDV);
-//            this.panel5.Controls.Add(this.btnHuyDV);
-//            this.panel5.Controls.Add(this.label3);
-//            this.panel5.Controls.Add(this.btnThemDV);
-//            this.panel5.Controls.Add(this.groupBox5);
-//            this.panel5.Location = new System.Drawing.Point(347, 243);
-//            this.panel5.Name = "panel5";
-//            this.panel5.Size = new System.Drawing.Size(755, 210);
-//            this.panel5.TabIndex = 4;
-//            // 
-//            // lbTienDV
-//            // 
-//            this.lbTienDV.AutoSize = true;
-//            this.lbTienDV.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-//            this.lbTienDV.ForeColor = System.Drawing.Color.Red;
-//            this.lbTienDV.Location = new System.Drawing.Point(635, 161);
-//            this.lbTienDV.Name = "lbTienDV";
-//            this.lbTienDV.Size = new System.Drawing.Size(0, 24);
-//            this.lbTienDV.TabIndex = 5;
-//            // 
-//            // btnHuyDV
-//            // 
-//            this.btnHuyDV.Location = new System.Drawing.Point(635, 81);
-//            this.btnHuyDV.Name = "btnHuyDV";
-//            this.btnHuyDV.Size = new System.Drawing.Size(113, 30);
-//            this.btnHuyDV.TabIndex = 4;
-//            this.btnHuyDV.Text = "Hủy Dịch Vụ";
-//            this.btnHuyDV.UseVisualStyleBackColor = true;
-//            this.btnHuyDV.Click += new System.EventHandler(this.btnHuyDV_Click);
-//            // 
-//            // btnThemDV
-//            // 
-//            this.btnThemDV.Location = new System.Drawing.Point(635, 30);
-//            this.btnThemDV.Name = "btnThemDV";
-//            this.btnThemDV.Size = new System.Drawing.Size(113, 30);
-//            this.btnThemDV.TabIndex = 6;
-//            this.btnThemDV.Text = "Thêm Dịch Vụ";
-//            this.btnThemDV.UseVisualStyleBackColor = true;
-//            this.btnThemDV.Click += new System.EventHandler(this.btnThemDV_Click);
-//            // 
-//            // groupBox5
-//            // 
-//            this.groupBox5.Controls.Add(this.dgvChonDichVu);
-//            this.groupBox5.Location = new System.Drawing.Point(16, 9);
-//            this.groupBox5.Name = "groupBox5";
-//            this.groupBox5.Size = new System.Drawing.Size(613, 189);
-//            this.groupBox5.TabIndex = 0;
-//            this.groupBox5.TabStop = false;
-//            this.groupBox5.Text = "Danh sách dịch vụ đã chọn";
-//            // 
-//            // dgvChonDichVu
-//            // 
-//            this.dgvChonDichVu.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-//            this.dgvChonDichVu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-//            this.dgvChonDichVu.Location = new System.Drawing.Point(7, 21);
-//            this.dgvChonDichVu.Name = "dgvChonDichVu";
-//            this.dgvChonDichVu.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-//            this.dgvChonDichVu.Size = new System.Drawing.Size(595, 162);
-//            this.dgvChonDichVu.TabIndex = 0;
-//            // 
-//            // imageList1
-//            // 
-//            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-//            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-//            this.imageList1.Images.SetKeyName(0, "phongtrong.png");
-//            this.imageList1.Images.SetKeyName(1, "phongdadat.png");
-//            this.imageList1.Images.SetKeyName(2, "phongdango.png");
-//            this.imageList1.Images.SetKeyName(3, "phongbaotri.png");
-//            // 
-//            // BookingRoom
-//            // 
-//            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-//            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-//            this.ClientSize = new System.Drawing.Size(1114, 611);
-//            this.Controls.Add(this.panel5);
-//            this.Controls.Add(this.label1);
-//            this.Controls.Add(this.panel4);
-//            this.Controls.Add(this.panel2);
-//            this.Controls.Add(this.lbTongTienAll);
-//            this.Controls.Add(this.panel1);
-//            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-//            this.Margin = new System.Windows.Forms.Padding(4);
-//            this.Name = "BookingRoom";
-//            this.Text = "BookingRoom";
-//            this.Load += new System.EventHandler(this.BookingRoom_Load);
-//            this.panel1.ResumeLayout(false);
-//            this.groupBox1.ResumeLayout(false);
-//            this.panel6.ResumeLayout(false);
-//            this.panel3.ResumeLayout(false);
-//            this.groupBox3.ResumeLayout(false);
-//            this.groupBox3.PerformLayout();
-//            this.groupBox6.ResumeLayout(false);
-//            this.groupBox6.PerformLayout();
-//            this.panel2.ResumeLayout(false);
-//            this.groupBox2.ResumeLayout(false);
-//            this.groupBox14.ResumeLayout(false);
-//            this.groupBox14.PerformLayout();
-//            this.groupBox13.ResumeLayout(false);
-//            this.groupBox13.PerformLayout();
-//            this.groupBox12.ResumeLayout(false);
-//            this.groupBox12.PerformLayout();
-//            this.groupBox11.ResumeLayout(false);
-//            this.groupBox11.PerformLayout();
-//            this.groupBox10.ResumeLayout(false);
-//            this.groupBox9.ResumeLayout(false);
-//            this.groupBox8.ResumeLayout(false);
-//            this.groupBox7.ResumeLayout(false);
-//            this.panel4.ResumeLayout(false);
-//            this.groupBox4.ResumeLayout(false);
-//            ((System.ComponentModel.ISupportInitialize)(this.dgvListDatPhong)).EndInit();
-//            this.panel5.ResumeLayout(false);
-//            this.panel5.PerformLayout();
-//            this.groupBox5.ResumeLayout(false);
-//            ((System.ComponentModel.ISupportInitialize)(this.dgvChonDichVu)).EndInit();
-//            this.ResumeLayout(false);
-//            this.PerformLayout();
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.pnlLeft = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.pnlTotal = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnSuaDatPhong = new System.Windows.Forms.Button();
+            this.btnXoaDatPhong = new System.Windows.Forms.Button();
+            this.btnDatPhong = new System.Windows.Forms.Button();
+            this.btnRefreshList = new System.Windows.Forms.Button();
+            this.lblTongTienValue = new System.Windows.Forms.Label();
+            this.lblTongTien = new System.Windows.Forms.Label();
+            this.lblTienDichVuValue = new System.Windows.Forms.Label();
+            this.lblTienDichVu = new System.Windows.Forms.Label();
+            this.lblTienPhongValue = new System.Windows.Forms.Label();
+            this.lblTienPhong = new System.Windows.Forms.Label();
+            this.lblSoNgayValue = new System.Windows.Forms.Label();
+            this.lblSoNgay = new System.Windows.Forms.Label();
+            this.pnlSelectedRoom = new System.Windows.Forms.GroupBox();
+            this.lblSelectedRoomInfo = new System.Windows.Forms.Label();
+            this.pnlRoomList = new System.Windows.Forms.GroupBox();
+            this.lvPhong = new System.Windows.Forms.ListView();
+            this.pnlRoomFilter = new System.Windows.Forms.Panel();
+            this.rbBaoTri = new System.Windows.Forms.RadioButton();
+            this.rbCoKhach = new System.Windows.Forms.RadioButton();
+            this.rbTrong = new System.Windows.Forms.RadioButton();
+            this.rbTatCa = new System.Windows.Forms.RadioButton();
+            this.cboLoaiPhong = new System.Windows.Forms.ComboBox();
+            this.lblLoaiPhong = new System.Windows.Forms.Label();
+            this.pnlRight = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.pnlCustomer = new System.Windows.Forms.GroupBox();
+            this.cboKhachHang = new System.Windows.Forms.ComboBox();
+            this.lblChonKH = new System.Windows.Forms.Label();
+            this.btnAddCustomer = new System.Windows.Forms.Button();
+            this.txtCCCD = new System.Windows.Forms.TextBox();
+            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.txtSoDienThoai = new System.Windows.Forms.TextBox();
+            this.txtHoTen = new System.Windows.Forms.TextBox();
+            this.lblCCCD = new System.Windows.Forms.Label();
+            this.lblEmail = new System.Windows.Forms.Label();
+            this.lblSoDienThoai = new System.Windows.Forms.Label();
+            this.lblHoTen = new System.Windows.Forms.Label();
+            this.pnlBooking = new System.Windows.Forms.GroupBox();
+            this.lblGhiChu = new System.Windows.Forms.Label();
+            this.txtGhiChu = new System.Windows.Forms.TextBox();
+            this.cboTrangThai = new System.Windows.Forms.ComboBox();
+            this.lblTrangThai = new System.Windows.Forms.Label();
+            this.numSoNguoi = new System.Windows.Forms.NumericUpDown();
+            this.lblSoNguoi = new System.Windows.Forms.Label();
+            this.dtpNgayTra = new System.Windows.Forms.DateTimePicker();
+            this.lblNgayTra = new System.Windows.Forms.Label();
+            this.dtpNgayNhan = new System.Windows.Forms.DateTimePicker();
+            this.lblNgayNhan = new System.Windows.Forms.Label();
+            this.pnlBookingList = new System.Windows.Forms.GroupBox();
+            this.dgvDatPhong = new System.Windows.Forms.DataGridView();
+            this.pnlServices = new System.Windows.Forms.GroupBox();
+            this.dgvDichVu = new System.Windows.Forms.DataGridView();
+            this.colChon = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.colMaDV = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colTenDV = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDonGia = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSoLuong = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colThanhTien = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.imageListPhong = new System.Windows.Forms.ImageList(this.components);
+            this.tableLayoutPanel1.SuspendLayout();
+            this.pnlLeft.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            this.pnlTotal.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
+            this.pnlSelectedRoom.SuspendLayout();
+            this.pnlRoomList.SuspendLayout();
+            this.pnlRoomFilter.SuspendLayout();
+            this.pnlRight.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.pnlCustomer.SuspendLayout();
+            this.pnlBooking.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numSoNguoi)).BeginInit();
+            this.pnlBookingList.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDatPhong)).BeginInit();
+            this.pnlServices.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDichVu)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel1.Controls.Add(this.pnlLeft, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.pnlRight, 1, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(3);
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1577, 780);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // pnlLeft
+            // 
+            this.pnlLeft.Controls.Add(this.tableLayoutPanel3);
+            this.pnlLeft.Controls.Add(this.pnlRoomList);
+            this.pnlLeft.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlLeft.Location = new System.Drawing.Point(8, 8);
+            this.pnlLeft.Margin = new System.Windows.Forms.Padding(5);
+            this.pnlLeft.Name = "pnlLeft";
+            this.pnlLeft.Padding = new System.Windows.Forms.Padding(2);
+            this.pnlLeft.Size = new System.Drawing.Size(618, 764);
+            this.pnlLeft.TabIndex = 0;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 1;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Controls.Add(this.pnlTotal, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.pnlSelectedRoom, 0, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(2, 442);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.Padding = new System.Windows.Forms.Padding(5);
+            this.tableLayoutPanel3.RowCount = 2;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(614, 320);
+            this.tableLayoutPanel3.TabIndex = 2;
+            // 
+            // pnlTotal
+            // 
+            this.pnlTotal.Controls.Add(this.tableLayoutPanel4);
+            this.pnlTotal.Controls.Add(this.lblTongTienValue);
+            this.pnlTotal.Controls.Add(this.lblTongTien);
+            this.pnlTotal.Controls.Add(this.lblTienDichVuValue);
+            this.pnlTotal.Controls.Add(this.lblTienDichVu);
+            this.pnlTotal.Controls.Add(this.lblTienPhongValue);
+            this.pnlTotal.Controls.Add(this.lblTienPhong);
+            this.pnlTotal.Controls.Add(this.lblSoNgayValue);
+            this.pnlTotal.Controls.Add(this.lblSoNgay);
+            this.pnlTotal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlTotal.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlTotal.Location = new System.Drawing.Point(8, 163);
+            this.pnlTotal.Name = "pnlTotal";
+            this.pnlTotal.Padding = new System.Windows.Forms.Padding(10);
+            this.pnlTotal.Size = new System.Drawing.Size(598, 149);
+            this.pnlTotal.TabIndex = 3;
+            this.pnlTotal.TabStop = false;
+            this.pnlTotal.Text = "Tổng chi phí";
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.ColumnCount = 4;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel4.Controls.Add(this.btnSuaDatPhong, 2, 0);
+            this.tableLayoutPanel4.Controls.Add(this.btnXoaDatPhong, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.btnDatPhong, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.btnRefreshList, 3, 0);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(10, 97);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.Padding = new System.Windows.Forms.Padding(10, 3, 10, 3);
+            this.tableLayoutPanel4.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.tableLayoutPanel4.RowCount = 1;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(578, 42);
+            this.tableLayoutPanel4.TabIndex = 0;
+            // 
+            // btnSuaDatPhong
+            // 
+            this.btnSuaDatPhong.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
+            this.btnSuaDatPhong.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnSuaDatPhong.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSuaDatPhong.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSuaDatPhong.ForeColor = System.Drawing.Color.White;
+            this.btnSuaDatPhong.Location = new System.Drawing.Point(298, 6);
+            this.btnSuaDatPhong.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
+            this.btnSuaDatPhong.Name = "btnSuaDatPhong";
+            this.btnSuaDatPhong.Size = new System.Drawing.Size(119, 30);
+            this.btnSuaDatPhong.TabIndex = 0;
+            this.btnSuaDatPhong.Text = "Sửa đặt phòng";
+            this.btnSuaDatPhong.UseVisualStyleBackColor = false;
+            // 
+            // btnXoaDatPhong
+            // 
+            this.btnXoaDatPhong.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(67)))), ((int)(((byte)(54)))));
+            this.btnXoaDatPhong.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnXoaDatPhong.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnXoaDatPhong.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnXoaDatPhong.ForeColor = System.Drawing.Color.White;
+            this.btnXoaDatPhong.Location = new System.Drawing.Point(159, 6);
+            this.btnXoaDatPhong.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
+            this.btnXoaDatPhong.Name = "btnXoaDatPhong";
+            this.btnXoaDatPhong.Size = new System.Drawing.Size(119, 30);
+            this.btnXoaDatPhong.TabIndex = 1;
+            this.btnXoaDatPhong.Text = "Xóa đặt phòng";
+            this.btnXoaDatPhong.UseVisualStyleBackColor = false;
+            this.btnXoaDatPhong.Click += new System.EventHandler(this.btnXoaDatPhong_Click);
+            // 
+            // btnDatPhong
+            // 
+            this.btnDatPhong.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
+            this.btnDatPhong.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnDatPhong.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDatPhong.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDatPhong.ForeColor = System.Drawing.Color.White;
+            this.btnDatPhong.Location = new System.Drawing.Point(20, 6);
+            this.btnDatPhong.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
+            this.btnDatPhong.Name = "btnDatPhong";
+            this.btnDatPhong.Size = new System.Drawing.Size(119, 30);
+            this.btnDatPhong.TabIndex = 0;
+            this.btnDatPhong.Text = "ĐẶT PHÒNG";
+            this.btnDatPhong.UseVisualStyleBackColor = false;
+            this.btnDatPhong.Click += new System.EventHandler(this.btnDatPhong_Click);
+            // 
+            // btnRefreshList
+            // 
+            this.btnRefreshList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+            this.btnRefreshList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnRefreshList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRefreshList.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRefreshList.ForeColor = System.Drawing.Color.White;
+            this.btnRefreshList.Location = new System.Drawing.Point(437, 6);
+            this.btnRefreshList.Margin = new System.Windows.Forms.Padding(10, 3, 10, 3);
+            this.btnRefreshList.Name = "btnRefreshList";
+            this.btnRefreshList.Size = new System.Drawing.Size(121, 30);
+            this.btnRefreshList.TabIndex = 2;
+            this.btnRefreshList.Text = "Làm mới";
+            this.btnRefreshList.UseVisualStyleBackColor = false;
+            this.btnRefreshList.Click += new System.EventHandler(this.btnRefreshList_Click);
+            // 
+            // lblTongTienValue
+            // 
+            this.lblTongTienValue.AutoSize = true;
+            this.lblTongTienValue.Font = new System.Drawing.Font("Roboto", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTongTienValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(67)))), ((int)(((byte)(54)))));
+            this.lblTongTienValue.Location = new System.Drawing.Point(349, 61);
+            this.lblTongTienValue.Name = "lblTongTienValue";
+            this.lblTongTienValue.Size = new System.Drawing.Size(64, 23);
+            this.lblTongTienValue.TabIndex = 7;
+            this.lblTongTienValue.Text = "0 VNĐ";
+            // 
+            // lblTongTien
+            // 
+            this.lblTongTien.AutoSize = true;
+            this.lblTongTien.Font = new System.Drawing.Font("Roboto", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTongTien.Location = new System.Drawing.Point(233, 65);
+            this.lblTongTien.Name = "lblTongTien";
+            this.lblTongTien.Size = new System.Drawing.Size(95, 23);
+            this.lblTongTien.TabIndex = 6;
+            this.lblTongTien.Text = "Tổng tiền:";
+            // 
+            // lblTienDichVuValue
+            // 
+            this.lblTienDichVuValue.AutoSize = true;
+            this.lblTienDichVuValue.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTienDichVuValue.Location = new System.Drawing.Point(350, 34);
+            this.lblTienDichVuValue.Name = "lblTienDichVuValue";
+            this.lblTienDichVuValue.Size = new System.Drawing.Size(49, 19);
+            this.lblTienDichVuValue.TabIndex = 5;
+            this.lblTienDichVuValue.Text = "0 VNĐ";
+            // 
+            // lblTienDichVu
+            // 
+            this.lblTienDichVu.AutoSize = true;
+            this.lblTienDichVu.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTienDichVu.Location = new System.Drawing.Point(233, 34);
+            this.lblTienDichVu.Name = "lblTienDichVu";
+            this.lblTienDichVu.Size = new System.Drawing.Size(91, 19);
+            this.lblTienDichVu.TabIndex = 4;
+            this.lblTienDichVu.Text = "Tiền dịch vụ:";
+            // 
+            // lblTienPhongValue
+            // 
+            this.lblTienPhongValue.AutoSize = true;
+            this.lblTienPhongValue.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTienPhongValue.Location = new System.Drawing.Point(138, 68);
+            this.lblTienPhongValue.Name = "lblTienPhongValue";
+            this.lblTienPhongValue.Size = new System.Drawing.Size(49, 19);
+            this.lblTienPhongValue.TabIndex = 3;
+            this.lblTienPhongValue.Text = "0 VNĐ";
+            // 
+            // lblTienPhong
+            // 
+            this.lblTienPhong.AutoSize = true;
+            this.lblTienPhong.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTienPhong.Location = new System.Drawing.Point(21, 67);
+            this.lblTienPhong.Name = "lblTienPhong";
+            this.lblTienPhong.Size = new System.Drawing.Size(85, 19);
+            this.lblTienPhong.TabIndex = 2;
+            this.lblTienPhong.Text = "Tiền phòng:";
+            // 
+            // lblSoNgayValue
+            // 
+            this.lblSoNgayValue.AutoSize = true;
+            this.lblSoNgayValue.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSoNgayValue.Location = new System.Drawing.Point(137, 34);
+            this.lblSoNgayValue.Name = "lblSoNgayValue";
+            this.lblSoNgayValue.Size = new System.Drawing.Size(52, 19);
+            this.lblSoNgayValue.TabIndex = 1;
+            this.lblSoNgayValue.Text = "0 ngày";
+            // 
+            // lblSoNgay
+            // 
+            this.lblSoNgay.AutoSize = true;
+            this.lblSoNgay.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSoNgay.Location = new System.Drawing.Point(19, 34);
+            this.lblSoNgay.Name = "lblSoNgay";
+            this.lblSoNgay.Size = new System.Drawing.Size(118, 19);
+            this.lblSoNgay.TabIndex = 0;
+            this.lblSoNgay.Text = "Số ngày ở (đêm):";
+            // 
+            // pnlSelectedRoom
+            // 
+            this.pnlSelectedRoom.Controls.Add(this.lblSelectedRoomInfo);
+            this.pnlSelectedRoom.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlSelectedRoom.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.pnlSelectedRoom.Location = new System.Drawing.Point(8, 8);
+            this.pnlSelectedRoom.Name = "pnlSelectedRoom";
+            this.pnlSelectedRoom.Padding = new System.Windows.Forms.Padding(10);
+            this.pnlSelectedRoom.Size = new System.Drawing.Size(598, 149);
+            this.pnlSelectedRoom.TabIndex = 1;
+            this.pnlSelectedRoom.TabStop = false;
+            this.pnlSelectedRoom.Text = "Thông tin phòng đã chọn";
+            // 
+            // lblSelectedRoomInfo
+            // 
+            this.lblSelectedRoomInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblSelectedRoomInfo.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSelectedRoomInfo.Location = new System.Drawing.Point(10, 28);
+            this.lblSelectedRoomInfo.Name = "lblSelectedRoomInfo";
+            this.lblSelectedRoomInfo.Size = new System.Drawing.Size(578, 111);
+            this.lblSelectedRoomInfo.TabIndex = 0;
+            this.lblSelectedRoomInfo.Text = "Chưa chọn phòng nào.\r\n\r\nVui lòng chọn phòng từ danh sách bên trên.";
+            // 
+            // pnlRoomList
+            // 
+            this.pnlRoomList.Controls.Add(this.lvPhong);
+            this.pnlRoomList.Controls.Add(this.pnlRoomFilter);
+            this.pnlRoomList.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlRoomList.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlRoomList.Location = new System.Drawing.Point(2, 2);
+            this.pnlRoomList.Name = "pnlRoomList";
+            this.pnlRoomList.Padding = new System.Windows.Forms.Padding(10);
+            this.pnlRoomList.Size = new System.Drawing.Size(614, 434);
+            this.pnlRoomList.TabIndex = 0;
+            this.pnlRoomList.TabStop = false;
+            this.pnlRoomList.Text = "Danh sách phòng";
+            // 
+            // lvPhong
+            // 
+            this.lvPhong.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvPhong.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lvPhong.FullRowSelect = true;
+            this.lvPhong.GridLines = true;
+            this.lvPhong.HideSelection = false;
+            this.lvPhong.Location = new System.Drawing.Point(10, 108);
+            this.lvPhong.MultiSelect = false;
+            this.lvPhong.Name = "lvPhong";
+            this.lvPhong.Size = new System.Drawing.Size(594, 316);
+            this.lvPhong.TabIndex = 1;
+            this.lvPhong.UseCompatibleStateImageBehavior = false;
+            this.lvPhong.View = System.Windows.Forms.View.Details;
+            this.lvPhong.SelectedIndexChanged += new System.EventHandler(this.lvPhong_SelectedIndexChanged);
+            // 
+            // pnlRoomFilter
+            // 
+            this.pnlRoomFilter.Controls.Add(this.rbBaoTri);
+            this.pnlRoomFilter.Controls.Add(this.rbCoKhach);
+            this.pnlRoomFilter.Controls.Add(this.rbTrong);
+            this.pnlRoomFilter.Controls.Add(this.rbTatCa);
+            this.pnlRoomFilter.Controls.Add(this.cboLoaiPhong);
+            this.pnlRoomFilter.Controls.Add(this.lblLoaiPhong);
+            this.pnlRoomFilter.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlRoomFilter.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.pnlRoomFilter.Location = new System.Drawing.Point(10, 30);
+            this.pnlRoomFilter.Name = "pnlRoomFilter";
+            this.pnlRoomFilter.Size = new System.Drawing.Size(594, 78);
+            this.pnlRoomFilter.TabIndex = 0;
+            // 
+            // rbBaoTri
+            // 
+            this.rbBaoTri.AutoSize = true;
+            this.rbBaoTri.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbBaoTri.Location = new System.Drawing.Point(347, 47);
+            this.rbBaoTri.Name = "rbBaoTri";
+            this.rbBaoTri.Size = new System.Drawing.Size(70, 23);
+            this.rbBaoTri.TabIndex = 6;
+            this.rbBaoTri.Text = "Bảo trì";
+            this.rbBaoTri.UseVisualStyleBackColor = true;
+            this.rbBaoTri.CheckedChanged += new System.EventHandler(this.rbBaoTri_CheckedChanged);
+            // 
+            // rbCoKhach
+            // 
+            this.rbCoKhach.AutoSize = true;
+            this.rbCoKhach.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbCoKhach.Location = new System.Drawing.Point(241, 47);
+            this.rbCoKhach.Name = "rbCoKhach";
+            this.rbCoKhach.Size = new System.Drawing.Size(86, 23);
+            this.rbCoKhach.TabIndex = 4;
+            this.rbCoKhach.Text = "Có khách";
+            this.rbCoKhach.UseVisualStyleBackColor = true;
+            this.rbCoKhach.CheckedChanged += new System.EventHandler(this.rbCoKhach_CheckedChanged);
+            // 
+            // rbTrong
+            // 
+            this.rbTrong.AutoSize = true;
+            this.rbTrong.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbTrong.Location = new System.Drawing.Point(112, 47);
+            this.rbTrong.Name = "rbTrong";
+            this.rbTrong.Size = new System.Drawing.Size(106, 23);
+            this.rbTrong.TabIndex = 3;
+            this.rbTrong.Text = "Phòng trống";
+            this.rbTrong.UseVisualStyleBackColor = true;
+            this.rbTrong.CheckedChanged += new System.EventHandler(this.rbTrong_CheckedChanged);
+            // 
+            // rbTatCa
+            // 
+            this.rbTatCa.AutoSize = true;
+            this.rbTatCa.Checked = true;
+            this.rbTatCa.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbTatCa.Location = new System.Drawing.Point(15, 47);
+            this.rbTatCa.Name = "rbTatCa";
+            this.rbTatCa.Size = new System.Drawing.Size(66, 23);
+            this.rbTatCa.TabIndex = 2;
+            this.rbTatCa.TabStop = true;
+            this.rbTatCa.Text = "Tất cả";
+            this.rbTatCa.UseVisualStyleBackColor = true;
+            this.rbTatCa.CheckedChanged += new System.EventHandler(this.rbTatCa_CheckedChanged);
+            // 
+            // cboLoaiPhong
+            // 
+            this.cboLoaiPhong.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboLoaiPhong.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboLoaiPhong.FormattingEnabled = true;
+            this.cboLoaiPhong.Location = new System.Drawing.Point(98, 12);
+            this.cboLoaiPhong.Name = "cboLoaiPhong";
+            this.cboLoaiPhong.Size = new System.Drawing.Size(308, 27);
+            this.cboLoaiPhong.TabIndex = 1;
+            this.cboLoaiPhong.SelectedIndexChanged += new System.EventHandler(this.cboLoaiPhong_SelectedIndexChanged);
+            // 
+            // lblLoaiPhong
+            // 
+            this.lblLoaiPhong.AutoSize = true;
+            this.lblLoaiPhong.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLoaiPhong.Location = new System.Drawing.Point(12, 15);
+            this.lblLoaiPhong.Name = "lblLoaiPhong";
+            this.lblLoaiPhong.Size = new System.Drawing.Size(85, 19);
+            this.lblLoaiPhong.TabIndex = 0;
+            this.lblLoaiPhong.Text = "Loại phòng:";
+            // 
+            // pnlRight
+            // 
+            this.pnlRight.Controls.Add(this.tableLayoutPanel2);
+            this.pnlRight.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlRight.Location = new System.Drawing.Point(636, 8);
+            this.pnlRight.Margin = new System.Windows.Forms.Padding(5);
+            this.pnlRight.Name = "pnlRight";
+            this.pnlRight.Size = new System.Drawing.Size(933, 764);
+            this.pnlRight.TabIndex = 1;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.pnlCustomer, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.pnlBooking, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.pnlBookingList, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.pnlServices, 0, 2);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.Padding = new System.Windows.Forms.Padding(5);
+            this.tableLayoutPanel2.RowCount = 4;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 22F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 26F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 24F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 28F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(933, 764);
+            this.tableLayoutPanel2.TabIndex = 4;
+            // 
+            // pnlCustomer
+            // 
+            this.pnlCustomer.Controls.Add(this.cboKhachHang);
+            this.pnlCustomer.Controls.Add(this.lblChonKH);
+            this.pnlCustomer.Controls.Add(this.btnAddCustomer);
+            this.pnlCustomer.Controls.Add(this.txtCCCD);
+            this.pnlCustomer.Controls.Add(this.txtEmail);
+            this.pnlCustomer.Controls.Add(this.txtSoDienThoai);
+            this.pnlCustomer.Controls.Add(this.txtHoTen);
+            this.pnlCustomer.Controls.Add(this.lblCCCD);
+            this.pnlCustomer.Controls.Add(this.lblEmail);
+            this.pnlCustomer.Controls.Add(this.lblSoDienThoai);
+            this.pnlCustomer.Controls.Add(this.lblHoTen);
+            this.pnlCustomer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlCustomer.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlCustomer.Location = new System.Drawing.Point(8, 8);
+            this.pnlCustomer.Name = "pnlCustomer";
+            this.pnlCustomer.Padding = new System.Windows.Forms.Padding(10);
+            this.pnlCustomer.Size = new System.Drawing.Size(917, 159);
+            this.pnlCustomer.TabIndex = 0;
+            this.pnlCustomer.TabStop = false;
+            this.pnlCustomer.Text = "Thông tin khách hàng";
+            // 
+            // cboKhachHang
+            // 
+            this.cboKhachHang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboKhachHang.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboKhachHang.FormattingEnabled = true;
+            this.cboKhachHang.Location = new System.Drawing.Point(151, 35);
+            this.cboKhachHang.Name = "cboKhachHang";
+            this.cboKhachHang.Size = new System.Drawing.Size(378, 27);
+            this.cboKhachHang.TabIndex = 11;
+            this.cboKhachHang.SelectedIndexChanged += new System.EventHandler(this.cboKhachHang_SelectedIndexChanged);
+            // 
+            // lblChonKH
+            // 
+            this.lblChonKH.AutoSize = true;
+            this.lblChonKH.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblChonKH.Location = new System.Drawing.Point(20, 38);
+            this.lblChonKH.Name = "lblChonKH";
+            this.lblChonKH.Size = new System.Drawing.Size(135, 19);
+            this.lblChonKH.TabIndex = 10;
+            this.lblChonKH.Text = "Chọn khách hàng: *";
+            // 
+            // btnAddCustomer
+            // 
+            this.btnAddCustomer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
+            this.btnAddCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddCustomer.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddCustomer.ForeColor = System.Drawing.Color.White;
+            this.btnAddCustomer.Location = new System.Drawing.Point(595, 30);
+            this.btnAddCustomer.Name = "btnAddCustomer";
+            this.btnAddCustomer.Size = new System.Drawing.Size(120, 30);
+            this.btnAddCustomer.TabIndex = 9;
+            this.btnAddCustomer.Text = "Thêm KH mới";
+            this.btnAddCustomer.UseVisualStyleBackColor = false;
+            this.btnAddCustomer.Click += new System.EventHandler(this.btnAddCustomer_Click);
+            // 
+            // txtCCCD
+            // 
+            this.txtCCCD.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCCCD.Location = new System.Drawing.Point(389, 104);
+            this.txtCCCD.Name = "txtCCCD";
+            this.txtCCCD.ReadOnly = true;
+            this.txtCCCD.Size = new System.Drawing.Size(140, 27);
+            this.txtCCCD.TabIndex = 8;
+            // 
+            // txtEmail
+            // 
+            this.txtEmail.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmail.Location = new System.Drawing.Point(389, 69);
+            this.txtEmail.Name = "txtEmail";
+            this.txtEmail.ReadOnly = true;
+            this.txtEmail.Size = new System.Drawing.Size(140, 27);
+            this.txtEmail.TabIndex = 7;
+            // 
+            // txtSoDienThoai
+            // 
+            this.txtSoDienThoai.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSoDienThoai.Location = new System.Drawing.Point(151, 104);
+            this.txtSoDienThoai.Name = "txtSoDienThoai";
+            this.txtSoDienThoai.ReadOnly = true;
+            this.txtSoDienThoai.Size = new System.Drawing.Size(140, 27);
+            this.txtSoDienThoai.TabIndex = 6;
+            // 
+            // txtHoTen
+            // 
+            this.txtHoTen.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtHoTen.Location = new System.Drawing.Point(151, 68);
+            this.txtHoTen.Name = "txtHoTen";
+            this.txtHoTen.ReadOnly = true;
+            this.txtHoTen.Size = new System.Drawing.Size(140, 27);
+            this.txtHoTen.TabIndex = 5;
+            // 
+            // lblCCCD
+            // 
+            this.lblCCCD.AutoSize = true;
+            this.lblCCCD.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCCCD.Location = new System.Drawing.Point(318, 107);
+            this.lblCCCD.Name = "lblCCCD";
+            this.lblCCCD.Size = new System.Drawing.Size(49, 19);
+            this.lblCCCD.TabIndex = 4;
+            this.lblCCCD.Text = "CCCD:";
+            // 
+            // lblEmail
+            // 
+            this.lblEmail.AutoSize = true;
+            this.lblEmail.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEmail.Location = new System.Drawing.Point(318, 72);
+            this.lblEmail.Name = "lblEmail";
+            this.lblEmail.Size = new System.Drawing.Size(49, 19);
+            this.lblEmail.TabIndex = 3;
+            this.lblEmail.Text = "Email:";
+            // 
+            // lblSoDienThoai
+            // 
+            this.lblSoDienThoai.AutoSize = true;
+            this.lblSoDienThoai.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSoDienThoai.Location = new System.Drawing.Point(20, 107);
+            this.lblSoDienThoai.Name = "lblSoDienThoai";
+            this.lblSoDienThoai.Size = new System.Drawing.Size(98, 19);
+            this.lblSoDienThoai.TabIndex = 2;
+            this.lblSoDienThoai.Text = "Số điện thoại:";
+            // 
+            // lblHoTen
+            // 
+            this.lblHoTen.AutoSize = true;
+            this.lblHoTen.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHoTen.Location = new System.Drawing.Point(20, 71);
+            this.lblHoTen.Name = "lblHoTen";
+            this.lblHoTen.Size = new System.Drawing.Size(56, 19);
+            this.lblHoTen.TabIndex = 0;
+            this.lblHoTen.Text = "Họ tên:";
+            // 
+            // pnlBooking
+            // 
+            this.pnlBooking.Controls.Add(this.lblGhiChu);
+            this.pnlBooking.Controls.Add(this.txtGhiChu);
+            this.pnlBooking.Controls.Add(this.cboTrangThai);
+            this.pnlBooking.Controls.Add(this.lblTrangThai);
+            this.pnlBooking.Controls.Add(this.numSoNguoi);
+            this.pnlBooking.Controls.Add(this.lblSoNguoi);
+            this.pnlBooking.Controls.Add(this.dtpNgayTra);
+            this.pnlBooking.Controls.Add(this.lblNgayTra);
+            this.pnlBooking.Controls.Add(this.dtpNgayNhan);
+            this.pnlBooking.Controls.Add(this.lblNgayNhan);
+            this.pnlBooking.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlBooking.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlBooking.Location = new System.Drawing.Point(10, 175);
+            this.pnlBooking.Margin = new System.Windows.Forms.Padding(5);
+            this.pnlBooking.Name = "pnlBooking";
+            this.pnlBooking.Padding = new System.Windows.Forms.Padding(10);
+            this.pnlBooking.Size = new System.Drawing.Size(913, 186);
+            this.pnlBooking.TabIndex = 1;
+            this.pnlBooking.TabStop = false;
+            this.pnlBooking.Text = "Thông tin đặt phòng";
+            // 
+            // lblGhiChu
+            // 
+            this.lblGhiChu.AutoSize = true;
+            this.lblGhiChu.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGhiChu.Location = new System.Drawing.Point(18, 97);
+            this.lblGhiChu.Name = "lblGhiChu";
+            this.lblGhiChu.Size = new System.Drawing.Size(61, 19);
+            this.lblGhiChu.TabIndex = 17;
+            this.lblGhiChu.Text = "Ghi chú:";
+            // 
+            // txtGhiChu
+            // 
+            this.txtGhiChu.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtGhiChu.Location = new System.Drawing.Point(156, 97);
+            this.txtGhiChu.Multiline = true;
+            this.txtGhiChu.Name = "txtGhiChu";
+            this.txtGhiChu.Size = new System.Drawing.Size(557, 58);
+            this.txtGhiChu.TabIndex = 18;
+            // 
+            // cboTrangThai
+            // 
+            this.cboTrangThai.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboTrangThai.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboTrangThai.FormattingEnabled = true;
+            this.cboTrangThai.Items.AddRange(new object[] {
+            "Chờ xác nhận",
+            "Đã xác nhận",
+            "Đã nhận phòng",
+            "Đã trả phòng",
+            "Đã hủy"});
+            this.cboTrangThai.Location = new System.Drawing.Point(554, 68);
+            this.cboTrangThai.Name = "cboTrangThai";
+            this.cboTrangThai.Size = new System.Drawing.Size(159, 27);
+            this.cboTrangThai.TabIndex = 20;
+            // 
+            // lblTrangThai
+            // 
+            this.lblTrangThai.AutoSize = true;
+            this.lblTrangThai.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTrangThai.Location = new System.Drawing.Point(427, 74);
+            this.lblTrangThai.Name = "lblTrangThai";
+            this.lblTrangThai.Size = new System.Drawing.Size(78, 19);
+            this.lblTrangThai.TabIndex = 19;
+            this.lblTrangThai.Text = "Trạng thái:";
+            // 
+            // numSoNguoi
+            // 
+            this.numSoNguoi.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numSoNguoi.Location = new System.Drawing.Point(156, 68);
+            this.numSoNguoi.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numSoNguoi.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numSoNguoi.Name = "numSoNguoi";
+            this.numSoNguoi.Size = new System.Drawing.Size(149, 27);
+            this.numSoNguoi.TabIndex = 16;
+            this.numSoNguoi.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // lblSoNguoi
+            // 
+            this.lblSoNguoi.AutoSize = true;
+            this.lblSoNguoi.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSoNguoi.Location = new System.Drawing.Point(18, 74);
+            this.lblSoNguoi.Name = "lblSoNguoi";
+            this.lblSoNguoi.Size = new System.Drawing.Size(81, 19);
+            this.lblSoNguoi.TabIndex = 15;
+            this.lblSoNguoi.Text = "Số người: *";
+            // 
+            // dtpNgayTra
+            // 
+            this.dtpNgayTra.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpNgayTra.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpNgayTra.Location = new System.Drawing.Point(556, 36);
+            this.dtpNgayTra.Name = "dtpNgayTra";
+            this.dtpNgayTra.Size = new System.Drawing.Size(159, 27);
+            this.dtpNgayTra.TabIndex = 14;
+            this.dtpNgayTra.ValueChanged += new System.EventHandler(this.dtpNgayTra_ValueChanged);
+            // 
+            // lblNgayTra
+            // 
+            this.lblNgayTra.AutoSize = true;
+            this.lblNgayTra.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNgayTra.Location = new System.Drawing.Point(427, 40);
+            this.lblNgayTra.Name = "lblNgayTra";
+            this.lblNgayTra.Size = new System.Drawing.Size(123, 19);
+            this.lblNgayTra.TabIndex = 13;
+            this.lblNgayTra.Text = "Ngày trả phòng: *";
+            // 
+            // dtpNgayNhan
+            // 
+            this.dtpNgayNhan.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpNgayNhan.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpNgayNhan.Location = new System.Drawing.Point(156, 36);
+            this.dtpNgayNhan.Name = "dtpNgayNhan";
+            this.dtpNgayNhan.Size = new System.Drawing.Size(149, 27);
+            this.dtpNgayNhan.TabIndex = 12;
+            this.dtpNgayNhan.ValueChanged += new System.EventHandler(this.dtpNgayNhan_ValueChanged);
+            // 
+            // lblNgayNhan
+            // 
+            this.lblNgayNhan.AutoSize = true;
+            this.lblNgayNhan.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNgayNhan.Location = new System.Drawing.Point(18, 40);
+            this.lblNgayNhan.Name = "lblNgayNhan";
+            this.lblNgayNhan.Size = new System.Drawing.Size(137, 19);
+            this.lblNgayNhan.TabIndex = 11;
+            this.lblNgayNhan.Text = "Ngày nhận phòng: *";
+            // 
+            // pnlBookingList
+            // 
+            this.pnlBookingList.Controls.Add(this.dgvDatPhong);
+            this.pnlBookingList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlBookingList.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlBookingList.Location = new System.Drawing.Point(8, 549);
+            this.pnlBookingList.Name = "pnlBookingList";
+            this.pnlBookingList.Padding = new System.Windows.Forms.Padding(10);
+            this.pnlBookingList.Size = new System.Drawing.Size(917, 207);
+            this.pnlBookingList.TabIndex = 4;
+            this.pnlBookingList.TabStop = false;
+            this.pnlBookingList.Text = "Danh sách đặt phòng";
+            // 
+            // dgvDatPhong
+            // 
+            this.dgvDatPhong.AllowUserToAddRows = false;
+            this.dgvDatPhong.AllowUserToDeleteRows = false;
+            this.dgvDatPhong.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvDatPhong.BackgroundColor = System.Drawing.Color.White;
+            this.dgvDatPhong.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDatPhong.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvDatPhong.Location = new System.Drawing.Point(10, 30);
+            this.dgvDatPhong.MultiSelect = false;
+            this.dgvDatPhong.Name = "dgvDatPhong";
+            this.dgvDatPhong.ReadOnly = true;
+            this.dgvDatPhong.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvDatPhong.Size = new System.Drawing.Size(897, 167);
+            this.dgvDatPhong.TabIndex = 1;
+            this.dgvDatPhong.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDatPhong_CellClick);
+            // 
+            // pnlServices
+            // 
+            this.pnlServices.Controls.Add(this.dgvDichVu);
+            this.pnlServices.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlServices.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlServices.Location = new System.Drawing.Point(8, 369);
+            this.pnlServices.Name = "pnlServices";
+            this.pnlServices.Padding = new System.Windows.Forms.Padding(10);
+            this.pnlServices.Size = new System.Drawing.Size(917, 174);
+            this.pnlServices.TabIndex = 2;
+            this.pnlServices.TabStop = false;
+            this.pnlServices.Text = "Dịch vụ sử dụng (Chọn dịch vụ từ danh sách)";
+            // 
+            // dgvDichVu
+            // 
+            this.dgvDichVu.AllowUserToAddRows = false;
+            this.dgvDichVu.AllowUserToDeleteRows = false;
+            this.dgvDichVu.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvDichVu.BackgroundColor = System.Drawing.Color.White;
+            this.dgvDichVu.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
+            this.dgvDichVu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDichVu.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colChon,
+            this.colMaDV,
+            this.colTenDV,
+            this.colDonGia,
+            this.colSoLuong,
+            this.colThanhTien});
+            this.dgvDichVu.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvDichVu.Location = new System.Drawing.Point(10, 30);
+            this.dgvDichVu.Margin = new System.Windows.Forms.Padding(5);
+            this.dgvDichVu.Name = "dgvDichVu";
+            this.dgvDichVu.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvDichVu.Size = new System.Drawing.Size(897, 134);
+            this.dgvDichVu.TabIndex = 0;
+            this.dgvDichVu.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDichVu_CellValueChanged);
+            // 
+            // colChon
+            // 
+            this.colChon.FillWeight = 30F;
+            this.colChon.HeaderText = "Chọn";
+            this.colChon.Name = "colChon";
+            // 
+            // colMaDV
+            // 
+            this.colMaDV.FillWeight = 40F;
+            this.colMaDV.HeaderText = "Mã DV";
+            this.colMaDV.Name = "colMaDV";
+            this.colMaDV.ReadOnly = true;
+            // 
+            // colTenDV
+            // 
+            this.colTenDV.FillWeight = 80F;
+            this.colTenDV.HeaderText = "Tên dịch vụ";
+            this.colTenDV.Name = "colTenDV";
+            this.colTenDV.ReadOnly = true;
+            // 
+            // colDonGia
+            // 
+            this.colDonGia.FillWeight = 50F;
+            this.colDonGia.HeaderText = "Đơn giá";
+            this.colDonGia.Name = "colDonGia";
+            this.colDonGia.ReadOnly = true;
+            // 
+            // colSoLuong
+            // 
+            this.colSoLuong.FillWeight = 40F;
+            this.colSoLuong.HeaderText = "SL";
+            this.colSoLuong.Name = "colSoLuong";
+            // 
+            // colThanhTien
+            // 
+            this.colThanhTien.FillWeight = 60F;
+            this.colThanhTien.HeaderText = "Thành tiền";
+            this.colThanhTien.Name = "colThanhTien";
+            this.colThanhTien.ReadOnly = true;
+            // 
+            // imageListPhong
+            // 
+            this.imageListPhong.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageListPhong.ImageSize = new System.Drawing.Size(30, 30);
+            this.imageListPhong.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // BookingRoom
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.ClientSize = new System.Drawing.Size(1577, 780);
+            this.Controls.Add(this.tableLayoutPanel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.Name = "BookingRoom";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Quản Lý Đặt Phòng - Hotel Management System";
+            this.Load += new System.EventHandler(this.BookingRoom_Load);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.pnlLeft.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.pnlTotal.ResumeLayout(false);
+            this.pnlTotal.PerformLayout();
+            this.tableLayoutPanel4.ResumeLayout(false);
+            this.pnlSelectedRoom.ResumeLayout(false);
+            this.pnlRoomList.ResumeLayout(false);
+            this.pnlRoomFilter.ResumeLayout(false);
+            this.pnlRoomFilter.PerformLayout();
+            this.pnlRight.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.pnlCustomer.ResumeLayout(false);
+            this.pnlCustomer.PerformLayout();
+            this.pnlBooking.ResumeLayout(false);
+            this.pnlBooking.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numSoNguoi)).EndInit();
+            this.pnlBookingList.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDatPhong)).EndInit();
+            this.pnlServices.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDichVu)).EndInit();
+            this.ResumeLayout(false);
 
-//        }
+        }
 
-//        #endregion
-
-//        private System.Windows.Forms.Panel panel1;
-//        private System.Windows.Forms.GroupBox groupBox1;
-//        private System.Windows.Forms.Panel panel2;
-//        private System.Windows.Forms.GroupBox groupBox2;
-//        private System.Windows.Forms.Panel panel3;
-//        private System.Windows.Forms.GroupBox groupBox3;
-//        private System.Windows.Forms.Panel panel4;
-//        private System.Windows.Forms.GroupBox groupBox4;
-//        private System.Windows.Forms.Panel panel5;
-//        private System.Windows.Forms.GroupBox groupBox5;
-//        private System.Windows.Forms.Panel panel6;
-//        private System.Windows.Forms.GroupBox groupBox6;
-//        private System.Windows.Forms.RadioButton rbDaDat;
-//        private System.Windows.Forms.RadioButton rbTrong;
-//        private System.Windows.Forms.RadioButton rbTatCa;
-//        private System.Windows.Forms.ListView lvPhong;
-//        private System.Windows.Forms.ImageList imageList1;
-//        private System.Windows.Forms.GroupBox groupBox10;
-//        private System.Windows.Forms.Label lbTongTienAll;
-//        private System.Windows.Forms.Label label1;
-//        private System.Windows.Forms.GroupBox groupBox9;
-//        private System.Windows.Forms.GroupBox groupBox8;
-//        private System.Windows.Forms.GroupBox groupBox7;
-//        private System.Windows.Forms.DataGridView dgvChonDichVu;
-//        private System.Windows.Forms.Label label3;
-//        private System.Windows.Forms.GroupBox groupBox11;
-//        private System.Windows.Forms.DateTimePicker dtNgayTra;
-//        private System.Windows.Forms.DateTimePicker dtNgayNhan;
-//        private System.Windows.Forms.DateTimePicker dtNgayDat;
-//        private System.Windows.Forms.TextBox txtTim;
-//        private System.Windows.Forms.Button btnTim;
-//        private System.Windows.Forms.Button btnHuyDat;
-//        private System.Windows.Forms.Button btnDatPhong;
-//        private System.Windows.Forms.DataGridView dgvListDatPhong;
-//        private System.Windows.Forms.TextBox txtSoLuong;
-//        private System.Windows.Forms.RadioButton rbBaoTri;
-//        private System.Windows.Forms.RadioButton rbDangO;
-//        private System.Windows.Forms.GroupBox groupBox12;
-//        private System.Windows.Forms.TextBox txtTenDatPhong;
-//        private System.Windows.Forms.ComboBox cbDichVu;
-//        private System.Windows.Forms.GroupBox groupBox14;
-//        private System.Windows.Forms.TextBox txtMaNV;
-//        private System.Windows.Forms.GroupBox groupBox13;
-//        private System.Windows.Forms.TextBox txtMaKH;
-//        private System.Windows.Forms.Label lbTienDV;
-//        private System.Windows.Forms.Button btnHuyDV;
-//        private System.Windows.Forms.Button btnThemDV;
-//    }
-//}
+        #endregion
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Panel pnlLeft;
+        private System.Windows.Forms.GroupBox pnlRoomList;
+        private System.Windows.Forms.ListView lvPhong;
+        private System.Windows.Forms.Panel pnlRoomFilter;
+        private System.Windows.Forms.RadioButton rbBaoTri;
+        private System.Windows.Forms.RadioButton rbCoKhach;
+        private System.Windows.Forms.RadioButton rbTrong;
+        private System.Windows.Forms.RadioButton rbTatCa;
+        private System.Windows.Forms.ComboBox cboLoaiPhong;
+        private System.Windows.Forms.Label lblLoaiPhong;
+        private System.Windows.Forms.GroupBox pnlSelectedRoom;
+        private System.Windows.Forms.Label lblSelectedRoomInfo;
+        private System.Windows.Forms.Panel pnlRight;
+        private System.Windows.Forms.GroupBox pnlCustomer;
+        private System.Windows.Forms.ComboBox cboKhachHang;
+        private System.Windows.Forms.Label lblChonKH;
+        private System.Windows.Forms.Button btnAddCustomer;
+        private System.Windows.Forms.TextBox txtCCCD;
+        private System.Windows.Forms.TextBox txtEmail;
+        private System.Windows.Forms.TextBox txtSoDienThoai;
+        private System.Windows.Forms.TextBox txtHoTen;
+        private System.Windows.Forms.Label lblCCCD;
+        private System.Windows.Forms.Label lblEmail;
+        private System.Windows.Forms.Label lblSoDienThoai;
+        private System.Windows.Forms.Label lblHoTen;
+        private System.Windows.Forms.GroupBox pnlServices;
+        private System.Windows.Forms.DataGridView dgvDichVu;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn colChon;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colMaDV;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colTenDV;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colDonGia;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colSoLuong;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colThanhTien;
+        private System.Windows.Forms.GroupBox pnlTotal;
+        private System.Windows.Forms.Label lblTongTien;
+        private System.Windows.Forms.Label lblTienDichVu;
+        private System.Windows.Forms.Label lblTienPhong;
+        private System.Windows.Forms.Label lblSoNgay;
+        private System.Windows.Forms.Button btnDatPhong;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.ImageList imageListPhong;
+        private System.Windows.Forms.Label lblTongTienValue;
+        private System.Windows.Forms.Label lblTienDichVuValue;
+        private System.Windows.Forms.Label lblTienPhongValue;
+        private System.Windows.Forms.Label lblSoNgayValue;
+        private System.Windows.Forms.GroupBox pnlBookingList;
+        private System.Windows.Forms.DataGridView dgvDatPhong;
+        private System.Windows.Forms.Button btnSuaDatPhong;
+        private System.Windows.Forms.Button btnXoaDatPhong;
+        private System.Windows.Forms.Button btnRefreshList;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.GroupBox pnlBooking;
+        private System.Windows.Forms.Label lblGhiChu;
+        private System.Windows.Forms.TextBox txtGhiChu;
+        private System.Windows.Forms.ComboBox cboTrangThai;
+        private System.Windows.Forms.Label lblTrangThai;
+        private System.Windows.Forms.NumericUpDown numSoNguoi;
+        private System.Windows.Forms.Label lblSoNguoi;
+        private System.Windows.Forms.DateTimePicker dtpNgayTra;
+        private System.Windows.Forms.Label lblNgayTra;
+        private System.Windows.Forms.DateTimePicker dtpNgayNhan;
+        private System.Windows.Forms.Label lblNgayNhan;
+    }
+}

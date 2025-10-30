@@ -241,6 +241,7 @@ namespace QuanLyKhachSan.UI
             this.btnBooking.Text = "📅  Đặt phòng";
             this.btnBooking.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnBooking.UseVisualStyleBackColor = false;
+            this.btnBooking.Click += new System.EventHandler(this.btnBooking_Click);
             // 
             // btnKhachHang
             // 

@@ -191,7 +191,7 @@ namespace QuanLyKhachSan.UI
 
         private void btnBooking_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new DatPhongForm());
+            OpenChildForm(new BookingRoom());
             HighlightButton(btnBooking);
         }
 
@@ -216,5 +216,7 @@ namespace QuanLyKhachSan.UI
         private void label2_Click(object sender, EventArgs e) { }
 
         private void pictureBox1_Click(object sender, EventArgs e) { }
+
+        
     }
 }

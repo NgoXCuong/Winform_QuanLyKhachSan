@@ -17,32 +17,59 @@ namespace QuanLyKhachSan.DAL
             List<PhongModel> listPhong = new List<PhongModel>();
 
             // ✅ JOIN để lấy thêm tên loại phòng
+            //    string sql = @"
+            //SELECT 
+            //    p.MaPhong,
+            //    p.SoPhong,
+            //    p.MaLoaiPhong,
+            //    lp.TenLoaiPhong,
+            //    p.Tang,
+            //    p.TrangThai,
+            //    p.Anh
+            //FROM Phong p
+            //INNER JOIN LoaiPhong lp ON p.MaLoaiPhong = lp.MaLoaiPhong";
             string sql = @"
-        SELECT 
-            p.MaPhong,
-            p.SoPhong,
-            p.MaLoaiPhong,
-            lp.TenLoaiPhong,
-            p.Tang,
-            p.TrangThai,
-            p.Anh
-        FROM Phong p
-        INNER JOIN LoaiPhong lp ON p.MaLoaiPhong = lp.MaLoaiPhong";
+SELECT 
+    p.MaPhong,
+    p.SoPhong,
+    p.MaLoaiPhong,
+    lp.TenLoaiPhong,
+    lp.GiaCoBan,
+    lp.SucChuaToiDa,
+    p.Tang,
+    p.TrangThai,
+    p.Anh
+FROM Phong p
+INNER JOIN LoaiPhong lp ON p.MaLoaiPhong = lp.MaLoaiPhong";
+
 
             var dataTable = connDb.ExecuteQuery(sql);
 
             foreach (DataRow row in dataTable.Rows)
             {
+                //listPhong.Add(new PhongModel
+                //{
+                //    MaPhong = row["MaPhong"] == DBNull.Value ? 0 : Convert.ToInt32(row["MaPhong"]),
+                //    SoPhong = row["SoPhong"]?.ToString(),
+                //    MaLoaiPhong = row["MaLoaiPhong"] == DBNull.Value ? 0 : Convert.ToInt32(row["MaLoaiPhong"]),
+                //    TenLoaiPhong = row["TenLoaiPhong"]?.ToString(), // ✅ thêm dòng này
+                //    Tang = row["Tang"] == DBNull.Value ? 0 : Convert.ToInt32(row["Tang"]),
+                //    TrangThai = row["TrangThai"]?.ToString(),
+                //    Anh = row["Anh"] as byte[]
+                //});
                 listPhong.Add(new PhongModel
                 {
-                    MaPhong = row["MaPhong"] == DBNull.Value ? 0 : Convert.ToInt32(row["MaPhong"]),
-                    SoPhong = row["SoPhong"]?.ToString(),
-                    MaLoaiPhong = row["MaLoaiPhong"] == DBNull.Value ? 0 : Convert.ToInt32(row["MaLoaiPhong"]),
-                    TenLoaiPhong = row["TenLoaiPhong"]?.ToString(), // ✅ thêm dòng này
+                    MaPhong = Convert.ToInt32(row["MaPhong"]),
+                    SoPhong = row["SoPhong"].ToString(),
+                    MaLoaiPhong = Convert.ToInt32(row["MaLoaiPhong"]),
+                    TenLoaiPhong = row["TenLoaiPhong"].ToString(),
+                    GiaPhong = row["GiaCoBan"] == DBNull.Value ? 0 : Convert.ToDecimal(row["GiaCoBan"]),
+                    SucChuaToiDa = row["SucChuaToiDa"] == DBNull.Value ? 0 : Convert.ToInt32(row["SucChuaToiDa"]),
                     Tang = row["Tang"] == DBNull.Value ? 0 : Convert.ToInt32(row["Tang"]),
-                    TrangThai = row["TrangThai"]?.ToString(),
+                    TrangThai = row["TrangThai"].ToString(),
                     Anh = row["Anh"] as byte[]
                 });
+
             }
 
             return listPhong;
@@ -157,6 +184,29 @@ namespace QuanLyKhachSan.DAL
 
             return listPhong;
         }
+
+        // 🏷️ Cập nhật trạng thái phòng (Trống / Đang thuê / Đã đặt)
+        public bool CapNhatTrangThai(int maPhong, string trangThaiMoi)
+        {
+            string sql = "UPDATE Phong SET TrangThai = @TrangThai WHERE MaPhong = @MaPhong";
+            var parameters = new[]
+            {
+        new SqlParameter("@TrangThai", trangThaiMoi),
+        new SqlParameter("@MaPhong", maPhong)
+    };
+
+            try
+            {
+                return connDb.ExecuteNonQuery(sql, parameters) > 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi cập nhật trạng thái phòng: " + ex.Message,
+                    "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
 
         // ✅ Kiểm tra số phòng tồn tại
         public bool KiemTraSoPhongTonTai(string soPhong)

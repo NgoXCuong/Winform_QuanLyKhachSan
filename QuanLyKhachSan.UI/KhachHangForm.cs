@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using ClosedXML.Excel;
 using QuanLyKhachSan.BLL;
@@ -10,6 +11,8 @@ namespace QuanLyKhachSan.UI
     public partial class KhachHangForm : Form
     {
         private readonly KhachHangService khachHangService = new KhachHangService();
+        public int MaKhachHangMoi { get; private set; }
+
 
         public KhachHangForm()
         {
@@ -77,12 +80,12 @@ namespace QuanLyKhachSan.UI
 
                 KhachHangModel kh = new KhachHangModel
                 {
-                    HoTen = txtTenKhachHang.Text,
+                    HoTen = txtTenKhachHang.Text.Trim(),
                     GioiTinh = rbNam.Checked ? "Nam" : "Nữ",
                     NgaySinh = dtNgaySinh.Value,
-                    CCCD = txtCCCD.Text,
-                    SoDienThoai = txtSDT.Text,
-                    Email = txtEmail.Text,
+                    CCCD = txtCCCD.Text.Trim(),
+                    SoDienThoai = txtSDT.Text.Trim(),
+                    Email = txtEmail.Text.Trim(),
                     NgayTao = DateTime.Now
                 };
 
@@ -90,9 +93,19 @@ namespace QuanLyKhachSan.UI
 
                 if (ketQua)
                 {
+                    // 🟢 Sau khi thêm thành công, lấy lại mã khách hàng mới
+                    var khMoi = khachHangService.GetAllKhachHang()
+                        .FirstOrDefault(x => x.CCCD == kh.CCCD || x.Email == kh.Email);
+
+                    if (khMoi != null)
+                    {
+                        MaKhachHangMoi = khMoi.MaKH; // 🔹 Gán mã để BookingRoom biết
+                    }
+
                     MessageBox.Show("Thêm khách hàng thành công", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LoadListKhachHang();
-                    ResetKhachHang();
+
+                    this.DialogResult = DialogResult.OK; // 🔹 Báo cho BookingRoom biết form hoàn tất
+                    this.Close(); // 🔹 Đóng form
                 }
                 else
                 {
@@ -101,9 +114,11 @@ namespace QuanLyKhachSan.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Đã xảy ra lỗi khi thêm khách hàng!\nChi tiết: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Đã xảy ra lỗi khi thêm khách hàng!\nChi tiết: " + ex.Message,
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void btnSua_Click(object sender, EventArgs e)
         {

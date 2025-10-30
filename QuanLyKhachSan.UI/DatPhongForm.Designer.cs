@@ -57,8 +57,6 @@
             this.cboLoaiPhong = new System.Windows.Forms.ComboBox();
             this.lblLoaiPhong = new System.Windows.Forms.Label();
             this.pnlRoomList = new System.Windows.Forms.GroupBox();
-            this.dgvPhongTrong = new System.Windows.Forms.DataGridView();
-            this.btnTimPhong = new System.Windows.Forms.Button();
             this.pnlServices = new System.Windows.Forms.GroupBox();
             this.dgvDichVu = new System.Windows.Forms.DataGridView();
             this.btnThemDichVu = new System.Windows.Forms.Button();
@@ -77,16 +75,25 @@
             this.btnHuy = new System.Windows.Forms.Button();
             this.btnLamMoi = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.lvPhong = new System.Windows.Forms.ListView();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.rbBaoTri = new System.Windows.Forms.RadioButton();
+            this.rbDangO = new System.Windows.Forms.RadioButton();
+            this.rbDaDat = new System.Windows.Forms.RadioButton();
+            this.rbTrong = new System.Windows.Forms.RadioButton();
+            this.rbTatCa = new System.Windows.Forms.RadioButton();
             this.pnlCustomer.SuspendLayout();
             this.pnlBooking.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numSoNguoi)).BeginInit();
             this.pnlRoomList.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPhongTrong)).BeginInit();
             this.pnlServices.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDichVu)).BeginInit();
             this.pnlTotal.SuspendLayout();
             this.pnlButtons.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.panel6.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlCustomer
@@ -109,7 +116,7 @@
             this.pnlCustomer.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.pnlCustomer.Location = new System.Drawing.Point(13, 13);
             this.pnlCustomer.Name = "pnlCustomer";
-            this.pnlCustomer.Size = new System.Drawing.Size(684, 334);
+            this.pnlCustomer.Size = new System.Drawing.Size(708, 292);
             this.pnlCustomer.TabIndex = 1;
             this.pnlCustomer.TabStop = false;
             this.pnlCustomer.Text = "Thông tin khách hàng";
@@ -120,7 +127,7 @@
             this.btnSearchCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSearchCustomer.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnSearchCustomer.ForeColor = System.Drawing.Color.White;
-            this.btnSearchCustomer.Location = new System.Drawing.Point(530, 30);
+            this.btnSearchCustomer.Location = new System.Drawing.Point(33, 180);
             this.btnSearchCustomer.Name = "btnSearchCustomer";
             this.btnSearchCustomer.Size = new System.Drawing.Size(110, 30);
             this.btnSearchCustomer.TabIndex = 13;
@@ -133,7 +140,7 @@
             this.btnAddCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddCustomer.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnAddCustomer.ForeColor = System.Drawing.Color.White;
-            this.btnAddCustomer.Location = new System.Drawing.Point(530, 175);
+            this.btnAddCustomer.Location = new System.Drawing.Point(400, 180);
             this.btnAddCustomer.Name = "btnAddCustomer";
             this.btnAddCustomer.Size = new System.Drawing.Size(110, 30);
             this.btnAddCustomer.TabIndex = 12;
@@ -270,9 +277,9 @@
             this.pnlBooking.Controls.Add(this.lblLoaiPhong);
             this.pnlBooking.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlBooking.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.pnlBooking.Location = new System.Drawing.Point(703, 13);
+            this.pnlBooking.Location = new System.Drawing.Point(727, 13);
             this.pnlBooking.Name = "pnlBooking";
-            this.pnlBooking.Size = new System.Drawing.Size(684, 334);
+            this.pnlBooking.Size = new System.Drawing.Size(708, 292);
             this.pnlBooking.TabIndex = 2;
             this.pnlBooking.TabStop = false;
             this.pnlBooking.Text = "Thông tin đặt phòng";
@@ -280,10 +287,10 @@
             // txtGhiChu
             // 
             this.txtGhiChu.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txtGhiChu.Location = new System.Drawing.Point(120, 140);
+            this.txtGhiChu.Location = new System.Drawing.Point(150, 140);
             this.txtGhiChu.Multiline = true;
             this.txtGhiChu.Name = "txtGhiChu";
-            this.txtGhiChu.Size = new System.Drawing.Size(540, 60);
+            this.txtGhiChu.Size = new System.Drawing.Size(510, 60);
             this.txtGhiChu.TabIndex = 11;
             // 
             // lblGhiChu
@@ -299,7 +306,7 @@
             // numSoNguoi
             // 
             this.numSoNguoi.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.numSoNguoi.Location = new System.Drawing.Point(520, 105);
+            this.numSoNguoi.Location = new System.Drawing.Point(520, 35);
             this.numSoNguoi.Maximum = new decimal(new int[] {
             10,
             0,
@@ -323,7 +330,7 @@
             // 
             this.lblSoNguoi.AutoSize = true;
             this.lblSoNguoi.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.lblSoNguoi.Location = new System.Drawing.Point(430, 108);
+            this.lblSoNguoi.Location = new System.Drawing.Point(430, 38);
             this.lblSoNguoi.Name = "lblSoNguoi";
             this.lblSoNguoi.Size = new System.Drawing.Size(57, 15);
             this.lblSoNguoi.TabIndex = 8;
@@ -352,7 +359,7 @@
             // 
             this.dtpNgayNhan.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.dtpNgayNhan.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpNgayNhan.Location = new System.Drawing.Point(270, 70);
+            this.dtpNgayNhan.Location = new System.Drawing.Point(150, 72);
             this.dtpNgayNhan.Name = "dtpNgayNhan";
             this.dtpNgayNhan.Size = new System.Drawing.Size(140, 23);
             this.dtpNgayNhan.TabIndex = 5;
@@ -361,7 +368,7 @@
             // 
             this.lblNgayNhan.AutoSize = true;
             this.lblNgayNhan.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.lblNgayNhan.Location = new System.Drawing.Point(160, 73);
+            this.lblNgayNhan.Location = new System.Drawing.Point(30, 76);
             this.lblNgayNhan.Name = "lblNgayNhan";
             this.lblNgayNhan.Size = new System.Drawing.Size(106, 15);
             this.lblNgayNhan.TabIndex = 4;
@@ -372,9 +379,9 @@
             this.cboPhong.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboPhong.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.cboPhong.FormattingEnabled = true;
-            this.cboPhong.Location = new System.Drawing.Point(120, 105);
+            this.cboPhong.Location = new System.Drawing.Point(150, 105);
             this.cboPhong.Name = "cboPhong";
-            this.cboPhong.Size = new System.Drawing.Size(290, 23);
+            this.cboPhong.Size = new System.Drawing.Size(260, 23);
             this.cboPhong.TabIndex = 3;
             // 
             // lblPhong
@@ -392,9 +399,9 @@
             this.cboLoaiPhong.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboLoaiPhong.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.cboLoaiPhong.FormattingEnabled = true;
-            this.cboLoaiPhong.Location = new System.Drawing.Point(120, 35);
+            this.cboLoaiPhong.Location = new System.Drawing.Point(150, 35);
             this.cboLoaiPhong.Name = "cboLoaiPhong";
-            this.cboLoaiPhong.Size = new System.Drawing.Size(290, 23);
+            this.cboLoaiPhong.Size = new System.Drawing.Size(260, 23);
             this.cboLoaiPhong.TabIndex = 1;
             // 
             // lblLoaiPhong
@@ -409,44 +416,16 @@
             // 
             // pnlRoomList
             // 
-            this.pnlRoomList.Controls.Add(this.dgvPhongTrong);
-            this.pnlRoomList.Controls.Add(this.btnTimPhong);
+            this.pnlRoomList.Controls.Add(this.panel6);
+            this.pnlRoomList.Controls.Add(this.groupBox6);
             this.pnlRoomList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlRoomList.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.pnlRoomList.Location = new System.Drawing.Point(13, 353);
+            this.pnlRoomList.Location = new System.Drawing.Point(13, 311);
             this.pnlRoomList.Name = "pnlRoomList";
-            this.pnlRoomList.Size = new System.Drawing.Size(684, 334);
+            this.pnlRoomList.Size = new System.Drawing.Size(708, 420);
             this.pnlRoomList.TabIndex = 3;
             this.pnlRoomList.TabStop = false;
             this.pnlRoomList.Text = "Danh sách phòng trống";
-            // 
-            // dgvPhongTrong
-            // 
-            this.dgvPhongTrong.AllowUserToAddRows = false;
-            this.dgvPhongTrong.AllowUserToDeleteRows = false;
-            this.dgvPhongTrong.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvPhongTrong.BackgroundColor = System.Drawing.Color.White;
-            this.dgvPhongTrong.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPhongTrong.Location = new System.Drawing.Point(20, 70);
-            this.dgvPhongTrong.MultiSelect = false;
-            this.dgvPhongTrong.Name = "dgvPhongTrong";
-            this.dgvPhongTrong.ReadOnly = true;
-            this.dgvPhongTrong.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvPhongTrong.Size = new System.Drawing.Size(620, 230);
-            this.dgvPhongTrong.TabIndex = 1;
-            // 
-            // btnTimPhong
-            // 
-            this.btnTimPhong.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
-            this.btnTimPhong.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTimPhong.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.btnTimPhong.ForeColor = System.Drawing.Color.White;
-            this.btnTimPhong.Location = new System.Drawing.Point(20, 30);
-            this.btnTimPhong.Name = "btnTimPhong";
-            this.btnTimPhong.Size = new System.Drawing.Size(150, 30);
-            this.btnTimPhong.TabIndex = 0;
-            this.btnTimPhong.Text = "Tìm phòng trống";
-            this.btnTimPhong.UseVisualStyleBackColor = false;
             // 
             // pnlServices
             // 
@@ -455,9 +434,9 @@
             this.pnlServices.Controls.Add(this.btnXoaDichVu);
             this.pnlServices.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlServices.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.pnlServices.Location = new System.Drawing.Point(703, 353);
+            this.pnlServices.Location = new System.Drawing.Point(727, 311);
             this.pnlServices.Name = "pnlServices";
-            this.pnlServices.Size = new System.Drawing.Size(684, 334);
+            this.pnlServices.Size = new System.Drawing.Size(708, 420);
             this.pnlServices.TabIndex = 4;
             this.pnlServices.TabStop = false;
             this.pnlServices.Text = "Dịch vụ sử dụng";
@@ -472,7 +451,7 @@
             this.dgvDichVu.MultiSelect = false;
             this.dgvDichVu.Name = "dgvDichVu";
             this.dgvDichVu.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDichVu.Size = new System.Drawing.Size(640, 230);
+            this.dgvDichVu.Size = new System.Drawing.Size(682, 281);
             this.dgvDichVu.TabIndex = 2;
             // 
             // btnThemDichVu
@@ -513,9 +492,9 @@
             this.pnlTotal.Controls.Add(this.lblSoNgay);
             this.pnlTotal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlTotal.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.pnlTotal.Location = new System.Drawing.Point(13, 693);
+            this.pnlTotal.Location = new System.Drawing.Point(727, 737);
             this.pnlTotal.Name = "pnlTotal";
-            this.pnlTotal.Size = new System.Drawing.Size(684, 164);
+            this.pnlTotal.Size = new System.Drawing.Size(708, 122);
             this.pnlTotal.TabIndex = 5;
             this.pnlTotal.TabStop = false;
             this.pnlTotal.Text = "Tổng chi phí";
@@ -606,9 +585,9 @@
             this.pnlButtons.Controls.Add(this.btnDatPhong);
             this.pnlButtons.Controls.Add(this.btnHuy);
             this.pnlButtons.Controls.Add(this.btnLamMoi);
-            this.pnlButtons.Location = new System.Drawing.Point(703, 693);
+            this.pnlButtons.Location = new System.Drawing.Point(13, 737);
             this.pnlButtons.Name = "pnlButtons";
-            this.pnlButtons.Size = new System.Drawing.Size(525, 70);
+            this.pnlButtons.Size = new System.Drawing.Size(538, 60);
             this.pnlButtons.TabIndex = 6;
             // 
             // btnDatPhong
@@ -617,7 +596,7 @@
             this.btnDatPhong.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDatPhong.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnDatPhong.ForeColor = System.Drawing.Color.White;
-            this.btnDatPhong.Location = new System.Drawing.Point(189, 16);
+            this.btnDatPhong.Location = new System.Drawing.Point(196, 11);
             this.btnDatPhong.Name = "btnDatPhong";
             this.btnDatPhong.Size = new System.Drawing.Size(150, 40);
             this.btnDatPhong.TabIndex = 0;
@@ -630,7 +609,7 @@
             this.btnHuy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHuy.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnHuy.ForeColor = System.Drawing.Color.White;
-            this.btnHuy.Location = new System.Drawing.Point(19, 16);
+            this.btnHuy.Location = new System.Drawing.Point(1, 11);
             this.btnHuy.Name = "btnHuy";
             this.btnHuy.Size = new System.Drawing.Size(150, 40);
             this.btnHuy.TabIndex = 2;
@@ -643,7 +622,7 @@
             this.btnLamMoi.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLamMoi.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnLamMoi.ForeColor = System.Drawing.Color.White;
-            this.btnLamMoi.Location = new System.Drawing.Point(359, 16);
+            this.btnLamMoi.Location = new System.Drawing.Point(385, 11);
             this.btnLamMoi.Name = "btnLamMoi";
             this.btnLamMoi.Size = new System.Drawing.Size(150, 40);
             this.btnLamMoi.TabIndex = 1;
@@ -656,29 +635,113 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.pnlCustomer, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.pnlButtons, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.pnlBooking, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.pnlTotal, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.pnlRoomList, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.pnlServices, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.pnlTotal, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.pnlButtons, 0, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(10);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(10);
             this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1400, 870);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 35F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1448, 872);
             this.tableLayoutPanel1.TabIndex = 7;
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.lvPhong);
+            this.panel6.Location = new System.Drawing.Point(24, 82);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(672, 321);
+            this.panel6.TabIndex = 1;
+            // 
+            // lvPhong
+            // 
+            this.lvPhong.HideSelection = false;
+            this.lvPhong.Location = new System.Drawing.Point(4, 10);
+            this.lvPhong.Name = "lvPhong";
+            this.lvPhong.Size = new System.Drawing.Size(657, 298);
+            this.lvPhong.TabIndex = 0;
+            this.lvPhong.UseCompatibleStateImageBehavior = false;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.rbBaoTri);
+            this.groupBox6.Controls.Add(this.rbDangO);
+            this.groupBox6.Controls.Add(this.rbDaDat);
+            this.groupBox6.Controls.Add(this.rbTrong);
+            this.groupBox6.Controls.Add(this.rbTatCa);
+            this.groupBox6.Location = new System.Drawing.Point(24, 30);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(672, 46);
+            this.groupBox6.TabIndex = 0;
+            this.groupBox6.TabStop = false;
+            // 
+            // rbBaoTri
+            // 
+            this.rbBaoTri.AutoSize = true;
+            this.rbBaoTri.Location = new System.Drawing.Point(322, 11);
+            this.rbBaoTri.Name = "rbBaoTri";
+            this.rbBaoTri.Size = new System.Drawing.Size(72, 23);
+            this.rbBaoTri.TabIndex = 4;
+            this.rbBaoTri.TabStop = true;
+            this.rbBaoTri.Text = "Bảo trì";
+            this.rbBaoTri.UseVisualStyleBackColor = true;
+            // 
+            // rbDangO
+            // 
+            this.rbDangO.AutoSize = true;
+            this.rbDangO.Location = new System.Drawing.Point(226, 11);
+            this.rbDangO.Name = "rbDangO";
+            this.rbDangO.Size = new System.Drawing.Size(75, 23);
+            this.rbDangO.TabIndex = 3;
+            this.rbDangO.TabStop = true;
+            this.rbDangO.Text = "Đang ở";
+            this.rbDangO.UseVisualStyleBackColor = true;
+            // 
+            // rbDaDat
+            // 
+            this.rbDaDat.AutoSize = true;
+            this.rbDaDat.Location = new System.Drawing.Point(436, 11);
+            this.rbDaDat.Name = "rbDaDat";
+            this.rbDaDat.Size = new System.Drawing.Size(117, 23);
+            this.rbDaDat.TabIndex = 2;
+            this.rbDaDat.Text = "Phòng đã đặt";
+            this.rbDaDat.UseVisualStyleBackColor = true;
+            // 
+            // rbTrong
+            // 
+            this.rbTrong.AutoSize = true;
+            this.rbTrong.Location = new System.Drawing.Point(103, 11);
+            this.rbTrong.Name = "rbTrong";
+            this.rbTrong.Size = new System.Drawing.Size(111, 23);
+            this.rbTrong.TabIndex = 1;
+            this.rbTrong.Text = "Phòng trống";
+            this.rbTrong.UseVisualStyleBackColor = true;
+            // 
+            // rbTatCa
+            // 
+            this.rbTatCa.AutoSize = true;
+            this.rbTatCa.Checked = true;
+            this.rbTatCa.Location = new System.Drawing.Point(6, 11);
+            this.rbTatCa.Name = "rbTatCa";
+            this.rbTatCa.Size = new System.Drawing.Size(67, 23);
+            this.rbTatCa.TabIndex = 0;
+            this.rbTatCa.TabStop = true;
+            this.rbTatCa.Text = "Tất cả";
+            this.rbTatCa.UseVisualStyleBackColor = true;
             // 
             // DatPhongForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
-            this.ClientSize = new System.Drawing.Size(1400, 870);
+            this.ClientSize = new System.Drawing.Size(1448, 872);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -691,13 +754,15 @@
             this.pnlBooking.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numSoNguoi)).EndInit();
             this.pnlRoomList.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPhongTrong)).EndInit();
             this.pnlServices.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDichVu)).EndInit();
             this.pnlTotal.ResumeLayout(false);
             this.pnlTotal.PerformLayout();
             this.pnlButtons.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.panel6.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -732,8 +797,6 @@
         private System.Windows.Forms.ComboBox cboLoaiPhong;
         private System.Windows.Forms.Label lblLoaiPhong;
         private System.Windows.Forms.GroupBox pnlRoomList;
-        private System.Windows.Forms.DataGridView dgvPhongTrong;
-        private System.Windows.Forms.Button btnTimPhong;
         private System.Windows.Forms.GroupBox pnlServices;
         private System.Windows.Forms.DataGridView dgvDichVu;
         private System.Windows.Forms.Button btnThemDichVu;
@@ -752,5 +815,13 @@
         private System.Windows.Forms.Button btnHuy;
         private System.Windows.Forms.Button btnLamMoi;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.ListView lvPhong;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.RadioButton rbBaoTri;
+        private System.Windows.Forms.RadioButton rbDangO;
+        private System.Windows.Forms.RadioButton rbDaDat;
+        private System.Windows.Forms.RadioButton rbTrong;
+        private System.Windows.Forms.RadioButton rbTatCa;
     }
 }
