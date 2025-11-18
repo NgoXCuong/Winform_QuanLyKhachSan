@@ -16,5 +16,10 @@ namespace QuanLyKhachSan.UI
         {
             InitializeComponent();
         }
+
+        private void txtTienDichVu_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

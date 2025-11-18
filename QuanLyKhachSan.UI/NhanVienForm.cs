@@ -308,6 +308,7 @@ namespace QuanLyKhachSan.UI
             dgvListNhanVien.Columns["SoDienThoai"].HeaderText = "SĐT";
             dgvListNhanVien.Columns["Email"].HeaderText = "Email";
             dgvListNhanVien.Columns["Anh"].HeaderText = "Ảnh nhân viên";
+            dgvListNhanVien.Columns["TrangThai"].HeaderText = "Trạng Thái";
             dgvListNhanVien.Columns["HienThiMaVaTen"].Visible = false; // Ẩn cột này nếu không cần thiết
         }
 

@@ -103,9 +103,11 @@ namespace QuanLyKhachSan.UI
                     }
 
                     MessageBox.Show("Thêm khách hàng thành công", Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadListKhachHang();
+                    ResetKhachHang();
 
-                    this.DialogResult = DialogResult.OK; // 🔹 Báo cho BookingRoom biết form hoàn tất
-                    this.Close(); // 🔹 Đóng form
+                    //this.DialogResult = DialogResult.OK; // 🔹 Báo cho BookingRoom biết form hoàn tất
+                    //this.Close(); // 🔹 Đóng form
                 }
                 else
                 {

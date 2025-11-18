@@ -13,6 +13,26 @@ namespace QuanLyKhachSan.DAL
         // =============================
         // LẤY DANH SÁCH ĐẶT PHÒNG
         // =============================
+        //public List<DatPhongModel> GetAllDatPhong()
+        //{
+        //    var list = new List<DatPhongModel>();
+        //    string sql = "SELECT * FROM DatPhong";
+
+        //    try
+        //    {
+        //        var table = connDb.ExecuteQuery(sql);
+        //        foreach (DataRow row in table.Rows)
+        //        {
+        //            list.Add(MapDatPhong(row));
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine("Lỗi GetAllDatPhong: " + ex.Message);
+        //    }
+
+        //    return list;
+        //}
         public List<DatPhongModel> GetAllDatPhong()
         {
             var list = new List<DatPhongModel>();
@@ -23,7 +43,12 @@ namespace QuanLyKhachSan.DAL
                 var table = connDb.ExecuteQuery(sql);
                 foreach (DataRow row in table.Rows)
                 {
-                    list.Add(MapDatPhong(row));
+                    var dp = MapDatPhong(row);
+
+                    // 💥 Tính lại tổng tiền bao gồm cả dịch vụ
+                    dp.TongTien = TinhTongTien(dp.MaDatPhong);
+
+                    list.Add(dp);
                 }
             }
             catch (Exception ex)
@@ -33,6 +58,7 @@ namespace QuanLyKhachSan.DAL
 
             return list;
         }
+
 
         // =============================
         // LẤY ĐẶT PHÒNG THEO ID
@@ -55,44 +81,7 @@ namespace QuanLyKhachSan.DAL
             }
         }
 
-        // =============================
-        // THÊM MỚI ĐẶT PHÒNG
-        // =============================
-        //    public int InsertDatPhong(DatPhongModel dp)
-        //    {
-        //        int maMoi = 0;
-        //        string query = @"
-        //    INSERT INTO DatPhong (MaKH, MaPhong, MaNV, NgayNhanPhong, NgayTraPhong, SoNguoi, TongTien, TrangThai, GhiChu, NgayTao)
-        //    VALUES (@MaKH, @MaPhong, @MaNV, @NgayNhanPhong, @NgayTraPhong, @SoNguoi, @TongTien, @TrangThai, @GhiChu, @NgayTao);
-        //    SELECT SCOPE_IDENTITY();";
-
-        //        var parameters = new[]
-        //        {
-        //    new SqlParameter("@MaKH", dp.MaKH),
-        //    new SqlParameter("@MaPhong", dp.MaPhong),
-        //    new SqlParameter("@MaNV", dp.MaNV.HasValue ? (object)dp.MaNV.Value : DBNull.Value),
-        //    new SqlParameter("@NgayNhanPhong", dp.NgayNhanPhong),
-        //    new SqlParameter("@NgayTraPhong", dp.NgayTraPhong),
-        //    new SqlParameter("@SoNguoi", dp.SoNguoi),
-        //    new SqlParameter("@TongTien", dp.TongTien),
-        //    new SqlParameter("@TrangThai", dp.TrangThai ?? (object)DBNull.Value),
-        //    new SqlParameter("@GhiChu", dp.GhiChu ?? (object)DBNull.Value),
-        //    new SqlParameter("@NgayTao", dp.NgayTao)
-        //};
-
-        //        try
-        //        {
-        //            var result = connDb.ExecuteScalar(query, parameters);
-        //            if (result != null)
-        //                maMoi = Convert.ToInt32(result);
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            Console.WriteLine("Lỗi InsertDatPhong: " + ex.Message);
-        //        }
-
-        //        return maMoi;
-        //    }
+        
         public int InsertDatPhong(DatPhongModel dp)
         {
             int maMoi = 0;
@@ -177,6 +166,8 @@ namespace QuanLyKhachSan.DAL
                 new SqlParameter("@TrangThai", dp.TrangThai ?? (object)DBNull.Value),
                 new SqlParameter("@GhiChu", string.IsNullOrEmpty(dp.GhiChu) ? (object)DBNull.Value : dp.GhiChu)
             };
+
+
 
             try
             {
@@ -379,6 +370,124 @@ namespace QuanLyKhachSan.DAL
                 Console.WriteLine("Lỗi DeleteChiTietDichVu: " + ex.Message);
                 return false;
             }
+        }
+
+        // =============================
+        // TÍNH TỔNG TIỀN (PHÒNG + DỊCH VỤ)
+        // =============================
+        public decimal TinhTongTien(int maDatPhong)
+        {
+            decimal tongTienPhong = 0;
+            decimal tongTienDichVu = 0;
+
+            try
+            {
+                // ✅ Lấy tổng tiền phòng
+                string sqlPhong = "SELECT TongTien FROM DatPhong WHERE MaDatPhong = @MaDatPhong";
+                var param = new SqlParameter("@MaDatPhong", maDatPhong);
+                var resultPhong = connDb.ExecuteScalar(sqlPhong, new[] { param });
+                if (resultPhong != null && resultPhong != DBNull.Value)
+                    tongTienPhong = Convert.ToDecimal(resultPhong);
+
+                // ✅ Lấy tổng tiền dịch vụ
+                string sqlDV = "SELECT SUM(SoLuong * DonGia) FROM DatPhong_DichVu WHERE MaDatPhong = @MaDatPhong";
+                var resultDV = connDb.ExecuteScalar(sqlDV, new[] { param });
+                if (resultDV != null && resultDV != DBNull.Value)
+                    tongTienDichVu = Convert.ToDecimal(resultDV);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Lỗi TinhTongTien: " + ex.Message);
+            }
+
+            return tongTienPhong + tongTienDichVu;
+        }
+
+        public bool UpdateTongTien(int maDatPhong, decimal tongTien)
+        {
+            SqlConnection conn = null;
+            try
+            {
+                conn = connDb.GetConnection();
+
+                string query = "UPDATE DatPhong SET TongTien = @TongTien WHERE MaDatPhong = @MaDatPhong";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@TongTien", tongTien);
+                cmd.Parameters.AddWithValue("@MaDatPhong", maDatPhong);
+
+                if (conn.State == ConnectionState.Closed)
+                    conn.Open();
+
+                int rowsAffected = cmd.ExecuteNonQuery();
+                return rowsAffected > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Lỗi khi cập nhật tổng tiền đặt phòng: " + ex.Message);
+                return false;
+            }
+            finally
+            {
+                if (conn != null && conn.State == ConnectionState.Open)
+                    conn.Close(); // 🔒 Đảm bảo đóng kết nối lại
+            }
+        }
+
+
+        public bool DeleteDichVuByDatPhong(int maDatPhong)
+        {
+            string sql = "DELETE FROM DatPhong_DichVu WHERE MaDatPhong = @MaDatPhong";
+            var param = new SqlParameter("@MaDatPhong", maDatPhong);
+
+            try
+            {
+                return connDb.ExecuteNonQuery(sql, new[] { param }) > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Lỗi DeleteDichVuByDatPhong: " + ex.Message);
+                return false;
+            }
+        }
+        public bool CapNhatDichVuChoDatPhong(int maDatPhong, List<DatPhongDichVuModel> danhSachDichVu)
+        {
+            bool ok = true;
+
+            try
+            {
+                // 🔹 Xóa tất cả dịch vụ cũ
+                DeleteDichVuByDatPhong(maDatPhong);
+
+                // 🔹 Thêm lại danh sách dịch vụ mới
+                foreach (var dv in danhSachDichVu)
+                {
+                    var sql = @"
+                INSERT INTO DatPhong_DichVu (MaDatPhong, MaDV, SoLuong, DonGia, NgaySuDung)
+                VALUES (@MaDatPhong, @MaDV, @SoLuong, @DonGia, @NgaySuDung)";
+
+                    var parameters = new[]
+                    {
+                new SqlParameter("@MaDatPhong", maDatPhong),
+                new SqlParameter("@MaDV", dv.MaDV),
+                new SqlParameter("@SoLuong", dv.SoLuong),
+                new SqlParameter("@DonGia", dv.DonGia),
+                new SqlParameter("@NgaySuDung", dv.NgaySuDung)
+            };
+
+                    if (connDb.ExecuteNonQuery(sql, parameters) <= 0)
+                    {
+                        ok = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Lỗi CapNhatDichVuChoDatPhong: " + ex.Message);
+                ok = false;
+            }
+
+            return ok;
         }
 
     }

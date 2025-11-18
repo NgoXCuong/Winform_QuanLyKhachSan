@@ -55,7 +55,6 @@
             this.rbCoKhach = new System.Windows.Forms.RadioButton();
             this.rbTrong = new System.Windows.Forms.RadioButton();
             this.rbTatCa = new System.Windows.Forms.RadioButton();
-            this.cboLoaiPhong = new System.Windows.Forms.ComboBox();
             this.lblLoaiPhong = new System.Windows.Forms.Label();
             this.pnlRight = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -211,8 +210,9 @@
             this.btnSuaDatPhong.Name = "btnSuaDatPhong";
             this.btnSuaDatPhong.Size = new System.Drawing.Size(119, 30);
             this.btnSuaDatPhong.TabIndex = 0;
-            this.btnSuaDatPhong.Text = "Sửa đặt phòng";
+            this.btnSuaDatPhong.Text = "SỬA ĐẶT";
             this.btnSuaDatPhong.UseVisualStyleBackColor = false;
+            this.btnSuaDatPhong.Click += new System.EventHandler(this.btnSuaDatPhong_Click);
             // 
             // btnXoaDatPhong
             // 
@@ -226,7 +226,7 @@
             this.btnXoaDatPhong.Name = "btnXoaDatPhong";
             this.btnXoaDatPhong.Size = new System.Drawing.Size(119, 30);
             this.btnXoaDatPhong.TabIndex = 1;
-            this.btnXoaDatPhong.Text = "Xóa đặt phòng";
+            this.btnXoaDatPhong.Text = "HỦY ĐẶT";
             this.btnXoaDatPhong.UseVisualStyleBackColor = false;
             this.btnXoaDatPhong.Click += new System.EventHandler(this.btnXoaDatPhong_Click);
             // 
@@ -258,7 +258,7 @@
             this.btnRefreshList.Name = "btnRefreshList";
             this.btnRefreshList.Size = new System.Drawing.Size(121, 30);
             this.btnRefreshList.TabIndex = 2;
-            this.btnRefreshList.Text = "Làm mới";
+            this.btnRefreshList.Text = "LÀM MỚI";
             this.btnRefreshList.UseVisualStyleBackColor = false;
             this.btnRefreshList.Click += new System.EventHandler(this.btnRefreshList_Click);
             // 
@@ -387,10 +387,10 @@
             this.lvPhong.FullRowSelect = true;
             this.lvPhong.GridLines = true;
             this.lvPhong.HideSelection = false;
-            this.lvPhong.Location = new System.Drawing.Point(10, 108);
+            this.lvPhong.Location = new System.Drawing.Point(10, 68);
             this.lvPhong.MultiSelect = false;
             this.lvPhong.Name = "lvPhong";
-            this.lvPhong.Size = new System.Drawing.Size(594, 316);
+            this.lvPhong.Size = new System.Drawing.Size(594, 356);
             this.lvPhong.TabIndex = 1;
             this.lvPhong.UseCompatibleStateImageBehavior = false;
             this.lvPhong.View = System.Windows.Forms.View.Details;
@@ -402,20 +402,19 @@
             this.pnlRoomFilter.Controls.Add(this.rbCoKhach);
             this.pnlRoomFilter.Controls.Add(this.rbTrong);
             this.pnlRoomFilter.Controls.Add(this.rbTatCa);
-            this.pnlRoomFilter.Controls.Add(this.cboLoaiPhong);
             this.pnlRoomFilter.Controls.Add(this.lblLoaiPhong);
             this.pnlRoomFilter.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlRoomFilter.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.pnlRoomFilter.Location = new System.Drawing.Point(10, 30);
             this.pnlRoomFilter.Name = "pnlRoomFilter";
-            this.pnlRoomFilter.Size = new System.Drawing.Size(594, 78);
+            this.pnlRoomFilter.Size = new System.Drawing.Size(594, 38);
             this.pnlRoomFilter.TabIndex = 0;
             // 
             // rbBaoTri
             // 
             this.rbBaoTri.AutoSize = true;
             this.rbBaoTri.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbBaoTri.Location = new System.Drawing.Point(347, 47);
+            this.rbBaoTri.Location = new System.Drawing.Point(346, 6);
             this.rbBaoTri.Name = "rbBaoTri";
             this.rbBaoTri.Size = new System.Drawing.Size(70, 23);
             this.rbBaoTri.TabIndex = 6;
@@ -427,7 +426,7 @@
             // 
             this.rbCoKhach.AutoSize = true;
             this.rbCoKhach.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbCoKhach.Location = new System.Drawing.Point(241, 47);
+            this.rbCoKhach.Location = new System.Drawing.Point(240, 6);
             this.rbCoKhach.Name = "rbCoKhach";
             this.rbCoKhach.Size = new System.Drawing.Size(86, 23);
             this.rbCoKhach.TabIndex = 4;
@@ -439,7 +438,7 @@
             // 
             this.rbTrong.AutoSize = true;
             this.rbTrong.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbTrong.Location = new System.Drawing.Point(112, 47);
+            this.rbTrong.Location = new System.Drawing.Point(111, 6);
             this.rbTrong.Name = "rbTrong";
             this.rbTrong.Size = new System.Drawing.Size(106, 23);
             this.rbTrong.TabIndex = 3;
@@ -452,7 +451,7 @@
             this.rbTatCa.AutoSize = true;
             this.rbTatCa.Checked = true;
             this.rbTatCa.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbTatCa.Location = new System.Drawing.Point(15, 47);
+            this.rbTatCa.Location = new System.Drawing.Point(14, 6);
             this.rbTatCa.Name = "rbTatCa";
             this.rbTatCa.Size = new System.Drawing.Size(66, 23);
             this.rbTatCa.TabIndex = 2;
@@ -461,26 +460,14 @@
             this.rbTatCa.UseVisualStyleBackColor = true;
             this.rbTatCa.CheckedChanged += new System.EventHandler(this.rbTatCa_CheckedChanged);
             // 
-            // cboLoaiPhong
-            // 
-            this.cboLoaiPhong.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboLoaiPhong.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboLoaiPhong.FormattingEnabled = true;
-            this.cboLoaiPhong.Location = new System.Drawing.Point(98, 12);
-            this.cboLoaiPhong.Name = "cboLoaiPhong";
-            this.cboLoaiPhong.Size = new System.Drawing.Size(308, 27);
-            this.cboLoaiPhong.TabIndex = 1;
-            this.cboLoaiPhong.SelectedIndexChanged += new System.EventHandler(this.cboLoaiPhong_SelectedIndexChanged);
-            // 
             // lblLoaiPhong
             // 
             this.lblLoaiPhong.AutoSize = true;
             this.lblLoaiPhong.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLoaiPhong.Location = new System.Drawing.Point(12, 15);
             this.lblLoaiPhong.Name = "lblLoaiPhong";
-            this.lblLoaiPhong.Size = new System.Drawing.Size(85, 19);
+            this.lblLoaiPhong.Size = new System.Drawing.Size(0, 19);
             this.lblLoaiPhong.TabIndex = 0;
-            this.lblLoaiPhong.Text = "Loại phòng:";
             // 
             // pnlRight
             // 
@@ -791,7 +778,7 @@
             // 
             this.pnlBookingList.Controls.Add(this.dgvDatPhong);
             this.pnlBookingList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlBookingList.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlBookingList.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pnlBookingList.Location = new System.Drawing.Point(8, 549);
             this.pnlBookingList.Name = "pnlBookingList";
             this.pnlBookingList.Padding = new System.Windows.Forms.Padding(10);
@@ -821,7 +808,7 @@
             // 
             this.pnlServices.Controls.Add(this.dgvDichVu);
             this.pnlServices.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlServices.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlServices.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pnlServices.Location = new System.Drawing.Point(8, 369);
             this.pnlServices.Name = "pnlServices";
             this.pnlServices.Padding = new System.Windows.Forms.Padding(10);
@@ -948,7 +935,6 @@
         private System.Windows.Forms.RadioButton rbCoKhach;
         private System.Windows.Forms.RadioButton rbTrong;
         private System.Windows.Forms.RadioButton rbTatCa;
-        private System.Windows.Forms.ComboBox cboLoaiPhong;
         private System.Windows.Forms.Label lblLoaiPhong;
         private System.Windows.Forms.GroupBox pnlSelectedRoom;
         private System.Windows.Forms.Label lblSelectedRoomInfo;

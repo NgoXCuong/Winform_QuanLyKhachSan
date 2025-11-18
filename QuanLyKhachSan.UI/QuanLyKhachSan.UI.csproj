@@ -158,12 +158,6 @@
     <Compile Include="QuenMatKhauForm.Designer.cs">
       <DependentUpon>QuenMatKhauForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Test.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Test.Designer.cs">
-      <DependentUpon>Test.cs</DependentUpon>
-    </Compile>
     <Compile Include="TestHoaDon.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -221,8 +215,8 @@
     <EmbeddedResource Include="QuenMatKhauForm.resx">
       <DependentUpon>QuenMatKhauForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Test.resx">
-      <DependentUpon>Test.cs</DependentUpon>
+    <EmbeddedResource Include="TestHoaDon.resx">
+      <DependentUpon>TestHoaDon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ThongKeForm.resx">
       <DependentUpon>ThongKeForm.cs</DependentUpon>

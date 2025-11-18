@@ -14,9 +14,6 @@ namespace QuanLyKhachSan.BLL
             _repository = new DatPhongRepository();
         }
 
-        // =============================
-        // LẤY DỮ LIỆU
-        // =============================
         public List<DatPhongModel> GetAllDatPhong() => _repository.GetAllDatPhong();
 
         public DatPhongModel GetDatPhongById(int maDatPhong)
@@ -26,9 +23,6 @@ namespace QuanLyKhachSan.BLL
             return _repository.GetDatPhongById(maDatPhong);
         }
 
-        // =============================
-        // THÊM ĐẶT PHÒNG
-        // =============================
         public int ThemDatPhong(DatPhongModel dp, List<DatPhongDichVuModel> dsDichVu = null)
         {
             ValidateDatPhong(dp);
@@ -56,43 +50,68 @@ namespace QuanLyKhachSan.BLL
             return maDatPhongMoi;
         }
 
-        // =============================
-        // SỬA ĐẶT PHÒNG
-        // =============================
-        public bool SuaDatPhong(DatPhongModel dp)
+        public bool SuaDatPhong(DatPhongModel dp, List<DatPhongDichVuModel> dsDichVu = null)
         {
             if (dp == null || dp.MaDatPhong <= 0)
-                throw new ArgumentException("Đặt phòng không hợp lệ.");
+                throw new ArgumentException("Dữ liệu đặt phòng không hợp lệ!");
 
-            ValidateDatPhong(dp); // Kiểm tra các trường hợp hợp lệ
+            try
+            {
+                Console.WriteLine("🧩 B1: Validate dữ liệu...");
+                ValidateDatPhong(dp);
 
-            // Cập nhật dữ liệu trong DB
-            return _repository.UpdateDatPhong(dp);
+                Console.WriteLine("🧩 B2: Gọi UpdateDatPhong...");
+                bool result = _repository.UpdateDatPhong(dp);
+                Console.WriteLine("🔍 Kết quả UpdateDatPhong = " + result);
+
+                if (!result)
+                    return false;
+
+                if (dsDichVu != null)
+                {
+                    Console.WriteLine("🧩 B3: Cập nhật danh sách dịch vụ...");
+                    _repository.CapNhatDichVuChoDatPhong(dp.MaDatPhong, dsDichVu);
+                }
+
+                Console.WriteLine("🧩 B4: Cập nhật tổng tiền...");
+                dp.TongTien = TinhTongTien(dp);
+                _repository.UpdateTongTien(dp.MaDatPhong, dp.TongTien);
+
+                if (!string.IsNullOrWhiteSpace(dp.TrangThai))
+                {
+                    Console.WriteLine("🧩 B5: Cập nhật trạng thái phòng...");
+                    _repository.CapNhatTrangThaiPhong(dp.MaPhong, dp.TrangThai);
+                }
+
+                Console.WriteLine("✅ B6: Hoàn tất cập nhật!");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("🔥 Lỗi trong SuaDatPhong: " + ex.Message);
+                throw; // hoặc return false;
+            }
         }
 
-        // =============================
-        // XÓA ĐẶT PHÒNG (tự động xóa chi tiết dịch vụ)
-        // =============================
+        public bool CapNhatDichVu(int maDatPhong, List<DatPhongDichVuModel> danhSachDichVu)
+        {
+            return _repository.CapNhatDichVuChoDatPhong(maDatPhong, danhSachDichVu);
+        }
+
         public bool XoaDatPhong(int maDatPhong)
         {
             if (maDatPhong <= 0)
                 throw new ArgumentException("Mã đặt phòng không hợp lệ.");
 
-            // Xóa chi tiết dịch vụ trước
             var dsDichVu = _repository.GetDichVuByDatPhong(maDatPhong);
             foreach (var dv in dsDichVu)
             {
                 _repository.DeleteChiTietDichVu(dv.MaDPDV);
             }
 
-            // Xóa đặt phòng chính
             return _repository.DeleteDatPhong(maDatPhong);
         }
 
-
-        // =============================
-        // THÊM CHI TIẾT DỊCH VỤ
-        // =============================
         public bool ThemChiTietDichVu(DatPhongDichVuModel ctdv)
         {
             if (ctdv.MaDatPhong <= 0)
@@ -104,12 +123,19 @@ namespace QuanLyKhachSan.BLL
             if (ctdv.SoLuong <= 0)
                 throw new ArgumentException("Số lượng dịch vụ phải lớn hơn 0.");
 
-            return _repository.InsertChiTietDichVu(ctdv);
+            bool result = _repository.InsertChiTietDichVu(ctdv);
+
+            if (result)
+            {
+                // Sau khi thêm dịch vụ, cập nhật lại tổng tiền đặt phòng
+                var dp = _repository.GetDatPhongById(ctdv.MaDatPhong);
+                dp.TongTien = TinhTongTien(dp);
+                _repository.UpdateTongTien(dp.MaDatPhong, dp.TongTien);
+            }
+
+            return result;
         }
 
-        // =============================
-        // CẬP NHẬT TRẠNG THÁI ĐẶT PHÒNG
-        // =============================
         public bool CapNhatTrangThai(int maDatPhong, string trangThaiMoi)
         {
             if (maDatPhong <= 0)
@@ -121,9 +147,7 @@ namespace QuanLyKhachSan.BLL
             return _repository.UpdateTrangThai(maDatPhong, trangThaiMoi);
         }
 
-        // =============================
-        // TÍNH TỔNG TIỀN
-        // =============================
+
         private decimal TinhTongTien(DatPhongModel dp)
         {
             decimal giaPhong = _repository.GetGiaPhong(dp.MaPhong);
@@ -132,32 +156,41 @@ namespace QuanLyKhachSan.BLL
 
             decimal tongTien = giaPhong * soNgay;
 
-            // Phụ thu nếu nhiều hơn 2 người
             if (dp.SoNguoi > 2)
                 tongTien += (dp.SoNguoi - 2) * 100000;
 
+            var danhSachDichVu = _repository.GetDichVuByDatPhong(dp.MaDatPhong);
+
+            if (danhSachDichVu != null && danhSachDichVu.Count > 0)
+            {
+                foreach (var dv in danhSachDichVu)
+                {
+                    // mỗi DatPhongDichVuModel có DonGia và SoLuong
+                    tongTien += dv.DonGia * dv.SoLuong;
+                }
+            }
             return tongTien;
         }
 
-        // =============================
-        // KIỂM TRA HỢP LỆ DỮ LIỆU
-        // =============================
         private void ValidateDatPhong(DatPhongModel dp)
         {
             if (dp == null)
                 throw new ArgumentNullException(nameof(dp), "Đối tượng đặt phòng không được null.");
-
             if (dp.MaKH <= 0)
                 throw new ArgumentException("Chưa chọn khách hàng.");
-
             if (dp.MaPhong <= 0)
                 throw new ArgumentException("Chưa chọn phòng.");
-
             if (dp.NgayTraPhong <= dp.NgayNhanPhong)
                 throw new ArgumentException("Ngày trả phòng phải sau ngày nhận phòng.");
-
             if (dp.SoNguoi <= 0)
                 throw new ArgumentException("Số người phải lớn hơn 0.");
+        }
+
+        public List<DatPhongDichVuModel> GetDichVuByDatPhong(int maDatPhong)
+        {
+            if (maDatPhong <= 0)
+                throw new ArgumentException("Mã đặt phòng không hợp lệ.");
+            return _repository.GetDichVuByDatPhong(maDatPhong);
         }
     }
 }

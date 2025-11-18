@@ -16,60 +16,27 @@ namespace QuanLyKhachSan.DAL
         {
             List<PhongModel> listPhong = new List<PhongModel>();
 
-            // ✅ JOIN để lấy thêm tên loại phòng
-            //    string sql = @"
-            //SELECT 
-            //    p.MaPhong,
-            //    p.SoPhong,
-            //    p.MaLoaiPhong,
-            //    lp.TenLoaiPhong,
-            //    p.Tang,
-            //    p.TrangThai,
-            //    p.Anh
-            //FROM Phong p
-            //INNER JOIN LoaiPhong lp ON p.MaLoaiPhong = lp.MaLoaiPhong";
-            string sql = @"
-SELECT 
-    p.MaPhong,
-    p.SoPhong,
-    p.MaLoaiPhong,
-    lp.TenLoaiPhong,
-    lp.GiaCoBan,
-    lp.SucChuaToiDa,
-    p.Tang,
-    p.TrangThai,
-    p.Anh
-FROM Phong p
-INNER JOIN LoaiPhong lp ON p.MaLoaiPhong = lp.MaLoaiPhong";
+
+            string sql = @"SELECT MaPhong, SoPhong, TenLoaiPhong, GiaCoBan,
+                SucChuaToiDa, Tang, TrangThai, Anh, MoTa FROM Phong";
 
 
             var dataTable = connDb.ExecuteQuery(sql);
 
             foreach (DataRow row in dataTable.Rows)
             {
-                //listPhong.Add(new PhongModel
-                //{
-                //    MaPhong = row["MaPhong"] == DBNull.Value ? 0 : Convert.ToInt32(row["MaPhong"]),
-                //    SoPhong = row["SoPhong"]?.ToString(),
-                //    MaLoaiPhong = row["MaLoaiPhong"] == DBNull.Value ? 0 : Convert.ToInt32(row["MaLoaiPhong"]),
-                //    TenLoaiPhong = row["TenLoaiPhong"]?.ToString(), // ✅ thêm dòng này
-                //    Tang = row["Tang"] == DBNull.Value ? 0 : Convert.ToInt32(row["Tang"]),
-                //    TrangThai = row["TrangThai"]?.ToString(),
-                //    Anh = row["Anh"] as byte[]
-                //});
                 listPhong.Add(new PhongModel
                 {
                     MaPhong = Convert.ToInt32(row["MaPhong"]),
                     SoPhong = row["SoPhong"].ToString(),
-                    MaLoaiPhong = Convert.ToInt32(row["MaLoaiPhong"]),
                     TenLoaiPhong = row["TenLoaiPhong"].ToString(),
                     GiaPhong = row["GiaCoBan"] == DBNull.Value ? 0 : Convert.ToDecimal(row["GiaCoBan"]),
                     SucChuaToiDa = row["SucChuaToiDa"] == DBNull.Value ? 0 : Convert.ToInt32(row["SucChuaToiDa"]),
                     Tang = row["Tang"] == DBNull.Value ? 0 : Convert.ToInt32(row["Tang"]),
                     TrangThai = row["TrangThai"].ToString(),
-                    Anh = row["Anh"] as byte[]
+                    Anh = row["Anh"] as byte[],
+                    MoTa = row["MoTa"]?.ToString()
                 });
-
             }
 
             return listPhong;
@@ -79,40 +46,52 @@ INNER JOIN LoaiPhong lp ON p.MaLoaiPhong = lp.MaLoaiPhong";
         // ➕ Thêm phòng
         public bool ThemPhong(PhongModel phong)
         {
-            string sql = @"INSERT INTO Phong (SoPhong, MaLoaiPhong, Tang, TrangThai, Anh) 
-                           VALUES (@SoPhong, @MaLoaiPhong, @Tang, @TrangThai, @Anh)";
+            string sql = @"INSERT INTO Phong 
+                (SoPhong, TenLoaiPhong, GiaCoBan, SucChuaToiDa, Tang, TrangThai, Anh, MoTa) 
+                VALUES 
+                (@SoPhong, @TenLoaiPhong, @GiaCoBan, @SucChuaToiDa, @Tang, @TrangThai, @Anh, @MoTa)";
+
             var parameters = new SqlParameter[]
             {
                 new SqlParameter("@SoPhong", phong.SoPhong),
-                new SqlParameter("@MaLoaiPhong", phong.MaLoaiPhong),
+                new SqlParameter("@TenLoaiPhong", phong.TenLoaiPhong),
+                new SqlParameter("@GiaCoBan", phong.GiaPhong),
+                new SqlParameter("@SucChuaToiDa", phong.SucChuaToiDa),
                 new SqlParameter("@Tang", phong.Tang),
                 new SqlParameter("@TrangThai", phong.TrangThai ?? "Trống"),
-                new SqlParameter("@Anh", SqlDbType.VarBinary) { Value = phong.Anh ?? (object)DBNull.Value }
+                new SqlParameter("@Anh", SqlDbType.VarBinary) { Value = phong.Anh ?? (object)DBNull.Value },
+                new SqlParameter("@MoTa", phong.MoTa ?? "")
             };
+
             return connDb.ExecuteNonQuery(sql, parameters) > 0;
         }
 
         // ✏️ Sửa phòng
         public bool SuaPhong(PhongModel phong)
         {
-            string sql = @"UPDATE Phong 
-                           SET SoPhong = @SoPhong, 
-                               MaLoaiPhong = @MaLoaiPhong, 
-                               Tang = @Tang, 
-                               TrangThai = @TrangThai, 
-                               Anh = @Anh
-                           WHERE MaPhong = @MaPhong";
+            string sql = @"UPDATE Phong SET
+                SoPhong = @SoPhong, TenLoaiPhong = @TenLoaiPhong,
+                GiaPhong = @GiaCoBan, SucChuaToiDa = @SucChuaToiDa,
+                Tang = @Tang, TrangThai = @TrangThai,
+                Anh = @Anh, MoTa = @MoTa
+                WHERE MaPhong = @MaPhong";
+
             var parameters = new SqlParameter[]
             {
                 new SqlParameter("@MaPhong", phong.MaPhong),
                 new SqlParameter("@SoPhong", phong.SoPhong),
-                new SqlParameter("@MaLoaiPhong", phong.MaLoaiPhong),
+                new SqlParameter("@TenLoaiPhong", phong.TenLoaiPhong),
+                new SqlParameter("@GiaCoBan", phong.GiaPhong),
+                new SqlParameter("@SucChuaToiDa", phong.SucChuaToiDa),
                 new SqlParameter("@Tang", phong.Tang),
                 new SqlParameter("@TrangThai", phong.TrangThai),
-                new SqlParameter("@Anh", SqlDbType.VarBinary) { Value = phong.Anh ?? (object)DBNull.Value }
+                new SqlParameter("@Anh", SqlDbType.VarBinary) { Value = phong.Anh ?? (object)DBNull.Value },
+                new SqlParameter("@MoTa", phong.MoTa ?? "")
             };
+
             return connDb.ExecuteNonQuery(sql, parameters) > 0;
         }
+
 
         // 🗑️ Xóa phòng
         public bool XoaPhong(int maPhong)
@@ -120,28 +99,24 @@ INNER JOIN LoaiPhong lp ON p.MaLoaiPhong = lp.MaLoaiPhong";
             try
             {
                 string sql = "DELETE FROM Phong WHERE MaPhong = @MaPhong";
-                var parameters = new SqlParameter[] { new SqlParameter("@MaPhong", maPhong) };
-                int rowsAffected = connDb.ExecuteNonQuery(sql, parameters);
-                return rowsAffected > 0;
+                var parameters = new[] { new SqlParameter("@MaPhong", maPhong) };
+
+                return connDb.ExecuteNonQuery(sql, parameters) > 0;
             }
             catch (SqlException ex)
             {
-                if (ex.Number == 547) // Khóa ngoại tồn tại (liên quan đến DatPhong)
+                if (ex.Number == 547)
                 {
                     MessageBox.Show("Không thể xóa phòng vì có dữ liệu đặt phòng liên quan.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
-                    MessageBox.Show("Lỗi SQL: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Lỗi SQL: " + ex.Message);
                 }
                 return false;
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi hệ thống: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
         }
+
 
         // 🔍 Tìm phòng theo từ khóa
         public List<PhongModel> TimPhong(string keyword)
@@ -173,14 +148,18 @@ INNER JOIN LoaiPhong lp ON p.MaLoaiPhong = lp.MaLoaiPhong";
             {
                 listPhong.Add(new PhongModel
                 {
-                    MaPhong = row["MaPhong"] == DBNull.Value ? 0 : Convert.ToInt32(row["MaPhong"]),
-                    SoPhong = row["SoPhong"]?.ToString(),
-                    MaLoaiPhong = row["MaLoaiPhong"] == DBNull.Value ? 0 : Convert.ToInt32(row["MaLoaiPhong"]),
+                    MaPhong = Convert.ToInt32(row["MaPhong"]),
+                    SoPhong = row["SoPhong"].ToString(),
+                    TenLoaiPhong = row["TenLoaiPhong"].ToString(),
+                    GiaPhong = row["GiaCoBan"] == DBNull.Value ? 0 : Convert.ToDecimal(row["GiaCoBan"]),
+                    SucChuaToiDa = row["SucChuaToiDa"] == DBNull.Value ? 0 : Convert.ToInt32(row["SucChuaToiDa"]),
                     Tang = row["Tang"] == DBNull.Value ? 0 : Convert.ToInt32(row["Tang"]),
-                    TrangThai = row["TrangThai"]?.ToString(),
-                    Anh = row["Anh"] as byte[]
+                    TrangThai = row["TrangThai"].ToString(),
+                    Anh = row["Anh"] as byte[],
+                    MoTa = row["MoTa"].ToString()
                 });
             }
+
 
             return listPhong;
         }
@@ -191,9 +170,9 @@ INNER JOIN LoaiPhong lp ON p.MaLoaiPhong = lp.MaLoaiPhong";
             string sql = "UPDATE Phong SET TrangThai = @TrangThai WHERE MaPhong = @MaPhong";
             var parameters = new[]
             {
-        new SqlParameter("@TrangThai", trangThaiMoi),
-        new SqlParameter("@MaPhong", maPhong)
-    };
+                new SqlParameter("@TrangThai", trangThaiMoi),
+                new SqlParameter("@MaPhong", maPhong)
+            };
 
             try
             {
@@ -261,12 +240,15 @@ INNER JOIN LoaiPhong lp ON p.MaLoaiPhong = lp.MaLoaiPhong";
             var row = table.Rows[0];
             return new PhongModel
             {
-                MaPhong = row["MaPhong"] == DBNull.Value ? 0 : Convert.ToInt32(row["MaPhong"]),
-                SoPhong = row["SoPhong"]?.ToString(),
-                MaLoaiPhong = row["MaLoaiPhong"] == DBNull.Value ? 0 : Convert.ToInt32(row["MaLoaiPhong"]),
+                MaPhong = Convert.ToInt32(row["MaPhong"]),
+                SoPhong = row["SoPhong"].ToString(),
+                TenLoaiPhong = row["TenLoaiPhong"].ToString(),
+                GiaPhong = row["GiaCoBan"] == DBNull.Value ? 0 : Convert.ToDecimal(row["GiaCoBan"]),
+                SucChuaToiDa = row["SucChuaToiDa"] == DBNull.Value ? 0 : Convert.ToInt32(row["SucChuaToiDa"]),
                 Tang = row["Tang"] == DBNull.Value ? 0 : Convert.ToInt32(row["Tang"]),
-                TrangThai = row["TrangThai"]?.ToString(),
-                Anh = row["Anh"] as byte[]
+                TrangThai = row["TrangThai"].ToString(),
+                Anh = row["Anh"] as byte[],
+                MoTa = row["MoTa"]?.ToString()
             };
         }
     }

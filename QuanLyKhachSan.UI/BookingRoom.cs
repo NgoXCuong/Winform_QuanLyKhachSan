@@ -25,7 +25,7 @@ namespace QuanLyKhachSan.UI
         public BookingRoom()
         {
             InitializeComponent();
-            LoadLoaiPhong();
+            //LoadLoaiPhong();
             LoadPhong(); // Hiển thị tất cả phòng ban đầu
             LoadKhachHang(); // 🧩 Thêm dòng này
             LoadListDichVu();
@@ -53,7 +53,7 @@ namespace QuanLyKhachSan.UI
             }
         }
 
-        private void LoadPhong(string trangThaiLoc = "", int maLoaiPhongLoc = 0)
+        private void LoadPhong(string trangThaiLoc = "", string tenLoaiPhongLoc = "")
         {
             try
             {
@@ -69,9 +69,10 @@ namespace QuanLyKhachSan.UI
                 foreach (var phong in danhSachPhong)
                 {
                     string trangThai = phong.TrangThai?.Trim().ToLower() ?? "";
+                    string tenLoaiPhong = phong.TenLoaiPhong?.Trim().ToLower() ?? "";
 
                     // 🔹 Lọc theo loại phòng (nếu có chọn)
-                    if (maLoaiPhongLoc != 0 && phong.MaLoaiPhong != maLoaiPhongLoc)
+                    if (!string.IsNullOrEmpty(tenLoaiPhongLoc) && tenLoaiPhong != tenLoaiPhongLoc.ToLower())
                         continue;
 
                     // 🔹 Lọc theo trạng thái (nếu có chọn)
@@ -135,38 +136,18 @@ namespace QuanLyKhachSan.UI
                 LoadPhong("Bảo trì");
         }
 
-        private void LoadLoaiPhong()
-        {
-            LoaiPhongService loaiPhongService = new LoaiPhongService();  // hoặc thông qua service nếu có
-            var listLoaiPhong = loaiPhongService.GetAllLoaiPhong();
+        //private void LoadLoaiPhong()
+        //{
+        //    LoaiPhongService loaiPhongService = new LoaiPhongService();  // hoặc thông qua service nếu có
+        //    var listLoaiPhong = loaiPhongService.GetAllLoaiPhong();
 
-            // 🟢 Thêm mục "Tất cả" ở đầu danh sách
-            listLoaiPhong.Insert(0, new LoaiPhongModel
-            {
-                MaLoaiPhong = 0,
-                TenLoaiPhong = "Tất cả"
-            });
-
-            cboLoaiPhong.DataSource = listLoaiPhong;
-            cboLoaiPhong.DisplayMember = "TenLoaiPhong";
-            cboLoaiPhong.ValueMember = "MaLoaiPhong";
-        }
-
-        private void cboLoaiPhong_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cboLoaiPhong.SelectedItem is LoaiPhongModel selectedLoaiPhong)
-            {
-                int maLoaiPhong = selectedLoaiPhong.MaLoaiPhong;
-
-                // Nếu có radio trạng thái đang chọn:
-                string trangThaiLoc = "";
-                if (rbTrong.Checked) trangThaiLoc = "trống";
-                else if (rbCoKhach.Checked) trangThaiLoc = "có khách";
-                else if (rbBaoTri.Checked) trangThaiLoc = "bảo trì";
-
-                LoadPhong(trangThaiLoc, maLoaiPhong);
-            }
-        }
+        //    // 🟢 Thêm mục "Tất cả" ở đầu danh sách
+        //    listLoaiPhong.Insert(0, new LoaiPhongModel
+        //    {
+        //        MaLoaiPhong = 0,
+        //        TenLoaiPhong = "Tất cả"
+        //    });
+        //}
 
         private void lvPhong_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -184,7 +165,8 @@ namespace QuanLyKhachSan.UI
                         $"💰 Giá cơ bản: {phong.GiaPhong:N0} VNĐ\n" +
                         $"👥 Sức chứa tối đa: {phong.SucChuaToiDa} người\n" +
                         $"📶 Trạng thái: {phong.TrangThai}\n" +
-                        $"🏢 Tầng: {phong.Tang}";
+                        $"🏢 Tầng: {phong.Tang}\n" +
+                        $"📝 Mô tả: {phong.MoTa}";
 
                     // 🧮 Cập nhật giá phòng
                     tienPhong = phong.GiaPhong;
@@ -605,7 +587,7 @@ namespace QuanLyKhachSan.UI
 
         private void btnRefreshList_Click(object sender, EventArgs e)
         {
-            LoadLoaiPhong();
+            //LoadLoaiPhong();
             LoadPhong(); // Hiển thị tất cả phòng ban đầu
             LoadKhachHang(); // 🧩 Thêm dòng này
             LoadListDichVu();
@@ -669,13 +651,190 @@ namespace QuanLyKhachSan.UI
             }
         }
 
-
+        
         private void dgvDatPhong_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            if (e.RowIndex < 0) return;
+
+            DataGridViewRow row = dgvDatPhong.Rows[e.RowIndex];
+            maDatPhongDangChon = Convert.ToInt32(row.Cells["MaDatPhong"].Value);
+
+            // ======================
+            // 1️⃣ HIỂN THỊ KHÁCH HÀNG
+            // ======================
+            int maKH = Convert.ToInt32(row.Cells["MaKH"].Value);
+            cboKhachHang.SelectedValue = maKH;
+
+            var kh = khachHangService.LayThongTinKhachHang(maKH);
+            if (kh != null)
             {
-                DataGridViewRow row = dgvDatPhong.Rows[e.RowIndex];
-                maDatPhongDangChon = Convert.ToInt32(row.Cells["MaDatPhong"].Value); // 👈 đổi tên ở đây
+                txtHoTen.Text = kh.HoTen;
+                txtEmail.Text = kh.Email;
+                txtSoDienThoai.Text = kh.SoDienThoai;
+                txtCCCD.Text = kh.CCCD;
+            }
+
+            // ======================
+            // 2️⃣ HIỂN THỊ PHÒNG
+            // ======================
+            int maPhong = Convert.ToInt32(row.Cells["MaPhong"].Value);
+            var phong = phongService.GetById(maPhong);
+            if (phong != null)
+            {
+                lblSelectedRoomInfo.Text =
+                    $"🆔 Mã phòng: {phong.MaPhong}\n" +
+                    $"🏠 Số phòng: {phong.SoPhong}\n" +
+                    $"🏷️ Loại phòng: {phong.TenLoaiPhong}\n" +
+                    $"💰 Giá cơ bản: {phong.GiaPhong:N0} VNĐ\n" +
+                    $"👥 Sức chứa tối đa: {phong.SucChuaToiDa} người\n" +
+                    $"📶 Trạng thái: {phong.TrangThai}\n" +
+                    $"🏢 Tầng: {phong.Tang}";
+            }
+
+            // ===== Chọn lại phòng trong ListView =====
+            foreach (ListViewItem item in lvPhong.Items)
+            {
+                item.Selected = false;
+                if (item.Tag is PhongModel p && p.MaPhong == maPhong)
+                {
+                    item.Selected = true;
+                    item.EnsureVisible();
+                    break;
+                }
+            }
+
+            // ======================
+            // 3️⃣ HIỂN THỊ NGÀY GIỜ VÀ TRẠNG THÁI
+            // ======================
+            if (DateTime.TryParse(row.Cells["NgayNhanPhong"].Value?.ToString(), out DateTime ngayNhan))
+                dtpNgayNhan.Value = ngayNhan;
+
+            if (DateTime.TryParse(row.Cells["NgayTraPhong"].Value?.ToString(), out DateTime ngayTra))
+                dtpNgayTra.Value = ngayTra;
+
+            if (int.TryParse(row.Cells["SoNguoi"].Value?.ToString(), out int soNguoi))
+                numSoNguoi.Value = soNguoi;
+
+            cboTrangThai.Text = row.Cells["TrangThai"].Value?.ToString();
+            lblTongTienValue.Text = $"{Convert.ToDecimal(row.Cells["TongTien"].Value):N0} VNĐ";
+
+            if (dgvDatPhong.Columns.Contains("GhiChu"))
+                txtGhiChu.Text = row.Cells["GhiChu"].Value?.ToString();
+
+            var dsDichVuDaDat = datPhongService.GetDichVuByDatPhong(maDatPhongDangChon.Value);
+
+            // Reset tất cả checkbox dịch vụ
+            foreach (DataGridViewRow dvRow in dgvDichVu.Rows)
+            {
+                dvRow.Cells["chkChon"].Value = false;
+                dvRow.Cells["SoLuong"].Value = null;
+            }
+
+            // Tick lại dịch vụ đã đặt
+            foreach (var dv in dsDichVuDaDat)
+            {
+                foreach (DataGridViewRow dvRow in dgvDichVu.Rows)
+                {
+                    if (dvRow.DataBoundItem is DichVuModel dvModel && dvModel.MaDV == dv.MaDV)
+                    {
+                        dvRow.Cells["chkChon"].Value = true;
+                        dvRow.Cells["SoLuong"].Value = dv.SoLuong;
+                        break;
+                    }
+                }
+            }
+
+            // Cập nhật tổng tiền dịch vụ
+            tienDichVu = dsDichVuDaDat.Sum(d => d.DonGia * d.SoLuong);
+            lblTienDichVuValue.Text = tienDichVu.ToString("N0") + " VNĐ";
+
+            // Cập nhật lại tổng tiền toàn bộ
+            CapNhatTongTien();
+        }
+
+        private void btnSuaDatPhong_Click(object sender, EventArgs e)
+        {
+            if (maDatPhongDangChon == null)
+            {
+                MessageBox.Show("⚠️ Vui lòng chọn một đặt phòng để sửa!",
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                // 1️⃣ Lấy dữ liệu từ giao diện
+                var dp = new DatPhongModel
+                {
+                    MaDatPhong = maDatPhongDangChon.Value,
+                    MaKH = Convert.ToInt32(cboKhachHang.SelectedValue),
+                    MaPhong = (lvPhong.SelectedItems.Count > 0 && lvPhong.SelectedItems[0].Tag is PhongModel p) ? p.MaPhong : 0,
+                    MaNV = SessionInfo.CurrentUser?.MaNV ?? 0,
+                    NgayNhanPhong = dtpNgayNhan.Value,
+                    NgayTraPhong = dtpNgayTra.Value,
+                    SoNguoi = (int)numSoNguoi.Value,
+                    TrangThai = cboTrangThai.Text,
+                    GhiChu = txtGhiChu.Text.Trim()
+                };
+
+                // 2️⃣ Lấy danh sách dịch vụ đã chọn
+                var dsDichVuDaDat = new List<DatPhongDichVuModel>();
+                foreach (DataGridViewRow row in dgvDichVu.Rows)
+                {
+                    bool chon = Convert.ToBoolean(row.Cells["chkChon"].Value ?? false);
+                    if (chon && row.DataBoundItem is DichVuModel dv)
+                    {
+                        int soLuong = Convert.ToInt32(row.Cells["SoLuong"].Value ?? 1);
+                        dsDichVuDaDat.Add(new DatPhongDichVuModel
+                        {
+                            MaDatPhong = dp.MaDatPhong,
+                            MaDV = dv.MaDV,
+                            SoLuong = soLuong,
+                            DonGia = dv.DonGia,
+                            NgaySuDung = DateTime.Now
+                        });
+                    }
+                }
+
+                // 3️⃣ Tính tổng tiền
+                int soNgay = Math.Max(1, (dp.NgayTraPhong - dp.NgayNhanPhong).Days);
+                var phong = phongService.GetById(dp.MaPhong);
+                if (phong == null)
+                {
+                    MessageBox.Show("⚠️ Không tìm thấy thông tin phòng!",
+                        "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                decimal tienPhong = (phong?.GiaPhong ?? 0) * soNgay;
+                decimal tienDichVu = dsDichVuDaDat.Sum(dv => dv.DonGia * dv.SoLuong);
+                dp.TongTien = tienPhong + tienDichVu;
+
+                // 4️⃣ Gọi service cập nhật đặt phòng
+                bool result = datPhongService.SuaDatPhong(dp);
+
+                if (result)
+                {
+                    // 5️⃣ Cập nhật dịch vụ
+                    datPhongService.CapNhatDichVu(dp.MaDatPhong, dsDichVuDaDat);
+
+                    // 6️⃣ Làm mới giao diện
+                    MessageBox.Show("✅ Cập nhật đặt phòng thành công!",
+                        "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    LoadDatPhong();
+                    LoadPhong();
+                }
+                else
+                {
+                    MessageBox.Show("❌ Cập nhật đặt phòng thất bại!",
+                        "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("🔥 Lỗi khi sửa đặt phòng:\n" + ex.Message,
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

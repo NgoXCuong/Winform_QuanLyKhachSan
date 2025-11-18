@@ -11,10 +11,8 @@ namespace QuanLyKhachSan.UI
 {
     public partial class PhongForm : Form
     {
-        private PhongService phongService = new PhongService();
-        private LoaiPhongService loaiPhongService = new LoaiPhongService();
-        private bool isEditing = false;  // ✅ false = thêm mới, true = đang sửa
-
+        private readonly PhongService phongService = new PhongService();
+        private bool isEditing = false; // false = thêm mới, true = đang sửa
 
         public PhongForm()
         {
@@ -23,257 +21,172 @@ namespace QuanLyKhachSan.UI
 
         private void PhongForm_Load(object sender, EventArgs e)
         {
-            LoadLoaiPhongToComboBox();
             LoadDanhSachPhong();
             ClearFormPhong();
-
-
-            LoadLoaiPhong();
-            ClearFormLoaiPhong();
         }
 
         #region ======== PHÒNG ========
 
-        private void btnXuat_Click(object sender, EventArgs e)
-        {
-            if (dgvListPhong.Rows.Count == 0)
-            {
-                MessageBox.Show("Không có dữ liệu để xuất!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            using (var saveFileDialog = new SaveFileDialog
-            {
-                Filter = "Excel Workbook|*.xlsx",
-                FileName = "Phong.xlsx"
-            })
-            {
-                if (saveFileDialog.ShowDialog() != DialogResult.OK) return;
-
-                using (var workbook = new ClosedXML.Excel.XLWorkbook())
-                {
-                    var worksheet = workbook.Worksheets.Add("LoaiPhong");
-
-                    // Header
-                    for (int i = 0; i < dgvListPhong.Columns.Count; i++)
-                    {
-                        worksheet.Cell(1, i + 1).Value = dgvListPhong.Columns[i].HeaderText;
-                        worksheet.Cell(1, i + 1).Style.Font.Bold = true;
-                        worksheet.Cell(1, i + 1).Style.Alignment.Horizontal = ClosedXML.Excel.XLAlignmentHorizontalValues.Center;
-                    }
-
-                    // Data
-                    for (int i = 0; i < dgvListPhong.Rows.Count; i++)
-                    {
-                        for (int j = 0; j < dgvListPhong.Columns.Count; j++)
-                        {
-                            worksheet.Cell(i + 2, j + 1).Value = dgvListPhong.Rows[i].Cells[j].Value?.ToString();
-                        }
-                    }
-
-                    worksheet.Columns().AdjustToContents();
-                    workbook.SaveAs(saveFileDialog.FileName);
-                    MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-        }
-
         private void btnLoad_Click(object sender, EventArgs e)
         {
-            try
+            LoadDanhSachPhong();
+            ClearFormPhong();
+        }
+
+        private void LoadDanhSachPhong()
+        {
+            dgvListPhong.DataSource = phongService.GetAllPhong();
+            dgvListPhong.Columns["MaPhong"].HeaderText = "Mã Phòng";
+            dgvListPhong.Columns["SoPhong"].HeaderText = "Số Phòng";
+            dgvListPhong.Columns["TenLoaiPhong"].HeaderText = "Loại Phòng";
+            dgvListPhong.Columns["GiaPhong"].HeaderText = "Giá Phòng";
+            dgvListPhong.Columns["SucChuaToiDa"].HeaderText = "Sức Chứa";
+            dgvListPhong.Columns["Tang"].HeaderText = "Tầng";
+            dgvListPhong.Columns["TrangThai"].HeaderText = "Trạng Thái";
+            dgvListPhong.Columns["MoTa"].HeaderText = "Mô Tả";
+            dgvListPhong.Columns["Anh"].HeaderText = "Ảnh Phòng";
+        }
+
+        private void ClearFormPhong()
+        {
+            txtSoPhong.Clear();
+            txtTenLoaiPhong.Clear();
+            txtGiaPhong.Clear();
+            txtSoNguoi.Clear();
+            numTang.Value = 0;
+            cbTrangThai.SelectedIndex = -1;
+            txtMoTa.Clear();
+            picAnhPhong.Image = null;
+            isEditing = false;
+        }
+
+        private bool ValidatePhongInput(out string soPhong, out string tenLoai, out decimal gia, out int sucChua, out int tang, out string trangThai)
+        {
+            soPhong = txtSoPhong.Text.Trim();
+            tenLoai = txtTenLoaiPhong.Text.Trim();
+            gia = decimal.TryParse(txtGiaPhong.Text.Trim(), out decimal g) ? g : 0;
+            sucChua = int.TryParse(txtSoNguoi.Text.Trim(), out int sc) ? sc : 0;
+            tang = (int)numTang.Value;
+            trangThai = cbTrangThai.Text;
+
+            if (string.IsNullOrWhiteSpace(soPhong) || string.IsNullOrWhiteSpace(tenLoai) || gia <= 0 || sucChua <= 0 || string.IsNullOrWhiteSpace(trangThai))
             {
-                LoadDanhSachPhong();
-                ClearFormPhong();
-                isEditing = false;
+                MessageBox.Show("Vui lòng nhập đầy đủ và hợp lệ thông tin phòng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Đã xảy ra lỗi làm mới: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+
+            return true;
         }
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            try
+            if (!ValidatePhongInput(out string soPhong, out string tenLoai, out decimal gia, out int sucChua, out int tang, out string trangThai))
+                return;
+
+            if (phongService.KiemTraSoPhongTonTai(soPhong))
             {
-                if (!ValidatePhongInput(out string soPhong, out int maLoaiPhong, out int tang)) return;
-
-                if (phongService.KiemTraSoPhongTonTai(soPhong))
-                {
-                    MessageBox.Show("Số phòng đã tồn tại!", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                byte[] imageBytes = null;
-                if (picAnhPhong.Image != null)
-                {
-                    using (var ms = new MemoryStream())
-                    {
-                        picAnhPhong.Image.Save(ms, picAnhPhong.Image.RawFormat);
-                        imageBytes = ms.ToArray();
-                    }
-                }
-
-                // ✅ Gán luôn ảnh vào model
-                PhongModel phong = new PhongModel
-                {
-                    SoPhong = soPhong,
-                    MaLoaiPhong = maLoaiPhong,
-                    Tang = tang,
-                    TrangThai = cbTrangThai.Text,
-                    Anh = imageBytes  // ✅ thêm dòng này
-                };
-
-                bool ketQua = phongService.ThemPhong(phong);
-
-                MessageBox.Show(ketQua ? "Thêm phòng thành công!" : "Thêm phòng thất bại!",
-                    Text,
-                    MessageBoxButtons.OK,
-                    ketQua ? MessageBoxIcon.Information : MessageBoxIcon.Error);
-
-                if (ketQua)
-                {
-                    LoadDanhSachPhong();
-                    ClearFormPhong();
-                    isEditing = false;
-                }
+                MessageBox.Show("Số phòng đã tồn tại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            catch (Exception ex)
+
+            byte[] imageBytes = picAnhPhong.Image != null ? ImageToByte(picAnhPhong.Image) : null;
+
+            PhongModel phong = new PhongModel
             {
-                MessageBox.Show("Đã xảy ra lỗi thêm: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                SoPhong = soPhong,
+                TenLoaiPhong = tenLoai,
+                GiaPhong = gia,
+                SucChuaToiDa = sucChua,
+                Tang = tang,
+                TrangThai = trangThai,
+                Anh = imageBytes,
+                MoTa = txtMoTa.Text
+            };
+
+            bool result = phongService.ThemPhong(phong);
+            MessageBox.Show(result ? "Thêm phòng thành công!" : "Thêm phòng thất bại!", "Thông báo", MessageBoxButtons.OK, result ? MessageBoxIcon.Information : MessageBoxIcon.Error);
+
+            if (result)
+            {
+                LoadDanhSachPhong();
+                ClearFormPhong();
             }
         }
 
-
         private void btnSua_Click(object sender, EventArgs e)
         {
-            try
+            if (dgvListPhong.SelectedRows.Count == 0) { MessageBox.Show("Chọn phòng để sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning); return; }
+
+            if (!ValidatePhongInput(out string soPhong, out string tenLoai, out decimal gia, out int sucChua, out int tang, out string trangThai))
+                return;
+
+            DataGridViewRow row = dgvListPhong.SelectedRows[0];
+            int maPhong = Convert.ToInt32(row.Cells["MaPhong"].Value);
+
+            PhongModel phong = new PhongModel
             {
-                if (dgvListPhong.SelectedRows.Count == 0)
-                {
-                    MessageBox.Show("Vui lòng chọn phòng để sửa!", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+                MaPhong = maPhong,
+                SoPhong = soPhong,
+                TenLoaiPhong = tenLoai,
+                GiaPhong = gia,
+                SucChuaToiDa = sucChua,
+                Tang = tang,
+                TrangThai = trangThai,
+                Anh = picAnhPhong.Image != null ? ImageToByte(picAnhPhong.Image) : null,
+                MoTa = txtMoTa.Text
+            };
 
-                if (!ValidatePhongInput(out string soPhong, out int maLoaiPhong, out int tang)) return;
+            bool result = phongService.SuaPhong(phong);
+            MessageBox.Show(result ? "Sửa phòng thành công!" : "Sửa phòng thất bại!", "Thông báo", MessageBoxButtons.OK, result ? MessageBoxIcon.Information : MessageBoxIcon.Error);
 
-                DataGridViewRow row = dgvListPhong.SelectedRows[0];
-                PhongModel phong = new PhongModel
-                {
-                    MaPhong = Convert.ToInt32(row.Cells["MaPhong"].Value),
-                    SoPhong = soPhong,
-                    MaLoaiPhong = maLoaiPhong,
-                    Tang = tang,
-                    TrangThai = cbTrangThai.Text
-                };
-
-
-                bool success = phongService.SuaPhong(phong);
-                MessageBox.Show(success ? "Sửa phòng thành công!" : "Sửa phòng thất bại!", Text,
-                    MessageBoxButtons.OK, success ? MessageBoxIcon.Information : MessageBoxIcon.Error);
-
+            if (result)
+            {
                 LoadDanhSachPhong();
                 ClearFormPhong();
-                isEditing = false;
-                picAnhPhong.Image = null;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Đã xảy ra lỗi sửa: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
             }
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (dgvListPhong.CurrentRow != null)
-                {
-                    // Xác nhận trước khi xóa
-                    DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa phòng này?",
-                        "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dgvListPhong.SelectedRows.Count == 0) { MessageBox.Show("Chọn phòng để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning); return; }
 
-                    if (result == DialogResult.Yes)
-                    {
-                        int maPhong = Convert.ToInt32(dgvListPhong.SelectedRows[0].Cells["MaPhong"].Value);
-                        bool ketQua = phongService.XoaPhong(maPhong);
-                        MessageBox.Show(ketQua ? "Xóa phòng thành công!" : "Xóa phòng thất bại!", Text,
-                            MessageBoxButtons.OK, ketQua ? MessageBoxIcon.Information : MessageBoxIcon.Error);
+            int maPhong = Convert.ToInt32(dgvListPhong.SelectedRows[0].Cells["MaPhong"].Value);
 
-                        LoadDanhSachPhong();
-                        ClearFormPhong();
-                        isEditing = false;
-                        picAnhPhong.Image = null;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Vui lòng chọn một phòng để xóa", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            catch (Exception ex)
+            if (MessageBox.Show("Bạn có chắc chắn muốn xóa phòng này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                MessageBox.Show("Đã xảy ra lỗi xóa: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                bool result = phongService.XoaPhong(maPhong);
+                MessageBox.Show(result ? "Xóa phòng thành công!" : "Xóa phòng thất bại!", "Thông báo", MessageBoxButtons.OK, result ? MessageBoxIcon.Information : MessageBoxIcon.Error);
+
+                if (result) { LoadDanhSachPhong(); ClearFormPhong(); }
             }
         }
 
         private void btnTim_Click(object sender, EventArgs e)
         {
-            try
-            {
-                string keyword = txtTim.Text.Trim();
-                List<PhongModel> result = phongService.TimPhong(keyword);
-
-                if (result.Count > 0)
-                    dgvListPhong.DataSource = result;
-                else
-                {
-                    MessageBox.Show($"Không tìm thấy phòng với từ khóa {keyword}!", "Thông báo",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    dgvListPhong.DataSource = null;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Đã xảy ra lỗi tìm kiếm: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            }
+            string keyword = txtTim.Text.Trim();
+            List<PhongModel> result = phongService.TimPhong(keyword);
+            dgvListPhong.DataSource = result.Count > 0 ? result : null;
+            if (result.Count == 0)
+                MessageBox.Show($"Không tìm thấy phòng với từ khóa '{keyword}'!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void dgvListPhong_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            try
-            {
-                if (e.RowIndex >= 0)
-                {
-                    isEditing = true;
+            if (e.RowIndex < 0) return;
+            isEditing = true;
 
-                    DataGridViewRow row = dgvListPhong.Rows[e.RowIndex];
-                    txtSoPhong.Text = row.Cells["SoPhong"].Value?.ToString();
-                    cbLoaiPhong.SelectedValue = Convert.ToInt32(row.Cells["MaLoaiPhong"].Value);
-                    numTang.Text = row.Cells["Tang"].Value?.ToString();
-                    cbTrangThai.Text = row.Cells["TrangThai"].Value?.ToString();
+            DataGridViewRow row = dgvListPhong.Rows[e.RowIndex];
+            txtSoPhong.Text = row.Cells["SoPhong"].Value?.ToString();
+            txtTenLoaiPhong.Text = row.Cells["TenLoaiPhong"].Value?.ToString();
+            txtGiaPhong.Text = row.Cells["GiaPhong"].Value?.ToString();
+            txtSoNguoi.Text = row.Cells["SucChuaToiDa"].Value?.ToString();
+            numTang.Value = Convert.ToDecimal(row.Cells["Tang"].Value);
+            cbTrangThai.Text = row.Cells["TrangThai"].Value?.ToString();
+            txtMoTa.Text = row.Cells["MoTa"].Value?.ToString();
 
-                    int maPhong = Convert.ToInt32(row.Cells["MaPhong"].Value);
-
-                    string base64Anh = phongService.LayAnhPhong(maPhong);
-
-                    if (!string.IsNullOrEmpty(base64Anh) && IsValidBase64(base64Anh))
-                    {
-                        picAnhPhong.Image = Base64ToImage(base64Anh);
-                        picAnhPhong.SizeMode = PictureBoxSizeMode.Zoom;
-                    }
-                    else
-                    {
-                        picAnhPhong.Image = null;
-                    }
-                }
-            }
-            catch (Exception ex) {
-                MessageBox.Show("Lỗi khi tải dữ liệu nhân viên: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
+            string base64 = phongService.LayAnhPhong(Convert.ToInt32(row.Cells["MaPhong"].Value));
+            picAnhPhong.Image = !string.IsNullOrEmpty(base64) ? Base64ToImage(base64) : null;
+            picAnhPhong.SizeMode = PictureBoxSizeMode.Zoom;
         }
 
         public Image Base64ToImage(string base64String)
@@ -310,6 +223,16 @@ namespace QuanLyKhachSan.UI
             }
         }
 
+        private byte[] ImageToByte(Image img)
+        {
+            using (var ms = new MemoryStream())
+            {
+                img.Save(ms, img.RawFormat);
+                return ms.ToArray();
+            }
+        }
+
+
         bool IsValidBase64(string base64String)
         {
             if (string.IsNullOrEmpty(base64String))
@@ -326,68 +249,41 @@ namespace QuanLyKhachSan.UI
             }
         }
 
-        private void LoadDanhSachPhong()
-        {
-            dgvListPhong.DataSource = phongService.GetAllPhong();
-
-            dgvListPhong.Columns["MaPhong"].HeaderText = "Mã Phòng";
-            dgvListPhong.Columns["SoPhong"].HeaderText = "Số Phòng";
-            dgvListPhong.Columns["MaLoaiPhong"].Visible = false; // ẩn nếu không cần
-            dgvListPhong.Columns["TenLoaiPhong"].HeaderText = "Loại Phòng";
-            dgvListPhong.Columns["Tang"].HeaderText = "Tầng";
-            dgvListPhong.Columns["TrangThai"].HeaderText = "Trạng Thái";
-            dgvListPhong.Columns["Anh"].HeaderText = "Ảnh Phòng";
-        }
+       
 
 
-        private void ClearFormPhong()
-        {
-            txtSoPhong.Clear();
-            cbLoaiPhong.SelectedIndex = -1;
-            cbTrangThai.SelectedIndex = -1;
-            numTang.Value = 0; // nếu dùng NumericUpDown
-            picAnhPhong.Image = null; // ✅ chỉ xóa ảnh, không xóa control
-        }
+        //private bool ValidatePhongInput(out string soPhong, out int maLoaiPhong, out int tang)
+        //{
+        //    soPhong = txtSoPhong.Text.Trim();
+        //    maLoaiPhong = 0;
+        //    tang = 0;
 
+        //    if (string.IsNullOrWhiteSpace(soPhong) ||
+        //        cbLoaiPhong.SelectedIndex == -1 ||
+        //        string.IsNullOrWhiteSpace(numTang.Text) ||
+        //        string.IsNullOrWhiteSpace(cbTrangThai.Text))
+        //    {
+        //        MessageBox.Show("Vui lòng nhập đầy đủ thông tin phòng!", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //        return false;
+        //    }
 
-        private bool ValidatePhongInput(out string soPhong, out int maLoaiPhong, out int tang)
-        {
-            soPhong = txtSoPhong.Text.Trim();
-            maLoaiPhong = 0;
-            tang = 0;
+        //    if (!int.TryParse(numTang.Text, out tang))
+        //    {
+        //        MessageBox.Show("Tầng phải là số hợp lệ!", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //        return false;
+        //    }
 
-            if (string.IsNullOrWhiteSpace(soPhong) ||
-                cbLoaiPhong.SelectedIndex == -1 ||
-                string.IsNullOrWhiteSpace(numTang.Text) ||
-                string.IsNullOrWhiteSpace(cbTrangThai.Text))
-            {
-                MessageBox.Show("Vui lòng nhập đầy đủ thông tin phòng!", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
+        //    if (cbLoaiPhong.SelectedValue == null)
+        //    {
+        //        MessageBox.Show("Vui lòng chọn loại phòng hợp lệ!", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //        return false;
+        //    }
 
-            if (!int.TryParse(numTang.Text, out tang))
-            {
-                MessageBox.Show("Tầng phải là số hợp lệ!", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
+        //    maLoaiPhong = (int)cbLoaiPhong.SelectedValue;
+        //    return true;
+        //}
 
-            if (cbLoaiPhong.SelectedValue == null)
-            {
-                MessageBox.Show("Vui lòng chọn loại phòng hợp lệ!", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-
-            maLoaiPhong = (int)cbLoaiPhong.SelectedValue;
-            return true;
-        }
-
-        private void LoadLoaiPhongToComboBox()
-        {
-            var danhSachLoaiPhong = loaiPhongService.GetLoaiPhongByIdName();
-            cbLoaiPhong.DataSource = danhSachLoaiPhong;
-            cbLoaiPhong.DisplayMember = "HienThiMaVaTen";
-            cbLoaiPhong.ValueMember = "MaLoaiPhong";
-        }
+        
 
 
         private void linkThemAnh_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -522,190 +418,29 @@ namespace QuanLyKhachSan.UI
         }
 
         #endregion
-
-        private void LoadLoaiPhong()
+        private void btnXuat_Click(object sender, EventArgs e)
         {
-            dgvListLoaiPhong.DataSource = loaiPhongService.GetAllLoaiPhong();
+            if (dgvListPhong.Rows.Count == 0) { MessageBox.Show("Không có dữ liệu để xuất!"); return; }
 
-            if (dgvListLoaiPhong.Columns.Contains("HienThiMaVaTen"))
-                dgvListLoaiPhong.Columns["HienThiMaVaTen"].Visible = false; // ✅ Ẩn cột tính toán
-
-            dgvListLoaiPhong.Columns["MaLoaiPhong"].HeaderText = "Mã loại phòng";
-            dgvListLoaiPhong.Columns["TenLoaiPhong"].HeaderText = "Tên loại phòng";
-            dgvListLoaiPhong.Columns["GiaCoBan"].HeaderText = "Giá cơ bản";
-            dgvListLoaiPhong.Columns["SucChuaToiDa"].HeaderText = "Sức chứa tối đa";
-            dgvListLoaiPhong.Columns["MoTa"].HeaderText = "Mô tả";
-        }
-
-
-        private void ClearFormLoaiPhong()
-        {
-            txtTenLoaiPhong.Clear();
-            txtGiaPhong.Clear();
-            txtSoNguoi.Clear();
-            txtMoTa.Clear();
-            txtTim.Clear();
-        }
-
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            try
+            using (SaveFileDialog save = new SaveFileDialog { Filter = "Excel Workbook|*.xlsx", FileName = "Phong.xlsx" })
             {
-                LoaiPhongModel lp = new LoaiPhongModel
+                if (save.ShowDialog() != DialogResult.OK) return;
+
+                using (var wb = new XLWorkbook())
                 {
-                    TenLoaiPhong = txtTenLoaiPhong.Text,
-                    GiaCoBan = decimal.TryParse(txtGiaPhong.Text, out decimal gia) ? gia : 0,
-                    SucChuaToiDa = int.TryParse(txtSoNguoi.Text, out int sc) ? sc : 0,
-                    MoTa = txtMoTa.Text
-                };
+                    var ws = wb.Worksheets.Add("Phong");
+                    for (int i = 0; i < dgvListPhong.Columns.Count; i++)
+                        ws.Cell(1, i + 1).Value = dgvListPhong.Columns[i].HeaderText;
 
-                if (loaiPhongService.ThemLoaiPhong(lp))
-                {
-                    MessageBox.Show("Thêm loại phòng thành công!");
-                    LoadLoaiPhong(); // Hàm load lại DataGridView
-                    ClearFormLoaiPhong();
-                }
-                else
-                {
-                    MessageBox.Show("Thêm loại phòng thất bại!");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi: " + ex.Message);
-            }
-        }
+                    for (int i = 0; i < dgvListPhong.Rows.Count; i++)
+                        for (int j = 0; j < dgvListPhong.Columns.Count; j++)
+                            ws.Cell(i + 2, j + 1).Value = dgvListPhong.Rows[i].Cells[j].Value?.ToString();
 
-        private void btnUpdate_Click(object sender, EventArgs e)
-        {
-            if (dgvListLoaiPhong.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Chọn loại phòng để sửa!", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            DataGridViewRow row = dgvListLoaiPhong.SelectedRows[0];
-            int maLoai = Convert.ToInt32(row.Cells["MaLoaiPhong"].Value);
-
-            LoaiPhongModel lp = new LoaiPhongModel
-            {
-                MaLoaiPhong = maLoai,
-                TenLoaiPhong = txtTenLoaiPhong.Text,
-                GiaCoBan = decimal.TryParse(txtGiaPhong.Text, out decimal gia) ? gia : 0,
-                SucChuaToiDa = int.TryParse(txtSoNguoi.Text, out int sc) ? sc : 0,
-                MoTa = txtMoTa.Text
-            };
-
-            bool success = loaiPhongService.SuaLoaiPhong(lp);
-            MessageBox.Show(success ? "Cập nhật thành công!" : "Cập nhật thất bại!",
-                            Text, MessageBoxButtons.OK, success ? MessageBoxIcon.Information : MessageBoxIcon.Error);
-            LoadLoaiPhong();
-            ClearFormLoaiPhong();
-        }
-
-
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            if (dgvListLoaiPhong.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Chọn loại phòng để xóa!", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            int maLoai = Convert.ToInt32(dgvListLoaiPhong.SelectedRows[0].Cells["MaLoaiPhong"].Value);
-            var result = MessageBox.Show("Bạn có chắc muốn xóa?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
-            {
-                bool success = loaiPhongService.XoaLoaiPhong(maLoai);
-                MessageBox.Show(success ? "Xóa thành công!" : "Xóa thất bại!",
-                                Text, MessageBoxButtons.OK, success ? MessageBoxIcon.Information : MessageBoxIcon.Error);
-                LoadLoaiPhong();
-                ClearFormLoaiPhong();
-            }
-        }
-
-
-        private void btnExcel_Click(object sender, EventArgs e)
-        {
-            if (dgvListLoaiPhong.Rows.Count == 0)
-            {
-                MessageBox.Show("Không có dữ liệu để xuất!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            using (var saveFileDialog = new SaveFileDialog
-            {
-                Filter = "Excel Workbook|*.xlsx",
-                FileName = "LoaiPhong.xlsx"
-            })
-            {
-                if (saveFileDialog.ShowDialog() != DialogResult.OK) return;
-
-                using (var workbook = new ClosedXML.Excel.XLWorkbook())
-                {
-                    var worksheet = workbook.Worksheets.Add("LoaiPhong");
-
-                    // Header
-                    for (int i = 0; i < dgvListLoaiPhong.Columns.Count; i++)
-                    {
-                        worksheet.Cell(1, i + 1).Value = dgvListLoaiPhong.Columns[i].HeaderText;
-                        worksheet.Cell(1, i + 1).Style.Font.Bold = true;
-                        worksheet.Cell(1, i + 1).Style.Alignment.Horizontal = ClosedXML.Excel.XLAlignmentHorizontalValues.Center;
-                    }
-
-                    // Data
-                    for (int i = 0; i < dgvListLoaiPhong.Rows.Count; i++)
-                    {
-                        for (int j = 0; j < dgvListLoaiPhong.Columns.Count; j++)
-                        {
-                            worksheet.Cell(i + 2, j + 1).Value = dgvListLoaiPhong.Rows[i].Cells[j].Value?.ToString();
-                        }
-                    }
-
-                    worksheet.Columns().AdjustToContents();
-                    workbook.SaveAs(saveFileDialog.FileName);
-                    MessageBox.Show("Xuất Excel thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ws.Columns().AdjustToContents();
+                    wb.SaveAs(save.FileName);
+                    MessageBox.Show("Xuất Excel thành công!");
                 }
             }
         }
-
-
-        private void btnLamMoi_Click(object sender, EventArgs e)
-        {
-            ClearFormLoaiPhong();
-            LoadLoaiPhong();
-        }
-
-
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-            string keyword = txtSearch.Text.Trim();
-            var list = loaiPhongService.TimLoaiPhong(keyword);
-
-            if (list.Count > 0)
-            {
-                dgvListLoaiPhong.DataSource = list;
-            }
-            else
-            {
-                MessageBox.Show($"Không tìm thấy loại phòng với từ khóa '{keyword}'!", "Thông báo",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
-                dgvListLoaiPhong.DataSource = null;
-            }
-        }
-
-        private void dgvListLoaiPhong_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0) return;
-
-            DataGridViewRow row = dgvListLoaiPhong.Rows[e.RowIndex];
-            // txtMaLoaiPhong bỏ đi
-            txtTenLoaiPhong.Text = row.Cells["TenLoaiPhong"].Value?.ToString();
-            txtGiaPhong.Text = row.Cells["GiaCoBan"].Value?.ToString();
-            txtSoNguoi.Text = row.Cells["SucChuaToiDa"].Value?.ToString();
-            txtMoTa.Text = row.Cells["MoTa"].Value?.ToString();
-        }
-
-
     }
 }
