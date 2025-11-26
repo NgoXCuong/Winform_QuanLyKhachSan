@@ -38,9 +38,7 @@ namespace QuanLyKhachSan.UI
             dgvListDichVu.Columns["DonViTinh"].HeaderText = "Đơn vị tính";
             dgvListDichVu.Columns["MoTa"].HeaderText = "Mô tả";
             dgvListDichVu.Columns["Anh"].HeaderText = "Ảnh"; // Ẩn cột ảnh nếu không cần hiển thị
-
         }
-
 
 
         private void ClearFormDichVu()

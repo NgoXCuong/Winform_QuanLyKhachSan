@@ -33,17 +33,25 @@ namespace QuanLyKhachSan.BLL
             return thongKeRepository.GetDoanhThuTheoNgay();
         }
 
-        
         public Dictionary<int, decimal> GetDoanhThuTheoThang()
         {
             return thongKeRepository.GetDoanhThuTheoThang();
         }
-
-        
+     
         public Dictionary<int, decimal> GetDoanhThuTheoNam()
         {
             return thongKeRepository.GetDoanhThuTheoNam();
         }
 
+        // Trong class ThongKeService
+        public decimal GetTongTienPhong()
+        {
+            return thongKeRepository.GetTongTienPhong(); // _repo là đối tượng ThongKeRepository đã khai báo
+        }
+
+        public decimal GetTongTienDichVu()
+        {
+            return thongKeRepository.GetTongTienDichVu();
+        }
     }
 }

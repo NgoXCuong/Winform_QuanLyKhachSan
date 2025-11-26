@@ -47,7 +47,6 @@
     <Compile Include="DichVuRepository.cs" />
     <Compile Include="HoaDonRepository.cs" />
     <Compile Include="KhachHangRepository.cs" />
-    <Compile Include="LoaiPhongRepository.cs" />
     <Compile Include="NhanVienRepository.cs" />
     <Compile Include="PhongRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

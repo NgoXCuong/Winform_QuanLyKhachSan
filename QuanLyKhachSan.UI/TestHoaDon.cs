@@ -21,5 +21,35 @@ namespace QuanLyKhachSan.UI
         {
 
         }
+
+        private void dtpDenNgay_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dtpTuNgay_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblDenNgay_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblTuNgay_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblTimKiem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panelDetail_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

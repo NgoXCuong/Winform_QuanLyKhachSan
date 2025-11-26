@@ -46,15 +46,7 @@ namespace QuanLyKhachSan.UI
 
                 TaiKhoanModel tk = taiKhoanService.GetTaiKhoanByTenDangNhap(username, password);
 
-                //if (tk != null)
-                //{
-                //    MessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //    this.Hide();
-
-                //    // Truyền quyền vào MainForm để phân quyền
-                //    MainForm mainForm = new MainForm(tk.TenDangNhap);
-                //    mainForm.Show();
-                //}
+                
                 if (tk != null)
                 {
                     // 🟢 Lưu tài khoản hiện tại vào Session
@@ -66,7 +58,8 @@ namespace QuanLyKhachSan.UI
                     this.Hide();
 
                     // Mở form chính (không cần truyền username nữa)
-                    MainForm mainForm = new MainForm();
+                    //MainForm mainForm = new MainForm();
+                    MainForm mainForm = new MainForm(tk.TenDangNhap);
                     mainForm.Show();
                 }
 

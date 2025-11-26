@@ -46,7 +46,6 @@
     <Compile Include="DichVuModel.cs" />
     <Compile Include="HoaDonModel.cs" />
     <Compile Include="KhachHangModel.cs" />
-    <Compile Include="LoaiPhongModel.cs" />
     <Compile Include="NhanVienModel.cs" />
     <Compile Include="PhongModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

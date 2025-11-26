@@ -40,7 +40,6 @@
             this.panel8 = new System.Windows.Forms.Panel();
             this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel3 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -71,7 +70,6 @@
             this.panel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             this.panel2.SuspendLayout();
-            this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.panel3.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -102,8 +100,8 @@
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
             this.tableLayoutPanel2.Controls.Add(this.panel8, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.panel2, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -111,8 +109,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.Padding = new System.Windows.Forms.Padding(20);
             this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(1506, 516);
             this.tableLayoutPanel2.TabIndex = 4;
             // 
@@ -120,10 +117,10 @@
             // 
             this.panel8.Controls.Add(this.chart2);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(756, 23);
+            this.panel8.Location = new System.Drawing.Point(975, 23);
             this.panel8.Name = "panel8";
             this.panel8.Padding = new System.Windows.Forms.Padding(10);
-            this.panel8.Size = new System.Drawing.Size(727, 470);
+            this.panel8.Size = new System.Drawing.Size(508, 470);
             this.panel8.TabIndex = 6;
             // 
             // chart2
@@ -140,29 +137,19 @@
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chart2.Series.Add(series1);
-            this.chart2.Size = new System.Drawing.Size(707, 450);
+            this.chart2.Size = new System.Drawing.Size(488, 450);
             this.chart2.TabIndex = 2;
             this.chart2.Text = "chart2";
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.panel4);
+            this.panel2.Controls.Add(this.chart1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(23, 23);
             this.panel2.Name = "panel2";
             this.panel2.Padding = new System.Windows.Forms.Padding(10);
-            this.panel2.Size = new System.Drawing.Size(727, 470);
+            this.panel2.Size = new System.Drawing.Size(946, 470);
             this.panel2.TabIndex = 5;
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.chart1);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(10, 10);
-            this.panel4.Name = "panel4";
-            this.panel4.Padding = new System.Windows.Forms.Padding(10);
-            this.panel4.Size = new System.Drawing.Size(707, 450);
-            this.panel4.TabIndex = 1;
             // 
             // chart1
             // 
@@ -177,7 +164,7 @@
             series2.Legend = "Legend1";
             series2.Name = "Series1";
             this.chart1.Series.Add(series2);
-            this.chart1.Size = new System.Drawing.Size(687, 430);
+            this.chart1.Size = new System.Drawing.Size(926, 450);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
             // 
@@ -261,7 +248,6 @@
             this.panel5.Padding = new System.Windows.Forms.Padding(20);
             this.panel5.Size = new System.Drawing.Size(1506, 207);
             this.panel5.TabIndex = 3;
-            this.panel5.Paint += new System.Windows.Forms.PaintEventHandler(this.panel5_Paint);
             // 
             // tableLayoutPanel1
             // 
@@ -300,11 +286,11 @@
             // lbTongKhachHang
             // 
             this.lbTongKhachHang.AutoSize = true;
-            this.lbTongKhachHang.Font = new System.Drawing.Font("Roboto", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTongKhachHang.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTongKhachHang.ForeColor = System.Drawing.Color.Red;
-            this.lbTongKhachHang.Location = new System.Drawing.Point(122, 81);
+            this.lbTongKhachHang.Location = new System.Drawing.Point(109, 81);
             this.lbTongKhachHang.Name = "lbTongKhachHang";
-            this.lbTongKhachHang.Size = new System.Drawing.Size(73, 23);
+            this.lbTongKhachHang.Size = new System.Drawing.Size(121, 38);
             this.lbTongKhachHang.TabIndex = 6;
             this.lbTongKhachHang.Text = "label10";
             // 
@@ -321,10 +307,10 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(122, 26);
+            this.label6.Font = new System.Drawing.Font("Roboto Condensed", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(109, 9);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(128, 19);
+            this.label6.Size = new System.Drawing.Size(209, 33);
             this.label6.TabIndex = 0;
             this.label6.Text = "Lượng khách hàng";
             // 
@@ -345,21 +331,21 @@
             // lbTongDoanhThu
             // 
             this.lbTongDoanhThu.AutoSize = true;
-            this.lbTongDoanhThu.Font = new System.Drawing.Font("Roboto", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTongDoanhThu.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTongDoanhThu.ForeColor = System.Drawing.Color.Red;
-            this.lbTongDoanhThu.Location = new System.Drawing.Point(142, 81);
+            this.lbTongDoanhThu.Location = new System.Drawing.Point(109, 81);
             this.lbTongDoanhThu.Name = "lbTongDoanhThu";
-            this.lbTongDoanhThu.Size = new System.Drawing.Size(62, 23);
+            this.lbTongDoanhThu.Size = new System.Drawing.Size(103, 38);
             this.lbTongDoanhThu.TabIndex = 3;
             this.lbTongDoanhThu.Text = "label7";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(125, 26);
+            this.label3.Font = new System.Drawing.Font("Roboto Condensed", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(109, 9);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(109, 19);
+            this.label3.Size = new System.Drawing.Size(180, 33);
             this.label3.TabIndex = 1;
             this.label3.Text = "Tổng doanh thu";
             // 
@@ -390,11 +376,11 @@
             // lbTongSoPhong
             // 
             this.lbTongSoPhong.AutoSize = true;
-            this.lbTongSoPhong.Font = new System.Drawing.Font("Roboto", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTongSoPhong.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTongSoPhong.ForeColor = System.Drawing.Color.Red;
-            this.lbTongSoPhong.Location = new System.Drawing.Point(137, 81);
+            this.lbTongSoPhong.Location = new System.Drawing.Point(108, 81);
             this.lbTongSoPhong.Name = "lbTongSoPhong";
-            this.lbTongSoPhong.Size = new System.Drawing.Size(62, 23);
+            this.lbTongSoPhong.Size = new System.Drawing.Size(103, 38);
             this.lbTongSoPhong.TabIndex = 5;
             this.lbTongSoPhong.Text = "label9";
             // 
@@ -411,10 +397,10 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(137, 26);
+            this.label5.Font = new System.Drawing.Font("Roboto Condensed", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(109, 9);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(103, 19);
+            this.label5.Size = new System.Drawing.Size(172, 33);
             this.label5.TabIndex = 0;
             this.label5.Text = "Tổng số phòng";
             // 
@@ -435,11 +421,11 @@
             // lbTongNhanVien
             // 
             this.lbTongNhanVien.AutoSize = true;
-            this.lbTongNhanVien.Font = new System.Drawing.Font("Roboto", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTongNhanVien.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTongNhanVien.ForeColor = System.Drawing.Color.Red;
-            this.lbTongNhanVien.Location = new System.Drawing.Point(132, 81);
+            this.lbTongNhanVien.Location = new System.Drawing.Point(106, 81);
             this.lbTongNhanVien.Name = "lbTongNhanVien";
-            this.lbTongNhanVien.Size = new System.Drawing.Size(62, 23);
+            this.lbTongNhanVien.Size = new System.Drawing.Size(103, 38);
             this.lbTongNhanVien.TabIndex = 4;
             this.lbTongNhanVien.Text = "label8";
             // 
@@ -456,10 +442,10 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(132, 26);
+            this.label4.Font = new System.Drawing.Font("Roboto Condensed", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(106, 9);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(107, 19);
+            this.label4.Size = new System.Drawing.Size(176, 33);
             this.label4.TabIndex = 0;
             this.label4.Text = "Tổng nhân viên";
             // 
@@ -475,7 +461,6 @@
             this.panel8.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
             this.panel2.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
@@ -530,7 +515,6 @@
         private System.Windows.Forms.ComboBox cboLoaiThongKe;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
     }
 }
