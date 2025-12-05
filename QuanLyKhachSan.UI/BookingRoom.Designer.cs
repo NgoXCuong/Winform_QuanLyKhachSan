@@ -49,7 +49,7 @@
             this.pnlSelectedRoom = new System.Windows.Forms.GroupBox();
             this.lblSelectedRoomInfo = new System.Windows.Forms.Label();
             this.pnlRoomList = new System.Windows.Forms.GroupBox();
-            this.lvPhong = new System.Windows.Forms.ListView();
+            this.tabControlFloors = new System.Windows.Forms.TabControl();
             this.pnlRoomFilter = new System.Windows.Forms.Panel();
             this.rbBaoTri = new System.Windows.Forms.RadioButton();
             this.rbCoKhach = new System.Windows.Forms.RadioButton();
@@ -368,7 +368,7 @@
             // 
             // pnlRoomList
             // 
-            this.pnlRoomList.Controls.Add(this.lvPhong);
+            this.pnlRoomList.Controls.Add(this.tabControlFloors);
             this.pnlRoomList.Controls.Add(this.pnlRoomFilter);
             this.pnlRoomList.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlRoomList.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -379,22 +379,15 @@
             this.pnlRoomList.TabIndex = 0;
             this.pnlRoomList.TabStop = false;
             this.pnlRoomList.Text = "Danh sách phòng";
-            // 
-            // lvPhong
-            // 
-            this.lvPhong.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lvPhong.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lvPhong.FullRowSelect = true;
-            this.lvPhong.GridLines = true;
-            this.lvPhong.HideSelection = false;
-            this.lvPhong.Location = new System.Drawing.Point(10, 68);
-            this.lvPhong.MultiSelect = false;
-            this.lvPhong.Name = "lvPhong";
-            this.lvPhong.Size = new System.Drawing.Size(594, 356);
-            this.lvPhong.TabIndex = 1;
-            this.lvPhong.UseCompatibleStateImageBehavior = false;
-            this.lvPhong.View = System.Windows.Forms.View.Details;
-            this.lvPhong.SelectedIndexChanged += new System.EventHandler(this.lvPhong_SelectedIndexChanged);
+            //
+            // tabControlFloors
+            //
+            this.tabControlFloors.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControlFloors.Location = new System.Drawing.Point(10, 68);
+            this.tabControlFloors.Name = "tabControlFloors";
+            this.tabControlFloors.SelectedIndex = 0;
+            this.tabControlFloors.Size = new System.Drawing.Size(594, 356);
+            this.tabControlFloors.TabIndex = 1;
             // 
             // pnlRoomFilter
             // 
@@ -989,5 +982,6 @@
         private System.Windows.Forms.Label lblNgayTra;
         private System.Windows.Forms.DateTimePicker dtpNgayNhan;
         private System.Windows.Forms.Label lblNgayNhan;
+        private System.Windows.Forms.TabControl tabControlFloors;
     }
 }

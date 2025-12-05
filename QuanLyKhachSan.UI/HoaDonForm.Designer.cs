@@ -36,6 +36,7 @@
             this.colThanhTien = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colNgaySuDung = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.grpThongTinHoaDon = new System.Windows.Forms.GroupBox();
+            this.cbMaDatPhong = new System.Windows.Forms.ComboBox();
             this.txtGhiChu = new System.Windows.Forms.TextBox();
             this.cboPhuongThucThanhToan = new System.Windows.Forms.ComboBox();
             this.cboTrangThaiThanhToanDetail = new System.Windows.Forms.ComboBox();
@@ -95,7 +96,6 @@
             this.colTrangThaiThanhToan = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colPhuongThucThanhToan = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colNgayThanhToan = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cbMaDatPhong = new System.Windows.Forms.ComboBox();
             this.grpDichVuSuDung.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDichVu)).BeginInit();
             this.grpThongTinHoaDon.SuspendLayout();
@@ -216,6 +216,16 @@
             this.grpThongTinHoaDon.TabIndex = 0;
             this.grpThongTinHoaDon.TabStop = false;
             this.grpThongTinHoaDon.Text = "Thông Tin Hóa Đơn";
+            // 
+            // cbMaDatPhong
+            // 
+            this.cbMaDatPhong.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbMaDatPhong.Font = new System.Drawing.Font("Segoe UI", 9.75F);
+            this.cbMaDatPhong.FormattingEnabled = true;
+            this.cbMaDatPhong.Location = new System.Drawing.Point(555, 21);
+            this.cbMaDatPhong.Name = "cbMaDatPhong";
+            this.cbMaDatPhong.Size = new System.Drawing.Size(159, 25);
+            this.cbMaDatPhong.TabIndex = 22;
             // 
             // txtGhiChu
             // 
@@ -498,7 +508,7 @@
             this.btnLamMoi.Name = "btnLamMoi";
             this.btnLamMoi.Size = new System.Drawing.Size(220, 41);
             this.btnLamMoi.TabIndex = 8;
-            this.btnLamMoi.Text = "Làm mới";
+            this.btnLamMoi.Text = "🔄 Làm mới";
             this.btnLamMoi.UseVisualStyleBackColor = false;
             // 
             // btnTimKiem
@@ -513,7 +523,7 @@
             this.btnTimKiem.Name = "btnTimKiem";
             this.btnTimKiem.Size = new System.Drawing.Size(215, 41);
             this.btnTimKiem.TabIndex = 9;
-            this.btnTimKiem.Text = "Tìm kiếm";
+            this.btnTimKiem.Text = "🔍 Tìm kiếm";
             this.btnTimKiem.UseVisualStyleBackColor = false;
             // 
             // btnTaoMoi
@@ -538,12 +548,12 @@
             this.btnSua.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSua.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSua.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnSua.ForeColor = System.Drawing.Color.Black;
+            this.btnSua.ForeColor = System.Drawing.Color.White;
             this.btnSua.Location = new System.Drawing.Point(445, 3);
             this.btnSua.Name = "btnSua";
             this.btnSua.Size = new System.Drawing.Size(215, 41);
             this.btnSua.TabIndex = 0;
-            this.btnSua.Text = "➕ Sửa";
+            this.btnSua.Text = "✏️ Sửa";
             this.btnSua.UseVisualStyleBackColor = false;
             // 
             // btnXoa
@@ -885,16 +895,6 @@
             this.colNgayThanhToan.HeaderText = "Ngày Thanh Toán";
             this.colNgayThanhToan.Name = "colNgayThanhToan";
             this.colNgayThanhToan.ReadOnly = true;
-            // 
-            // cbMaDatPhong
-            // 
-            this.cbMaDatPhong.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbMaDatPhong.Font = new System.Drawing.Font("Segoe UI", 9.75F);
-            this.cbMaDatPhong.FormattingEnabled = true;
-            this.cbMaDatPhong.Location = new System.Drawing.Point(555, 21);
-            this.cbMaDatPhong.Name = "cbMaDatPhong";
-            this.cbMaDatPhong.Size = new System.Drawing.Size(159, 25);
-            this.cbMaDatPhong.TabIndex = 22;
             // 
             // HoaDonForm
             // 

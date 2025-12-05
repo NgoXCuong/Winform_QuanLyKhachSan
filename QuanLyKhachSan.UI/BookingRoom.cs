@@ -57,43 +57,87 @@ namespace QuanLyKhachSan.UI
         {
             try
             {
-                lvPhong.BeginUpdate();
-                lvPhong.View = View.LargeIcon;
-                lvPhong.LargeImageList = imageListPhong;
-                lvPhong.Items.Clear();
-                imageListPhong.Images.Clear(); // 🔹 Xóa ảnh cũ trước khi load mới
+                // 🔹 Xóa tất cả tab cũ
+                tabControlFloors.TabPages.Clear();
 
                 // 🔹 Lấy danh sách phòng từ DB
                 List<PhongModel> danhSachPhong = phongService.GetAllPhong();
 
-                foreach (var phong in danhSachPhong)
-                {
-                    string trangThai = phong.TrangThai?.Trim().ToLower() ?? "";
-                    string tenLoaiPhong = phong.TenLoaiPhong?.Trim().ToLower() ?? "";
-
-                    // 🔹 Lọc theo loại phòng (nếu có chọn)
-                    if (!string.IsNullOrEmpty(tenLoaiPhongLoc) && tenLoaiPhong != tenLoaiPhongLoc.ToLower())
-                        continue;
-
-                    // 🔹 Lọc theo trạng thái (nếu có chọn)
-                    if (!string.IsNullOrEmpty(trangThaiLoc) && trangThai != trangThaiLoc.ToLower())
-                        continue;
-
-                    // 🔹 Chuyển ảnh từ DB sang Image
-                    Image img = ByteArrayToImage(phong.Anh);
-
-                    // 🔹 Thêm ảnh vào ImageList
-                    imageListPhong.Images.Add(img);
-
-                    // 🔹 Tạo item hiển thị
-                    string tenItem = $"{phong.SoPhong}\n({phong.TrangThai ?? "Không rõ"})";
-                    ListViewItem item = new ListViewItem(tenItem)
+                // 🔹 Nhóm phòng theo tầng
+                var phongTheoTang = danhSachPhong
+                    .Where(phong =>
                     {
-                        ImageIndex = imageListPhong.Images.Count - 1,
-                        Tag = phong
-                    };
+                        string trangThai = phong.TrangThai?.Trim().ToLower() ?? "";
+                        string tenLoaiPhong = phong.TenLoaiPhong?.Trim().ToLower() ?? "";
 
-                    lvPhong.Items.Add(item);
+                        // 🔹 Lọc theo loại phòng (nếu có chọn)
+                        if (!string.IsNullOrEmpty(tenLoaiPhongLoc) && tenLoaiPhong != tenLoaiPhongLoc.ToLower())
+                            return false;
+
+                        // 🔹 Lọc theo trạng thái (nếu có chọn)
+                        if (!string.IsNullOrEmpty(trangThaiLoc) && trangThai != trangThaiLoc.ToLower())
+                            return false;
+
+                        return true;
+                    })
+                    .GroupBy(p => p.Tang)
+                    .OrderBy(g => g.Key);
+
+                // 🔹 Tạo tab cho mỗi tầng
+                foreach (var nhomTang in phongTheoTang)
+                {
+                    // 🔹 Tạo tab page cho tầng
+                    TabPage tabPage = new TabPage($"Tầng {nhomTang.Key}");
+                    tabPage.BackColor = Color.White;
+
+                    // 🔹 Tạo ListView cho tầng này
+                    ListView lvTang = new ListView();
+                    lvTang.View = View.LargeIcon;
+                    lvTang.LargeImageList = imageListPhong;
+                    lvTang.FullRowSelect = true;
+                    lvTang.GridLines = true;
+                    lvTang.HideSelection = false;
+                    lvTang.MultiSelect = false;
+                    lvTang.Dock = DockStyle.Fill;
+                    lvTang.Font = new Font("Roboto Condensed", 12F, FontStyle.Regular);
+                    lvTang.SelectedIndexChanged += LvTang_SelectedIndexChanged;
+
+                    // 🔹 Thêm phòng vào ListView của tầng
+                    foreach (var phong in nhomTang.OrderBy(p => p.SoPhong))
+                    {
+                        // 🔹 Chuyển ảnh từ DB sang Image
+                        Image img = ByteArrayToImage(phong.Anh);
+
+                        // 🔹 Thêm ảnh vào ImageList
+                        imageListPhong.Images.Add(img);
+
+                        // 🔹 Tạo item hiển thị
+                        string tenItem = $"{phong.SoPhong}\n({phong.TrangThai ?? "Không rõ"})";
+                        ListViewItem item = new ListViewItem(tenItem)
+                        {
+                            ImageIndex = imageListPhong.Images.Count - 1,
+                            Tag = phong
+                        };
+
+                        lvTang.Items.Add(item);
+                    }
+
+                    // 🔹 Thêm ListView vào tab
+                    tabPage.Controls.Add(lvTang);
+                    tabControlFloors.TabPages.Add(tabPage);
+                }
+
+                // 🔹 Nếu không có phòng nào, hiển thị thông báo
+                if (tabControlFloors.TabPages.Count == 0)
+                {
+                    TabPage emptyTab = new TabPage("Không có phòng");
+                    Label lblEmpty = new Label();
+                    lblEmpty.Text = "Không có phòng nào phù hợp với bộ lọc.";
+                    lblEmpty.AutoSize = true;
+                    lblEmpty.Font = new Font("Roboto Condensed", 12F, FontStyle.Regular);
+                    lblEmpty.Location = new Point(20, 20);
+                    emptyTab.Controls.Add(lblEmpty);
+                    tabControlFloors.TabPages.Add(emptyTab);
                 }
             }
             catch (Exception ex)
@@ -101,15 +145,13 @@ namespace QuanLyKhachSan.UI
                 MessageBox.Show("Lỗi khi tải danh sách phòng: " + ex.Message,
                     "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            finally
-            {
-                lvPhong.EndUpdate();
-            }
         }
 
         private void BookingRoom_Load(object sender, EventArgs e)
         {
             rbTatCa.Checked = true; // Load tất cả phòng khi mở form
+            TinhSoNgay(); // Tính số ngày ban đầu
+            CapNhatTongTien(); // Cập nhật tổng tiền ban đầu
         }
 
         private void rbTatCa_CheckedChanged(object sender, EventArgs e)
@@ -148,6 +190,61 @@ namespace QuanLyKhachSan.UI
         //        TenLoaiPhong = "Tất cả"
         //    });
         //}
+
+        // Event handler cho việc chọn phòng trong các tab tầng
+        private void LvTang_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListView lvSender = sender as ListView;
+            if (lvSender == null || lvSender.SelectedItems.Count == 0)
+            {
+                lblSelectedRoomInfo.Text = "⚠️ Chưa chọn phòng nào.";
+                tienPhong = 0;
+                CapNhatTongTien();
+                return;
+            }
+
+            var selectedItem = lvSender.SelectedItems[0];
+
+            if (selectedItem.Tag is PhongModel phong)
+            {
+                // 🧩 Hiển thị thông tin phòng
+                lblSelectedRoomInfo.Text =
+                    $"🆔 Mã phòng: {phong.MaPhong}\n" +
+                    $"🏠 Số phòng: {phong.SoPhong}\n" +
+                    $"🏷️ Loại phòng: {phong.TenLoaiPhong}\n" +
+                    $"💰 Giá cơ bản: {phong.GiaPhong:N0} VNĐ\n" +
+                    $"👥 Sức chứa tối đa: {phong.SucChuaToiDa} người\n" +
+                    $"📶 Trạng thái: {phong.TrangThai}\n" +
+                    $"🏢 Tầng: {phong.Tang}\n" +
+                    $"📝 Mô tả: {phong.MoTa}";
+
+                // 🧮 Cập nhật giá phòng
+                tienPhong = phong.GiaPhong;
+
+                // 🏷️ Hiển thị trên giao diện (nếu có label giá phòng)
+                if (lblTienPhongValue != null)
+                    lblTienPhongValue.Text = phong.GiaPhong.ToString("N0") + " VNĐ";
+
+                // 🔁 Cập nhật tổng tiền
+                CapNhatTongTien();
+            }
+        }
+
+        // Phương thức lấy phòng đã chọn từ các tab
+        private PhongModel GetSelectedRoom()
+        {
+            foreach (TabPage tab in tabControlFloors.TabPages)
+            {
+                if (tab.Controls.Count > 0 && tab.Controls[0] is ListView lv)
+                {
+                    if (lv.SelectedItems.Count > 0 && lv.SelectedItems[0].Tag is PhongModel phong)
+                    {
+                        return phong;
+                    }
+                }
+            }
+            return null;
+        }
 
         private void lvPhong_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -446,7 +543,8 @@ namespace QuanLyKhachSan.UI
             try
             {
                 // ======= 1️⃣ KIỂM TRA DỮ LIỆU =======
-                if (lvPhong.SelectedItems.Count == 0)
+                PhongModel phong = GetSelectedRoom();
+                if (phong == null)
                 {
                     MessageBox.Show("⚠️ Vui lòng chọn phòng cần đặt!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
@@ -461,13 +559,6 @@ namespace QuanLyKhachSan.UI
                 if (!ngayNhan.HasValue || !ngayTra.HasValue || ngayTra <= ngayNhan)
                 {
                     MessageBox.Show("⚠️ Ngày nhận và ngày trả không hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                var phong = lvPhong.SelectedItems[0].Tag as PhongModel;
-                if (phong == null)
-                {
-                    MessageBox.Show("❌ Không thể lấy thông tin phòng!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -491,12 +582,14 @@ namespace QuanLyKhachSan.UI
                     }
                 }
 
-                // ======= 3️⃣ TÍNH TỔNG TIỀN =======
-                int soNgay = Math.Max(1, (ngayTra.Value - ngayNhan.Value).Days);
-                decimal tienPhongTotal = phong.GiaPhong * soNgay;
-                decimal tienDichVuTotal = dsDichVu.Sum(dv => dv.DonGia * dv.SoLuong);
-                decimal tongTien = tienPhongTotal + tienDichVuTotal;
+                // ======= 3️⃣ LẤY TỔNG TIỀN TỪ UI =======
+                decimal tongTienFromUI = 0;
+                if (decimal.TryParse(lblTongTienValue.Text.Replace(" VNĐ", "").Replace(",", ""), out decimal parsedTongTien))
+                {
+                    tongTienFromUI = parsedTongTien;
+                }
 
+                // ======= 4️⃣ TẠO ĐẶT PHÒNG =======
                 var datPhong = new DatPhongModel
                 {
                     MaPhong = phong.MaPhong,
@@ -505,9 +598,9 @@ namespace QuanLyKhachSan.UI
                     NgayNhanPhong = ngayNhan.Value,
                     NgayTraPhong = ngayTra.Value,
                     SoNguoi = (int)numSoNguoi.Value,
-                    TongTien = tongTien,
+                    TongTien = tongTienFromUI, // Lấy từ UI thay vì tính lại
                     TrangThai = "Chờ xác nhận",
-                    GhiChu = txtGhiChu.Text.Trim(), // 🟢 thêm dòng này
+                    GhiChu = txtGhiChu.Text.Trim(),
                     NgayTao = DateTime.Now
                 };
 
@@ -520,6 +613,12 @@ namespace QuanLyKhachSan.UI
                 }
 
                 phongService.CapNhatTrangThaiPhong(phong.MaPhong, "Có khách");
+
+                // Tính tổng tiền để hiển thị trong thông báo thành công
+                int soNgay = Math.Max(1, (ngayTra.Value - ngayNhan.Value).Days);
+                decimal tienPhongTotal = phong.GiaPhong * soNgay;
+                decimal tienDichVuTotal = dsDichVu.Sum(dv => dv.DonGia * dv.SoLuong);
+                decimal tongTien = tienPhongTotal + tienDichVuTotal;
 
                 MessageBox.Show($"✅ Đặt phòng thành công!\nTổng tiền: {tongTien:N0} VNĐ",
                     "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -550,8 +649,14 @@ namespace QuanLyKhachSan.UI
             lblTienPhongValue.Text = "0 VNĐ";
             lblTongTienValue.Text = "0 VNĐ";
 
-            // Bỏ chọn phòng
-            lvPhong.SelectedItems.Clear();
+            // Bỏ chọn phòng trong tất cả các tab
+            foreach (TabPage tab in tabControlFloors.TabPages)
+            {
+                if (tab.Controls.Count > 0 && tab.Controls[0] is ListView lv)
+                {
+                    lv.SelectedItems.Clear();
+                }
+            }
 
             // Bỏ chọn dịch vụ
             foreach (DataGridViewRow row in dgvDichVu.Rows)
@@ -575,7 +680,15 @@ namespace QuanLyKhachSan.UI
                 dgvDatPhong.Columns["NgayNhanPhong"].HeaderText = "Ngày Nhận";
                 dgvDatPhong.Columns["NgayTraPhong"].HeaderText = "Ngày Trả";
                 dgvDatPhong.Columns["SoNguoi"].HeaderText = "Số Người";
-                dgvDatPhong.Columns["TongTien"].HeaderText = "Tổng Tiền (VNĐ)";
+
+                // Định dạng cột Tổng Tiền
+                if (dgvDatPhong.Columns.Contains("TongTien"))
+                {
+                    dgvDatPhong.Columns["TongTien"].HeaderText = "Tổng Tiền";
+                    dgvDatPhong.Columns["TongTien"].DefaultCellStyle.Format = "N0";
+                    dgvDatPhong.Columns["TongTien"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                }
+
                 dgvDatPhong.Columns["TrangThai"].HeaderText = "Trạng Thái";
             }
             catch (Exception ex)
@@ -691,15 +804,26 @@ namespace QuanLyKhachSan.UI
                     $"🏢 Tầng: {phong.Tang}";
             }
 
-            // ===== Chọn lại phòng trong ListView =====
-            foreach (ListViewItem item in lvPhong.Items)
+            // ===== Chọn lại phòng trong các tab tầng =====
+            foreach (TabPage tab in tabControlFloors.TabPages)
             {
-                item.Selected = false;
-                if (item.Tag is PhongModel p && p.MaPhong == maPhong)
+                if (tab.Controls.Count > 0 && tab.Controls[0] is ListView lv)
                 {
-                    item.Selected = true;
-                    item.EnsureVisible();
-                    break;
+                    bool found = false;
+                    foreach (ListViewItem item in lv.Items)
+                    {
+                        item.Selected = false;
+                        if (item.Tag is PhongModel p && p.MaPhong == maPhong)
+                        {
+                            item.Selected = true;
+                            item.EnsureVisible();
+                            // Chuyển đến tab chứa phòng này
+                            tabControlFloors.SelectedTab = tab;
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (found) break;
                 }
             }
 
@@ -764,11 +888,12 @@ namespace QuanLyKhachSan.UI
             try
             {
                 // 1️⃣ Lấy dữ liệu từ giao diện
+                PhongModel selectedRoom = GetSelectedRoom();
                 var dp = new DatPhongModel
                 {
                     MaDatPhong = maDatPhongDangChon.Value,
                     MaKH = Convert.ToInt32(cboKhachHang.SelectedValue),
-                    MaPhong = (lvPhong.SelectedItems.Count > 0 && lvPhong.SelectedItems[0].Tag is PhongModel p) ? p.MaPhong : 0,
+                    MaPhong = selectedRoom?.MaPhong ?? 0,
                     MaNV = SessionInfo.CurrentUser?.MaNV ?? 0,
                     NgayNhanPhong = dtpNgayNhan.Value,
                     NgayTraPhong = dtpNgayTra.Value,
@@ -796,19 +921,13 @@ namespace QuanLyKhachSan.UI
                     }
                 }
 
-                // 3️⃣ Tính tổng tiền
-                int soNgay = Math.Max(1, (dp.NgayTraPhong - dp.NgayNhanPhong).Days);
-                var phong = phongService.GetById(dp.MaPhong);
-                if (phong == null)
+                // 3️⃣ Lấy tổng tiền từ UI
+                decimal tongTien = 0;
+                if (decimal.TryParse(lblTongTienValue.Text.Replace(" VNĐ", "").Replace(",", ""), out decimal parsedTongTien))
                 {
-                    MessageBox.Show("⚠️ Không tìm thấy thông tin phòng!",
-                        "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
+                    tongTien = parsedTongTien;
                 }
-
-                decimal tienPhong = (phong?.GiaPhong ?? 0) * soNgay;
-                decimal tienDichVu = dsDichVuDaDat.Sum(dv => dv.DonGia * dv.SoLuong);
-                dp.TongTien = tienPhong + tienDichVu;
+                dp.TongTien = tongTien; // Gán tổng tiền từ UI
 
                 // 4️⃣ Gọi service cập nhật đặt phòng
                 bool result = datPhongService.SuaDatPhong(dp);

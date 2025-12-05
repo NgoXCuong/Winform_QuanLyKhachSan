@@ -286,11 +286,11 @@
             // lbTongKhachHang
             // 
             this.lbTongKhachHang.AutoSize = true;
-            this.lbTongKhachHang.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTongKhachHang.Font = new System.Drawing.Font("Roboto", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTongKhachHang.ForeColor = System.Drawing.Color.Red;
             this.lbTongKhachHang.Location = new System.Drawing.Point(109, 81);
             this.lbTongKhachHang.Name = "lbTongKhachHang";
-            this.lbTongKhachHang.Size = new System.Drawing.Size(121, 38);
+            this.lbTongKhachHang.Size = new System.Drawing.Size(113, 35);
             this.lbTongKhachHang.TabIndex = 6;
             this.lbTongKhachHang.Text = "label10";
             // 
@@ -331,11 +331,11 @@
             // lbTongDoanhThu
             // 
             this.lbTongDoanhThu.AutoSize = true;
-            this.lbTongDoanhThu.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTongDoanhThu.Font = new System.Drawing.Font("Roboto", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTongDoanhThu.ForeColor = System.Drawing.Color.Red;
             this.lbTongDoanhThu.Location = new System.Drawing.Point(109, 81);
             this.lbTongDoanhThu.Name = "lbTongDoanhThu";
-            this.lbTongDoanhThu.Size = new System.Drawing.Size(103, 38);
+            this.lbTongDoanhThu.Size = new System.Drawing.Size(96, 35);
             this.lbTongDoanhThu.TabIndex = 3;
             this.lbTongDoanhThu.Text = "label7";
             // 
@@ -376,11 +376,11 @@
             // lbTongSoPhong
             // 
             this.lbTongSoPhong.AutoSize = true;
-            this.lbTongSoPhong.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTongSoPhong.Font = new System.Drawing.Font("Roboto", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTongSoPhong.ForeColor = System.Drawing.Color.Red;
             this.lbTongSoPhong.Location = new System.Drawing.Point(108, 81);
             this.lbTongSoPhong.Name = "lbTongSoPhong";
-            this.lbTongSoPhong.Size = new System.Drawing.Size(103, 38);
+            this.lbTongSoPhong.Size = new System.Drawing.Size(96, 35);
             this.lbTongSoPhong.TabIndex = 5;
             this.lbTongSoPhong.Text = "label9";
             // 
@@ -421,11 +421,11 @@
             // lbTongNhanVien
             // 
             this.lbTongNhanVien.AutoSize = true;
-            this.lbTongNhanVien.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTongNhanVien.Font = new System.Drawing.Font("Roboto", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTongNhanVien.ForeColor = System.Drawing.Color.Red;
             this.lbTongNhanVien.Location = new System.Drawing.Point(106, 81);
             this.lbTongNhanVien.Name = "lbTongNhanVien";
-            this.lbTongNhanVien.Size = new System.Drawing.Size(103, 38);
+            this.lbTongNhanVien.Size = new System.Drawing.Size(96, 35);
             this.lbTongNhanVien.TabIndex = 4;
             this.lbTongNhanVien.Text = "label8";
             // 

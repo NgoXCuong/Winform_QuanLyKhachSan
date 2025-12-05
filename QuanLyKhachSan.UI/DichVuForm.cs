@@ -57,6 +57,14 @@ namespace QuanLyKhachSan.UI
 
         private void btnThem_Click(object sender, EventArgs e)
         {
+            // Kiểm tra phân quyền
+            var currentUser = QuanLyKhachSan.Models.SessionInfo.CurrentUser;
+            if (currentUser == null || (currentUser.VaiTro != "Quản trị" && currentUser.VaiTro != "Admin"))
+            {
+                MessageBox.Show("Bạn không có quyền thực hiện chức năng này!", "Phân quyền", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             try
             {
                 isEditing = false; // ✅ Đang thêm mới
@@ -121,6 +129,14 @@ namespace QuanLyKhachSan.UI
 
         private void btnSua_Click(object sender, EventArgs e)
         {
+            // Kiểm tra phân quyền
+            var currentUser = QuanLyKhachSan.Models.SessionInfo.CurrentUser;
+            if (currentUser == null || (currentUser.VaiTro != "Quản trị" && currentUser.VaiTro != "Admin"))
+            {
+                MessageBox.Show("Bạn không có quyền thực hiện chức năng này!", "Phân quyền", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             try
             {
                 if (dgvListDichVu.CurrentRow == null)
@@ -188,6 +204,14 @@ namespace QuanLyKhachSan.UI
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
+            // Kiểm tra phân quyền
+            var currentUser = QuanLyKhachSan.Models.SessionInfo.CurrentUser;
+            if (currentUser == null || (currentUser.VaiTro != "Quản trị" && currentUser.VaiTro != "Admin"))
+            {
+                MessageBox.Show("Bạn không có quyền thực hiện chức năng này!", "Phân quyền", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             try
             {
                 if (dgvListDichVu.CurrentRow != null)

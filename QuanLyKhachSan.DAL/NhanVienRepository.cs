@@ -46,7 +46,15 @@ namespace QuanLyKhachSan.DAL
                 ds.Add(new NhanVienModel
                 {
                     MaNV = row["MaNV"] == DBNull.Value ? 0 : Convert.ToInt32(row["MaNV"]),
-                    HoTen = row["HoTen"]?.ToString()
+                    HoTen = row["HoTen"]?.ToString(),
+                    // Other properties can be null/default since they're not used for display
+                    GioiTinh = null,
+                    NgaySinh = null,
+                    ChucVu = null,
+                    SoDienThoai = null,
+                    Email = null,
+                    Anh = null,
+                    TrangThai = null
                 });
             }
             return ds;
@@ -75,12 +83,24 @@ namespace QuanLyKhachSan.DAL
 
         public bool SuaNhanVien(NhanVienModel nv)
         {
-            string sql = @"UPDATE NhanVien SET 
-                           HoTen = @HoTen, 
-                           GioiTinh = @GioiTinh, 
-                           NgaySinh = @NgaySinh, 
-                           ChucVu = @ChucVu, 
-                           SoDienThoai = @SoDienThoai, 
+            // Lấy trạng thái hiện tại của nhân viên
+            string getCurrentStatusSql = "SELECT TrangThai FROM NhanVien WHERE MaNV = @MaNV";
+            var getParams = new SqlParameter[] { new SqlParameter("@MaNV", nv.MaNV) };
+            var currentStatusResult = connDb.ExecuteQuery(getCurrentStatusSql, getParams);
+
+            string currentStatus = "";
+            if (currentStatusResult.Rows.Count > 0)
+            {
+                currentStatus = currentStatusResult.Rows[0]["TrangThai"].ToString();
+            }
+
+            // Cập nhật nhân viên
+            string sql = @"UPDATE NhanVien SET
+                           HoTen = @HoTen,
+                           GioiTinh = @GioiTinh,
+                           NgaySinh = @NgaySinh,
+                           ChucVu = @ChucVu,
+                           SoDienThoai = @SoDienThoai,
                            Email = @Email,
                            TrangThai = @TrangThai
                            WHERE MaNV = @MaNV";
@@ -97,7 +117,23 @@ namespace QuanLyKhachSan.DAL
                 new SqlParameter("@MaNV", nv.MaNV)
             };
 
-            return connDb.ExecuteNonQuery(sql, parameters) > 0;
+            bool result = connDb.ExecuteNonQuery(sql, parameters) > 0;
+
+            // Nếu cập nhật thành công và trạng thái thay đổi thành "Nghỉ việc"
+            if (result && currentStatus != "Nghỉ việc" && nv.TrangThai == "Nghỉ việc")
+            {
+                // Cập nhật trạng thái tài khoản thành "Ngưng hoạt động"
+                string updateTaiKhoanSql = @"UPDATE TaiKhoan
+                                           SET TrangThai = N'Ngưng hoạt động'
+                                           WHERE MaNV = @MaNV";
+                var taiKhoanParams = new SqlParameter[]
+                {
+                    new SqlParameter("@MaNV", nv.MaNV)
+                };
+                connDb.ExecuteNonQuery(updateTaiKhoanSql, taiKhoanParams);
+            }
+
+            return result;
         }
 
         public bool XoaNhanVien(int maNv)

@@ -106,9 +106,15 @@ namespace QuanLyKhachSan.UI
 
                     if (result == DialogResult.Yes)
                     {
-                        int maNV = Convert.ToInt32(dgvListNhanVien.CurrentRow.Cells["MaNV"].Value);
+                        // Get the NhanVienModel from the current row
+                        var nhanVien = dgvListNhanVien.CurrentRow.DataBoundItem as NhanVienModel;
+                        if (nhanVien == null)
+                        {
+                            MessageBox.Show("Không thể lấy thông tin nhân viên!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
 
-                        bool xoaThanhCong = nhanVienService.XoaNhanVien(maNV);
+                        bool xoaThanhCong = nhanVienService.XoaNhanVien(nhanVien.MaNV);
 
                         if (xoaThanhCong)
                         {
@@ -155,18 +161,26 @@ namespace QuanLyKhachSan.UI
                     return;
                 }
 
-                int maNV = Convert.ToInt32(dgvListNhanVien.CurrentRow.Cells["MaNV"].Value);
+                // Get the NhanVienModel from the current row
+                var nhanVien = dgvListNhanVien.CurrentRow.DataBoundItem as NhanVienModel;
+                if (nhanVien == null)
+                {
+                    MessageBox.Show("Không thể lấy thông tin nhân viên!", Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 string gioiTinh = rbNam.Checked ? "Nam" : "Nữ";
 
                 NhanVienModel nv = new NhanVienModel
                 {
-                    MaNV = maNV,
+                    MaNV = nhanVien.MaNV,
                     HoTen = txtHoTen.Text,
                     GioiTinh = gioiTinh,
                     NgaySinh = dtNgaySinh.Value,
                     ChucVu = txtChucVu.Text,
                     SoDienThoai = txtSDT.Text,
-                    Email = txtEmail.Text
+                    Email = txtEmail.Text,
+                    TrangThai = nhanVien.TrangThai // Preserve existing status
                 };
 
                 bool result = nhanVienService.SuaNhanVien(nv);
@@ -342,11 +356,17 @@ namespace QuanLyKhachSan.UI
                         if (isEditing)
                         {
                             // ✅ Chỉ cho sửa ảnh khi đang ở chế độ sửa (đã chọn dịch vụ)
-                            int maNV = Convert.ToInt32(dgvListNhanVien.CurrentRow.Cells["MaNV"].Value);
+                            var nhanVien = dgvListNhanVien.CurrentRow?.DataBoundItem as NhanVienModel;
+                            if (nhanVien == null)
+                            {
+                                MessageBox.Show("Không thể lấy thông tin nhân viên!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+
                             if (MessageBox.Show("Bạn có muốn cập nhật ảnh cho nhân viên đang chọn không?",
                                                 "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                             {
-                                bool result = nhanVienService.CapNhatAnhNhanVien(maNV, image);
+                                bool result = nhanVienService.CapNhatAnhNhanVien(nhanVien.MaNV, image);
                                 if (result)
                                     MessageBox.Show("Cập nhật ảnh nhân viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 else
@@ -380,26 +400,41 @@ namespace QuanLyKhachSan.UI
 
                     DataGridViewRow row = dgvListNhanVien.Rows[e.RowIndex];
 
-                    txtHoTen.Text = row.Cells["HoTen"].Value.ToString();
-                    rbNam.Checked = row.Cells["GioiTinh"].Value.ToString() == "Nam";
-                    rbNu.Checked = row.Cells["GioiTinh"].Value.ToString() == "Nữ";
-                    dtNgaySinh.Value = Convert.ToDateTime(row.Cells["NgaySinh"].Value);
-                    txtChucVu.Text = row.Cells["ChucVu"].Value.ToString();
-                    txtSDT.Text = row.Cells["SoDienThoai"].Value.ToString();
-                    txtEmail.Text = row.Cells["Email"].Value.ToString();
-
-                    int maNV = Convert.ToInt32(row.Cells["MaNV"].Value);
-
-                    string base64Anh = nhanVienService.LayAnhNhanVien(maNV);
-
-                    if (!string.IsNullOrEmpty(base64Anh) && IsValidBase64(base64Anh))
+                    // Get the NhanVienModel from the row's DataBoundItem
+                    var nhanVien = row.DataBoundItem as NhanVienModel;
+                    if (nhanVien != null)
                     {
-                        picAnhNhanVien.Image = Base64ToImage(base64Anh);
-                        picAnhNhanVien.SizeMode = PictureBoxSizeMode.Zoom;
-                    }
-                    else
-                    {
-                        picAnhNhanVien.Image = null;
+                        txtHoTen.Text = nhanVien.HoTen ?? "";
+                        rbNam.Checked = nhanVien.GioiTinh == "Nam";
+                        rbNu.Checked = nhanVien.GioiTinh == "Nữ";
+
+                        // Handle nullable DateTime
+                        if (nhanVien.NgaySinh.HasValue && nhanVien.NgaySinh.Value != DateTime.MinValue)
+                        {
+                            dtNgaySinh.Value = nhanVien.NgaySinh.Value;
+                        }
+                        else
+                        {
+                            dtNgaySinh.Value = DateTime.Now; // Default to today if no birth date
+                        }
+
+                        txtChucVu.Text = nhanVien.ChucVu ?? "";
+                        txtSDT.Text = nhanVien.SoDienThoai ?? "";
+                        txtEmail.Text = nhanVien.Email ?? "";
+
+                        int maNV = nhanVien.MaNV;
+
+                        string base64Anh = nhanVienService.LayAnhNhanVien(maNV);
+
+                        if (!string.IsNullOrEmpty(base64Anh) && IsValidBase64(base64Anh))
+                        {
+                            picAnhNhanVien.Image = Base64ToImage(base64Anh);
+                            picAnhNhanVien.SizeMode = PictureBoxSizeMode.Zoom;
+                        }
+                        else
+                        {
+                            picAnhNhanVien.Image = null;
+                        }
                     }
                 }
             }
@@ -465,9 +500,15 @@ namespace QuanLyKhachSan.UI
             {
                 if (dgvListNhanVien.CurrentRow != null)
                 {
-                    int maNV = Convert.ToInt32(dgvListNhanVien.CurrentRow.Cells["MaNV"].Value);
+                    // Get the NhanVienModel from the current row
+                    var nhanVien = dgvListNhanVien.CurrentRow.DataBoundItem as NhanVienModel;
+                    if (nhanVien == null)
+                    {
+                        MessageBox.Show("Không thể lấy thông tin nhân viên!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
 
-                    bool result = nhanVienService.XoaAnhNhanVien(maNV);
+                    bool result = nhanVienService.XoaAnhNhanVien(nhanVien.MaNV);
 
                     if (result)
                     {
@@ -746,7 +787,7 @@ namespace QuanLyKhachSan.UI
             dgvListTaiKhoan.Columns["TrangThai"].HeaderText = "Trạng thái";
 
             cbQuyen.Items.Clear();
-            cbQuyen.Items.Add("Admin");
+            cbQuyen.Items.Add("Quản trị");
             cbQuyen.Items.Add("Nhân viên");
             cbQuyen.DropDownStyle = ComboBoxStyle.DropDownList; // chỉ chọn, không nhập
 
@@ -787,7 +828,7 @@ namespace QuanLyKhachSan.UI
                     if (string.IsNullOrEmpty(chucVu))
                         cbQuyen.SelectedItem = null;
                     else if (chucVu.ToLower().Contains("admin") || chucVu.ToLower().Contains("quản lý"))
-                        cbQuyen.SelectedItem = "Admin";
+                        cbQuyen.SelectedItem = "Quản trị";
                     else
                         cbQuyen.SelectedItem = "Nhân viên";
                 }

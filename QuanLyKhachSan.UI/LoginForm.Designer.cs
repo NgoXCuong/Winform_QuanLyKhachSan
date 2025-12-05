@@ -38,7 +38,6 @@
             this.cbAnPassword = new System.Windows.Forms.CheckBox();
             this.btnLogin = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
-            this.linkQuenMatkhau = new System.Windows.Forms.LinkLabel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panelRight = new System.Windows.Forms.Panel();
             this.panelSeparator = new System.Windows.Forms.Panel();
@@ -150,20 +149,8 @@
             this.btnExit.UseVisualStyleBackColor = false;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
-            // linkQuenMatkhau
-            // 
-            this.linkQuenMatkhau.AutoSize = true;
-            this.linkQuenMatkhau.Location = new System.Drawing.Point(520, 265);
-            this.linkQuenMatkhau.Name = "linkQuenMatkhau";
-            this.linkQuenMatkhau.Size = new System.Drawing.Size(127, 20);
-            this.linkQuenMatkhau.TabIndex = 5;
-            this.linkQuenMatkhau.TabStop = true;
-            this.linkQuenMatkhau.Text = "Quên mật khẩu?";
-            this.linkQuenMatkhau.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkQuenMatkhau_LinkClicked);
-            // 
             // panel4
             // 
-            this.panel4.Controls.Add(this.linkQuenMatkhau);
             this.panel4.Controls.Add(this.btnExit);
             this.panel4.Controls.Add(this.btnLogin);
             this.panel4.Controls.Add(this.cbAnPassword);
@@ -286,7 +273,6 @@
         private System.Windows.Forms.CheckBox cbAnPassword;
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Button btnExit;
-        private System.Windows.Forms.LinkLabel linkQuenMatkhau;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panelRight;
         private System.Windows.Forms.Panel panelSeparator;

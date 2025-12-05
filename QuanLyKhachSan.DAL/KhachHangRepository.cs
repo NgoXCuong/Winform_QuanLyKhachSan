@@ -24,6 +24,7 @@ namespace QuanLyKhachSan.DAL
                     HoTen = row["HoTen"]?.ToString(),
                     GioiTinh = row["GioiTinh"]?.ToString(),
                     NgaySinh = row["NgaySinh"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(row["NgaySinh"]),
+                    DiaChi = row["DiaChi"]?.ToString(),
                     SoDienThoai = row["SoDienThoai"]?.ToString(),
                     Email = row["Email"]?.ToString(),
                     CCCD = row["CCCD"]?.ToString(),
@@ -36,13 +37,14 @@ namespace QuanLyKhachSan.DAL
 
         public bool ThemKhachHang(KhachHangModel kh)
         {
-            string sql = @"INSERT INTO KhachHang (HoTen, GioiTinh, NgaySinh, SoDienThoai, Email, CCCD)
-                           VALUES (@HoTen, @GioiTinh, @NgaySinh, @SoDienThoai, @Email, @CCCD)";
+            string sql = @"INSERT INTO KhachHang (HoTen, GioiTinh, NgaySinh, DiaChi, SoDienThoai, Email, CCCD)
+                           VALUES (@HoTen, @GioiTinh, @NgaySinh, @DiaChi, @SoDienThoai, @Email, @CCCD)";
             var parameters = new SqlParameter[]
             {
                 new SqlParameter("@HoTen", kh.HoTen),
                 new SqlParameter("@GioiTinh", kh.GioiTinh),
                 new SqlParameter("@NgaySinh", kh.NgaySinh),
+                new SqlParameter("@DiaChi", kh.DiaChi ?? (object)DBNull.Value),
                 new SqlParameter("@SoDienThoai", kh.SoDienThoai),
                 new SqlParameter("@Email", kh.Email),
                 new SqlParameter("@CCCD", kh.CCCD)
@@ -52,10 +54,11 @@ namespace QuanLyKhachSan.DAL
 
         public bool SuaKhachHang(KhachHangModel kh)
         {
-            string sql = @"UPDATE KhachHang SET 
-                           HoTen = @HoTen, 
-                           GioiTinh = @GioiTinh, 
+            string sql = @"UPDATE KhachHang SET
+                           HoTen = @HoTen,
+                           GioiTinh = @GioiTinh,
                            NgaySinh = @NgaySinh,
+                           DiaChi = @DiaChi,
                            SoDienThoai = @SoDienThoai,
                            Email = @Email,
                            CCCD = @CCCD
@@ -67,6 +70,7 @@ namespace QuanLyKhachSan.DAL
                 new SqlParameter("@HoTen", kh.HoTen),
                 new SqlParameter("@GioiTinh", kh.GioiTinh),
                 new SqlParameter("@NgaySinh", kh.NgaySinh),
+                new SqlParameter("@DiaChi", kh.DiaChi ?? (object)DBNull.Value),
                 new SqlParameter("@SoDienThoai", kh.SoDienThoai),
                 new SqlParameter("@Email", kh.Email),
                 new SqlParameter("@CCCD", kh.CCCD)
@@ -101,6 +105,7 @@ namespace QuanLyKhachSan.DAL
                 }
 
                 conditions.Add("HoTen LIKE @kw");
+                conditions.Add("DiaChi LIKE @kw");
                 conditions.Add("GioiTinh LIKE @kw");
                 conditions.Add("SoDienThoai LIKE @kw");
                 conditions.Add("Email LIKE @kw");
@@ -127,6 +132,7 @@ namespace QuanLyKhachSan.DAL
                     HoTen = row["HoTen"]?.ToString(),
                     GioiTinh = row["GioiTinh"]?.ToString(),
                     NgaySinh = row["NgaySinh"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(row["NgaySinh"]),
+                    DiaChi = row["DiaChi"]?.ToString(),
                     SoDienThoai = row["SoDienThoai"]?.ToString(),
                     Email = row["Email"]?.ToString(),
                     CCCD = row["CCCD"]?.ToString(),
@@ -153,6 +159,7 @@ namespace QuanLyKhachSan.DAL
                 HoTen = row["HoTen"]?.ToString(),
                 GioiTinh = row["GioiTinh"]?.ToString(),
                 NgaySinh = row["NgaySinh"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(row["NgaySinh"]),
+                DiaChi = row["DiaChi"]?.ToString(),
                 SoDienThoai = row["SoDienThoai"]?.ToString(),
                 Email = row["Email"]?.ToString(),
                 CCCD = row["CCCD"]?.ToString(),

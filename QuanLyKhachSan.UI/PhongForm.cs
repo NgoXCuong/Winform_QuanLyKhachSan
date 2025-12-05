@@ -80,6 +80,14 @@ namespace QuanLyKhachSan.UI
 
         private void btnThem_Click(object sender, EventArgs e)
         {
+            // Kiểm tra phân quyền
+            var currentUser = QuanLyKhachSan.Models.SessionInfo.CurrentUser;
+            if (currentUser == null || (currentUser.VaiTro != "Quản trị" && currentUser.VaiTro != "Admin"))
+            {
+                MessageBox.Show("Bạn không có quyền thực hiện chức năng này!", "Phân quyền", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (!ValidatePhongInput(out string soPhong, out string tenLoai, out decimal gia, out int sucChua, out int tang, out string trangThai))
                 return;
 
@@ -115,6 +123,14 @@ namespace QuanLyKhachSan.UI
 
         private void btnSua_Click(object sender, EventArgs e)
         {
+            // Kiểm tra phân quyền
+            var currentUser = QuanLyKhachSan.Models.SessionInfo.CurrentUser;
+            if (currentUser == null || (currentUser.VaiTro != "Quản trị" && currentUser.VaiTro != "Admin"))
+            {
+                MessageBox.Show("Bạn không có quyền thực hiện chức năng này!", "Phân quyền", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (dgvListPhong.SelectedRows.Count == 0) { MessageBox.Show("Chọn phòng để sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning); return; }
 
             if (!ValidatePhongInput(out string soPhong, out string tenLoai, out decimal gia, out int sucChua, out int tang, out string trangThai))
@@ -148,6 +164,14 @@ namespace QuanLyKhachSan.UI
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
+            // Kiểm tra phân quyền
+            var currentUser = QuanLyKhachSan.Models.SessionInfo.CurrentUser;
+            if (currentUser == null || (currentUser.VaiTro != "Quản trị" && currentUser.VaiTro != "Admin"))
+            {
+                MessageBox.Show("Bạn không có quyền thực hiện chức năng này!", "Phân quyền", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             if (dgvListPhong.SelectedRows.Count == 0) { MessageBox.Show("Chọn phòng để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning); return; }
 
             int maPhong = Convert.ToInt32(dgvListPhong.SelectedRows[0].Cells["MaPhong"].Value);
@@ -176,18 +200,26 @@ namespace QuanLyKhachSan.UI
             isEditing = true;
 
             DataGridViewRow row = dgvListPhong.Rows[e.RowIndex];
-            txtSoPhong.Text = row.Cells["SoPhong"].Value?.ToString();
-            txtTenLoaiPhong.Text = row.Cells["TenLoaiPhong"].Value?.ToString();
-            txtGiaPhong.Text = row.Cells["GiaPhong"].Value?.ToString();
-            txtSoNguoi.Text = row.Cells["SucChuaToiDa"].Value?.ToString();
-            numTang.Value = Convert.ToDecimal(row.Cells["Tang"].Value);
-            cbTrangThai.Text = row.Cells["TrangThai"].Value?.ToString();
-            txtMoTa.Text = row.Cells["MoTa"].Value?.ToString();
 
-            string base64 = phongService.LayAnhPhong(Convert.ToInt32(row.Cells["MaPhong"].Value));
-            picAnhPhong.Image = !string.IsNullOrEmpty(base64) ? Base64ToImage(base64) : null;
-            picAnhPhong.SizeMode = PictureBoxSizeMode.Zoom;
+            // Get the PhongModel from the row's DataBoundItem
+            var phong = row.DataBoundItem as PhongModel;
+            if (phong != null)
+            {
+                txtSoPhong.Text = phong.SoPhong ?? "";
+                txtTenLoaiPhong.Text = phong.TenLoaiPhong ?? "";
+                txtGiaPhong.Text = phong.GiaPhong.ToString();
+                txtSoNguoi.Text = phong.SucChuaToiDa.ToString();
+                numTang.Value = phong.Tang;
+                cbTrangThai.Text = phong.TrangThai ?? "";
+                txtMoTa.Text = phong.MoTa ?? "";
+
+                string base64 = phongService.LayAnhPhong(phong.MaPhong);
+                picAnhPhong.Image = !string.IsNullOrEmpty(base64) ? Base64ToImage(base64) : null;
+                picAnhPhong.SizeMode = PictureBoxSizeMode.Zoom;
+            }
         }
+
+
 
         public Image Base64ToImage(string base64String)
         {

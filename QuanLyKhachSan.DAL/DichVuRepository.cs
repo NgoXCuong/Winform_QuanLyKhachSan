@@ -62,11 +62,11 @@ namespace QuanLyKhachSan.DAL
         // ================================
         public bool SuaDichVu(DichVuModel dv)
         {
-            string sql = @"UPDATE DichVu SET 
-                           TenDichVu = @TenDichVu, 
-                           DonGia = @DonGia, 
+            string sql = @"UPDATE DichVu SET
+                           TenDichVu = @TenDichVu,
+                           DonGia = @DonGia,
                            MoTa = @MoTa,
-                           DonViTinh = @DonViTinh,
+                           DonViTinh = @DonViTinh
                            WHERE MaDV = @MaDV";
 
             var parameters = new SqlParameter[]

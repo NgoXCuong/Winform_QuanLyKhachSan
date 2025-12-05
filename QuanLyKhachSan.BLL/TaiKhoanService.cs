@@ -58,10 +58,10 @@ namespace QuanLyKhachSan.BLL
         }
 
         // ✅ Lấy tài khoản theo email
-        public TaiKhoanModel GetTaiKhoanByEmail(string email)
-        {
-            return taiKhoanRepository.GetTaiKhoanByEmail(email);
-        }
+        //public TaiKhoanModel GetTaiKhoanByEmail(string email)
+        //{
+        //    return taiKhoanRepository.GetTaiKhoanByEmail(email);
+        //}
 
     }
 }

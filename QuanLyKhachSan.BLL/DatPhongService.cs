@@ -27,7 +27,12 @@ namespace QuanLyKhachSan.BLL
         {
             ValidateDatPhong(dp);
 
-            dp.TongTien = TinhTongTien(dp);
+            // Nếu chưa có tổng tiền, tính từ dữ liệu đầu vào
+            if (dp.TongTien == 0)
+            {
+                dp.TongTien = TinhTongTienTuDuLieu(dp, dsDichVu);
+            }
+
             dp.TrangThai = string.IsNullOrEmpty(dp.TrangThai) ? "Đang đặt" : dp.TrangThai;
             dp.NgayTao = DateTime.Now;
 
@@ -74,7 +79,11 @@ namespace QuanLyKhachSan.BLL
                 }
 
                 Console.WriteLine("🧩 B4: Cập nhật tổng tiền...");
-                dp.TongTien = TinhTongTien(dp);
+                // Nếu chưa có tổng tiền, tính từ dữ liệu đầu vào
+                if (dp.TongTien == 0)
+                {
+                    dp.TongTien = TinhTongTienTuDuLieu(dp, dsDichVu);
+                }
                 _repository.UpdateTongTien(dp.MaDatPhong, dp.TongTien);
 
                 if (!string.IsNullOrWhiteSpace(dp.TrangThai))
@@ -169,6 +178,29 @@ namespace QuanLyKhachSan.BLL
                     tongTien += dv.DonGia * dv.SoLuong;
                 }
             }
+            return tongTien;
+        }
+
+        private decimal TinhTongTienTuDuLieu(DatPhongModel dp, List<DatPhongDichVuModel> dsDichVu)
+        {
+            decimal giaPhong = _repository.GetGiaPhong(dp.MaPhong);
+            int soNgay = (int)(dp.NgayTraPhong - dp.NgayNhanPhong).TotalDays;
+            if (soNgay <= 0) soNgay = 1;
+
+            decimal tongTien = giaPhong * soNgay;
+
+            if (dp.SoNguoi > 2)
+                tongTien += (dp.SoNguoi - 2) * 100000;
+
+            // Tính tiền dịch vụ từ danh sách đầu vào
+            if (dsDichVu != null && dsDichVu.Count > 0)
+            {
+                foreach (var dv in dsDichVu)
+                {
+                    tongTien += dv.DonGia * dv.SoLuong;
+                }
+            }
+
             return tongTien;
         }
 

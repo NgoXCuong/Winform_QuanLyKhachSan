@@ -48,6 +48,8 @@ namespace QuanLyKhachSan.UI
 
             if (dgvKhachHang.Columns.Contains("Email"))
                 dgvKhachHang.Columns["Email"].HeaderText = "Email";
+if (dgvKhachHang.Columns.Contains("DiaChi"))
+                dgvKhachHang.Columns["DiaChi"].HeaderText = "Địa Chỉ";
 
             if (dgvKhachHang.Columns.Contains("NgayTao"))
                 dgvKhachHang.Columns["NgayTao"].HeaderText = "Ngày Tạo";
@@ -56,6 +58,7 @@ namespace QuanLyKhachSan.UI
         private void ResetKhachHang()
         {
             txtTenKhachHang.Clear();
+            txtDiaChi.Clear();
             txtCCCD.Clear();
             txtSDT.Clear();
             txtEmail.Clear();
@@ -81,6 +84,7 @@ namespace QuanLyKhachSan.UI
                 KhachHangModel kh = new KhachHangModel
                 {
                     HoTen = txtTenKhachHang.Text.Trim(),
+                    DiaChi = txtDiaChi.Text.Trim(),
                     GioiTinh = rbNam.Checked ? "Nam" : "Nữ",
                     NgaySinh = dtNgaySinh.Value,
                     CCCD = txtCCCD.Text.Trim(),
@@ -142,18 +146,25 @@ namespace QuanLyKhachSan.UI
                     return;
                 }
 
-                int maKH = Convert.ToInt32(dgvKhachHang.CurrentRow.Cells["MaKH"].Value);
+                // Get the KhachHangModel from the current row
+                var khachHang = dgvKhachHang.CurrentRow.DataBoundItem as KhachHangModel;
+                if (khachHang == null)
+                {
+                    MessageBox.Show("Không thể lấy thông tin khách hàng!", Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
                 KhachHangModel kh = new KhachHangModel
                 {
-                    MaKH = maKH,
+                    MaKH = khachHang.MaKH,
                     HoTen = txtTenKhachHang.Text,
+                    DiaChi = txtDiaChi.Text,
                     GioiTinh = rbNam.Checked ? "Nam" : "Nữ",
                     NgaySinh = dtNgaySinh.Value,
                     CCCD = txtCCCD.Text,
                     SoDienThoai = txtSDT.Text,
                     Email = txtEmail.Text,
-                    NgayTao = DateTime.Now
+                    NgayTao = khachHang.NgayTao // Preserve original creation date
                 };
 
                 bool result = khachHangService.SuaKhachHang(kh);
@@ -185,8 +196,15 @@ namespace QuanLyKhachSan.UI
 
                     if (result == DialogResult.Yes)
                     {
-                        int maKH = Convert.ToInt32(dgvKhachHang.CurrentRow.Cells["MaKH"].Value);
-                        bool xoaThanhCong = khachHangService.XoaKhachHang(maKH);
+                        // Get the KhachHangModel from the current row
+                        var khachHang = dgvKhachHang.CurrentRow.DataBoundItem as KhachHangModel;
+                        if (khachHang == null)
+                        {
+                            MessageBox.Show("Không thể lấy thông tin khách hàng!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        bool xoaThanhCong = khachHangService.XoaKhachHang(khachHang.MaKH);
 
                         if (xoaThanhCong)
                         {
@@ -236,19 +254,44 @@ namespace QuanLyKhachSan.UI
 
         private void dgvKhachHang_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            try
             {
-                DataGridViewRow row = dgvKhachHang.Rows[e.RowIndex];
+                if (e.RowIndex >= 0)
+                {
+                    DataGridViewRow row = dgvKhachHang.Rows[e.RowIndex];
 
-                txtTenKhachHang.Text = row.Cells["HoTen"].Value?.ToString();
-                rbNam.Checked = row.Cells["GioiTinh"].Value?.ToString() == "Nam";
-                rbNu.Checked = row.Cells["GioiTinh"].Value?.ToString() == "Nữ";
-                dtNgaySinh.Value = Convert.ToDateTime(row.Cells["NgaySinh"].Value);
-                txtCCCD.Text = row.Cells["CCCD"].Value?.ToString();
-                txtSDT.Text = row.Cells["SoDienThoai"].Value?.ToString();
-                txtEmail.Text = row.Cells["Email"].Value?.ToString();
+                    // Get the KhachHangModel from the row's DataBoundItem
+                    var khachHang = row.DataBoundItem as KhachHangModel;
+                    if (khachHang != null)
+                    {
+                        txtTenKhachHang.Text = khachHang.HoTen ?? "";
+                        txtDiaChi.Text = khachHang.DiaChi ?? "";
+                        rbNam.Checked = khachHang.GioiTinh == "Nam";
+                        rbNu.Checked = khachHang.GioiTinh == "Nữ";
+
+                        // Handle nullable DateTime
+                        if (khachHang.NgaySinh.HasValue && khachHang.NgaySinh.Value != DateTime.MinValue)
+                        {
+                            dtNgaySinh.Value = khachHang.NgaySinh.Value;
+                        }
+                        else
+                        {
+                            dtNgaySinh.Value = DateTime.Now; // Default to today if no birth date
+                        }
+
+                        txtCCCD.Text = khachHang.CCCD ?? "";
+                        txtSDT.Text = khachHang.SoDienThoai ?? "";
+                        txtEmail.Text = khachHang.Email ?? "";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi tải dữ liệu khách hàng: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
@@ -311,5 +354,7 @@ namespace QuanLyKhachSan.UI
                 MessageBox.Show("Đã xảy ra lỗi khi xuất Excel!\nChi tiết: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
     }
 }

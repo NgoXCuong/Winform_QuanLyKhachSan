@@ -88,18 +88,5 @@ namespace QuanLyKhachSan.UI
                 txtPassword.UseSystemPasswordChar = false;
             }
         }
-
-        private void linkQuenMatkhau_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            // Tạo form Quên mật khẩu mới
-            QuenMatKhauForm quenMatKhauForm = new QuenMatKhauForm();
-
-            // Mở form dưới dạng cửa sổ độc lập
-            quenMatKhauForm.Show();
-
-            // Nếu muốn mở dưới dạng modal (không cho thao tác với form trước), dùng:
-            // quenMatKhauForm.ShowDialog();
-        }
-
     }
 }

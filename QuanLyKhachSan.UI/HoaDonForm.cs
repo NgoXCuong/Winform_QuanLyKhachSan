@@ -48,6 +48,10 @@ namespace QuanLyKhachSan.UI
             LoadData();
             ResetForm();
             LoadListHoaDon();
+
+            // Set default date range to be very wide (past and future)
+            dtpTuNgay.Value = new DateTime(2000, 1, 1);
+            dtpDenNgay.Value = new DateTime(2100, 12, 31);
         }
 
         private void LoadListHoaDon()
@@ -327,18 +331,56 @@ namespace QuanLyKhachSan.UI
 
         private void BtnTimKiem_Click(object sender, EventArgs e)
         {
-            string keyword = txtTimKiem.Text.ToLower();
+            string keyword = txtTimKiem.Text.Trim();
             string status = cboTrangThaiThanhToan.Text;
-            DateTime from = dtpTuNgay.Value.Date;
-            DateTime to = dtpDenNgay.Value.Date.AddDays(1).AddSeconds(-1);
 
-            var result = _originalList.Where(x =>
-                (x.MaHD.ToString().Contains(keyword) || x.TenKhachHang.ToLower().Contains(keyword)) &&
-                (status == "Tất cả" || x.TrangThaiThanhToan == status) &&
-                (x.NgayTao >= from && x.NgayTao <= to)
-            ).ToList();
+            // Reload data to ensure we have the latest information
+            var allData = _service.GetAll();
 
+            var result = allData.Where(x =>
+            {
+                // Tìm theo từ khóa (Mã HD hoặc Tên khách hàng) - có thể bỏ trống
+                bool keywordMatch = true; // Mặc định true nếu không nhập gì
+                if (!string.IsNullOrEmpty(keyword))
+                {
+                    keywordMatch = x.MaHD.ToString().Contains(keyword) ||
+                                 (x.TenKhachHang ?? "").ToLower().Contains(keyword.ToLower());
+                }
+
+                // Tìm theo trạng thái thanh toán - có thể chọn "Tất cả"
+                bool statusMatch = true; // Mặc định true nếu chọn "Tất cả"
+                if (status != "Tất cả")
+                {
+                    statusMatch = (status == "Đã thanh toán" && (x.TrangThaiThanhToan?.Contains("Đã thanh toán") == true || x.TrangThaiThanhToan?.Contains("Thanh toán một phần") == true)) ||
+                                (status == "Chưa thanh toán" && x.TrangThaiThanhToan?.Contains("Chưa thanh toán") == true);
+                }
+
+                // Tìm theo khoảng thời gian - có thể bỏ qua nếu không chọn ngày cụ thể
+                bool dateMatch = true; // Mặc định true (không lọc theo ngày)
+                DateTime from = dtpTuNgay.Value.Date;
+                DateTime to = dtpDenNgay.Value.Date.AddDays(1).AddSeconds(-1);
+
+                // Chỉ áp dụng lọc ngày nếu người dùng có chọn ngày khác ngày hiện tại
+                if (from.Date != DateTime.Today || to.Date != DateTime.Today.AddDays(1))
+                {
+                    dateMatch = x.NgayTao >= from && x.NgayTao <= to;
+                }
+
+                // Kết hợp tất cả điều kiện tìm kiếm
+                return keywordMatch && statusMatch && dateMatch;
+            }).ToList();
+
+            // Update original list for future searches
+            _originalList = allData;
+
+            // Set filtered result to grid
+            dgvHoaDon.DataSource = null;
             dgvHoaDon.DataSource = result;
+            FormatGrid();
+
+            // Hiển thị kết quả tìm kiếm
+            MessageBox.Show($"Tìm thấy {result.Count} hóa đơn phù hợp!", "Kết quả tìm kiếm",
+                          MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         // Biến toàn cục để lưu mã hóa đơn đang in
