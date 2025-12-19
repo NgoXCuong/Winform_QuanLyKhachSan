@@ -257,10 +257,19 @@ namespace QuanLyKhachSan.UI
 
         private byte[] ImageToByte(Image img)
         {
-            using (var ms = new MemoryStream())
+            try
             {
-                img.Save(ms, img.RawFormat);
-                return ms.ToArray();
+                using (var ms = new MemoryStream())
+                {
+                    // Always save as PNG format to avoid GDI+ errors
+                    img.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                    return ms.ToArray();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi chuyển đổi ảnh: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
             }
         }
 

@@ -216,7 +216,7 @@
             // 
             // btnXoaDatPhong
             // 
-            this.btnXoaDatPhong.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(67)))), ((int)(((byte)(54)))));
+            this.btnXoaDatPhong.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
             this.btnXoaDatPhong.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnXoaDatPhong.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnXoaDatPhong.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -232,7 +232,7 @@
             // 
             // btnDatPhong
             // 
-            this.btnDatPhong.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
+            this.btnDatPhong.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
             this.btnDatPhong.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnDatPhong.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDatPhong.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -248,7 +248,7 @@
             // 
             // btnRefreshList
             // 
-            this.btnRefreshList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(150)))), ((int)(((byte)(243)))));
+            this.btnRefreshList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.btnRefreshList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnRefreshList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefreshList.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -379,9 +379,9 @@
             this.pnlRoomList.TabIndex = 0;
             this.pnlRoomList.TabStop = false;
             this.pnlRoomList.Text = "Danh sách phòng";
-            //
+            // 
             // tabControlFloors
-            //
+            // 
             this.tabControlFloors.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlFloors.Location = new System.Drawing.Point(10, 68);
             this.tabControlFloors.Name = "tabControlFloors";

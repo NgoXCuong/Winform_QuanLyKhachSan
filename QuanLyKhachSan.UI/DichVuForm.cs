@@ -79,9 +79,9 @@ namespace QuanLyKhachSan.UI
                     return;
                 }
 
-                if (!decimal.TryParse(txtDonGia.Text, out decimal donGia))
+                if (!decimal.TryParse(txtDonGia.Text, out decimal donGia) || donGia <= 0)
                 {
-                    MessageBox.Show("Đơn giá không hợp lệ!", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Đơn giá phải là số dương lớn hơn 0!", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -91,7 +91,8 @@ namespace QuanLyKhachSan.UI
                 {
                     using (var ms = new MemoryStream())
                     {
-                        picAnh.Image.Save(ms, picAnh.Image.RawFormat);
+                        // Always save as PNG format to avoid GDI+ errors
+                        picAnh.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                         imageBytes = ms.ToArray();
                     }
                 }
@@ -153,9 +154,9 @@ namespace QuanLyKhachSan.UI
                     return;
                 }
 
-                if (!decimal.TryParse(txtDonGia.Text, out decimal donGia))
+                if (!decimal.TryParse(txtDonGia.Text, out decimal donGia) || donGia <= 0)
                 {
-                    MessageBox.Show("Đơn giá không hợp lệ!", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Đơn giá phải là số dương lớn hơn 0!", Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -175,7 +176,8 @@ namespace QuanLyKhachSan.UI
                 {
                     using (var ms = new MemoryStream())
                     {
-                        picAnh.Image.Save(ms, picAnh.Image.RawFormat);
+                        // Always save as PNG format to avoid GDI+ errors
+                        picAnh.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                         dv.Anh = ms.ToArray();  // ✅ byte[]
                     }
                 }
@@ -509,5 +511,7 @@ namespace QuanLyKhachSan.UI
                 MessageBox.Show("Lỗi khi xóa ảnh: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        
     }
 }

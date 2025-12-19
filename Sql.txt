@@ -1,6 +1,6 @@
-﻿CREATE DATABASE DACN_QLKhachSan;
+﻿CREATE DATABASE QuanLyKhachSan_DACN;
 GO
-USE DACN_QLKhachSan;
+USE QuanLyKhachSan_DACN;
 GO
 
 /* ===============================================
@@ -47,11 +47,13 @@ CREATE TABLE KhachHang (
     GioiTinh NVARCHAR(10),
     NgaySinh DATE,
     SoDienThoai NVARCHAR(15),
+	DiaChi NVARCHAR(255),
     Email NVARCHAR(255),
     CCCD NVARCHAR(20),
     NgayTao DATETIME DEFAULT GETDATE()
 );
 GO
+
 
 /* ===============================================
    4. BẢNG ĐẶT PHÒNG
@@ -85,11 +87,13 @@ GO
 
 /* ===============================================
    5. BẢNG HÓA ĐƠN
+   (Đã sửa: Bỏ cột MaKH để tránh dư thừa dữ liệu)
 ================================================ */
 CREATE TABLE HoaDon (
     MaHD INT IDENTITY(1,1) PRIMARY KEY,
-    MaDatPhong INT NOT NULL,
-    MaKH INT NOT NULL,
+    MaDatPhong INT NOT NULL, 
+    -- MaKH đã bị loại bỏ. Link qua DatPhong để lấy thông tin khách.
+    
     TienPhong DECIMAL(10, 2),
     TongTienThanhToan DECIMAL(10, 2),
     TrangThaiThanhToan NVARCHAR(20) CHECK (TrangThaiThanhToan IN (
@@ -102,8 +106,7 @@ CREATE TABLE HoaDon (
     GhiChu NVARCHAR(255),
     NgayTao DATETIME DEFAULT GETDATE(),
 
-    FOREIGN KEY (MaDatPhong) REFERENCES DatPhong(MaDatPhong),
-    FOREIGN KEY (MaKH) REFERENCES KhachHang(MaKH)
+    FOREIGN KEY (MaDatPhong) REFERENCES DatPhong(MaDatPhong)
 );
 GO
 
@@ -138,16 +141,16 @@ GO
 
 /* ===============================================
    8. BẢNG TÀI KHOẢN NGƯỜI DÙNG
+   (Đã sửa: Bỏ cột Email, lấy Email từ bảng NhanVien)
 ================================================ */
 CREATE TABLE TaiKhoan (
     MaNguoiDung INT IDENTITY(1,1) PRIMARY KEY,
     TenDangNhap NVARCHAR(100) NOT NULL UNIQUE,
     MatKhau NVARCHAR(255) NOT NULL,
-    MaNV INT NOT NULL,
+    MaNV INT NOT NULL, -- Liên kết 1-1 hoặc 1-n với Nhân Viên
     VaiTro NVARCHAR(20) CHECK (VaiTro IN (N'Quản trị', N'Nhân viên')) DEFAULT N'Nhân viên',
     TrangThai NVARCHAR(20) CHECK (TrangThai IN (N'Hoạt động', N'Ngưng hoạt động')) DEFAULT N'Hoạt động',
-    Email NVARCHAR(255),
-
+    
     FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV)
 );
 GO
@@ -161,20 +164,22 @@ CREATE INDEX IDX_Phong_TrangThai ON Phong(TrangThai);
 CREATE INDEX IDX_DatPhong_Ngay ON DatPhong(NgayNhanPhong, NgayTraPhong);
 GO
 
-/* ===============================================
-   10. DỮ LIỆU MẪU
-================================================ */
-
--- Thêm nhân viên
 INSERT INTO NhanVien (HoTen, GioiTinh, NgaySinh, ChucVu, SoDienThoai, Email, TrangThai)
 VALUES 
-(N'Nguyễn Văn Quản Trị', N'Nam', '1985-05-12', N'Quản trị hệ thống', '0901123456', 'admin@hotel.com', N'Đang làm'),
-(N'Lê Thị Nhân Viên', N'Nữ', '1995-08-20', N'Lễ tân', '0902987654', 'nhanvien@hotel.com', N'Đang làm');
+(N'Nguyễn Quản Trị', N'Nam', '1985-05-12', N'Quản lý', '0901123456', 'admin@gmail.com', N'Đang làm'),
+(N'Lê Nhân Viên', N'Nữ', '1995-08-20', N'Lễ tân', '0902987654', 'nhanvien@gmail.com', N'Đang làm');
 GO
 
--- Thêm tài khoản hệ thống
-INSERT INTO TaiKhoan (TenDangNhap, MatKhau, MaNV, VaiTro, TrangThai, Email)
-VALUES 
-(N'admin', N'123456', 1, N'Quản trị', N'Hoạt động', 'admin@hotel.com'),
-(N'nhanvien', N'123456', 2, N'Nhân viên', N'Hoạt động', 'ngocuongcm2005@gmail.com');
+
+-- ===============================================
+-- 2️⃣ Thêm tài khoản người dùng hệ thống
+-- ===============================================
+
+-- ⚙️ Tài khoản quản trị (admin)
+INSERT INTO TaiKhoan (TenDangNhap, MatKhau, MaNV, VaiTro, TrangThai)
+VALUES (N'admin', N'123456', 1, N'Quản trị', N'Hoạt động');
+
+-- 👩‍💼 Tài khoản nhân viên thường
+INSERT INTO TaiKhoan (TenDangNhap, MatKhau, MaNV, VaiTro, TrangThai)
+VALUES (N'nhanvien', N'123456', 2, N'Nhân viên', N'Hoạt động');
 GO

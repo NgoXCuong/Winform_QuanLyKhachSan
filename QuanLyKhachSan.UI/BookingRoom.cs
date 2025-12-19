@@ -152,6 +152,7 @@ namespace QuanLyKhachSan.UI
             rbTatCa.Checked = true; // Load tất cả phòng khi mở form
             TinhSoNgay(); // Tính số ngày ban đầu
             CapNhatTongTien(); // Cập nhật tổng tiền ban đầu
+            btnDatPhong.Enabled = false; // Mặc định vô hiệu hóa nút đặt phòng
         }
 
         private void rbTatCa_CheckedChanged(object sender, EventArgs e)
@@ -200,6 +201,7 @@ namespace QuanLyKhachSan.UI
                 lblSelectedRoomInfo.Text = "⚠️ Chưa chọn phòng nào.";
                 tienPhong = 0;
                 CapNhatTongTien();
+                btnDatPhong.Enabled = false; // Vô hiệu hóa nút khi không chọn phòng
                 return;
             }
 
@@ -227,6 +229,18 @@ namespace QuanLyKhachSan.UI
 
                 // 🔁 Cập nhật tổng tiền
                 CapNhatTongTien();
+
+                // 🛑 Kiểm tra trạng thái phòng
+                if (phong.TrangThai?.Trim().ToLower() == "có khách")
+                {
+                    btnDatPhong.Enabled = false;
+                    MessageBox.Show("Phòng này đã có khách! Không thể đặt phòng.", "Phòng đã kín",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    btnDatPhong.Enabled = true;
+                }
             }
         }
 

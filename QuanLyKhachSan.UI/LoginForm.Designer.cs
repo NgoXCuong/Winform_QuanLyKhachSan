@@ -59,6 +59,7 @@
             // 
             this.groupBox1.Controls.Add(this.txtUsername);
             this.groupBox1.Controls.Add(this.pictureBox2);
+            this.groupBox1.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(152, 99);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(495, 59);
@@ -71,7 +72,7 @@
             this.txtUsername.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtUsername.Location = new System.Drawing.Point(42, 21);
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(447, 26);
+            this.txtUsername.Size = new System.Drawing.Size(447, 27);
             this.txtUsername.TabIndex = 1;
             // 
             // pictureBox2
@@ -88,6 +89,7 @@
             // 
             this.groupBox2.Controls.Add(this.txtPassword);
             this.groupBox2.Controls.Add(this.pictureBox3);
+            this.groupBox2.Font = new System.Drawing.Font("Roboto Condensed", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(152, 180);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(495, 59);
@@ -100,7 +102,7 @@
             this.txtPassword.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtPassword.Location = new System.Drawing.Point(42, 23);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(447, 26);
+            this.txtPassword.Size = new System.Drawing.Size(447, 27);
             this.txtPassword.TabIndex = 3;
             // 
             // pictureBox3
@@ -116,10 +118,10 @@
             // cbAnPassword
             // 
             this.cbAnPassword.AutoSize = true;
-            this.cbAnPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbAnPassword.Font = new System.Drawing.Font("Roboto Condensed", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbAnPassword.Location = new System.Drawing.Point(152, 263);
             this.cbAnPassword.Name = "cbAnPassword";
-            this.cbAnPassword.Size = new System.Drawing.Size(109, 22);
+            this.cbAnPassword.Size = new System.Drawing.Size(99, 22);
             this.cbAnPassword.TabIndex = 2;
             this.cbAnPassword.Text = "Ẩn mật khẩu";
             this.cbAnPassword.UseVisualStyleBackColor = true;
@@ -128,6 +130,7 @@
             // btnLogin
             // 
             this.btnLogin.BackColor = System.Drawing.Color.SeaGreen;
+            this.btnLogin.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogin.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnLogin.Location = new System.Drawing.Point(158, 321);
             this.btnLogin.Name = "btnLogin";
@@ -139,7 +142,8 @@
             // 
             // btnExit
             // 
-            this.btnExit.BackColor = System.Drawing.Color.Red;
+            this.btnExit.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
+            this.btnExit.Font = new System.Drawing.Font("Roboto Medium", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExit.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnExit.Location = new System.Drawing.Point(457, 321);
             this.btnExit.Name = "btnExit";
@@ -188,12 +192,12 @@
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.Font = new System.Drawing.Font("Roboto Condensed", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(118)))), ((int)(((byte)(210)))));
-            this.lblTitle.Location = new System.Drawing.Point(141, 56);
+            this.lblTitle.Location = new System.Drawing.Point(184, 61);
             this.lblTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(518, 65);
+            this.lblTitle.Size = new System.Drawing.Size(430, 58);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "Đăng Nhập Hệ Thống";
             // 
@@ -212,7 +216,7 @@
             // picLogo
             // 
             this.picLogo.Image = ((System.Drawing.Image)(resources.GetObject("picLogo.Image")));
-            this.picLogo.Location = new System.Drawing.Point(99, 320);
+            this.picLogo.Location = new System.Drawing.Point(126, 320);
             this.picLogo.Margin = new System.Windows.Forms.Padding(2);
             this.picLogo.Name = "picLogo";
             this.picLogo.Size = new System.Drawing.Size(258, 258);
@@ -221,12 +225,12 @@
             // 
             // lblWelcome
             // 
-            this.lblWelcome.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWelcome.Font = new System.Drawing.Font("Roboto", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblWelcome.ForeColor = System.Drawing.Color.White;
-            this.lblWelcome.Location = new System.Drawing.Point(88, 55);
+            this.lblWelcome.Location = new System.Drawing.Point(64, 113);
             this.lblWelcome.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblWelcome.Name = "lblWelcome";
-            this.lblWelcome.Size = new System.Drawing.Size(308, 139);
+            this.lblWelcome.Size = new System.Drawing.Size(379, 205);
             this.lblWelcome.TabIndex = 0;
             this.lblWelcome.Text = "Chào Mừng Trở Lại";
             this.lblWelcome.TextAlign = System.Drawing.ContentAlignment.TopCenter;

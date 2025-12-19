@@ -50,18 +50,9 @@ namespace QuanLyKhachSan.BLL
             return taiKhoanRepository.KiemTraTonTaiMaNV(maNV);
         }
 
-        // ✅ Sửa lại đăng nhập
         public TaiKhoanModel GetTaiKhoanByTenDangNhap(string tenDangNhap, string matKhau)
         {
-            // Gọi trực tiếp phương thức DangNhap từ repository
             return taiKhoanRepository.DangNhap(tenDangNhap, matKhau);
         }
-
-        // ✅ Lấy tài khoản theo email
-        //public TaiKhoanModel GetTaiKhoanByEmail(string email)
-        //{
-        //    return taiKhoanRepository.GetTaiKhoanByEmail(email);
-        //}
-
     }
 }

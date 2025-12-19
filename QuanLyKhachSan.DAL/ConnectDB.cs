@@ -11,7 +11,7 @@ namespace QuanLyKhachSan.DAL
     public class ConnectDB
     {
         //string connectionString = "Server=localhost;Database=DACN_QuanLyKhachSan;User Id=sa;Password=123;";
-        string connectionString = "Server=localhost;Database=QLKhachSan_DACN;User Id=sa;Password=123;";
+        string connectionString = "Server=localhost;Database=QuanLyKhachSan_DACN;User Id=sa;Password=123;";
 
         public SqlConnection GetConnection()
         {

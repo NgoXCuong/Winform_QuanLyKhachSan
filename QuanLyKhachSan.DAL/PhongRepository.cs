@@ -71,7 +71,7 @@ namespace QuanLyKhachSan.DAL
         {
             string sql = @"UPDATE Phong SET
                 SoPhong = @SoPhong, TenLoaiPhong = @TenLoaiPhong,
-                GiaPhong = @GiaCoBan, SucChuaToiDa = @SucChuaToiDa,
+                GiaCoBan = @GiaCoBan, SucChuaToiDa = @SucChuaToiDa,
                 Tang = @Tang, TrangThai = @TrangThai,
                 Anh = @Anh, MoTa = @MoTa
                 WHERE MaPhong = @MaPhong";

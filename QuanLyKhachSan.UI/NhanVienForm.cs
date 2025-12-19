@@ -68,7 +68,8 @@ namespace QuanLyKhachSan.UI
                 {
                     using (var ms = new MemoryStream())
                     {
-                        picAnhNhanVien.Image.Save(ms, picAnhNhanVien.Image.RawFormat);
+                        // Always save as PNG format to avoid GDI+ errors
+                        picAnhNhanVien.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
                         imageBytes = ms.ToArray();
                     }
                 }
